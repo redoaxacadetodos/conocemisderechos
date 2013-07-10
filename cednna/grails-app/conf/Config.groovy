@@ -11,6 +11,8 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+import grails.plugins.springsecurity.SecurityConfigType
+
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
@@ -89,3 +91,38 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+grails.plugins.springsecurity.rejectIfNoRule = true
+grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugins.springsecurity.interceptUrlMap = [
+			'/login/**':     [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/logout/**':    [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/css/**':     [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/img/**':     [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/js/**':     [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/plugins/**':     [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/images/**':     [
+				'IS_AUTHENTICATED_ANONYMOUSLY'
+			],
+			'/**':     ['ROLE_USER']]
+
+
+
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'mx.gob.redoaxaca.cednna.seguridad.Usuario'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'mx.gob.redoaxaca.cednna.seguridad.UsuarioRol'
+grails.plugins.springsecurity.authority.className = 'mx.gob.redoaxaca.cednna.seguridad.Rol'
