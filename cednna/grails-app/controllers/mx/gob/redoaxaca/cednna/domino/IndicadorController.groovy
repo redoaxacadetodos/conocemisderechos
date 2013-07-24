@@ -1,5 +1,9 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 import org.springframework.dao.DataIntegrityViolationException
 
 class IndicadorController {
@@ -26,6 +30,47 @@ class IndicadorController {
             return
         }
 
+		
+		
+		
+		
+				def sentencia= indicadorInstance?.formula?.variables
+				def variables= sentencia.split("|")
+				
+				
+				
+				if(sentencia){
+					
+									
+					
+					
+					
+											 ScriptEngineManager script = new ScriptEngineManager();
+											 ScriptEngine js = script.getEngineByName("JavaScript");
+											 try {
+												 
+												 
+												 System.out.println(js.eval("eval('')"));
+												 
+												 
+											 
+											 } catch (ScriptException e) {
+												 // TODO Auto-generated catch block
+												 e.printStackTrace();
+											 }
+					
+					
+					
+				}
+		
+		
+		
+		
+		
+		
+		
+		
+		
         flash.message = message(code: 'default.created.message', args: [message(code: 'indicador.label', default: 'Indicador'), indicadorInstance.id])
         redirect(action: "show", id: indicadorInstance.id)
     }
@@ -81,6 +126,50 @@ class IndicadorController {
         redirect(action: "show", id: indicadorInstance.id)
     }
 
+	
+	
+	def buscadorVariable(){
+		
+		
+		def formula = Formula.get(params.id);
+		def var
+		if(formula){
+			
+			var= formula.variables.split("\\|")
+
+							
+			System.out.println(formula);
+		}		
+		
+		
+		
+		[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
+	}
+	
+	
+	def getVariable(){
+		
+		
+		def variable=params.var
+		
+		def localidad=  Localidad.get(params.getAt("localidad_"+variable))
+		def municipio=  Municipio.get(params.getAt("municipio_"+variable))
+		def region =    Region.get(params.getAt("region_"+variable)) 
+		def estado =    Estado.get(params.getAt("estado_"+variable)) 
+		def rInicial =  params.getAt("edadDe_"+variable)
+		def rFinal =    params.getAt("edadHasta_"+variable)
+		def poblacion = params.getAt("poblacion_"+variable)
+
+		def var = Variable.findAllByLocalidadAndMunicipioAndRegionAndEstado(localidad,municipio,region,estado);
+	
+		
+		
+		[var:var]
+		
+			
+	}
+	
+	
     def delete(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {

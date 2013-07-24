@@ -21,6 +21,16 @@ class Indicador {
 	String       areaResponsable
 	Date		 fechaActualizacion
 	
+	
+	Region     region
+	Localidad  localidad
+	
+	Estado     estado
+	Municipio  municipio
+	
+	
+	
+	
 	double       resultadoIndicador
 	
 	
@@ -46,5 +56,11 @@ class Indicador {
 				frecuencia(blank:false, nullable:false)
 				formula(blank:false, nullable:false)
 				resultadoIndicador(blank:true, nullable:true)
+				
+				region(blank:false, nullable:false) 
+			    localidad(blank:false, nullable:false) 
+				
+				estado(blank:false, nullable:false) 
+				municipio(blank:false, nullable:false) 
     }
 }

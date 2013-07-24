@@ -131,11 +131,47 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${indicadorInstance?.resultadoIndicador}">
+				<li class="fieldcontain">
+					<span id="resultadoIndicador-label" class="property-label"><g:message code="indicador.resultadoIndicador.label" default="Resultado Indicador" /></span>
+					
+						<span class="property-value" aria-labelledby="resultadoIndicador-label"><g:fieldValue bean="${indicadorInstance}" field="resultadoIndicador"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${indicadorInstance?.comentarios}">
 				<li class="fieldcontain">
 					<span id="comentarios-label" class="property-label"><g:message code="indicador.comentarios.label" default="Comentarios" /></span>
 					
 						<span class="property-value" aria-labelledby="comentarios-label"><g:fieldValue bean="${indicadorInstance}" field="comentarios"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${indicadorInstance?.estado}">
+				<li class="fieldcontain">
+					<span id="estado-label" class="property-label"><g:message code="indicador.estado.label" default="Estado" /></span>
+					
+						<span class="property-value" aria-labelledby="estado-label"><g:link controller="estado" action="show" id="${indicadorInstance?.estado?.id}">${indicadorInstance?.estado?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${indicadorInstance?.fecha}">
+				<li class="fieldcontain">
+					<span id="fecha-label" class="property-label"><g:message code="indicador.fecha.label" default="Fecha" /></span>
+					
+						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${indicadorInstance?.fecha}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${indicadorInstance?.localidad}">
+				<li class="fieldcontain">
+					<span id="localidad-label" class="property-label"><g:message code="indicador.localidad.label" default="Localidad" /></span>
+					
+						<span class="property-value" aria-labelledby="localidad-label"><g:link controller="localidad" action="show" id="${indicadorInstance?.localidad?.id}">${indicadorInstance?.localidad?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -149,11 +185,29 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${indicadorInstance?.municipio}">
+				<li class="fieldcontain">
+					<span id="municipio-label" class="property-label"><g:message code="indicador.municipio.label" default="Municipio" /></span>
+					
+						<span class="property-value" aria-labelledby="municipio-label"><g:link controller="municipio" action="show" id="${indicadorInstance?.municipio?.id}">${indicadorInstance?.municipio?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${indicadorInstance?.publico}">
 				<li class="fieldcontain">
 					<span id="publico-label" class="property-label"><g:message code="indicador.publico.label" default="Publico" /></span>
 					
 						<span class="property-value" aria-labelledby="publico-label"><g:formatBoolean boolean="${indicadorInstance?.publico}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${indicadorInstance?.region}">
+				<li class="fieldcontain">
+					<span id="region-label" class="property-label"><g:message code="indicador.region.label" default="Region" /></span>
+					
+						<span class="property-value" aria-labelledby="region-label"><g:link controller="region" action="show" id="${indicadorInstance?.region?.id}">${indicadorInstance?.region?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

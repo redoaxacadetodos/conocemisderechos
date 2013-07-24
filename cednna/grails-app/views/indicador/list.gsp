@@ -30,11 +30,11 @@
 					
 						<g:sortableColumn property="areaResponsable" title="${message(code: 'indicador.areaResponsable.label', default: 'Area Responsable')}" />
 					
-						<g:sortableColumn property="mailResponsable" title="${message(code: 'indicador.mailResponsable.label', default: 'Descripcion indicador')}" />
+						<g:sortableColumn property="mailResponsable" title="${message(code: 'indicador.mailResponsable.label', default: 'Mail Responsable')}" />
 					
 						<g:sortableColumn property="anio" title="${message(code: 'indicador.anio.label', default: 'Anio')}" />
 					
-						<th><g:message code="indicador.sentido.label" default="Resultado" /></th>
+						<th><g:message code="indicador.sentido.label" default="Sentido" /></th>
 					
 					</tr>
 				</thead>
@@ -44,15 +44,15 @@
 					
 						<td><g:link action="show" id="${indicadorInstance.id}">${fieldValue(bean: indicadorInstance, field: "nombreResponsable")}</g:link></td>
 					
-						<td>${indicadorInstance.fechaActualizacion.format('dd-MM-yyyy')}</td>
+						<td><g:formatDate date="${indicadorInstance.fechaActualizacion}" /></td>
 					
 						<td>${fieldValue(bean: indicadorInstance, field: "areaResponsable")}</td>
 					
-						<td>${fieldValue(bean: indicadorInstance, field: "nombre")}</td>
+						<td>${fieldValue(bean: indicadorInstance, field: "mailResponsable")}</td>
 					
 						<td>${fieldValue(bean: indicadorInstance, field: "anio")}</td>
 					
-						<td>${fieldValue(bean: indicadorInstance, field: "resultadoIndicador")}</td>
+						<td>${fieldValue(bean: indicadorInstance, field: "sentido")}</td>
 					
 					</tr>
 				</g:each>

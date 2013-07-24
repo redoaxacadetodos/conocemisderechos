@@ -6,7 +6,7 @@ class Formula {
 	String descripcion
 	String sentencia
 	int    numVariables
-	
+	String variables
 	
 	
 
@@ -16,6 +16,7 @@ class Formula {
 	 nombre(blank:false, nullable:false)
 	 descripcion(blank:false, nullable:false)
 	 sentencia(blank:false, nullable:false)
+	 variables(blank:true, nullable:true)
 		
     }
 }
