@@ -1,0 +1,8 @@
+target/
+web-app/plugins/
+web-app/WEB-INF/classes/
+target-eclipse/
+.settings*
+.link_to_grails*
+devDB*
+.DS*
