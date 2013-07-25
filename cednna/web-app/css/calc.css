@@ -1,0 +1,128 @@
+.contenido {
+    width:480px;
+    margin:20px auto 0;
+}
+
+.calculator {
+    width:480px;
+    height:auto;
+    padding:10px 0;
+    margin: auto;
+    background:#232323;
+    border:#000 1px solid;
+    border-radius:7px;
+    -webkit-border-radius:7px;
+     -moz-border-radius:7px;
+     box-shadow:rgba(0,0,0,0.4) 0px 2px 5px, inset rgba(255,255,255,0.9) 0px 1px 1px -1px;
+     -webkit-box-shadow:rgba(0,0,0,0.4) 0px 2px 5px, inset rgba(255,255,255,0.9) 0px 1px 1px -1px;
+     -moz-box-shadow:rgba(0,0,0,0.4) 0px 2px 5px, inset rgba(255,255,255,0.9) 0px 1px 1px -1px;
+     background-image:-moz-linear-gradient(top, #333333, #1f1f1f);
+      background-image:-webkit-linear-gradient(top, #333333, #1f1f1f);
+       background-image:linear-gradient(top, #333333, #1f1f1f);
+     overflow: hidden;
+     text-align: center;
+}
+
+.screen {
+     width:424px;
+     height:93px;
+    margin: 12px auto 30px;
+     padding:15px 20px;
+     color:#c0c0c0;
+     text-align: right;
+     font-size: 3em;
+     letter-spacing: 3px;
+     overflow:hidden;
+     border:#000 1px solid;
+     border-radius:7px;
+     -webkit-border-radius:7px;
+     -moz-border-radius:7px;
+     box-shadow:inset rgba(0,0,0,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
+     -webkit-box-shadow:inset rgba(0,0,0,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
+     -moz-box-shadow:inset rgba(0,0,0,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
+     background-image: -moz-linear-gradient(top, #3e3e3e 0%, #303030 100%);
+      background-image: -webkit-linear-gradient(top, #3e3e3e 0%, #303030 100%);
+      background-image: linear-gradient(top, #3e3e3e 0%, #303030 100%);
+     -moz-box-sizing:border-box;
+     -webkit-box-sizing:border-box;
+     box-sizing:border-box;
+}
+
+.botonesCal {
+     padding:0;
+     width:423px;
+     margin:auto;
+     overflow: hidden;
+     list-style: none;
+}
+.botonesCal li {
+     display:inline;
+     float:left;
+     padding:0px;
+     margin-right:13px;
+     margin-bottom:10px;
+}
+.botonesCal li:nth-child(4n) {
+     margin-right:0;
+}
+
+.botonesCal a{
+     display:block;
+     width:95px;
+     height:68px;
+     padding:18px 0 12px;
+     color:#c0c0c0 !important;
+     font-family: "Myriad Pro", Arial, sans-serif;
+     font-size:1.6em;
+     font-weight: 500;
+    letter-spacing: -2px;
+    background-color:#2f2f2f;
+     border: #000 1px solid;
+     border-radius:5px;
+     -webkit-border-radius:5px;
+     -moz-border-radius:5px;
+     text-align: center;
+     text-decoration: none;
+    text-shadow:#000 0px -1px 0px;
+     box-shadow: inset rgba(255,255,255,0.1) 0px 1px 0px, inset rgba(0,0,0,0.2) 0px -2px 2px;
+     -webkit-box-shadow: inset rgba(255,255,255,0.1) 0px 1px 0px, inset rgba(0,0,0,0.2) 0px -2px 2px;
+     -moz-box-shadow: inset rgba(255,255,255,0.1) 0px 1px 0px, inset rgba(0,0,0,0.2) 0px -2px 2px;
+    background-image:-moz-linear-gradient(top, #363636 0%, #313234 40%, #2f2f2f 100%);
+      background-image:-webkit-linear-gradient(top, #363636 0%, #313234 40%, #2f2f2f 100%);
+       background-image:linear-gradient(top, #363636 0%, #313234 40%, #2f2f2f 100%);
+     -moz-box-sizing:border-box;
+     -webkit-box-sizing:border-box;
+     box-sizing:border-box;
+     cursor: pointer;
+}
+.botonesCal a:active{
+     box-shadow: inset rgba(0,0,0,0.5) 0px 2px 8px;
+     background-image:-moz-linear-gradient(top, #2f2f2f 0%, #363636 100%);
+      background-image:-webkit-linear-gradient(top, #2f2f2f 0%, #363636 100%);
+       background-image:linear-gradient(top, #2f2f2f 0%, #363636 100%);
+}
+.tall{height:151px !important;}
+.wide{width:205px !important;}
+.shift{margin-top:-78px;}
+
+.ctrls{
+ list-style: none;
+ margin:5px 0 0 20px;
+ padding:0;
+ position: absolute;
+}
+.ctrls li{
+ float:left;
+ display:inline;
+}
+.ctrls li a{
+ display: block;
+ width:18px;
+ height:18px;
+ margin-right:10px;
+ border-radius:100%;
+ box-shadow:rgba(255,255,255,0.3) 0px 0px 1px, inset rgba(0,0,0,1) 0px 1px 2px 1px;
+ background-image: -moz-radial-gradient( 9px -4px, #FFF 0px, #fff 2px, rgba(255,255,255,0) 4px), -moz-linear-gradient(bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+ background-image: -webkit-radial-gradient( 9px -4px, #FFF 0px, #fff 2px, rgba(255,255,255,0) 4px), -webkit-linear-gradient(bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+ background-image: radial-gradient( 9px -4px, #FFF 0px, #fff 2px, rgba(255,255,255,0) 4px), linear-gradient(bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+}

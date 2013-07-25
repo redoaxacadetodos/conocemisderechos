@@ -147,7 +147,7 @@ class IndicadorController {
 	}
 	
 	
-	def getVariable(){
+	def resultadoVariable(){
 		
 		
 		def variable=params.var
@@ -160,9 +160,9 @@ class IndicadorController {
 		def rFinal =    params.getAt("edadHasta_"+variable)
 		def poblacion = params.getAt("poblacion_"+variable)
 
-		def var = Variable.findAllByLocalidadAndMunicipioAndRegionAndEstado(localidad,municipio,region,estado);
+		def var = Variable.list();
 	
-		
+		System.out.println(var);
 		
 		[var:var]
 		
