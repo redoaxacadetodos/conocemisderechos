@@ -13,6 +13,7 @@
 
 <g:form name="frm_${var}">
 
+
 <div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
 	<label for="estado">
 		<g:message code="indicador.estado.label" default="Estado" />
@@ -81,9 +82,12 @@
 						$("#btn_${var}").click(function(){
 							
 							var datosFrm =$("#frm_${var}").serialize();
-					    	
+							datosFrm+="&anio="+$("#anio").val();
+							
+
+												
 									  	var unused = $.ajax({type:'POST', 
-								              url:CONTEXT_ROOT+'/indicador/resultadoVariable',
+								              url:CONTEXT_ROOT+'/indicador/resultadoVariable/${var}',
 								              data: datosFrm,
 								              success:function(data,textStatus)
 								                  {

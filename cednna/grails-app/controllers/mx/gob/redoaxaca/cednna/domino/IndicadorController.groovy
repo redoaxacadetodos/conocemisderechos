@@ -25,19 +25,41 @@ class IndicadorController {
 
     def save() {
         def indicadorInstance = new Indicador(params)
-        if (!indicadorInstance.save(flush: true)) {
-            render(view: "create", model: [indicadorInstance: indicadorInstance])
-            return
-        }
+        
+		
+		
 
 		
-		
-		
-		
+				def formula =  indicadorInstance?.formula?.sentencia
 				def sentencia= indicadorInstance?.formula?.variables
-				def variables= sentencia.split("|")
+				def variables= sentencia.split("\\|")
 				
+				def resultado
 				
+				for(v in variables){
+				
+						def vari=	Variable.get(params.getAt("v_"+v))
+						System.out.println("La variable que se recorre"+vari);
+						if(vari){
+							System.out.println("La variable que se recorre"+vari);
+								switch (params.getAt("poblacion_"+v)) {
+								case "T":
+									formula.replace(v,""+vari.poblacionTotal)
+									break;
+
+								case "H":
+									formula.replace(v,""+vari.hombres)
+								break;
+								case "M":
+									formula.replace(v,""+vari.mujeres)
+								break;
+								}
+							
+						}
+					
+				}
+				
+				System.out.println(formula);
 				
 				if(sentencia){
 					
@@ -49,8 +71,8 @@ class IndicadorController {
 											 ScriptEngine js = script.getEngineByName("JavaScript");
 											 try {
 												 
-												 
-												 System.out.println(js.eval("eval('')"));
+												 resultado =js.eval("eval('"+formula+"')")
+												 System.out.println(resultado);
 												 
 												 
 											 
@@ -64,9 +86,13 @@ class IndicadorController {
 				}
 		
 		
+				indicadorInstance.resultadoIndicador=resultado
 		
 		
-		
+				if (!indicadorInstance.save(flush: true)) {
+					render(view: "create", model: [indicadorInstance: indicadorInstance])
+					return
+				}
 		
 		
 		
@@ -150,21 +176,34 @@ class IndicadorController {
 	def resultadoVariable(){
 		
 		
-		def variable=params.var
+		def variable=params.id
+		
+		
+		
 		
 		def localidad=  Localidad.get(params.getAt("localidad_"+variable))
-		def municipio=  Municipio.get(params.getAt("municipio_"+variable))
-		def region =    Region.get(params.getAt("region_"+variable)) 
+		def municipio=  Municipio.get(params.getAt("municipio_"+variable))		
+			def region =    Region.get(params.getAt("region_"+variable)) 
 		def estado =    Estado.get(params.getAt("estado_"+variable)) 
 		def rInicial =  params.getAt("edadDe_"+variable)
 		def rFinal =    params.getAt("edadHasta_"+variable)
 		def poblacion = params.getAt("poblacion_"+variable)
 
-		def var = Variable.list();
-	
-		System.out.println(var);
+		def anio= params.anio
 		
-		[var:var]
+		System.out.println(anio);
+		
+		
+		//def rango = RangoEdad.findAllByMinimoBetweenAndMaximo(rInicial,rFinal);
+		
+		
+	//	System.out.println(rango);
+		
+		def var = Variable.findAllByLocalidadAndMunicipioAndRegionAndEstadoAndAnio(localidad,municipio,region,estado,anio);
+	
+
+		
+		[var:var,nomVar:params.id]
 		
 			
 	}
