@@ -28,7 +28,8 @@
 		<g:message code="indicador.anio.label" default="Año" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="anio" type="number" value="${indicadorInstance.anio}" required=""/>
+		<select id="anio" name="anio" ></select> 
+<%--	<g:field name="anio" type="number" value="${indicadorInstance.anio}" required=""/>--%>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'sentido', 'error')} required">
@@ -220,7 +221,23 @@ $(function(){
 
 	
 	$(document).ready(function() {
+		
 		$(".screen").html($(".outcome").val() );
+
+
+		llenaCombo({
+			url : CONTEXT_ROOT+'/json/anos.json',
+			htmlOptions : {
+				name : "anio",
+				id : "anio",
+				clase : ""
+			},
+			index : 0,
+			chained : false,
+			anchor : "#anio",
+			combo : true
+		});  
+			
 
 	 	var unused = $.ajax({type:'POST', 
             url:CONTEXT_ROOT+'/indicador/buscadorVariable',
@@ -259,6 +276,8 @@ $(function(){
 
 
 });
+
+
 
 
 });

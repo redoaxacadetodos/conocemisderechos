@@ -11,7 +11,7 @@
 
 <h4>Ubicacion de datos para variable ${var}</h4>
 
-<g:form name="frm_${var}">
+
 
 
 <div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
@@ -53,7 +53,7 @@
 		<g:message code="indicador.localidad.label" default="Poblacion" />
 		<span class="required-indicator">*</span>
 	</label>
-	<select id="poblacion_${var}"><option value="T">Todos</option><option value="H">Hombres</option><option value="M">Mujeres</option></select>
+	<select id="poblacion_${var}" name="poblacion_${var}"><option value="T">Todos</option><option value="H">Hombres</option><option value="M">Mujeres</option></select>
 	<h3></h3>
 </div>
 
@@ -73,7 +73,7 @@
 <br>
 
 <br>
-</g:form>
+
 				<script type="text/javascript" defer="defer">
 					
 				
@@ -81,8 +81,8 @@
 				
 						$("#btn_${var}").click(function(){
 							
-							var datosFrm =$("#frm_${var}").serialize();
-							datosFrm+="&anio="+$("#anio").val();
+							var datosFrm =$("#indicador").serialize();
+						//	datosFrm+="&anio="+$("#anio").val();
 							
 
 												

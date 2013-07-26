@@ -39,19 +39,22 @@ class IndicadorController {
 				for(v in variables){
 				
 						def vari=	Variable.get(params.getAt("v_"+v))
-						System.out.println("La variable que se recorre"+vari);
+				
 						if(vari){
-							System.out.println("La variable que se recorre"+vari);
+								
 								switch (params.getAt("poblacion_"+v)) {
 								case "T":
-									formula.replace(v,""+vari.poblacionTotal)
+									System.out.println( "ENTRO A POBLACION  T "+formula)
+								formula=	formula.replaceAll(String.valueOf(v), String.valueOf(vari.poblacionTotal))
+									System.out.println( "CAMBIO A POBLACION  T "+formula)
 									break;
-
 								case "H":
-									formula.replace(v,""+vari.hombres)
+									System.out.println( "ENTRO A POBLACION  H "+formula)
+								formula=	formula.replaceAll(String.valueOf(v),String.valueOf(vari.hombres))
+									System.out.println( "CAMBIO A POBLACION  H "+formula)
 								break;
 								case "M":
-									formula.replace(v,""+vari.mujeres)
+								formula=	formula.replaceAll(String.valueOf(v),String.valueOf(vari.mujeres))
 								break;
 								}
 							
@@ -80,7 +83,6 @@ class IndicadorController {
 												 // TODO Auto-generated catch block
 												 e.printStackTrace();
 											 }
-					
 					
 					
 				}

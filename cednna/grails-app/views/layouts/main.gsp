@@ -26,7 +26,7 @@
  	
 					<g:javascript src="bootstrap-modal.js" />	
 		
-			
+				<g:javascript src="Utilerias.js" />	
 <%--					<link href="${resource(dir:'css',file:'bootstrap.css')}" rel="stylesheet">--%>
 				
 		
