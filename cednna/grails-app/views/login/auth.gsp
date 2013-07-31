@@ -1,6 +1,6 @@
 <html>
 <head>
-	<meta name='layout' content='main'/>
+	<meta name='layout' content='mainLogin'/>
 	<title>CEDNNAS</title>
 	<style type='text/css' media='screen'>
 	#login {
