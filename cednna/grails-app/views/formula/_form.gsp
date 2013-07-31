@@ -99,7 +99,7 @@ $(function(){
 	$(document).ready(function() {
 		$(".screen").html($(".outcome").val() );
 
-		 
+		
 
 						
 	});

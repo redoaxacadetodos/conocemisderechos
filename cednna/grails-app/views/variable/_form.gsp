@@ -63,7 +63,7 @@
 		<g:message code="variable.region.label" default="Region" />
 		
 	</label>
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" value="${variableInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  value="${variableInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
@@ -79,7 +79,7 @@
 		<g:message code="variable.rango.label" default="Rango" />
 		
 	</label>
-	<g:select id="rango" name="rango.id" from="${mx.gob.redoaxaca.cednna.domino.RangoEdad.list()}" optionKey="id" value="${variableInstance?.rango?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="rango" name="rango.id" from="${mx.gob.redoaxaca.cednna.domino.RangoEdad.list()}" optionKey="id" optionValue="descripcion"  value="${variableInstance?.rango?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'localidad', 'error')} required">
@@ -87,6 +87,6 @@
 		<g:message code="variable.localidad.label" default="Localidad" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" required="" value="${variableInstance?.localidad?.id}" class="many-to-one"/>
+	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  optionValue="descripcion" required="" value="${variableInstance?.localidad?.id}" class="many-to-one"/>
 </div>
 

@@ -1,0 +1,209 @@
+/*
+ * Component:		Docs
+ * Description:		Defines styles for the UIkit documentation
+ ========================================================================== */
+
+
+/* Fonts
+ ========================================================================== */
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+
+body, h1, h2, h3, h4, h5, h6,
+.uk-navbar-nav > li > a { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+
+/* Base
+ ========================================================================== */
+
+html { overflow-y: scroll; }
+
+
+/* Layout
+ ========================================================================== */
+
+
+.tm-background { background: #905e0a; }
+
+/*
+ * Blocks
+ */
+
+.tm-middle,
+.tm-section,
+.tm-footer { padding: 50px 0; }
+
+/* Only tablets and desktop */
+@media (min-width: 768px) {
+
+	.tm-middle,
+	.tm-section,
+	.tm-footer { padding: 90px 0; }
+
+}
+
+/* Only large screens */
+@media (min-width: 1220px) {
+
+	.tm-middle,
+	.tm-section,
+	.tm-footer { padding: 50px 0; }
+
+}
+
+
+/*
+ * Middle
+ */
+
+.tm-middle { background: #fff; }
+
+/* All except phones */
+@media (min-width: 768px) {
+
+	.tm-sidebar {
+		margin-right: -1px !important;
+		border-right: 1px solid #E5E5E5;
+	}
+
+	.tm-main {
+		padding-left: 50px !important;
+		border-left: 1px solid #E5E5E5;
+	}
+	
+	.tm-navbar {
+	padding: 6px 0 15px 0;
+}
+
+}
+
+/*
+ * Sections
+ */
+
+.tm-section .uk-heading-large { margin-bottom: 20px; }
+.tm-section .uk-text-large { margin-bottom: 60px; }
+
+.tm-section-color-1 { background: #2ba3d4 50% 50% no-repeat; }
+
+/* Only phones */
+@media (max-width: 959px) {
+
+	.tm-section-color-1 { background-image: none; }	
+
+}
+
+.tm-section-color-2 { background: #3dc0f1; }
+
+.tm-section-colored,
+.tm-section-colored h1,
+.tm-section-colored h2,
+.tm-section-colored a:not([class]) { color: #fff !important; }
+
+.tm-section-color-2 a { text-decoration: underline; }
+
+.tm-section-color-white { background: #fff; }
+
+/* Only tablets and desktop */
+@media (min-width: 768px) {
+
+	.tm-section-color-white .uk-grid-divider:not(:empty) > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: 1px dashed #ddd; }
+	.tm-section-color-2 .uk-grid-divider:not(:empty) > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) { border-left: 1px dashed rgba(255,255,255,0.4); }
+
+}
+
+
+/*
+ * Footer
+ */
+
+.tm-footer .uk-subnav-line > li:before { border-color: #ddd; }
+
+.tm-footer,
+.tm-footer a { color: #ddd !important; }
+.tm-footer a:hover { color: #fff !important; }
+
+/*
+ * Navbar
+ */
+.uk-logo-edos { float:right;}
+
+.tm-navbar {
+	border: none;
+	background: url(../img/header.png) repeat-x;
+}
+
+.tm-navbar .uk-navbar-content,
+.tm-navbar .uk-navbar-brand,
+.tm-navbar .uk-navbar-toggle { text-shadow: none; }
+
+.tm-navbar .uk-navbar-nav > li > a {
+	height: 40px;
+	margin: 0;
+	border: none;
+	border-radius: 3px;
+	text-shadow: none;
+	font-size: 15px;
+}
+
+.tm-navbar .uk-navbar-nav > li { margin-left: 20px; }
+
+/* Hover */
+.tm-navbar .uk-navbar-nav > li:hover > a,
+.tm-navbar .uk-navbar-nav > li > a:focus,
+.tm-navbar .uk-navbar-nav > li.uk-open > a {
+	border: none;
+	color: #FFF;
+}
+
+/* Active */
+.tm-navbar .uk-navbar-nav > li.uk-active > a {
+	background-color: #2BA3D4;
+	color: #FFF;
+}
+
+/* OnClick */
+.tm-navbar .uk-navbar-nav > li > a:active { background-color: transparent; }
+
+/*
+ * Nav
+ */
+
+.tm-nav > li > a { color: #777; }
+
+/* Hover */
+.tm-nav > li > a:hover,
+.tm-nav > li > a:focus,
+.tm-nav > li.uk-active > a  {
+	background: #F5F5F5;
+	color: #444;
+}
+
+/* Sub-object: `nav-header` */
+.tm-nav .uk-nav-header {
+	color: #222;
+	font-weight: normal;
+}
+
+/*
+ * Nav
+ */
+
+.tm-subnav > li:nth-child(n+2) { margin-left: 20px; }
+
+
+.uk-navbar-center {
+max-width: 80%;
+}
+
+/*
+ * Article
+ */
+
+.tm-article-subtitle {
+	padding-left: 6px;
+	border-left: 3px solid #1FA2D6;
+	font-size: 16px;
+	line-height: 16px;
+}
+

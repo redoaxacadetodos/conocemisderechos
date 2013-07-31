@@ -36,7 +36,7 @@
 				<li class="fieldcontain">
 					<span id="fechaActualizacion-label" class="property-label"><g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaActualizacion-label"><g:formatDate date="${indicadorInstance?.fechaActualizacion}" /></span>
+						<span class="property-value" aria-labelledby="fechaActualizacion-label">${indicadorInstance?.fechaActualizacion?.format('dd-MM-yyyy')}</span>
 					
 				</li>
 				</g:if>
@@ -63,7 +63,7 @@
 				<li class="fieldcontain">
 					<span id="anio-label" class="property-label"><g:message code="indicador.anio.label" default="Anio" /></span>
 					
-						<span class="property-value" aria-labelledby="anio-label"><g:fieldValue bean="${indicadorInstance}" field="anio"/></span>
+						<span class="property-value" aria-labelledby="anio-label">${indicadorInstance.anio}</span>
 					
 				</li>
 				</g:if>
@@ -72,7 +72,7 @@
 				<li class="fieldcontain">
 					<span id="sentido-label" class="property-label"><g:message code="indicador.sentido.label" default="Sentido" /></span>
 					
-						<span class="property-value" aria-labelledby="sentido-label"><g:link controller="sentido" action="show" id="${indicadorInstance?.sentido?.id}">${indicadorInstance?.sentido?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="sentido-label"><g:link controller="sentido" action="show" id="${indicadorInstance?.sentido?.id}">${indicadorInstance?.sentido?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -99,7 +99,7 @@
 				<li class="fieldcontain">
 					<span id="dependencia-label" class="property-label"><g:message code="indicador.dependencia.label" default="Dependencia" /></span>
 					
-						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="dependencia" action="show" id="${indicadorInstance?.dependencia?.id}">${indicadorInstance?.dependencia?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="dependencia" action="show" id="${indicadorInstance?.dependencia?.id}">${indicadorInstance?.dependencia?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -108,7 +108,7 @@
 				<li class="fieldcontain">
 					<span id="ejecutora-label" class="property-label"><g:message code="indicador.ejecutora.label" default="Ejecutora" /></span>
 					
-						<span class="property-value" aria-labelledby="ejecutora-label"><g:link controller="unidadEjecutora" action="show" id="${indicadorInstance?.ejecutora?.id}">${indicadorInstance?.ejecutora?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="ejecutora-label"><g:link controller="unidadEjecutora" action="show" id="${indicadorInstance?.ejecutora?.id}">${indicadorInstance?.ejecutora?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -117,7 +117,7 @@
 				<li class="fieldcontain">
 					<span id="frecuencia-label" class="property-label"><g:message code="indicador.frecuencia.label" default="Frecuencia" /></span>
 					
-						<span class="property-value" aria-labelledby="frecuencia-label"><g:link controller="frecuencia" action="show" id="${indicadorInstance?.frecuencia?.id}">${indicadorInstance?.frecuencia?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="frecuencia-label"><g:link controller="frecuencia" action="show" id="${indicadorInstance?.frecuencia?.id}">${indicadorInstance?.frecuencia?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -126,7 +126,7 @@
 				<li class="fieldcontain">
 					<span id="formula-label" class="property-label"><g:message code="indicador.formula.label" default="Formula" /></span>
 					
-						<span class="property-value" aria-labelledby="formula-label"><g:link controller="formula" action="show" id="${indicadorInstance?.formula?.id}">${indicadorInstance?.formula?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="formula-label"><g:link controller="formula" action="show" id="${indicadorInstance?.formula?.id}">${indicadorInstance?.formula?.nombre}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -153,7 +153,7 @@
 				<li class="fieldcontain">
 					<span id="estado-label" class="property-label"><g:message code="indicador.estado.label" default="Estado" /></span>
 					
-						<span class="property-value" aria-labelledby="estado-label"><g:link controller="estado" action="show" id="${indicadorInstance?.estado?.id}">${indicadorInstance?.estado?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="estado-label"><g:link controller="estado" action="show" id="${indicadorInstance?.estado?.id}">${indicadorInstance?.estado?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -162,7 +162,7 @@
 				<li class="fieldcontain">
 					<span id="fecha-label" class="property-label"><g:message code="indicador.fecha.label" default="Fecha" /></span>
 					
-						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${indicadorInstance?.fecha}" /></span>
+						<span class="property-value" aria-labelledby="fecha-label">${indicadorInstance?.fecha.format('dd-MM-yyyy')}</span>
 					
 				</li>
 				</g:if>
@@ -171,7 +171,7 @@
 				<li class="fieldcontain">
 					<span id="localidad-label" class="property-label"><g:message code="indicador.localidad.label" default="Localidad" /></span>
 					
-						<span class="property-value" aria-labelledby="localidad-label"><g:link controller="localidad" action="show" id="${indicadorInstance?.localidad?.id}">${indicadorInstance?.localidad?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="localidad-label"><g:link controller="localidad" action="show" id="${indicadorInstance?.localidad?.id}">${indicadorInstance?.localidad?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -189,7 +189,7 @@
 				<li class="fieldcontain">
 					<span id="municipio-label" class="property-label"><g:message code="indicador.municipio.label" default="Municipio" /></span>
 					
-						<span class="property-value" aria-labelledby="municipio-label"><g:link controller="municipio" action="show" id="${indicadorInstance?.municipio?.id}">${indicadorInstance?.municipio?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="municipio-label"><g:link controller="municipio" action="show" id="${indicadorInstance?.municipio?.id}">${indicadorInstance?.municipio?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -207,7 +207,7 @@
 				<li class="fieldcontain">
 					<span id="region-label" class="property-label"><g:message code="indicador.region.label" default="Region" /></span>
 					
-						<span class="property-value" aria-labelledby="region-label"><g:link controller="region" action="show" id="${indicadorInstance?.region?.id}">${indicadorInstance?.region?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="region-label"><g:link controller="region" action="show" id="${indicadorInstance?.region?.id}">${indicadorInstance?.region?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>

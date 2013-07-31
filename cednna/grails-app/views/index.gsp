@@ -83,17 +83,11 @@
 	<body>
 		
 		<div id="page-body" role="main">
-			<h1>CEDNNA</h1>
+		
 			<p></p>
 
 			<div id="controller-list" role="navigation">
-				<h2>Menu de opciones:</h2>
-				<ul>
-					<li class="controller"><g:link controller="Indicador">Indicadores</g:link></li>
-					<li class="controller"><g:link controller="Formula">Formulas</g:link></li>
-					<li class="controller"><g:link controller="Variable">Base de datos</g:link></li>
-					<li class="controller"><g:link controller="logout">Cerrar sesion </g:link></li>
-				</ul>
+				
 			</div>
 		</div>
 	</body>
