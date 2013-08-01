@@ -13,30 +13,26 @@ class Indicador {
 	String          mediosVerificacion
 	String          comentarios
 	
-	Sentido        sentido
-	Date 		   fecha= new Date()
+	Sentido         sentido
+	Date 		    fecha= new Date()
 	
-	String         nombreResponsable
-	String         mailResponsable
-	String         areaResponsable
-	Date		   fechaActualizacion
+	String          nombreResponsable
+	String          mailResponsable
+	String          areaResponsable
+	Date		    fechaActualizacion
 	
 	
 	Region         region
 	Localidad      localidad
-	
-	//Estado     estado
+	Estado         estado
 	Municipio      municipio
 	
+
 	
+	boolean        publico
 	
-	
-	///double       resultadoIndicador
-	
-	
-	boolean      publico
-	
-	static hasMany = [variables:Variable]
+	static hasMany = [resultados:Resultado,variables:DVariable]
+
 
     static constraints = {
 		
@@ -47,7 +43,7 @@ class Indicador {
 				mailResponsable(blank:false, nullable:false, size:1..1024,email:true)
 		
 		
-		     //   anio(blank:false, nullable:false) 
+		      
 				sentido(blank:false, nullable:false)
 			    nombre(blank:false, nullable:false)
 				objetivo(blank:false, nullable:false)
@@ -55,12 +51,11 @@ class Indicador {
 				ejecutora(blank:false, nullable:false)
 				frecuencia(blank:false, nullable:false)
 				formula(blank:false, nullable:false)
-				resultadoIndicador(blank:true, nullable:true)
 				
 				region(blank:false, nullable:false) 
 			    localidad(blank:false, nullable:false) 
 				
-			
+				estado(blank:false, nullable:false) 
 				municipio(blank:false, nullable:false) 
     }
 }
