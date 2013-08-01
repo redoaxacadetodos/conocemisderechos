@@ -4,8 +4,8 @@ class DVariable {
 
 	
 
-	String     descripcion
-	Estado     estado
+
+	//Estado     estado
 	Municipio  municipio
 	Region     region
 	Localidad  localidad
@@ -16,7 +16,7 @@ class DVariable {
     static constraints = {
 		
 	
-		descripcion(blank:false, nullable:false, size:1..500)
+		
 		estado(blank:true, nullable:true)
 		municipio(blank:true, nullable:true)
 		localidad(blank:true, nullable:true)
