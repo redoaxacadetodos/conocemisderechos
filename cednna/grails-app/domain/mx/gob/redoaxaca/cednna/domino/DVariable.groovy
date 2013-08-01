@@ -4,7 +4,7 @@ class DVariable {
 
 	
 
-
+	String     descripcion
 	Estado     estado
 	Municipio  municipio
 	Region     region
