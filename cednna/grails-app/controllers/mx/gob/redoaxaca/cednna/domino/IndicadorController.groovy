@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import grails.converters.JSON
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -10,6 +11,8 @@ class IndicadorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+	def dataTablesService
+	
     def index() {
         redirect(action: "list", params: params)
     }
@@ -23,6 +26,43 @@ class IndicadorController {
         [indicadorInstance: new Indicador(params)]
     }
 
+	
+	def dataTablesListadoIndicador = {
+		
+	def query="  from indicador i "
+		
+		
+		
+		render dataTablesService.datosParaTablaQuery(query,params,
+	    [
+		'i.id',
+		'i.nombre',
+		'i.objetivo',
+		'i.nombreResponsable',
+		'i.mediosVerificacion',
+		],  
+		[
+		'i.id',
+		'i.nombre',
+		'i.objetivo',
+		'i.nombreResponsable',
+		'i.mediosVerificacion',
+		],
+	
+		[
+		'i.id',
+		'i.nombre',
+		'i.objetivo',
+		'i.nombreResponsable',
+		'i.mediosVerificacion',
+		],1,"text") as JSON
+}
+
+	
+	
+	
+	
+	
     def save() {
         def indicadorInstance = new Indicador(params)
         

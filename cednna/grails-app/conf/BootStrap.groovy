@@ -23,8 +23,8 @@ class BootStrap {
 //			if (!usuario.authorities.contains(adminRole)) {
 //				UsuarioRol.create usuario, adminRole
 //			}
-//
-//			
+
+			
 		
 
 		}

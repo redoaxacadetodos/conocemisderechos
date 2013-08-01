@@ -53,15 +53,19 @@
 		<g:message code="indicador.localidad.label" default="Poblacion" />
 		<span class="required-indicator">*</span>
 	</label>
-	<select id="poblacion_${var}" name="poblacion_${var}"><option value="T">Todos</option><option value="H">Hombres</option><option value="M">Mujeres</option></select>
+	<g:select id="poblacion" name="poblacion_${var}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.localidad?.id}" class="many-to-one"/>
 	<h3></h3>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-
-	<br>
-	<label>Rango de edad  De:</label><g:textField name="edadDe_${var}"/><label> Hasta:</label><g:textField name="edadHasta_${var}"/>
+	<label for="localidad">
+		<g:message code="indicador.localidad.label" default="Poblacion" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="tipo" name="tipo_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.localidad?.id}" class="many-to-one"/>
+	<g:select id="categoria" name="categoria_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.localidad?.id}" class="many-to-one"/>
 </div>
+
 
 
 <br>

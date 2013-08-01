@@ -26,12 +26,29 @@
 	<g:select id="estado" name="estado.id" from="${mx.gob.redoaxaca.cednna.domino.Estado.list()}" optionKey="id" value="${variableInstance?.estado?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
+	<label for="region">
+		<g:message code="variable.region.label" default="Region" />
+		
+	</label>
+	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  value="${variableInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
+</div>
+
+
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'municipio', 'error')} ">
 	<label for="municipio">
 		<g:message code="variable.municipio.label" default="Municipio" />
 		
 	</label>
 	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" value="${variableInstance?.municipio?.id}" class="many-to-one" noSelection="['null': '']"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'localidad', 'error')} required">
+	<label for="localidad">
+		<g:message code="variable.localidad.label" default="Localidad" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  optionValue="descripcion" required="" value="${variableInstance?.localidad?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'poblacionTotal', 'error')} required">
@@ -58,35 +75,62 @@
 	<g:field name="mujeres" type="number" value="${variableInstance.mujeres}" required=""/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
-	<label for="region">
-		<g:message code="variable.region.label" default="Region" />
-		
-	</label>
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  value="${variableInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
 	<label for="anio">
 		<g:message code="variable.anio.label" default="Anio" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="anio" type="number" value="${variableInstance.anio}" required=""/>
+	<select id="anio" name="anio" ></select>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'rango', 'error')} ">
-	<label for="rango">
-		<g:message code="variable.rango.label" default="Rango" />
+
+<div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'municipio', 'error')} ">
+	<label for="municipio">
+		<g:message code="variable.municipio.label" default="Tipo" />
 		
 	</label>
-	<g:select id="rango" name="rango.id" from="${mx.gob.redoaxaca.cednna.domino.RangoEdad.list()}" optionKey="id" optionValue="descripcion"  value="${variableInstance?.rango?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="tipo" name="tipo.id" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'localidad', 'error')} required">
 	<label for="localidad">
-		<g:message code="variable.localidad.label" default="Localidad" />
-		<span class="required-indicator">*</span>
+		<g:message code="variable.localidad.label" default="Categoria" />
+
 	</label>
-	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  optionValue="descripcion" required="" value="${variableInstance?.localidad?.id}" class="many-to-one"/>
+	<g:select id="categoria" name="categoria.id" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id"  optionValue="descripcion"  class="many-to-one"/>
 </div>
+
+
+
+
+
+<script type="text/javascript">
+
+$(function(){
+
+
+	llenaCombo({
+		url : CONTEXT_ROOT+'/json/anos.json',
+		htmlOptions : {
+			name : "anio",
+			id : "anio",
+			clase : ""
+		},
+		index : 0,
+		chained : false,
+		anchor : "#anio",
+		combo : true
+	});  
+
+
+	
+});
+
+
+
+
+
+
+
+</script>
 
