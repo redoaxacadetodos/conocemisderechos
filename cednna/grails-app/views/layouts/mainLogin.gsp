@@ -5,6 +5,7 @@
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'docs.css')}" type="text/css">
 		
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -44,22 +45,13 @@
 	<g:layoutHead/>
 		<r:layoutResources />
 	</head>							
-
-                    <!-- CONTENIDOS --->
-
-
-<body class="tm-background">
-
-		<nav class="tm-navbar uk-navbar uk-navbar-attached">
+	<body class="tm-background">
+			<nav class="tm-navbar uk-navbar uk-navbar-attached">
 			<div class="uk-container uk-container-center">
 
 				<a class="uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
                 <a class="uk-logo-edos uk-hidden-small" ><img src="${request.getContextPath()}/img/logos_edo.png"  title="Oaxaca de todos" alt="Oaxaca de todos"></a>
-<!-- En caso de utilizarse menú superior
-				<ul class="uk-navbar-nav uk-hidden-small">
-					<li><a href="#">Menú</a></li>
-				</ul>
--->
+
 				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
 
 				<div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="${request.getContextPath()}/img/logo02.png"  title="CEDNNA" alt="CEDNNA"></div>
@@ -111,67 +103,7 @@
 					
 						</ul>
 					</li>
-					<!--
-                    <li class="uk-nav-header">Components</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
-						<ul class="uk-nav-sub">
-							<li><a href="normalize.html">Normalize</a></li>
-							<li><a href="base.html">Base</a></li>
-							<li><a href="print.html">Print</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
-						<ul class="uk-nav-sub">
-							<li><a href="grid.html">Grid</a></li>
-							<li><a href="panel.html">Panel</a></li>
-							<li><a href="article.html">Article</a></li>
-							<li><a href="comment.html">Comment</a></li>
-							<li><a href="utility.html">Utility</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-reorder"></i> Navigations</a>
-						<ul class="uk-nav-sub">
-							<li><a href="nav.html">Nav</a></li>
-							<li><a href="navbar.html">Navbar</a></li>
-							<li><a href="subnav.html">Subnav</a></li>
-							<li><a href="breadcrumb.html">Breadcrumb</a></li>
-							<li><a href="pagination.html">Pagination</a></li>
-							<li><a href="tab.html">Tab</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-ok"></i> Elements</a>
-						<ul class="uk-nav-sub">
-							<li><a href="list.html">List</a></li>
-							<li><a href="description-list.html">Description list</a></li>
-							<li><a href="table.html">Table</a></li>
-							<li><a href="form.html">Form</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
-						<ul class="uk-nav-sub">
-							<li><a href="button.html">Button</a></li>
-							<li><a href="icon.html">Icon</a></li>
-							<li><a href="close.html">Close</a></li>
-							<li><a href="badge.html">Badge</a></li>
-							<li><a href="alert.html">Alert</a></li>
-							<li><a href="thumbnail.html">Thumbnail</a></li>
-							<li><a href="overlay.html">Overlay</a></li>
-							<li><a href="progress.html">Progress</a></li>
-							<li><a href="search.html">Search</a></li>
-							<li><a href="text.html">Text</a></li>
-						</ul>
-					</li>
-					<li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
-						<ul class="uk-nav-sub">
-							<li><a href="dropdown.html">Dropdown</a></li>
-							<li><a href="modal.html">Modal</a></li>
-							<li><a href="offcanvas.html">Off-canvas</a></li>
-							<li><a href="switcher.html">Switcher</a></li>
-							<li><a href="tooltip.html">Tooltip</a></li>
-							<li><a href="smooth-scroll.html">Smooth scroll</a></li>
-						</ul>
-					</li>
-                    -->
+
 				</ul>
 
 			</div>

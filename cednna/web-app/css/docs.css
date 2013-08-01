@@ -13,6 +13,8 @@ body, h1, h2, h3, h4, h5, h6,
 .uk-navbar-nav > li > a { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 
+h1, h2, h3, h4, h5, h6 { font-weight: 700 !important; color:#6d5123 !important;}
+
 /* Base
  ========================================================================== */
 
@@ -205,5 +207,40 @@ max-width: 80%;
 	border-left: 3px solid #1FA2D6;
 	font-size: 16px;
 	line-height: 16px;
+}
+
+
+/*
+* Componentes
+*/
+
+.uk-button {
+display: inline-block;
+min-height: 30px;
+padding: 0 12px;
+border: none;
+background: #f7f7f7;
+line-height: 28px;
+color: #444;
+letter-spacing: normal;
+border: 1px solid rgba(0,0,0,0.2);
+border-bottom-color: rgba(0,0,0,0.3);
+background-origin: border-box;
+background-image: -webkit-linear-gradient(top, #fff, #eee);
+background-image: linear-gradient(to bottom, #fff, #eee);
+border-radius: 4px;
+text-shadow: 0 1px 0 #fff;
+margin:15px 0;
+}
+
+.uk-button:hover, .uk-button:focus {
+background-color: #fafafa;
+color: #666;
+outline: 0;
+background-image: none;
+}
+
+.uk-panel-box {
+border-radius: 4px;
 }
 
