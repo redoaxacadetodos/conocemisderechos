@@ -6,16 +6,16 @@ class Variable {
 	String     clave
 	String     descripcion
 	Estado     estado
-	Municipio  municipio 
+	Region     region
+	Municipio  municipio
+	Localidad  localidad
 	int        poblacionTotal
 	int        hombres
 	int        mujeres
-	Region     region
-	Localidad  localidad
 	int        anio
-	RangoEdad  rango
 	
 	
+	static hasMany = [categorias:Categoria]
 		
     static constraints = {
 		
@@ -29,7 +29,7 @@ class Variable {
 		        mujeres(blank:false, nullable:false)
 		        region(blank:true, nullable:true)
 		        anio(blank:false, nullable:false)
-		        rango(blank:true, nullable:true)
+		       
 		
     }
 }

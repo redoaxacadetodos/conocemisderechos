@@ -1,10 +1,10 @@
 package mx.gob.redoaxaca.cednna.domino
 
-class Generico {
-
+class Tipo {
+	
 	String descripcion
-	int    valor
-	Sexo   sexo
+	
+	
     static constraints = {
     }
 }
