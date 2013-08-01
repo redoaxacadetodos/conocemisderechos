@@ -4,39 +4,35 @@ class Indicador {
 	
 	
 	
-	String       nombre
-	String       objetivo	
-	Dependencia  dependencia
+	String          nombre
+	String          objetivo	
+	Dependencia     dependencia
 	UnidadEjecutora ejecutora
-	Frecuencia   frecuencia
-	Formula 	 formula
-	String       mediosVerificacion
-	String       comentarios
-	int          anio
-	Sentido      sentido
-	Date 		 fecha= new Date()
+	Frecuencia      frecuencia
+	Formula 	    formula
+	String          mediosVerificacion
+	String          comentarios
 	
-	String       nombreResponsable
-	String       mailResponsable
-	String       areaResponsable
-	Date		 fechaActualizacion
+	Sentido         sentido
+	Date 		    fecha= new Date()
 	
-	
-	Region     region
-	Localidad  localidad
-	
-	Estado     estado
-	Municipio  municipio
+	String          nombreResponsable
+	String          mailResponsable
+	String          areaResponsable
+	Date		    fechaActualizacion
 	
 	
+	Region         region
+	Localidad      localidad
+	Estado         estado
+	Municipio      municipio
 	
+
 	
-	double       resultadoIndicador
+	boolean        publico
 	
-	
-	boolean      publico
-	
-	static hasMany = [variables:Variable]
+	static hasMany = [resultados:Resultado,variables:DVariable]
+
 
     static constraints = {
 		
@@ -47,7 +43,7 @@ class Indicador {
 				mailResponsable(blank:false, nullable:false, size:1..1024,email:true)
 		
 		
-		        anio(blank:false, nullable:false) 
+		      
 				sentido(blank:false, nullable:false)
 			    nombre(blank:false, nullable:false)
 				objetivo(blank:false, nullable:false)
@@ -55,7 +51,6 @@ class Indicador {
 				ejecutora(blank:false, nullable:false)
 				frecuencia(blank:false, nullable:false)
 				formula(blank:false, nullable:false)
-				resultadoIndicador(blank:true, nullable:true)
 				
 				region(blank:false, nullable:false) 
 			    localidad(blank:false, nullable:false) 
