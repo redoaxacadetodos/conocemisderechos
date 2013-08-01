@@ -9,6 +9,7 @@ class DVariable {
 	Municipio  municipio
 	Region     region
 	Localidad  localidad
+	Poblacion  poblacion
 	
 	static hasMany = [categorias:Categoria]
 

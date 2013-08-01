@@ -93,14 +93,6 @@
 </div>
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'fecha', 'error')} required">
-	<label for="fecha">
-		<g:message code="indicador.fecha.label" default="Fecha de creacion" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:datePicker name="fecha" precision="day"  value="${indicadorInstance?.fecha}"  />
-</div>
-
 <br>
 <br>
 
