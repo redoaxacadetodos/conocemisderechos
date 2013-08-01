@@ -6,7 +6,7 @@
 </head>
 
 <body>
-
+<div class="uk-panel uk-panel-box uk-container-center uk-width-1-3">
 							<form action='${postUrl}' method='POST' id='loginForm' class="uk-form uk-form-stacked" autocomplete='off'>
                             
                             <h3 class="uk-panel-title">Entrada al sistema</h3>
@@ -36,7 +36,7 @@
 							<input class="uk-button" type="submit">
 							</form>
 
-
+</div>
 <script type='text/javascript'>
 	<!--
 	(function() {

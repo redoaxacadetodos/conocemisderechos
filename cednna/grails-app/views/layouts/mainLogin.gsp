@@ -64,12 +64,9 @@
 
 				<div class="uk-grid" data-uk-grid-margin>
 				
-					<div class="tm-sidebar uk-width-medium-1-4 uk-hidden-small">
 
-			
-					</div>
                 
-				<div class="tm-main uk-width-medium-3-4">
+				<div class="uk-width-1-1">
 							
 							
 	
