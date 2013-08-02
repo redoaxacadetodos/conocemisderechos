@@ -60,6 +60,19 @@
 				
 					$(document).ready(function() {
 
+
+						var unused = $.ajax({type:'POST', 
+				              url:CONTEXT_ROOT+'/indicador/tabla/'+$("#dependencia").val(),
+				              success:function(data,textStatus)
+				                  {
+				              
+				              		$('#divTabla').html(data);
+				          
+				             
+				                  },
+				           			   error:function(XMLHttpRequest,textStatus,errorThrown)
+				                  {		$('#diverror').html(XMLHttpRequest.responseText);}
+								});
 							
 						
 						$("#dependencia").change(function(){

@@ -23,6 +23,7 @@ class Variable {
 		        clave(blank:false, nullable:false)
 		        descripcion(blank:false, nullable:false, size:1..500)
 		        estado(blank:true, nullable:true)
+				localidad(blank:true, nullable:true)
 		        municipio(blank:true, nullable:true)
 		        poblacionTotal(blank:false, nullable:false)
 		        hombres(blank:false, nullable:false)
