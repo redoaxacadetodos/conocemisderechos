@@ -36,8 +36,6 @@ class Variable {
     static mapping = {
 	table('cat_variable')
 	id(column: 'cvv_id')
-
-
 	
 	clave(column:'cvv_clave')
 	descripcion(column:'cvv_descripcion')
@@ -49,6 +47,8 @@ class Variable {
 	hombres(column:'cvv_hombres')
 	mujeres(column:'cvv_mujeres')
 	anio(column:'cvv_anio')
+
+ 	categorias (column: 'cvc_cvv_id', joinTable: 'cat_variable_categoria')
 
 	version(false)
   }    

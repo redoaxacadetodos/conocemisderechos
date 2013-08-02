@@ -35,6 +35,12 @@ class DVariable {
 		indicador(column:'cdv_ind_id')
 
 		estado(column: 'cdv_ent_id')
+	//	categorias (column: 'cdc_cdv_id', joinTable: 'cat_dvariable_categoria')
+
+	 	categorias joinTable: [name: 'cat_dvariable_categoria',
+                              key: 'cdc_cdv_id',
+                              column: 'cdc_cct_id']
+	
 		
 		version(false)
 	}

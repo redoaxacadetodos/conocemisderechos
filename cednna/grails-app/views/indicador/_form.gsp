@@ -5,8 +5,8 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
-	<label for="nombre">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
+	<label class="uk-form-label"for="nombre">
 		<g:message code="indicador.nombre.label" default="Nombre del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -14,8 +14,8 @@
 </div>
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'objetivo', 'error')} required">
-	<label for="objetivo">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'objetivo', 'error')} required">
+	<label class="uk-form-label" for="objetivo">
 		<g:message code="indicador.objetivo.label" default="Objetivo del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -23,8 +23,8 @@
 </div>
 
 
-<%--<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'anio', 'error')} required">--%>
-<%--	<label for="anio">--%>
+<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'anio', 'error')} required">--%>
+<%--	<label class="uk-form-label"for="anio">--%>
 <%--		<g:message code="indicador.anio.label" default="Año" />--%>
 <%--		<span class="required-indicator">*</span>--%>
 <%--	</label>--%>
@@ -32,8 +32,8 @@
 
 <%--</div>--%>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'sentido', 'error')} required">
-	<label for="sentido">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'sentido', 'error')} required">
+	<label class="uk-form-label"for="sentido">
 		<g:message code="indicador.sentido.label" default="Sentido" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -43,40 +43,40 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
-	<label for="dependencia">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
+	<label class="uk-form-label"for="dependencia">
 		<g:message code="indicador.dependencia.label" default="Dependencia" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'ejecutora', 'error')} required">
-	<label for="ejecutora">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'ejecutora', 'error')} required">
+	<label class="uk-form-label"for="ejecutora">
 		<g:message code="indicador.ejecutora.label" default="Unidad Ejecutora" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="ejecutora" name="ejecutora.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadEjecutora.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.ejecutora?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
-	<label for="frecuencia">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
+	<label class="uk-form-label"for="frecuencia">
 		<g:message code="indicador.frecuencia.label" default="Frecuencia de medicion" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
-	<label for="comentarios">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
+	<label class="uk-form-label"for="comentarios">
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />
 		
 	</label>
 	<g:textField name="comentarios" value="${indicadorInstance?.comentarios}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
-	<label for="mediosVerificacion">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
+	<label class="uk-form-label"for="mediosVerificacion">
 		<g:message code="indicador.mediosVerificacion.label" default="Medios Verificacion" />
 		
 	</label>
@@ -84,8 +84,8 @@
 </div>
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
-	<label for="publico">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
+	<label class="uk-form-label"for="publico">
 		<g:message code="indicador.publico.label" default="Publico" />
 		
 	</label>
@@ -99,8 +99,8 @@
 
 <h3>Datos del responsable del indicador</h3>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'nombreResponsable', 'error')} required">
-	<label for="nombreResponsable">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombreResponsable', 'error')} required">
+	<label class="uk-form-label"for="nombreResponsable">
 		<g:message code="indicador.nombreResponsable.label" default="Nombre del responsable" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -109,24 +109,24 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'areaResponsable', 'error')} required">
-	<label for="areaResponsable">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'areaResponsable', 'error')} required">
+	<label class="uk-form-label"for="areaResponsable">
 		<g:message code="indicador.areaResponsable.label" default="Area del responsable" />
 		<span class="required-indicator">*</span>
 	</label>
 		<g:textField name="areaResponsable"  maxlength="500" required="" value="${indicadorInstance?.areaResponsable}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'mailResponsable', 'error')} required">
-	<label for="mailResponsable">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mailResponsable', 'error')} required">
+	<label class="uk-form-label"for="mailResponsable">
 		<g:message code="indicador.mailResponsable.label" default="Email de contacto" />
 		<span class="required-indicator">*</span>
 	</label>
 		<g:textField name="mailResponsable"  maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">
-	<label for="fechaActualizacion">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">
+	<label class="uk-form-label"for="fechaActualizacion">
 		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -141,8 +141,8 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
-	<label for="estado">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
+	<label class="uk-form-label"for="estado">
 		<g:message code="indicador.estado.label" default="Estado" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -150,24 +150,24 @@
 </div>
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
-	<label for="region">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
+	<label class="uk-form-label"for="region">
 		<g:message code="indicador.region.label" default="Region" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.region?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
-	<label for="municipio">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
+	<label class="uk-form-label"for="municipio">
 		<g:message code="indicador.municipio.label" default="Municipio" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.municipio?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label for="localidad">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+	<label class="uk-form-label"for="localidad">
 		<g:message code="indicador.localidad.label" default="Localidad" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -182,16 +182,16 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'resultadoIndicador', 'error')} required">
-	<label for="resultadoIndicador">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'resultadoIndicador', 'error')} required">
+	<label class="uk-form-label"for="resultadoIndicador">
 		<g:message code="indicador.resultadoIndicador.label" default="Resultado Indicador" />
 		<span class="required-indicator">*</span>
 	</label>
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'formula', 'error')} required">
-	<label for="formula">
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'formula', 'error')} required">
+	<label class="uk-form-label"for="formula">
 		<g:message code="indicador.formula.label" default="Formula de calculo" />
 		<span class="required-indicator">*</span>
 	</label>
