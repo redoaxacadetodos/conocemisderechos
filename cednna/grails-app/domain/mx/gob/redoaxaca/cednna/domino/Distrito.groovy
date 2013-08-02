@@ -14,5 +14,17 @@ class Distrito {
 	
 	static constraints = {
 	}
+
+	   static mapping = {
+		table('cat_distrito')
+		id(column: 'cdt_id')
+
+		descripcion(column: 'cdt_descripcion')
+		clave(column: 'cdt_clave')
+
+		entidad(column: 'cdt_ent_id')
+		
+		version(false)
+	}
 	
 }

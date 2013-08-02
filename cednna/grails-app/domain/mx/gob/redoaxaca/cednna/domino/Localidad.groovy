@@ -18,4 +18,17 @@ class Localidad {
 	
     static constraints = {
     }
+
+      static mapping = {
+	table('cat_localidad')
+	id(column: 'ctl_id')
+
+
+	
+	descripcion(column:'ctl_descripcion')
+	clave(column:'ctl_clave')
+	municipio(column:'ctl_mun_id')
+
+	version(false)
+  }    
 }

@@ -6,4 +6,16 @@ class TipoPoblacion {
 	
     static constraints = {
     }
+
+    static mapping = {
+	table('cat_tipo_poblacion')
+	id(column: 'ctp_id')
+
+
+	
+	descripcion(column:'ctp_descripcion')
+		
+
+	version(false)
+  }    
 }

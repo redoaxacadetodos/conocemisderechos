@@ -32,4 +32,24 @@ class Variable {
 		       
 		
     }
+
+    static mapping = {
+	table('cat_variable')
+	id(column: 'cvv_id')
+
+
+	
+	clave(column:'cvv_clave')
+	descripcion(column:'cvv_descripcion')
+	estado(column:'cvv_estado')
+	region(column:'cvv_region')
+	municipio(column:'cvv_municipio')
+	localidad(column:'cvv_localidad')
+	poblacionTotal(column:'cvv_poblacion_total')
+	hombres(column:'cvv_hombres')
+	mujeres(column:'cvv_mujeres')
+	anio(column:'cvv_anio')
+
+	version(false)
+  }    
 }
