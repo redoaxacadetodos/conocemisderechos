@@ -1,3 +1,9 @@
+dataSource {
+    pooled = true
+    driverClassName = "org.h2.Driver"
+    username = "sa"
+    password = ""
+}
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
@@ -5,24 +11,17 @@ hibernate {
 }
 // environment specific settings
 environments {
-    test2 {
-      dataSource {
-        loggingSql = true
-			  pooled = false
-			  driverClassName = "org.postgresql.Driver"
-			  username = "postgres"
-			  password = "t3mp0r4l"
-			  url = "jdbc:postgresql://172.31.0.101:5432/cednna"
-        dbCreate = "update"
-      }
-    }
-       development {
+    development {
         dataSource {
-            dbCreate = "create"
-            url = "jdbc:h2:mem:devDb"
+          loggingSql = true
+			pooled = false
+			driverClassName = "org.postgresql.Driver"
+			username = "postgres"
+			password = "t3mp0r4l"
+			url = "jdbc:postgresql://172.31.0.101:5432/ceddna"
+            dbCreate = "update"
         }
     }
-   
     test {
         dataSource {
             dbCreate = "update"

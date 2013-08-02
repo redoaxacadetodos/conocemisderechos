@@ -19,7 +19,7 @@
 
 
 		<div id="create-indicador" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			<h1 class="uk-article-title"><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -31,12 +31,11 @@
 			</ul>
 			</g:hasErrors>
 			<g:form action="save" name="indicador" >
-				<fieldset class="form">
+				<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
+					<g:submitButton name="create" class="uk-button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
+				
 			</g:form>
 		</div>
 	</body>

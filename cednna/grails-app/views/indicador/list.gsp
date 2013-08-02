@@ -67,8 +67,15 @@
 					
 
 					});
-				
+
+
+					function muestraBoton(source, type, val) {
+						return "<img border='0'  src='/ACE/img/view.png'  style='cursor:pointer;'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
+					}
+			
 				});
+				
+				
 				
 				
 				
