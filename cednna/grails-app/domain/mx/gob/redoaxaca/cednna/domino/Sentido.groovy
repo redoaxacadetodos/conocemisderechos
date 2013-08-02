@@ -7,4 +7,16 @@ class Sentido {
 
     static constraints = {
     }
+
+    static mapping = {
+	table('cat_sentido')
+	id(column: 'csn_id')
+
+
+	
+	descripcion(column:'csn_descripcion')
+	clave(column:'csn_clave')
+
+	version(false)
+  }    
 }

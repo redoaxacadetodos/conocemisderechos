@@ -19,4 +19,17 @@ class Formula {
 	 variables(blank:true, nullable:true)
 		
     }
+
+      static mapping = {
+		table('cat_formula')
+		id(column: 'ctf_id')
+
+		nombre(column: 'ctf_nombre')
+		descripcion(column: 'ctf_descripcion')
+		sentencia(column: 'ctf_sentencia')
+		numVariables(column: 'ctf_num_variables')
+		variables(column: 'ctf_variables')	
+
+		version(false)
+	}
 }

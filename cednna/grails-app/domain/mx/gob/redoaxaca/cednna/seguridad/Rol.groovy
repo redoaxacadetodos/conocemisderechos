@@ -4,7 +4,8 @@ class Rol {
 
 	String authority
 
-	static mapping = {
+		static mapping = {
+        table 'sys_rol'
 		cache true
 	}
 

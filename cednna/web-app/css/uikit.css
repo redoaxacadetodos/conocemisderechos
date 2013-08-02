@@ -206,12 +206,12 @@ mark {
   color: #444444;
 }
 ::-moz-selection {
-  background: #3399ff;
+  background: #60b3b5;
   color: #ffffff;
   text-shadow: none;
 }
 ::selection {
-  background: #3399ff;
+  background: #60b3b5;
   color: #ffffff;
   text-shadow: none;
 }

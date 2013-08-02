@@ -58,4 +58,34 @@ class Indicador {
 				estado(blank:false, nullable:false) 
 				municipio(blank:false, nullable:false) 
     }
+
+  static mapping = {
+	table('idn_indicador')
+	id(column: 'idn_id')
+
+
+	publico(column:'idn_publico')
+	fecha(column:'idn_fecha')
+    fechaActualizacion(column:'idn_fecha_actualizacion')
+	dependencia(column:'idn_cdp_id')
+	estado(column:'idn_estado')
+
+	frecuencia(column:'idn_frecuencia')
+	localidad(column:'idn_localidad')
+	municipio(column:'idn_municipio')
+	formula(column:'idn_ctf_id')
+	region(column:'idn_region')
+	sentido(column:'idn_sentido')
+	nombre(column:'idn_nombre')
+	objetivo(column:'idn_objetivo')
+	mediosVerificacion(column:'idn_medios_verificacion')
+	comentarios(column:'idn_comentarios')
+	nombreResponsable(column:'idn_nombre_responsable')
+	mailResponsable(column:'idn_mail_responsable')
+	areaResponsable(column:'idn_area_responsable')
+	ejecutora(column:'idn_cue_id')
+		
+
+	version(false)
+  }    
 }
