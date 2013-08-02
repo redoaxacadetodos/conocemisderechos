@@ -29,32 +29,32 @@ class IndicadorController {
 	
 	def dataTablesListadoIndicadores = {
 		
-	def query="  from indicador i "
+	def query="  from idn_indicador	 i "
 		
 		
 		
 		render dataTablesService.datosParaTablaQuery(query,params,
 	    [
-		'i.id',
-		'i.nombre',
-		'i.objetivo',
-		'i.nombre_responsable',
-		'i.medios_verificacion',
+		'i.idn_id',
+		'i.idn_nombre',
+		'i.idn_objetivo',
+		'i.idn_nombre_responsable',
+		'i.idn_medios_verificacion',
 		],  
 		[
-		'i.id',
-		'i.nombre',
-		'i.objetivo',
-		'i.nombre_responsable',
-		'i.medios_Verificacion',
+		'i.idn_id',
+		'i.idn_nombre',
+		'i.idn_objetivo',
+		'i.idn_nombre_responsable',
+		'i.idn_medios_Verificacion',
 		],
 	
 		[
-		'i.id',
-		'i.nombre',
-		'i.objetivo',
-		'i.nombre_responsable',
-		'i.medios_rerificacion',
+		'i.idn_id',
+		'i.idn_nombre',
+		'i.idn_objetivo',
+		'i.idn_nombre_responsable',
+		'i.idn_medios_Verificacion',
 		],1,"text") as JSON
 }
 
