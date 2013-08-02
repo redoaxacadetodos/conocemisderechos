@@ -37,13 +37,13 @@
 		<a href="#list-indicador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
 		<ul class="uk-subnav uk-subnav-pill">
-		<li class="uk-active"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+		<li class="uk-active"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 		<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 		</ul>
 
 
 	
-		<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
+		<div class="${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
 			<label for="dependencia">
 				<g:message code="indicador.dependencia.label" default="Dependencia" />
 		

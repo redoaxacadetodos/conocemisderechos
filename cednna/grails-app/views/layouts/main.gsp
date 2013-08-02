@@ -60,6 +60,8 @@
 						<ul class="tm-nav uk-nav" data-uk-nav>
 
 							<li class="uk-nav-header">Menu</li>
+
+							<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 							<li><g:link controller="Indicador">Indicadores</g:link></li>
 							<li><g:link controller="Formula">Formulas</g:link></li>
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
