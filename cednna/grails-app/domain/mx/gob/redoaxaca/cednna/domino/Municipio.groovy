@@ -19,7 +19,18 @@ class Municipio {
 		return false
 	}
 	
+  static mapping = {
+	table('cat_municipio')
+	id(column: 'mun_id')
 
+
+	
+	descripcion(column:'mun_descripcion')
+	clave(column:'mun_clave')
+	distrito(column:'mun_cdt_id')
+
+	version(false)
+  }    
 	
     
 }

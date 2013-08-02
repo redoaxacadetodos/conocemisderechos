@@ -51,6 +51,7 @@ class UsuarioRol implements Serializable {
 	}
 
 	static mapping = {
+        table 'sys_usuario_rol'
 		id composite: ['rol', 'usuario']
 		version false
 	}

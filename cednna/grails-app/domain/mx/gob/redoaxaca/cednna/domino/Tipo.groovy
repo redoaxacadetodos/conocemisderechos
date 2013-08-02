@@ -7,4 +7,13 @@ class Tipo {
 	
     static constraints = {
     }
+
+      static mapping = {
+		table('cat_tipo')
+		id(column: 'ctt_id')
+
+		descripcion(column: 'ctt_descripcion')
+		
+		version(false)
+	}
 }
