@@ -6,31 +6,9 @@
 		<g:set var="entityName" value="${message(code: 'indicador.label', default: 'Indicador')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<meta name="layout" content="main">
-		
-				<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-				
-				<g:javascript src="jquery.dataTables.js" />
-				<script type="text/javascript">
-
-					$(function(){
-				
-				
-						function muestraBoton(source, type, val) {
-							return "<img border='0'  src='/ACE/img/view.png'  style='cursor:pointer;'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
-						}
-				
-				
-				
-					});
-				
-				
-				</script>
-		
-				<g:datatablehelperjs ctrlid="indicadorTable" context="${request.getContextPath()}" 
-				controller="indicador" action="dataTablesListadoIndicadores" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
-				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}']"
-				/>
-	
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" ></script>
+				<g:javascript src="jquery.dataTables.js"  />
+			
 		
 	</head>
 	<body>
@@ -40,26 +18,65 @@
 		<li class="uk-active"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 		<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 		</ul>
-
+		
+		<br>
 
 	
 		<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
-			<label for="dependencia">
+			 
+			 <label for="dependencia">
 				<g:message code="indicador.dependencia.label" default="Dependencia" />
+			 </label>
+			 <g:select id="dependencia" name="dependencia" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
 		
-			</label>
-			<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
 		</div>
 	
 		<br>
- 		<g:datatablehelper ctrlid="indicadorTable"  cols="['ID','Nombre','Objetivo','Nombre Responsable','Medios de verificacion']" class="table table-striped table-bordered"></g:datatablehelper>
-	
+ 		
+		<div id="divTabla">
+		
+				
+		
+		</div>
 
+
+<script type="text/javascript" >
+					
+				
+				$(function(){
+
+					
+				
+					$(document).ready(function() {
+					
+						$("#dependencia").change(function(){
+							
+									
+									  	var unused = $.ajax({type:'POST', 
+								              url:CONTEXT_ROOT+'/indicador/tabla/'+$("#dependencia").val(),
+								              success:function(data,textStatus)
+								                  {
+								              
+								              		$('#divTabla').html(data);
+								          
+								             
+								                  },
+								           			   error:function(XMLHttpRequest,textStatus,errorThrown)
+								                  {		$('#diverror').html(XMLHttpRequest.responseText);}
+												});
+						});
+					
+
+					});
+				
+				});
+				
+				
+				
+				</script>
 	
 	</body>
-	
-	
-
 </html>
 
 
+			

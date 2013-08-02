@@ -62,6 +62,12 @@ class IndicadorController {
 	
 	
 	
+	def tabla(){
+		
+		[dependencia:params.id]
+		
+		
+	}
 	
     def save() {
         def indicadorInstance = new Indicador(params)
