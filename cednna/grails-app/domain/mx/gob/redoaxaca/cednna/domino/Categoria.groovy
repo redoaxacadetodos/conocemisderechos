@@ -6,7 +6,8 @@ class Categoria {
 	String  descripcion
 	
 
-	static belongsTo = [dvariable:DVariable, variable:Variable]
+	static belongsTo = Variable//, DVariable
+	static hasMany = [variables:Variable]//, dvariables: DVariable]
 
     static constraints = {
     }
@@ -16,8 +17,10 @@ class Categoria {
 		id(column: 'cct_id')
 
 		descripcion(column: 'cct_descripcion')
-		dvariable(column:'cct_cdv_id')
-		variable(column:'cct_cvv_id')
+
+ 	    variables (column: 'cvc_cct_id', joinTable: 'cat_variable_categoria')
+ 	  //  dvariables (column: 'cdc_cct_id', joinTable: 'cat_dvariable_categoria')
+
 		tipo(column: 'cct_ctt_id')
 		
 		version(false)

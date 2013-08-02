@@ -31,7 +31,7 @@ class Indicador {
 	
 	boolean        publico
 	
-	static hasMany = [resultados:Resultado,variables:DVariable]
+	static hasMany = [variables:DVariable]
 
 
     static constraints = {
