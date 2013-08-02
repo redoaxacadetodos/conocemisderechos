@@ -27,7 +27,7 @@ class IndicadorController {
     }
 
 	
-	def dataTablesListadoIndicador = {
+	def dataTablesListadoIndicadores = {
 		
 	def query="  from indicador i "
 		
@@ -38,23 +38,23 @@ class IndicadorController {
 		'i.id',
 		'i.nombre',
 		'i.objetivo',
-		'i.nombreResponsable',
-		'i.mediosVerificacion',
+		'i.nombre_responsable',
+		'i.medios_verificacion',
 		],  
 		[
 		'i.id',
 		'i.nombre',
 		'i.objetivo',
-		'i.nombreResponsable',
-		'i.mediosVerificacion',
+		'i.nombre_responsable',
+		'i.medios_Verificacion',
 		],
 	
 		[
 		'i.id',
 		'i.nombre',
 		'i.objetivo',
-		'i.nombreResponsable',
-		'i.mediosVerificacion',
+		'i.nombre_responsable',
+		'i.medios_rerificacion',
 		],1,"text") as JSON
 }
 

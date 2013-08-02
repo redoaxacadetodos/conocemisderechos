@@ -8,7 +8,8 @@
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
 		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	
 	   <g:javascript src="uikit.min.js" />
 	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -17,25 +18,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'calc.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-<%--		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">--%>
-<%--				<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">--%>
-<%--				<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">--%>
-<%--				--%>
-<%--				<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">--%>
-<%--				<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
-<%--				--%>
-<%--	--%>
-<%--				   <g:javascript src="bootstrap-datepicker.js" />--%>
-<%--	   --%>
-<%--	    			<g:javascript src="bootstrap-datetimepicker.min.js" />--%>
-<%--			--%>
 
- 	
-					<g:javascript src="bootstrap-modal.js" />	
+
+ 				
+ 						<g:javascript src="jquery-ui-1.8.20.custom.min.js" />
+ 						<g:javascript src="jquery.dataTables.js" />
+				
 		
 				<g:javascript src="Utilerias.js" />	
-<%--					<link href="${resource(dir:'css',file:'bootstrap.css')}" rel="stylesheet">--%>
-				
+
 		
 						<script type="text/javascript">
 
