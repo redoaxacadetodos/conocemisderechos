@@ -69,73 +69,56 @@ class IndicadorController {
 		
 	}
 	
+	
+	def visor(){
+		
+		
+		def indicador = Indicador.get(params.id);
+		
+		
+		
+		[indicadorInstance:indicador]
+		
+		
+	}
+	
+	
+	
+	
+	
     def save() {
         def indicadorInstance = new Indicador(params)
         
 		
+		def sentencia= indicadorInstance?.formula?.variables
+		def variables= sentencia.split("\\|")
 		
+		def resultado
+		
+		for(v in variables){
 
-		
-				def formula =  indicadorInstance?.formula?.sentencia
-				def sentencia= indicadorInstance?.formula?.variables
-				def variables= sentencia.split("\\|")
+				def variable=params.id
 				
-				def resultado
 				
-				for(v in variables){
+				def localidad=  Localidad.get(params.getAt("localidad_"+variable))
+				def municipio=  Municipio.get(params.getAt("municipio_"+variable))
+				def region =    Region.get(params.getAt("region_"+variable))
+				def estado =    Estado.get(params.getAt("estado_"+variable))
+				def poblacion = Poblacion.get(params.getAt("poblacion_"+variable))
+			
+			
+				def dVariable = new  DVariable()
+				dVariable.descripcion=params.getAt("descripcion_"+variable)
+				dVariable.localidad=localidad
+				dVariable.municipio=municipio
+				dVariable.region=region
+				dVariable.estado=estado
+				dVariable.poblacion=poblacion
 				
-						def vari=	Variable.get(params.getAt("v_"+v))
 				
-						if(vari){
-								
-								switch (params.getAt("poblacion_"+v)) {
-								case "T":
-									System.out.println( "ENTRO A POBLACION  T "+formula)
-								formula=	formula.replaceAll(String.valueOf(v), String.valueOf(vari.poblacionTotal))
-									System.out.println( "CAMBIO A POBLACION  T "+formula)
-									break;
-								case "H":
-									System.out.println( "ENTRO A POBLACION  H "+formula)
-								formula=	formula.replaceAll(String.valueOf(v),String.valueOf(vari.hombres))
-									System.out.println( "CAMBIO A POBLACION  H "+formula)
-								break;
-								case "M":
-								formula=	formula.replaceAll(String.valueOf(v),String.valueOf(vari.mujeres))
-								break;
-								}
-							
-						}
-					
-				}
 				
-				System.out.println(formula);
 				
-				if(sentencia){
-					
-									
-					
-					
-					
-											 ScriptEngineManager script = new ScriptEngineManager();
-											 ScriptEngine js = script.getEngineByName("JavaScript");
-											 try {
-												 
-												 resultado =js.eval("eval('"+formula+"')")
-												 System.out.println(resultado);
-												 
-												 
-											 
-											 } catch (ScriptException e) {
-												 // TODO Auto-generated catch block
-												 e.printStackTrace();
-											 }
-					
-					
-				}
-		
-		
-				indicadorInstance.resultadoIndicador=resultado
-		
+		}
 		
 				if (!indicadorInstance.save(flush: true)) {
 					render(view: "create", model: [indicadorInstance: indicadorInstance])
