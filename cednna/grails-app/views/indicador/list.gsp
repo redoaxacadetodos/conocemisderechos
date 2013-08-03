@@ -15,7 +15,7 @@
 		<a href="#list-indicador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
 		<ul class="uk-subnav uk-subnav-pill">
-		<li class="uk-active"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+		<li class="uk-active"><g:link class="list" action="list">Listado</g:link></li>
 		<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 		</ul>
 		
@@ -44,7 +44,7 @@
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<img border='0'  src='/ACE/img/view.png'  style='cursor:pointer;'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
+		return "<img border='0'  src='"+CONTEXT_ROOT+"/img/view.png'  style='cursor:pointer;'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
 		}
 
 

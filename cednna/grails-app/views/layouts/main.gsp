@@ -23,8 +23,10 @@
  				
  						<g:javascript src="jquery-ui-1.8.20.custom.min.js" />
  						<g:javascript src="jquery.dataTables.js" />
-				
 		
+			
+			
+			
 				<g:javascript src="Utilerias.js" />	
 
 		

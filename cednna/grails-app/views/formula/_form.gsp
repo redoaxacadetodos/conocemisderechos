@@ -30,7 +30,34 @@
 <g:hiddenField name="numVariables" value="${formulaInstance?.numVariables}"/>
 <g:hiddenField name="variables" value="${formulaInstance?.variables}"   />
 
+
 <br>
+<br>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+
+    <h3 id="myModalLabel">Crea tu variable </h3>
+  </div>
+  <div class="modal-body">
+    
+		    <div class="fieldcontain ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
+			<label for="descripcion">
+				<g:message code="formula.descripcion.label" default="Nombre variable" />
+			
+			</label>
+			<g:textField name="variableTxt" />
+			</div>
+	
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+    <input type="button" class="btn btn-primary" id="btnGuardar" value="Guardar variable"/>
+  </div>
+</div>
+<br>
+
+
+
 
 <div class="contenido">
     <div class="calculator">
@@ -70,27 +97,7 @@
   
  
 <!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Crea tu variable </h3>
-  </div>
-  <div class="modal-body">
-    
-		    <div class="fieldcontain ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
-			<label for="descripcion">
-				<g:message code="formula.descripcion.label" default="Nombre variable" />
-			
-			</label>
-			<g:textField name="variableTxt" />
-			</div>
-	
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-    <input type="button" class="btn btn-primary" id="btnGuardar" value="Guardar variable"/>
-  </div>
-</div>
+
 
 <script type="text/javascript">
 $(function(){
@@ -98,14 +105,14 @@ $(function(){
 	
 	$(document).ready(function() {
 		$(".screen").html($(".outcome").val() );
-
+		$('#myModal').hide();
 		
 
 						
 	});
 	$('#btnVariable').click(function (e) {
 
-		$('#myModal').modal('show');
+		$('#myModal').show();
 		$('#variableTxt').val("");
 	});
 
@@ -113,7 +120,7 @@ $(function(){
 
 	$('#btnGuardar').click(function (e) {
 	
-			$('#myModal').modal('hide');
+			$('#myModal').hide();
 
 			 $(".screen").append($('#variableTxt').val());
 	

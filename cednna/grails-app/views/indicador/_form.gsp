@@ -137,58 +137,11 @@
 
 <br>
 <br>
-<h3>Ubicacion de datos para indicador</h3>
 
 
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
-	<label class="uk-form-label"for="estado">
-		<g:message code="indicador.estado.label" default="Estado" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="estado" name="estado.id" from="${mx.gob.redoaxaca.cednna.domino.Estado.list()}" optionKey="id" required="" optionValue="descripcion" value="${indicadorInstance?.estado?.id}" class="many-to-one"/>
-</div>
-
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
-	<label class="uk-form-label"for="region">
-		<g:message code="indicador.region.label" default="Region" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.region?.id}" class="many-to-one"/>
-</div>
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
-	<label class="uk-form-label"for="municipio">
-		<g:message code="indicador.municipio.label" default="Municipio" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.municipio?.id}" class="many-to-one"/>
-</div>
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label class="uk-form-label"for="localidad">
-		<g:message code="indicador.localidad.label" default="Localidad" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.localidad?.id}" class="many-to-one"/>
-</div>
-
-
-<br>
-<br>
 
 <h3>Datos par el calculo del indicador</h3>
 
-
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'resultadoIndicador', 'error')} required">
-	<label class="uk-form-label"for="resultadoIndicador">
-		<g:message code="indicador.resultadoIndicador.label" default="Resultado Indicador" />
-		<span class="required-indicator">*</span>
-	</label>
-
-</div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'formula', 'error')} required">
 	<label class="uk-form-label"for="formula">

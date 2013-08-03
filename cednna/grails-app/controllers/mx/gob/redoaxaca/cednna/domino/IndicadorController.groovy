@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import com.redoaxaca.java.Resultado
 import grails.converters.JSON
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -29,32 +30,32 @@ class IndicadorController {
 	
 	def dataTablesListadoIndicadores = {
 		
-	def query="  from idn_indicador	 i "
+	def query="  from idn_indicador	 as i "
 		
 		
 		
 		render dataTablesService.datosParaTablaQuery(query,params,
 	    [
-		'i.idn_id',
-		'i.idn_nombre',
-		'i.idn_objetivo',
-		'i.idn_nombre_responsable',
-		'i.idn_medios_verificacion',
+		'i.idn_id as id',
+		'i.idn_nombre as  nombre',
+		'i.idn_objetivo  as objetivo',
+		'i.idn_nombre_responsable as nomr',
+		'i.idn_medios_verificacion as meca',
 		],  
 		[
-		'i.idn_id',
-		'i.idn_nombre',
-		'i.idn_objetivo',
-		'i.idn_nombre_responsable',
-		'i.idn_medios_Verificacion',
+		'i.idn_id ',
+		'i.idn_nombre ',
+		'i.idn_objetivo ',
+		'i.idn_nombre_responsable ',
+		'i.idn_medios_verificacion ',
 		],
 	
 		[
-		'i.idn_id',
-		'i.idn_nombre',
-		'i.idn_objetivo',
-		'i.idn_nombre_responsable',
-		'i.idn_medios_Verificacion',
+		'id',
+		'nombre',
+		'objetivo',
+		'nomr',
+		'meca',
 		],1,"text") as JSON
 }
 
@@ -73,18 +74,103 @@ class IndicadorController {
 	def visor(){
 		
 		
-		def indicador = Indicador.get(params.id);
+		def indicadorInstance = Indicador.get(params.id);
 		
 		
+	
+		def formula =  indicadorInstance?.formula?.sentencia
+		def sentencia= indicadorInstance?.formula?.variables
+		def variables= sentencia.split("\\|")
+		def List resultados= new ArrayList<Resultado>() 
+		for(anio in 2005..2020){
 		
-		[indicadorInstance:indicador]
+			boolean  b = true
+			for(v in variables){
+			
+				
+				for(vari in indicadorInstance.variables){
+				
+						if(v==vari.clave){
+							
+									
+									def bandera= true
+									def origenDatos = Variable.findByLocalidadAndEstadoAndMunicipioAndRegionAndAnio(vari.localidad,vari.estado,vari.municipio,vari.region,anio)
+									
+									if(origenDatos){
+									
+											for(cat in  vari.categorias){
+											
+												if(!encuentraVariablesAndCategoria(origenDatos,cat))
+													bandera=false
+											}
+											
+											
+											if(bandera){
+													System.out.println("numero "+origenDatos.poblacionTotal);
+													switch (vari.poblacion.clave) {
+													case "T":
+																formula=formula.replaceAll(String.valueOf(v), String.valueOf(origenDatos.poblacionTotal))
+														break;
+													case "H":
+																formula=formula.replaceAll(String.valueOf(v),String.valueOf(origenDatos.hombres))
+													break;
+													case "M":
+																formula=formula.replaceAll(String.valueOf(v),String.valueOf(origenDatos.mujeres))
+													break;
+													}
+											}else{
+												b=false
+											}
+									}			
+									else{
+										b=false
+									}
+									
+												
+						}
 		
-		
+				}
+	
+			
+			}
+			
+			if(b){
+				System.out.println(formula);
+				def resultado = new Resultado()
+				ScriptEngineManager script = new ScriptEngineManager();
+				ScriptEngine js = script.getEngineByName("JavaScript");
+				try {
+					
+					resultado.indicador =js.eval("eval('"+formula+"')")
+					System.out.println(resultado.indicador);
+					resultado.anio=anio
+					resultados.add(resultado)
+					
+				} catch (ScriptException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
+		[indicadorInstance:indicadorInstance,resultados:resultados]
 	}
 	
 	
+	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
 	
-	
+		def ban = false
+		System.out.println(" id variable  " +v.id);
+		for(c in v.categorias){
+			
+			System.out.println("categoria de la variable : "+ c.descripcion+"  categoria p : "+cat.descripcion);
+			if(c.id==cat.id)
+				ban=true
+		}
+
+	return ban;
+	}
 	
     def save() {
         def indicadorInstance = new Indicador(params)
@@ -97,18 +183,39 @@ class IndicadorController {
 		
 		for(v in variables){
 
-				def variable=params.id
+				def numCategorias= params.getAt("numCategorias_"+v)
+				
+				def localidad=null
+				def municipio=null
+				def region=null
+				def estado=null
+				
+				if(params.getAt("localidad_"+v)!="null")
+					localidad=  Localidad.get(params.getAt("localidad_"+v).toInteger())
 				
 				
-				def localidad=  Localidad.get(params.getAt("localidad_"+variable))
-				def municipio=  Municipio.get(params.getAt("municipio_"+variable))
-				def region =    Region.get(params.getAt("region_"+variable))
-				def estado =    Estado.get(params.getAt("estado_"+variable))
-				def poblacion = Poblacion.get(params.getAt("poblacion_"+variable))
+				if(params.getAt("municipio_"+v)!="null")
+					municipio=  Municipio.get(params.getAt("municipio_"+v).toInteger())
 			
+				
+				
+				if(params.getAt("region_"+v)!="null")
+					region =    Region.get(params.getAt("region_"+v).toInteger())
+				
+				
+				
+				if(params.getAt("estado_"+v)!="null")
+					estado =    Estado.get(params.getAt("estado_"+v).toInteger())
+				
+				
+				
+				
+				
+				def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
 			
 				def dVariable = new  DVariable()
-				dVariable.descripcion=params.getAt("descripcion_"+variable)
+				dVariable.clave=v
+				dVariable.descripcion=params.getAt("descripcion_"+v)
 				dVariable.localidad=localidad
 				dVariable.municipio=municipio
 				dVariable.region=region
@@ -116,7 +223,17 @@ class IndicadorController {
 				dVariable.poblacion=poblacion
 				
 				
+				for(i in 1 .. numCategorias){
+					
+					
+				     	def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
+						if(categoria)
+						{
+							dVariable.addToCategorias(categoria)
+						}
+				}
 				
+				indicadorInstance.addToVariables(dVariable)
 				
 		}
 		
@@ -185,6 +302,16 @@ class IndicadorController {
 
 	
 	
+	
+	def categorias(){
+		
+		def var =params.var
+		def con= params.con
+		
+		[var:var,con:con]
+	}
+	
+	
 	def buscadorVariable(){
 		
 		
@@ -214,16 +341,13 @@ class IndicadorController {
 		
 		def localidad=  Localidad.get(params.getAt("localidad_"+variable))
 		def municipio=  Municipio.get(params.getAt("municipio_"+variable))		
-			def region =    Region.get(params.getAt("region_"+variable)) 
+		def region =    Region.get(params.getAt("region_"+variable)) 
 		def estado =    Estado.get(params.getAt("estado_"+variable)) 
 		def rInicial =  params.getAt("edadDe_"+variable)
 		def rFinal =    params.getAt("edadHasta_"+variable)
 		def poblacion = params.getAt("poblacion_"+variable)
 
-		def anio= params.anio
-		
-		System.out.println(anio);
-		
+	
 		
 		//def rango = RangoEdad.findAllByMinimoBetweenAndMaximo(rInicial,rFinal);
 		

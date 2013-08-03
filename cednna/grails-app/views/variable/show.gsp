@@ -50,11 +50,28 @@
 				</li>
 				</g:if>
 			
+			<g:if test="${variableInstance?.region}">
+				<li class="fieldcontain">
+					<span id="region-label" class="property-label"><g:message code="variable.region.label" default="Region" /></span>
+					
+						<span class="property-value" aria-labelledby="region-label"><g:link controller="region" action="show" id="${variableInstance?.region?.id}">${variableInstance?.region?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
 				<g:if test="${variableInstance?.municipio}">
 				<li class="fieldcontain">
 					<span id="municipio-label" class="property-label"><g:message code="variable.municipio.label" default="Municipio" /></span>
 					
 						<span class="property-value" aria-labelledby="municipio-label"><g:link controller="municipio" action="show" id="${variableInstance?.municipio?.id}">${variableInstance?.municipio?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+				
+					<g:if test="${variableInstance?.localidad}">
+				<li class="fieldcontain">
+					<span id="localidad-label" class="property-label"><g:message code="variable.localidad.label" default="Localidad" /></span>
+					
+						<span class="property-value" aria-labelledby="localidad-label"><g:link controller="localidad" action="show" id="${variableInstance?.localidad?.id}">${variableInstance?.localidad?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -86,41 +103,19 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${variableInstance?.region}">
-				<li class="fieldcontain">
-					<span id="region-label" class="property-label"><g:message code="variable.region.label" default="Region" /></span>
-					
-						<span class="property-value" aria-labelledby="region-label"><g:link controller="region" action="show" id="${variableInstance?.region?.id}">${variableInstance?.region?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
+				
 			
 				<g:if test="${variableInstance?.anio}">
 				<li class="fieldcontain">
 					<span id="anio-label" class="property-label"><g:message code="variable.anio.label" default="Anio" /></span>
 					
-						<span class="property-value" aria-labelledby="anio-label"><g:fieldValue bean="${variableInstance}" field="anio"/></span>
+						<span class="property-value" aria-labelledby="anio-label">${variableInstance.anio}</span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${variableInstance?.rango}">
-				<li class="fieldcontain">
-					<span id="rango-label" class="property-label"><g:message code="variable.rango.label" default="Rango" /></span>
-					
-						<span class="property-value" aria-labelledby="rango-label"><g:link controller="rangoEdad" action="show" id="${variableInstance?.rango?.id}">${variableInstance?.rango?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
+				
 			
-				<g:if test="${variableInstance?.localidad}">
-				<li class="fieldcontain">
-					<span id="localidad-label" class="property-label"><g:message code="variable.localidad.label" default="Localidad" /></span>
-					
-						<span class="property-value" aria-labelledby="localidad-label"><g:link controller="localidad" action="show" id="${variableInstance?.localidad?.id}">${variableInstance?.localidad?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
 			
 			</ol>
 			<g:form>

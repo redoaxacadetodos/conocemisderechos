@@ -22,10 +22,10 @@ class Indicador {
 	Date		    fechaActualizacion
 	
 	
-	Region         region
-	Localidad      localidad
-	Estado         estado
-	Municipio      municipio
+//	Region         region
+//	Localidad      localidad
+//	Estado         estado
+//	Municipio      municipio
 	
 
 	
@@ -52,11 +52,11 @@ class Indicador {
 				frecuencia(blank:false, nullable:false)
 				formula(blank:false, nullable:false)
 				
-				region(blank:false, nullable:false) 
-			    localidad(blank:false, nullable:false) 
-				
-				estado(blank:false, nullable:false) 
-				municipio(blank:false, nullable:false) 
+//				region(blank:false, nullable:false) 
+//			    localidad(blank:false, nullable:false) 
+//				
+//				estado(blank:false, nullable:false) 
+//				municipio(blank:false, nullable:false) 
     }
 
   static mapping = {
@@ -68,13 +68,12 @@ class Indicador {
 	fecha(column:'idn_fecha')
     fechaActualizacion(column:'idn_fecha_actualizacion')
 	dependencia(column:'idn_cdp_id')
-	estado(column:'idn_estado')
+
 
 	frecuencia(column:'idn_frecuencia')
-	localidad(column:'idn_localidad')
-	municipio(column:'idn_municipio')
+
 	formula(column:'idn_ctf_id')
-	region(column:'idn_region')
+	
 	sentido(column:'idn_sentido')
 	nombre(column:'idn_nombre')
 	objetivo(column:'idn_objetivo')

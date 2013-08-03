@@ -5,6 +5,7 @@ class DVariable {
 	
 
 	String     descripcion
+	String     clave
 	Estado     estado
 	Municipio  municipio
 	Region     region
@@ -17,6 +18,7 @@ class DVariable {
 	static belongsTo = [indicador:Indicador]
 	
     static constraints = {
+		clave(blank:true, nullable:true)
 		estado(blank:true, nullable:true)
 		municipio(blank:true, nullable:true)
 		localidad(blank:true, nullable:true)
@@ -33,7 +35,7 @@ class DVariable {
 		localidad(column: 'cdv_loc_id')
 		poblacion(column: 'cdv_pob_id')
 		indicador(column:'cdv_ind_id')
-
+		clave(column:'cdv_clave_id')
 		estado(column: 'cdv_ent_id')
 	//	categorias (column: 'cdc_cdv_id', joinTable: 'cat_dvariable_categoria')
 
