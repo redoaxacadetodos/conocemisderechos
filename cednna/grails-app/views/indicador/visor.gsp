@@ -52,7 +52,7 @@
 		<h3><g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" /></h3>
 		
 	
-	<div>${indicadorInstance?.fechaActualizacion}</div>
+	<div>${indicadorInstance?.fechaActualizacion?.format('dd-MM-yyyy')}</div>
 </div>
  <br> 
 
@@ -84,7 +84,7 @@
   <tr><th>Año </th><th>Resultado</th></tr>
 	 <g:each in="${resultados}" var="resul">
 	  <tr>
-		  <td>${resul.anio}</td><td>${resul.indicador}</td>
+		  <td>${resul.anio}</td><td>${String.format(new Locale('es','MX'),'%1$,.2f',resul.indicador)}</td>
 	  </tr>
 	</g:each>
   </tbody>

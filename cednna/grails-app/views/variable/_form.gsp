@@ -89,7 +89,7 @@
 		<g:message code="variable.municipio.label" default="Tipo" />
 		
 	</label>
-	<g:select id="tipo" name="tipo.id" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="tipo" name="tipo.id" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"   optionValue="descripcion"  class="many-to-one" noSelection="['null': '']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'localidad', 'error')} required">

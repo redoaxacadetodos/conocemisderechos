@@ -364,6 +364,47 @@ class IndicadorController {
 	}
 	
 	
+	
+	
+	
+	def subirArchivo(){
+		
+		
+	
+			try{
+			def path = grailsApplication.config.mx.indesti.ace.valores.directoriouploads
+			def fBase = request.getFile('fileBase')
+			if(!fBase.empty) {
+				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
+			}
+	
+			File archivo_ = new File(path + fBase.originalFilename.toString())
+			def archivo = new LeeArchivo(archivo_);
+			
+				
+				}catch (Exception e) {
+					println(e.getMessage())
+					e.printStackTrace()
+					renglonesMalos.add(row);
+					
+					contadorMalos++
+				}
+				
+		
+			
+			
+			[aerolinea : aerolinaInstance, total : renglones.size(), buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,claveSHA:nomImage,mensaje:mensaje]
+			
+	
+			
+		}
+	Á
+	
+	
+	
+	
+	
+	
     def delete(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {
