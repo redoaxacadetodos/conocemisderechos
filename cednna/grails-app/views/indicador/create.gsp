@@ -8,15 +8,15 @@
 	</head>
 	<body>
 		<a href="#create-indicador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-
-		<ul class="uk-subnav uk-subnav-pill">
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
 
 		
 				<li><g:link class="list" action="list">Listado</g:link></li>
 				<li class="uk-active"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 
 		</ul>
-
+</nav>
 
 		<div id="create-indicador" class="content scaffold-create" role="main">
 			<h1 class="uk-article-title">Crea un nuevo indicador</h1>

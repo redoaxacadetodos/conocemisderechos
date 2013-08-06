@@ -249,54 +249,16 @@ th {
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #eaeaea));
 	    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', EndColorStr = '#eaeaea');
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eaeaea')";
-	color: #666666;
+	color: #4b3510;
 	font-weight: bold;
 	line-height: 1.7em;
 	padding: 0.2em 0.6em;
 }
 
-thead th {
-	white-space: nowrap;
-}
 
-th a {
-	display: block;
-	text-decoration: none;
-}
 
-th a:link, th a:visited {
-	color: #666666;
-}
 
-th a:hover, th a:focus {
-	color: #333333;
-}
 
-th.sortable a {
-	background-position: right;
-	background-repeat: no-repeat;
-	padding-right: 1.1em;
-}
-
-th.asc a {
-	background-image: url(../images/skin/sorted_asc.gif);
-}
-
-th.desc a {
-	background-image: url(../images/skin/sorted_desc.gif);
-}
-
-.odd {
-	background: #f7f7f7;
-}
-
-.even {
-	background: #ffffff;
-}
-
-th:hover, tr:hover {
-	background: #E1F2B6;
-}
 
 /* PAGINATION */
 
