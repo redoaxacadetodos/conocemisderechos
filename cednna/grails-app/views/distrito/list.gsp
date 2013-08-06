@@ -46,7 +46,7 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
+			<div class="pagination dataTables_paginate">
 				<g:paginate total="${distritoInstanceTotal}" />
 			</div>
 		</div>

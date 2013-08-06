@@ -58,7 +58,9 @@ html { overflow-y: scroll; }
  * Middle
  */
 
-.tm-middle { background: #fff; }
+.tm-middle { background: #fff; margin-bottom: 60px;}
+
+
 
 /* All except phones */
 @media (min-width: 768px) {

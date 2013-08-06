@@ -2,8 +2,8 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: formulaInstance, field: 'nombre', 'error')} required">
-	<label for="nombre">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'nombre', 'error')} required">
+	<label class="uk-form-label" for="nombre">
 		<g:message code="formula.nombre.label" default="Nombre" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -11,17 +11,17 @@
 	
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
-	<label for="descripcion">
-		<g:message code="formula.descripcion.label" default="Descripcion" />
+<div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
+	<label class="uk-form-label" for="descripcion">
+		<g:message code="formula.descripcion.label" default="Descripción" />
 		<span class="required-indicator">*</span>
 	</label>
 
 	<g:textArea name="descripcion"  required="">${formulaInstance?.descripcion}</g:textArea>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: formulaInstance, field: 'sentencia', 'error')} required">
-	<label for="sentencia">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'sentencia', 'error')} required">
+	<label class="uk-form-label" for="sentencia">
 		<g:message code="formula.sentencia.label" default="Sentencia" />
 	
 	</label>
@@ -36,12 +36,12 @@
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
 
-    <h3 id="myModalLabel">Crea tu variable </h3>
+    <h4 id="myModalLabel">Crea tu variable </h4>
   </div>
   <div class="modal-body">
     
-		    <div class="fieldcontain ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
-			<label for="descripcion">
+		    <div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
+			<label class="uk-form-label" for="descripcion">
 				<g:message code="formula.descripcion.label" default="Nombre variable" />
 			
 			</label>
@@ -50,8 +50,8 @@
 	
   </div>
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-    <input type="button" class="btn btn-primary" id="btnGuardar" value="Guardar variable"/>
+    <button class="btn uk-button" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+    <input type="button" class="btn btn-primary uk-button" id="btnGuardar" value="Guardar variable" />
   </div>
 </div>
 <br>
