@@ -40,15 +40,7 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${variableInstance?.estado}">
-				<li class="fieldcontain">
-					<span id="estado-label" class="property-label"><g:message code="variable.estado.label" default="Estado" /></span>
-					
-						<span class="property-value" aria-labelledby="estado-label"><g:link controller="estado" action="show" id="${variableInstance?.estado?.id}">${variableInstance?.estado?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
+	
 			
 			<g:if test="${variableInstance?.region}">
 				<li class="fieldcontain">

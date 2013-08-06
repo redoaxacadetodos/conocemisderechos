@@ -21,13 +21,15 @@
 
 <g:hiddenField name="numCategorias_${var}" value="1"/>
 
-<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
-	<label for="estado">
-		<g:message code="indicador.estado.label" default="Estado" />
+<g:hiddenField name="estado_${var}" />
 
-	</label>
-	<g:select id="estado" name="estado_${var}" from="${mx.gob.redoaxaca.cednna.domino.Estado.list()}" optionKey="id" required="" optionValue="descripcion" value="${indicadorInstance?.estado?.id}" class="many-to-one" noSelection="['null':'-Seleccione un estado-']"/>
-</div>
+<%--<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">--%>
+<%--	<label for="estado">--%>
+<%--		<g:message code="indicador.estado.label" default="Estado" />--%>
+<%----%>
+<%--	</label>--%>
+<%--	<g:select id="estado" name="estado_${var}" from="${mx.gob.redoaxaca.cednna.domino.Estado.list()}" optionKey="id" required="" optionValue="descripcion" value="${indicadorInstance?.estado?.id}" class="many-to-one" noSelection="['null':'-Seleccione un estado-']"/>--%>
+<%--</div>--%>
 
 
 <div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
@@ -81,7 +83,7 @@
 	</div>
 	
 	
-<%--	<input id="addCat_${var}" name="addCat_${var}"  value="Agregar Categoria" type="button" />--%>
+	<input id="addCat_${var}" name="addCat_${var}"  value="Agregar Categoria" type="button" />
 	
 </div>
 

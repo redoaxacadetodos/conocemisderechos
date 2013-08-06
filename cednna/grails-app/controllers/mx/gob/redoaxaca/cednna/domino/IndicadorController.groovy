@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Resultado
 import grails.converters.JSON
 import javax.script.ScriptEngine;
@@ -366,39 +367,6 @@ class IndicadorController {
 	
 	
 	
-	
-	def subirArchivo(){
-		
-		
-	
-			try{
-			def path = grailsApplication.config.mx.indesti.ace.valores.directoriouploads
-			def fBase = request.getFile('fileBase')
-			if(!fBase.empty) {
-				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
-			}
-	
-			File archivo_ = new File(path + fBase.originalFilename.toString())
-			def archivo = new LeeArchivo(archivo_);
-			
-				
-				}catch (Exception e) {
-					println(e.getMessage())
-					e.printStackTrace()
-					renglonesMalos.add(row);
-					
-					contadorMalos++
-				}
-				
-		
-			
-			
-			[aerolinea : aerolinaInstance, total : renglones.size(), buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,claveSHA:nomImage,mensaje:mensaje]
-			
-	
-			
-		}
-	Á
 	
 	
 	

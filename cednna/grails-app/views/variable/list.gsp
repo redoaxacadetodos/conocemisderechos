@@ -18,6 +18,7 @@
 
 			
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="archivo">Subir desde archivo</g:link></li>
 
 </nav>
 

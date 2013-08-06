@@ -18,13 +18,6 @@
 	<g:textArea name="descripcion" cols="40" rows="5" maxlength="500" required="" value="${variableInstance?.descripcion}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'estado', 'error')} ">
-	<label for="estado">
-		<g:message code="variable.estado.label" default="Estado" />
-		
-	</label>
-	<g:select id="estado" name="estado.id" from="${mx.gob.redoaxaca.cednna.domino.Estado.list()}" optionKey="id" value="${variableInstance?.estado?.id}" class="many-to-one" noSelection="['null': '']"/>
-</div>
 
 <div class="fieldcontain ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 	<label for="region">
