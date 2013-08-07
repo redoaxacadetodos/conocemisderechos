@@ -79,8 +79,7 @@ class VariableController {
 		
 			
 	
-		
-				try{
+//				try{
 //					for(Row row : renglones){
 //					
 //						println("Van: " + (++contador) + " renglones")
@@ -104,18 +103,18 @@ class VariableController {
 //			
 //			
 //					}
-				
-				}catch (Exception e) {
-					println(e.getMessage())
-					e.printStackTrace()
-					renglonesMalos.add(row);
-					
-					contadorMalos++
-				}
+//				
+//				}catch (Exception e) {
+//					println(e.getMessage())
+//					e.printStackTrace()
+//					renglonesMalos.add(row);
+//					
+//					contadorMalos++
+//				}
 				
 			}catch (Exception e) {
-			println(e.getMessage())
-			e.printStackTrace()
+		//	println(e.getMessage())
+			//e.printStackTrace()
 		
 		}
 			

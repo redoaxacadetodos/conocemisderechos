@@ -37,30 +37,30 @@ public class LeeArchivo {
 						if(hssfCell.getRowIndex() == 3 && hssfCell.getColumnIndex() == 2){
 						 }else if(hssfCell.getRowIndex() == 0 && hssfCell.getColumnIndex() == 3){ 
 							 claveDependencia =  hssfCell.getStringCellValue();
-						
+						//System.out.println("ESTA ES LA CLAVE DE LA DEPENDENCIA "+claveDependencia );
 						 }else if(hssfCell.getRowIndex() >= 6 && hssfCell.getColumnIndex() >= 0 && hssfCell.getColumnIndex() <= 13){ 
-								System.out.println(new Double(hssfCell.getNumericCellValue()).intValue());
+							//	System.out.println(new Double(hssfCell.getNumericCellValue()).intValue());
 							 //Obtener los datos de la tabla
 							switch (hssfCell.getCellType()) {
 								case HSSFCell.CELL_TYPE_NUMERIC:
 									switch (hssfCell.getColumnIndex()) {
 										case 1:
-											tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
+											//tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
 										
 											break;
 										case 3:
-											tempRow.setIdMunicipio(new Double(hssfCell.getNumericCellValue()).intValue());
+											//tempRow.setIdMunicipio(new Double(hssfCell.getNumericCellValue()).intValue());
 											
 											break;
 										case 5:
-											tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
+											//tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
 											break;
 										case 7:
-											tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
+											//tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
 										
 											break;
 										case 8:
-											tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
+											//tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
 											break;
 									}
 									break;

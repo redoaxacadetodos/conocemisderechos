@@ -6,7 +6,7 @@
 
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
-	<label class="uk-form-label"for="nombre">
+	<label class="uk-form-label" for="nombre">
 		<g:message code="indicador.nombre.label" default="Nombre del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
@@ -140,16 +140,16 @@
 
 
 
-<h3>Datos par el calculo del indicador</h3>
+<h3>Datos para el cálculo del indicador</h3>
 
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'formula', 'error')} required">
 	<label class="uk-form-label"for="formula">
-		<g:message code="indicador.formula.label" default="Formula de calculo" />
+		<g:message code="indicador.formula.label" default="Formula de cálculo" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="formula" name="formula.id" from="${mx.gob.redoaxaca.cednna.domino.Formula.list()}" optionKey="id" required="" optionValue="nombre" value="${indicadorInstance?.formula?.id}" class="many-to-one"/>
-	<h3>${indicadorInstance?.formula?.sentencia}</h3>
+	<br />${indicadorInstance?.formula?.sentencia}
 </div>
 
 <br>
