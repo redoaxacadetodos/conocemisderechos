@@ -13,10 +13,14 @@ public class Row {
 	int		hombres;
 	int		mujeres;
 	int     total;
+	String  descripcion;
+	
 	
 	List<Integer> categorias;
 	
 	
+
+
 
 	@Override
 	public String toString() {
@@ -24,7 +28,8 @@ public class Row {
 				+ ", idMunicipio=" + idMunicipio + ", municipio=" + municipio
 				+ ", idLocalidad=" + idLocalidad + ", localidad=" + localidad
 				+ ", hombres=" + hombres + ", mujeres=" + mujeres + ", total="
-				+ total + ", categorias=" + categorias + "]";
+				+ total + ", descripcion=" + descripcion + ", categorias="
+				+ categorias + "]";
 	}
 
 	public int getIdRegion() {
@@ -102,11 +107,23 @@ public class Row {
 	public List<Integer> getCategorias() {
 		return categorias;
 	}
+	
+	
+	
 
 	public void setCategorias(List<Integer> categorias) {
 		this.categorias = categorias;
 	}
 	
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 	
 
 }

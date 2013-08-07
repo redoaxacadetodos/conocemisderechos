@@ -20,7 +20,7 @@ class Variable {
     static constraints = {
 		
 		
-		        clave(blank:false, nullable:false)
+		        clave(blank:true, nullable:true)
 		        descripcion(blank:false, nullable:false, size:1..500)
 		        estado(blank:true, nullable:true)
 				localidad(blank:true, nullable:true)

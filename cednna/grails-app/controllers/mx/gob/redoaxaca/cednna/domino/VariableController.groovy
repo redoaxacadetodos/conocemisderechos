@@ -61,6 +61,7 @@ class VariableController {
 		
 		try{
 			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads
+			System.out.println("Ruta del excell"+path);
 			def fBase = request.getFile('fileBase')
 			if(!fBase.empty) {
 				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
@@ -72,45 +73,64 @@ class VariableController {
 		     renglonesMalos = new ArrayList<Row>();
 
 
-			 dependencia = archivo.getClaveDependencia()
+			 dependencia = Dependencia.get(archivo.getClaveDependencia())
 		
 		
 			
 		
 			
 	
-//				try{
-//					for(Row row : renglones){
-//					
-//						println("Van: " + (++contador) + " renglones")
-//						
-//						def variableInstance= new Variable();
-//						
-//						variableInstance.region=row.getIdRegion();
-//						variableInstance.region=row.getIdMunicipio();
-//						variableInstance.region=row.getIdLocalidad();
-//						variableInstance.region=row.getHombres();
-//						variableInstance.region=row.getMujeres();
-//						variableInstance.region=archivo.getClaveDependencia()
-//						
-//						
-//						System.out.println(row);
-//						
-//						
-//						if(variableInstance.save(flush : true, failOnError : true)){
-//							contadorBuenos++
-//						}
-//			
-//			
-//					}
-//				
-//				}catch (Exception e) {
-//					println(e.getMessage())
-//					e.printStackTrace()
-//					renglonesMalos.add(row);
-//					
-//					contadorMalos++
-//				}
+				try{
+					for(Row row : renglones){
+					
+						println("Van: " + (++contador) + " renglones")
+						
+						def variableInstance= new Variable();
+						def temRegion
+						def temLocalidad
+						def temMunicipio
+						
+						if(row.getIdRegion()){
+							temRegion=Region.get(row.getIdRegion())
+							
+						}
+						if(row.getIdRegion()){
+							temLocalidad=Localidad.get(row.getIdLocalidad())
+							
+						}
+						if(row.getIdRegion()){
+							temMunicipio=Municipio.get(row.getIdMunicipio())
+							
+						}
+						
+						variableInstance.region=temRegion
+						variableInstance.municipio=temMunicipio
+						variableInstance.localidad=temLocalidad
+						
+						variableInstance.hombres=row.getHombres();
+						variableInstance.mujeres=row.getMujeres();
+						
+						variableInstance.descripcion=row.getDescripcion();
+						//variableInstance.depe= dependencia
+						
+						variableInstance.anio=2012
+						System.out.println(row);
+						
+						
+						if(variableInstance.save(flush : true, failOnError : true)){
+							contadorBuenos++
+						}
+			
+			
+					}
+				
+				}catch (Exception e) {
+					println(e.getMessage())
+					e.printStackTrace()
+					renglonesMalos.add(row);
+					
+					contadorMalos++
+				}
 				
 			}catch (Exception e) {
 		//	println(e.getMessage())
