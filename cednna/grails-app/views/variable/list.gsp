@@ -11,18 +11,20 @@
 		<a href="#list-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
 
-		<ul class="uk-subnav uk-subnav-pill">
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
 
 			<li class="uk-active"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 
 			
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="archivo">Subir desde archivo</g:link></li>
 
-		</ul>
+</nav>
 
 
 		<div id="list-variable" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1 class="uk-article-title"><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

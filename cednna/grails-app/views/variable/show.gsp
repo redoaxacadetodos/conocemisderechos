@@ -9,15 +9,15 @@
 	</head>
 	<body>
 		<a href="#show-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
-		</div>
+</nav>
 		<div id="show-variable" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1 class="uk-article-title"><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -40,15 +40,7 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${variableInstance?.estado}">
-				<li class="fieldcontain">
-					<span id="estado-label" class="property-label"><g:message code="variable.estado.label" default="Estado" /></span>
-					
-						<span class="property-value" aria-labelledby="estado-label"><g:link controller="estado" action="show" id="${variableInstance?.estado?.id}">${variableInstance?.estado?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
+	
 			
 			<g:if test="${variableInstance?.region}">
 				<li class="fieldcontain">

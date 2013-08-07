@@ -1,6 +1,13 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import com.redoaxaca.java.LeeArchivo
+import com.redoaxaca.java.Row
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.dao.DataIntegrityViolationException
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+
 
 class VariableController {
 
@@ -30,6 +37,100 @@ class VariableController {
         redirect(action: "show", id: variableInstance.id)
     }
 
+	def archivo(){
+		
+		
+	}
+	
+	
+	
+	
+	def subirArchivo(){
+		
+		def dependencia
+		def archivo
+
+		File archivo_
+		def contadorBuenos = 0
+		def contadorMalos = 0
+		def contador = 0
+		def mensaje=""
+	
+		def  ArrayList<Row>	renglones
+		ArrayList<Row> renglonesMalos
+		
+		try{
+			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads
+			def fBase = request.getFile('fileBase')
+			if(!fBase.empty) {
+				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
+			}
+	
+			 archivo_ = new File(path + fBase.originalFilename.toString())
+			 archivo = new LeeArchivo(archivo_);
+			 renglones = archivo.getDatos();
+		     renglonesMalos = new ArrayList<Row>();
+
+
+			 dependencia = archivo.getClaveDependencia()
+		
+		
+			
+		
+			
+	
+//				try{
+//					for(Row row : renglones){
+//					
+//						println("Van: " + (++contador) + " renglones")
+//						
+//						def variableInstance= new Variable();
+//						
+//						variableInstance.region=row.getIdRegion();
+//						variableInstance.region=row.getIdMunicipio();
+//						variableInstance.region=row.getIdLocalidad();
+//						variableInstance.region=row.getHombres();
+//						variableInstance.region=row.getMujeres();
+//						variableInstance.region=archivo.getClaveDependencia()
+//						
+//						
+//						System.out.println(row);
+//						
+//						
+//						if(variableInstance.save(flush : true, failOnError : true)){
+//							contadorBuenos++
+//						}
+//			
+//			
+//					}
+//				
+//				}catch (Exception e) {
+//					println(e.getMessage())
+//					e.printStackTrace()
+//					renglonesMalos.add(row);
+//					
+//					contadorMalos++
+//				}
+				
+			}catch (Exception e) {
+		//	println(e.getMessage())
+			//e.printStackTrace()
+		
+		}
+			
+			
+			[dependencia : dependencia, total :0, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
+			
+	
+			
+		}
+	
+	
+	
+	
+	
+	
+	
     def show(Long id) {
         def variableInstance = Variable.get(id)
         if (!variableInstance) {

@@ -126,6 +126,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
 
 
 // Added by the Spring Security Core plugin:
+grailsApplication.config.mx.indesti.cednna.valores.directoriouploads="/var/lib/cednnafiles/"
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'mx.gob.redoaxaca.cednna.seguridad.Usuario'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'mx.gob.redoaxaca.cednna.seguridad.UsuarioRol'
 grails.plugins.springsecurity.authority.className = 'mx.gob.redoaxaca.cednna.seguridad.Rol'

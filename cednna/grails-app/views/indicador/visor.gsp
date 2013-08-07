@@ -7,9 +7,19 @@
 </head>
 <body>
   <div class="body">
-  <h1>Datalle del indicador </h1>
-  <br>
-  <br>
+<br />
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
+
+		
+				<li><g:link class="list" action="list">Listado</g:link></li>
+
+
+		</ul>
+</nav>
+
+  <h1 class="uk-article-title">Detalle del indicador</h1>
+
   <div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
 
 		<h3><g:message code="indicador.nombre.label" default="Nombre del indicador" /></h2>
@@ -52,7 +62,7 @@
 		<h3><g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" /></h3>
 		
 	
-	<div>${indicadorInstance?.fechaActualizacion}</div>
+	<div>${indicadorInstance?.fechaActualizacion?.format('dd-MM-yyyy')}</div>
 </div>
  <br> 
 
@@ -84,7 +94,7 @@
   <tr><th>Año </th><th>Resultado</th></tr>
 	 <g:each in="${resultados}" var="resul">
 	  <tr>
-		  <td>${resul.anio}</td><td>${resul.indicador}</td>
+		  <td>${resul.anio}</td><td>${String.format(new Locale('es','MX'),'%1$,.2f',resul.indicador)}</td>
 	  </tr>
 	</g:each>
   </tbody>
