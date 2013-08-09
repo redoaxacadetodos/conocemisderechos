@@ -39,7 +39,7 @@
 	<br>
 	<br>
 	</g:if>
-	<h4>Vuelos que no fueron cargados debido a un problema: </h4>
+	<h4>Variables que no fueron cargados debido a un problema: </h4>
 	
 	<table  cellspacing="3" cellpadding="6">  
 	<tbody>
