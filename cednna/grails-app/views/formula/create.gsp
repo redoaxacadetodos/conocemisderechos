@@ -87,7 +87,7 @@
 		<ul class="uk-navbar-nav">
 
 		
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Listado de formulas</g:link></li>
 				<li class="uk-active"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 
 		</ul>

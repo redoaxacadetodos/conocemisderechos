@@ -22,7 +22,7 @@ public class LeeArchivo {
 	public LeeArchivo(File fileName) throws ParseException {
 
 		try {
-			System.out.println("ENTRO A LEER EXCCEL" );
+			System.out.println("ENTRO A LEER EXCCEL");
 			
 			FileInputStream fileInputStream = new FileInputStream(fileName);
 			XSSFWorkbook workBook = new XSSFWorkbook(fileInputStream);
@@ -51,58 +51,63 @@ public class LeeArchivo {
 								System.out.println(claveDependencia);
 							}
 							
+							if(hssfCell.getRowIndex() >= 4 && hssfCell.getColumnIndex() >= 0){
 							
-							
-							switch (hssfCell.getCellType()) {
-							case HSSFCell.CELL_TYPE_NUMERIC:
-								switch (hssfCell.getColumnIndex()) {
-									case 0:
-										tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
-									
-										break;
-									case 2:
-										tempRow.setIdMunicipio(new Double(hssfCell.getNumericCellValue()).intValue());
-										
-										break;
-									case 4:
-										tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
-										break;
-									
-									case 8:
-										tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
-									case 7:
-										tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
-										break;
-								}
-								break;
-							case HSSFCell.CELL_TYPE_STRING:
-								switch (hssfCell.getColumnIndex()) {
-									case 1:
-									
-										tempRow.setRegion(hssfCell.getStringCellValue());
-										
-										break;
-									case 3:
-										tempRow.setMunicipio(hssfCell.getStringCellValue());
-									
-										break;
-									case 5:
-										tempRow.setLocalidad(hssfCell.getStringCellValue());
-										
-										break;
-									
-									case 6:
-										tempRow.setDescripcion(hssfCell.getStringCellValue());
-										renglones.add(tempRow);
-										break;
-								}
-								break;
-							default:
-								//System.out.println(hssfCell.getColumnIndex());
-								break;
-						}
-							
-							
+											switch (hssfCell.getCellType()) {
+											case HSSFCell.CELL_TYPE_NUMERIC:
+												switch (hssfCell.getColumnIndex()) {
+													case 0:
+														tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
+													
+														break;
+													case 2:
+														tempRow.setIdMunicipio(new Double(hssfCell.getNumericCellValue()).intValue());
+														
+														break;
+													case 4:
+														tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
+														break;
+													
+													case 8:
+														tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
+													
+													case 9:
+														tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
+														break;
+													
+													case 7:
+														tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
+														break;
+												}
+												break;
+											case HSSFCell.CELL_TYPE_STRING:
+												switch (hssfCell.getColumnIndex()) {
+													case 1:
+													
+														tempRow.setRegion(hssfCell.getStringCellValue());
+														
+														break;
+													case 3:
+														tempRow.setMunicipio(hssfCell.getStringCellValue());
+													
+														break;
+													case 5:
+														tempRow.setLocalidad(hssfCell.getStringCellValue());
+														
+														break;
+													
+													case 6:
+														tempRow.setDescripcion(hssfCell.getStringCellValue());
+														renglones.add(tempRow);
+														break;
+												}
+												break;
+											default:
+												//System.out.println(hssfCell.getColumnIndex());
+												break;
+										}
+											
+							}
 							
 							
 						}

@@ -14,7 +14,7 @@
 		<ul class="uk-navbar-nav">
 
 		
-				<li class="uk-active"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li class="uk-active"><g:link class="list" action="list">Lista de formulas</g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 
 		</ul>
@@ -22,7 +22,7 @@
 				
 
 		<div id="list-formula" class="content scaffold-list" role="main">
-		<h1 class="uk-article-title"><g:message code="default.list.label" args="[entityName]" /></h1>
+		<h1 class="uk-article-title">Listado de formulas</h1>
 
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>

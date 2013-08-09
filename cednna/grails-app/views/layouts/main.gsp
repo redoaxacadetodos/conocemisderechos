@@ -19,14 +19,18 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'calc.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 
-
+<%--	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/style.css')}" type="text/css">--%>
+<%-- 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/prism.css')}" type="text/css">--%>
+	<link rel="stylesheet" href="${resource(dir: 'css', file: 'chosen.css')}" type="text/css">
  				
  						<g:javascript src="jquery-ui-1.8.20.custom.min.js" />
  						<g:javascript src="jquery.dataTables.js" />
 		
-			
-			
-			
+
+ 	<g:javascript src="chosen.jquery.js" />
+  	<g:javascript src="docsupport/prism.js"  />
+  	
+
 				<g:javascript src="Utilerias.js" />	
 
 		
