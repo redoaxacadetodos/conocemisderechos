@@ -2,6 +2,7 @@ package mx.gob.redoaxaca.cednna.domino
 
 import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Row
+import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.DataIntegrityViolationException
 import org.apache.commons.io.FilenameUtils;
@@ -41,6 +42,78 @@ class VariableController {
 		
 		
 	}
+	
+	
+	
+	def getCategoriaByTipo() {
+		def pla = new ArrayList<Categoria>()
+		
+
+		
+		def tipoCat = Tipo.get(params.id)
+
+		if (tipoCat) {
+
+			pla = Categoria.findAllByTipo(tipoCat)
+
+
+			render pla as JSON
+		} else {
+			render pla as JSON
+		}
+	}
+	
+	
+	
+	def getMunicipioByRegion() {
+		def pla = new ArrayList<Municipio>()
+		
+		System.out.println(params.id);
+		if(params.id!="null"){
+		def region = Region.get(params.id)
+
+		
+		if (region) {
+
+			pla = Municipio.findAllByRegion(region)
+
+
+			render pla as JSON
+		} else {
+			render Municipio.list() as JSON
+		}
+		}else{
+		render Municipio.list() as JSON
+		
+		}
+	}
+	
+	
+	
+	def getLocalidadByMunicipio() {
+		def pla = new ArrayList<Localidad>()
+		
+
+		if(params.id!="null"){
+			def municipio = Municipio.get(params.id)
+	
+			
+			if (municipio) {
+	
+				pla = Localidad.findAllByMunicipio(municipio)
+	
+	
+				render pla as JSON
+			} else {
+				render Localidad.list() as JSON
+			}
+		}else{
+		render Localidad.list() as JSON
+		}
+	}
+	
+	
+	
 	
 	
 	
@@ -148,7 +221,13 @@ class VariableController {
 	
 	
 	
-	
+	def categorias(){
+		
+		def var =params.id
+		def con= params.con
+		
+		[var:var,con:con]
+	}
 	
 	
     def show(Long id) {

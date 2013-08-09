@@ -20,7 +20,7 @@
 	<g:textField name="descripcion_${var}" value=""/>
 	</div><br />
 
-<g:hiddenField name="numCategorias_${var}" value="1"/>
+
 
 
 <g:hiddenField name="estado_${var}" />
@@ -40,7 +40,7 @@
 		<g:message code="indicador.region.label" default="Region" />
 
 	</label>
-	<g:select id="region" name="region_${var}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${indicadorInstance?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>
+	<g:select id="region_${var}" name="region_${var}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${indicadorInstance?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
@@ -48,7 +48,9 @@
 		<g:message code="indicador.municipio.label" default="Municipio" />
 	
 	</label>
-	<g:select id="municipio" name="municipio_${var}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>
+	<div id="divMun_${var}">
+	<g:select id="municipio_${var}" name="municipio_${var}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
@@ -56,7 +58,9 @@
 		<g:message code="indicador.localidad.label" default="Localidad" />
 
 	</label>
-	<g:select id="localidad" name="localidad_${var}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>
+	<div id="divLoc_${var}">
+	<g:select id="localidad_${var}" name="localidad_${var}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>
+	</div>
 </div>
 
 
@@ -75,13 +79,15 @@
 		<g:message code="indicador.localidad.label" default="Tipo de categoria" />
 
 	</label>
-	<g:select id="tipo" name="tipo_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id" optionValue="descripcion" class="many-to-one"/>
+	<g:select id="tipo_1_${var}" name="tipo_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
 	<label for="localidad">
 		<g:message code="indicador.localidad.label" default="Categoria" />
 
 	</label>
-	<g:select id="categoria" name="categoria_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" optionValue="descripcion"   class="many-to-one"/>
-	<div id="divCate">
+	<div id="divTipo_1_${var}">
+	<g:select id="categoria" name="categoria_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
+	</div>
+	<div id="divCate_${var}">
 	
 	
 	</div>
@@ -92,7 +98,7 @@
 	
 </div>
 
-
+<g:hiddenField name="numCategorias_${var}" value="1"/>
 
 <br>
 
@@ -123,10 +129,7 @@
 						$("#btn_${var}").click(function(){
 							
 							var datosFrm =$("#indicador").serialize();
-						//	datosFrm+="&anio="+$("#anio").val();
-							
-
-												
+					
 									  	var unused = $.ajax({type:'POST', 
 								              url:CONTEXT_ROOT+'/indicador/resultadoVariable/${var}',
 								              data: datosFrm,
@@ -143,11 +146,11 @@
 						});
 					
 				
-
+					asignaEventorTipo(1,"${var}");
 
 					$("#addCat_${var}").click(function(){
 
-					var cont=	$("#numCategorias_${var}").val();
+					var cont=	parseInt($("#numCategorias_${var}").val());
 					cont=cont+1;
 					$("#numCategorias_${var}").val(cont);				  
 			
@@ -157,16 +160,144 @@
 								              success:function(data,textStatus)
 								              {
 								              
-								              		$('#divCate').append(data);
-								          
+								              		$('#divCate_${var}').append(data);
+								              		asignaEventorTipo(cont,"${var}");
 								             
 								              },
 								           			   error:function(XMLHttpRequest,textStatus,errorThrown)
 								                  {		$('#diverror').html(XMLHttpRequest.responseText);}
+							                  ,
+							                  complete:function(data,textStatus){
+
+							                	  var config = {
+													      '.chosen-select'           : {},
+													      '.chosen-select-deselect'  : {allow_single_deselect:true},
+													      '.chosen-select-no-single' : {disable_search_threshold:10},
+													      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+													      '.chosen-select-width'     : {width:"95%"}
+													    }
+													    for (var selector in config) {
+													      $(selector).chosen(config[selector]);
+													    }
+																				
+								              }
 												});
 						});
+
+
+					asignaEventorRegion();
+
+					
+
+					
+					asignaEventorMunicipio();
+
+					
 				});
 				
+
+
+
+
+				function asignaEventorRegion(){
+
+
+				$("#region_${var}").change(function(){
+
+						
+						llenaCombo({
+							url : CONTEXT_ROOT+'/variable/getMunicipioByRegion/'+$("#region_${var}").val(),
+							htmlOptions : {
+								name : "municipio_${var}.id",
+								id : "municipio_${var}",
+								clase : "chosen-select"
+							},
+							index : 0,
+							chained : false,
+							anchor : "#municipio_${var}",
+							combo : true,
+							valorDefault:true,
+							valorDefaultText:" Seleccione el municipio ",
+							delTag: true,
+							tag:"#divMun_${var}"
+						});  
+
+						});
+						
+						asignaEventorMunicipio();
+					
+					
+				}
+
+				function asignaEventorMunicipio(){
+
+					$("#municipio_${var}").change(function(){
+
+
+						
+						
+						llenaCombo({
+							url : CONTEXT_ROOT+'/variable/getLocalidadByMunicipio/'+$("#municipio_${var}").val(),
+							htmlOptions : {
+								name : "localidad_${var}.id",
+								id : "localidad_${var}",
+								clase : "chosen-select",
+								
+							},
+							index : 0,
+							chained : false,
+							anchor : "#localidad_${var}",
+							combo : true,
+							valorDefault:true,
+							valorDefaultText:" Seleccione la localidad ",
+							delTag: true,
+							tag:"#divLoc_${var}"
+						});  
+
+
+						});
+					
+
+
+					
+				}
+
+
+				function asignaEventorTipo(num,vari){
+
+			
+
+						$("#tipo_"+num+"_"+vari).change(function(){
+
+
+							
+							
+							llenaCombo({
+								url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num+"_"+vari).val(),
+								htmlOptions : {
+									name : "categoria_"+num+"_"+vari+".id",
+									id : "categoria_"+num+"_"+vari,
+									clase : "chosen-select",
+									
+								},
+								index : 0,
+								chained : false,
+								anchor : "#categoria_"+num+"_"+vari,
+								combo : true,
+								valorDefault:false,
+								valorDefaultText:" Seleccione la categoria ",
+								delTag: true,
+								tag:"#divTipo_"+num+"_"+vari
+							});  
+
+
+							});
+						
+
+
+						
+					}
+
 				
 				
 				</script>
