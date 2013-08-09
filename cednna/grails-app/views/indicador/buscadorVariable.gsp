@@ -40,7 +40,7 @@
 		<g:message code="indicador.region.label" default="Region" />
 
 	</label>
-	<g:select id="region" name="region_${var}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${indicadorInstance?.region?.id}" class="many-to-one" noSelection="['null':'-Selecciona una region-']"/>
+	<g:select id="region" name="region_${var}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${indicadorInstance?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
@@ -48,7 +48,7 @@
 		<g:message code="indicador.municipio.label" default="Municipio" />
 	
 	</label>
-	<g:select id="municipio" name="municipio_${var}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.municipio?.id}" class="many-to-one " noSelection="['null':'-Selecciona un municipio-']"/>
+	<g:select id="municipio" name="municipio_${var}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
@@ -56,7 +56,7 @@
 		<g:message code="indicador.localidad.label" default="Localidad" />
 
 	</label>
-	<g:select id="localidad" name="localidad_${var}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.localidad?.id}" class="many-to-one" noSelection="['null':'-Selecciona una localidad-']"/>
+	<g:select id="localidad" name="localidad_${var}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>
 </div>
 
 
@@ -69,9 +69,10 @@
 	
 </div>
 
+	<br>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 	<label for="localidad">
-		<g:message code="indicador.localidad.label" default="Tipo" />
+		<g:message code="indicador.localidad.label" default="Tipo de categoria" />
 
 	</label>
 	<g:select id="tipo" name="tipo_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id" optionValue="descripcion" class="many-to-one"/>
@@ -85,8 +86,9 @@
 	
 	</div>
 	
-	
-	<input id="addCat_${var}" name="addCat_${var}"  value="Agregar Categoria" type="button" />
+	<br>
+
+	<input id="addCat_${var}" name="addCat_${var}"  value="Agregar Categoria" type="button"  class="uk-button"/>
 	
 </div>
 
@@ -105,7 +107,19 @@
 					
 				
 				$(function(){
-				
+
+					  var config = {
+						      '.chosen-select'           : {},
+						      '.chosen-select-deselect'  : {allow_single_deselect:true},
+						      '.chosen-select-no-single' : {disable_search_threshold:10},
+						      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+						      '.chosen-select-width'     : {width:"95%"}
+						    }
+						    for (var selector in config) {
+						      $(selector).chosen(config[selector]);
+						    }
+
+					
 						$("#btn_${var}").click(function(){
 							
 							var datosFrm =$("#indicador").serialize();

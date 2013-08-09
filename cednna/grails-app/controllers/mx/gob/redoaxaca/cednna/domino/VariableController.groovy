@@ -86,9 +86,9 @@ class VariableController {
 						println("Van: " + (++contador) + " renglones")
 						
 						def variableInstance= new Variable();
-						def temRegion
-						def temLocalidad
-						def temMunicipio
+						def temRegion=null
+						def temLocalidad=null
+						def temMunicipio=null
 						
 						if(row.getIdRegion()){
 							temRegion=Region.get(row.getIdRegion())
@@ -109,13 +109,13 @@ class VariableController {
 						
 						variableInstance.hombres=row.getHombres();
 						variableInstance.mujeres=row.getMujeres();
-						
+						variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
 						variableInstance.descripcion=row.getDescripcion();
-						//variableInstance.depe= dependencia
+						variableInstance.dependencia= dependencia
 						
-						variableInstance.anio=2012
+						variableInstance.anio=row.getAnio();
 						System.out.println(row);
-						
+						//System.out.println(variableInstance);
 						
 						if(variableInstance.save(flush : true, failOnError : true)){
 							contadorBuenos++

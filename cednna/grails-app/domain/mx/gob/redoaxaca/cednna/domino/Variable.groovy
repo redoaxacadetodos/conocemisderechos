@@ -3,17 +3,17 @@ package mx.gob.redoaxaca.cednna.domino
 class Variable {
 
 	
-	String     clave
-	String     descripcion
-	Estado     estado
-	Region     region
-	Municipio  municipio
-	Localidad  localidad
-	int        poblacionTotal
-	int        hombres
-	int        mujeres
-	int        anio
-	
+	String      clave
+	String      descripcion
+	Estado      estado
+	Region      region
+	Municipio   municipio
+	Localidad   localidad
+	int         poblacionTotal
+	int         hombres
+	int         mujeres
+	int         anio
+	Dependencia dependencia
 	
 	static hasMany = [categorias:Categoria]
 		
@@ -30,13 +30,14 @@ class Variable {
 		        mujeres(blank:false, nullable:false)
 		        region(blank:true, nullable:true)
 		        anio(blank:false, nullable:false)
-		       
+				dependencia(blank:true, nullable:true)
 		
     }
 
     static mapping = {
 	table('cat_variable')
 	id(column: 'cvv_id')
+	dependencia(column:'cvv_dependencia')
 	
 	clave(column:'cvv_clave')
 	descripcion(column:'cvv_descripcion')

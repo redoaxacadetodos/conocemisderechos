@@ -30,7 +30,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  value="${variableInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  class="chosen-select" style="width:350px;"  value="${variableInstance?.region?.id}" class="many-to-one" noSelection="['null': '']"/>
 	</div>
 </div>
 
@@ -41,7 +41,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" value="${variableInstance?.municipio?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  value="${variableInstance?.municipio?.id}" class="many-to-one" noSelection="['null': '']"/>
 	</div>
 </div>
 
@@ -51,7 +51,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  optionValue="descripcion" required="" value="${variableInstance?.localidad?.id}" class="many-to-one"/>
+	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion" required="" value="${variableInstance?.localidad?.id}"/>
 	</div>
 </div>
 
@@ -98,12 +98,12 @@
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'municipio', 'error')} ">
 	<label class="uk-form-label" for="municipio">
-		<g:message code="variable.municipio.label" default="Tipo" />
+		<g:message code="variable.municipio.label" default="Tipo de categoria" />
 		
 	</label>
 
 	<div class="uk-form-controls">
-	<g:select id="tipo" name="tipo.id" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="tipo" name="tipo.id" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"   optionValue="descripcion"   class="many-to-one" noSelection="['null': '']"/>
 	</div>
 
 </div>
@@ -125,6 +125,18 @@
 <script type="text/javascript">
 
 $(function(){
+
+
+	var config = {
+		      '.chosen-select'           : {},
+		      '.chosen-select-deselect'  : {allow_single_deselect:true},
+		      '.chosen-select-no-single' : {disable_search_threshold:10},
+		      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+		      '.chosen-select-width'     : {width:"95%"}
+		    }
+		    for (var selector in config) {
+		      $(selector).chosen(config[selector]);
+		    }
 
 
 	llenaCombo({

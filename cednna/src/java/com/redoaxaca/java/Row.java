@@ -14,6 +14,7 @@ public class Row {
 	int		mujeres;
 	int     total;
 	String  descripcion;
+	int     anio;
 	
 	
 	List<Integer> categorias;
@@ -22,14 +23,24 @@ public class Row {
 
 
 
+	
+
 	@Override
 	public String toString() {
 		return "Row [idRegion=" + idRegion + ", region=" + region
 				+ ", idMunicipio=" + idMunicipio + ", municipio=" + municipio
 				+ ", idLocalidad=" + idLocalidad + ", localidad=" + localidad
 				+ ", hombres=" + hombres + ", mujeres=" + mujeres + ", total="
-				+ total + ", descripcion=" + descripcion + ", categorias="
-				+ categorias + "]";
+				+ total + ", descripcion=" + descripcion + ", anio=" + anio
+				+ ", categorias=" + categorias + "]";
+	}
+
+	public int getAnio() {
+		return anio;
+	}
+
+	public void setAnio(int anio) {
+		this.anio = anio;
 	}
 
 	public int getIdRegion() {
