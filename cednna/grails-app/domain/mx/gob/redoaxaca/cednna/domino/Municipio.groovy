@@ -5,8 +5,11 @@ class Municipio {
 	String clave
 	String descripcion
 	Distrito distrito
+	Region region
 
     static constraints = {
+		
+		region(blank:true, nullable:true)
     }
 
 	String toString() {
@@ -22,9 +25,7 @@ class Municipio {
   static mapping = {
 	table('cat_municipio')
 	id(column: 'mun_id')
-
-
-	
+	region(column:'mun_crg_id')
 	descripcion(column:'mun_descripcion')
 	clave(column:'mun_clave')
 	distrito(column:'mun_cdt_id')

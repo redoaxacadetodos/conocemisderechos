@@ -19,6 +19,12 @@
 </nav>
 
 	<h2>Procesar datos desde archivo xlsx</h2>
+	
+	<br>
+	
+	<a href="${request.getContextPath()}/img/plantilla_origen_datos.xlsx"><label>Descarga el formato para carga de datos</label>  <img border='0' src='${request.getContextPath()}/img/excell.png'   style='cursor:pointer;' /></a>
+	<br>
+	<br>
 	<g:form action="subirArchivo" controller="variable" method="post" enctype="multipart/form-data">
 		<div class="fieldcontain">
  		   <input type="file" name="fileBase" multiple="multiple"></input>

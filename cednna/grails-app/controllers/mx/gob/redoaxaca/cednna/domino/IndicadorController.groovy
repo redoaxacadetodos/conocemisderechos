@@ -306,7 +306,7 @@ class IndicadorController {
 	
 	def categorias(){
 		
-		def var =params.var
+		def var =params.id
 		def con= params.con
 		
 		[var:var,con:con]

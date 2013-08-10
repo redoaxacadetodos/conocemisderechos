@@ -16,7 +16,8 @@
 			<li class="uk-active"><g:link class="create" action="create">Nueva variable</g:link></li>
 			
 
-
+<br>
+	<br>
 	<h2>Resultados del Archivo Procesado</h2>
 	<br>
 	<br>

@@ -218,6 +218,12 @@ function llenaCombo(opciones){
 			options = options + "<select id='"+opciones.htmlOptions.id+"' name='"+opciones.htmlOptions.name+"' class='"+opciones.htmlOptions.clase;
 		  
 			options += "'>";
+			
+			if(opciones.valorDefault){
+				
+				options += '<option value="null" selected="selected">-'+opciones.valorDefaultText+'-</option>';
+			}
+			
 			  for(x=0;x<data.length;x++){
 				if(opciones.index==data[x].id)
 				options += '<option value="' + data[x].id + '" selected="selected">' + data[x].descripcion + '</option>';
@@ -225,7 +231,22 @@ function llenaCombo(opciones){
 				options += '<option value="' + data[x].id + '" >' + data[x].descripcion + '</option>'; 
 			  }
 			  options +="</select>"; 
+			  
+
+				if(opciones.delTag){
+					
+					$(opciones.tag).html("");
+					 $(opciones.tag).html("<select id='"+opciones.htmlOptions.id+"'></select> ");
+					 
+				
+					
+				}
+			  
+			  
 			  $(opciones.anchor).replaceWith(options);
+			  
+			  
+			  
 			  if (opciones.chained){
 				 
 				  
@@ -236,6 +257,19 @@ function llenaCombo(opciones){
 			  });
 			  $(opciones.anchor).change();
 			  }
+			  
+			  var config = {
+				      '.chosen-select'           : {},
+				      '.chosen-select-deselect'  : {allow_single_deselect:true},
+				      '.chosen-select-no-single' : {disable_search_threshold:10},
+				      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+				      '.chosen-select-width'     : {width:"95%"}
+				    }
+				    for (var selector in config) {
+				      $(selector).chosen(config[selector]);
+				    }
+			  
+			  
 		   }else{
 			   
 			  options +="<input id='"+opciones.htmlOptions.id+"' name='"+opciones.htmlOptions.name+"' readonly='readonly' class='"+opciones.htmlOptions.clase+"'  ";
@@ -245,6 +279,8 @@ function llenaCombo(opciones){
 					options += 'value="' + data[x].descripcion + '"  >';
 					
 				  }
+			   
+			   
 
 			   $(opciones.anchor).replaceWith(options);
 		   }
@@ -254,6 +290,11 @@ function llenaCombo(opciones){
 			       	.complete(function() { // alert("complete");
 			       		if(!isEmpty(opciones.htmlOptions.valor))
 			       			$("select#"+opciones.htmlOptions.id).val(opciones.htmlOptions.valor); 		    
+			       		
+			       		asignaEventorMunicipio();
+			       		
+			       		
+			       		
 			       	});
 	       		
 	  
