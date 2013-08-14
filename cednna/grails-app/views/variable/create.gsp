@@ -40,8 +40,6 @@
 					<g:render template="form"/>
 				
 					
-					</div>
-					</div>
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" class="uk-button"/>
 				</fieldset>
 			</g:form>

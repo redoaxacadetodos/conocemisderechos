@@ -102,33 +102,37 @@
 
 <br>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+<div class="uk-grid">
+<div class="uk-width-1-2">
 	<label for="localidad" class="uk-form-label">
 		<g:message code="indicador.localidad.label" default="Tipo de categoria" />
 
 	</label>
-	<div class="uk-form-controls">
 	<g:select id="tipo_1" name="tipo_1" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
-	</div>
 	
 </div>
-<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+<div class="uk-width-1-2">
 	<label for="localidad" class="uk-form-label">
 		<g:message code="indicador.localidad.label" default="Categoria" />
 
 	</label>
-	<div id="divTipo_1" class="uk-form-controls">
+	<div id="divTipo_1">
 	<g:select id="categoria_1" name="categoria_1" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
-	
+	</div>
+</div>
+</div>
 	<div id="divCate">
 	
 	
 	</div>
-	
+
+
+
 	<br>
 
-	<input id="addCat" name="addCat"  value="Agregar Categoria" type="button"  class="uk-button uk-button-primary"/>
+	<input id="addCat" name="addCat"  value="Agregar Categoria" type="button"  class="uk-button"/>
 	
-
+</div>
 
 <g:hiddenField name="numCategorias" value="1"/>
 

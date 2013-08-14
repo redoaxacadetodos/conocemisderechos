@@ -12,7 +12,7 @@
 <h3>Ubicación de datos para variable ${var}</h3>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
-	<label for="descripcion">
+	<label class="uk-form-label" for="descripcion">
 		<g:message code="indicador.estado.label" default="Descripción de la variable" />
 
 	</label>
@@ -26,8 +26,8 @@
 <g:hiddenField name="estado_${var}" />
 
 
-<%--<div class="fieldcontain ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">--%>
-<%--	<label for="estado">--%>
+<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">--%>
+<%--	<label class="uk-form-label" for="estado">--%>
 <%--		<g:message code="indicador.estado.label" default="Estado" />--%>
 <%----%>
 <%--	</label>--%>
@@ -36,7 +36,7 @@
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
-	<label for="region">
+	<label class="uk-form-label" for="region">
 		<g:message code="indicador.region.label" default="Region" />
 
 	</label>
@@ -44,7 +44,7 @@
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
-	<label for="municipio">
+	<label class="uk-form-label" for="municipio">
 		<g:message code="indicador.municipio.label" default="Municipio" />
 	
 	</label>
@@ -54,7 +54,7 @@
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label for="localidad">
+	<label class="uk-form-label" for="localidad">
 		<g:message code="indicador.localidad.label" default="Localidad" />
 
 	</label>
@@ -65,7 +65,7 @@
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label for="localidad">
+	<label class="uk-form-label" for="localidad">
 		<g:message code="indicador.localidad.label" default="Poblacion" />
 
 	</label>
@@ -75,18 +75,25 @@
 
 	<br>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label for="localidad">
+<div class="uk-grid">
+<div class="uk-width-1-2">
+	<label class="uk-form-label" for="localidad">
 		<g:message code="indicador.localidad.label" default="Tipo de categoria" />
 
 	</label>
+	
 	<g:select id="tipo_1_${var}" name="tipo_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
-	<label for="localidad">
+</div>
+<div class="uk-width-1-2">
+	<label class="uk-form-label" for="localidad">
 		<g:message code="indicador.localidad.label" default="Categoria" />
 
 	</label>
 	<div id="divTipo_1_${var}">
 	<g:select id="categoria" name="categoria_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
 	</div>
+</div>
+</div>
 	<div id="divCate_${var}">
 	
 	
