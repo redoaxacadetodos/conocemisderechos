@@ -111,10 +111,12 @@
 			
 			</ol>
 			<g:form>
-				<fieldset class="buttons">
+				<fieldset class="uk-form uk-form-horizontal">
+				<div class="uk-form-controls">
 					<g:hiddenField name="id" value="${variableInstance?.id}" />
-					<g:link class="edit" action="edit" id="${variableInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="edit" action="edit" id="${variableInstance?.id}" class="uk-button"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" class="uk-button"/>
+				</div>
 				</fieldset>
 			</g:form>
 		</div>
