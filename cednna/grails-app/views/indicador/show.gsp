@@ -158,16 +158,16 @@
 				</g:if>
 			
 			
-				<g:if test="${indicadorInstance?.variables}">
-				<li class="fieldcontain">
-					<span id="variables-label" class="property-label"><g:message code="indicador.variables.label" default="Variables" /></span>
-					
-						<g:each in="${indicadorInstance.variables}" var="v">
-						<span class="property-value" aria-labelledby="variables-label"><g:link controller="variable" action="show" id="${v.id}">${v?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
+<%--				<g:if test="${indicadorInstance?.variables}">--%>
+<%--				<li class="fieldcontain">--%>
+<%--					<span id="variables-label" class="property-label"><g:message code="indicador.variables.label" default="Variables" /></span>--%>
+<%--					--%>
+<%--						<g:each in="${indicadorInstance.variables}" var="v">--%>
+<%--						<span class="property-value" aria-labelledby="variables-label"><g:link controller="variable" action="show" id="${v.id}">${v?.encodeAsHTML()}</g:link></span>--%>
+<%--						</g:each>--%>
+<%--					--%>
+<%--				</li>--%>
+<%--				</g:if>--%>
 			
 			</ol>
 			<g:form>

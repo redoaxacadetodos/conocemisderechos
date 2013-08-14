@@ -297,7 +297,7 @@ function asignaEventorTipo(num){
 		llenaCombo({
 			url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num).val(),
 			htmlOptions : {
-				name : "categoria_"+num+".id",
+				name : "categoria_"+num,
 				id : "categoria_"+num,
 				clase : "chosen-select",
 				

@@ -192,21 +192,21 @@ class IndicadorController {
 				def estado=null
 				
 				if(params.getAt("localidad_"+v)!="null")
-					localidad=  Localidad.get(params.getAt("localidad_"+v).toInteger())
+					localidad=  Localidad.get(params.getAt("localidad_"+v+".id"))
 				
 				
 				if(params.getAt("municipio_"+v)!="null")
-					municipio=  Municipio.get(params.getAt("municipio_"+v).toInteger())
+					municipio=  Municipio.get(params.getAt("municipio_"+v+".id"))
 			
 				
 				
 				if(params.getAt("region_"+v)!="null")
-					region =    Region.get(params.getAt("region_"+v).toInteger())
+					region =    Region.get(params.getAt("region_"+v+".id"))
 				
 				
 				
 				if(params.getAt("estado_"+v)!="null")
-					estado =    Estado.get(params.getAt("estado_"+v).toInteger())
+					estado =    Estado.get(params.getAt("estado_"+v+".id"))
 				
 				
 				
@@ -323,7 +323,7 @@ class IndicadorController {
 			var= formula.variables.split("\\|")
 
 							
-			System.out.println(formula);
+//			System.out.println(formula);
 		}		
 		
 		

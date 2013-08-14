@@ -45,8 +45,10 @@
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
+		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/><a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
 		}
+
+		
 
 
 		function mostrarRegistro(id){
@@ -54,6 +56,14 @@
 			document.location.href=CONTEXT_ROOT+"/indicador/visor/"+id;
 
 		}
+
+
+		function editaRegistro(id){
+			
+			document.location.href=CONTEXT_ROOT+"/indicador/edit/"+id;
+
+		}
+			
 				
 				$(function(){
 

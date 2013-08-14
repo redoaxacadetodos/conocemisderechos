@@ -169,12 +169,9 @@ $(function(){
 		
 		$(".screen").html($(".outcome").val() );
 
-
-		
-
 	 	var unused = $.ajax({type:'POST', 
             url:CONTEXT_ROOT+'/indicador/buscadorVariable',
-            data: "id="+$("#formula").val(),
+            data: "id="+$("#formula").val()+"&idIndicador="+$("#id").val(),
             success:function(data,textStatus)
                 {
             
@@ -193,7 +190,7 @@ $(function(){
 
 		  	var unused = $.ajax({type:'POST', 
               url:CONTEXT_ROOT+'/indicador/buscadorVariable',
-              data: "id="+$("#formula").val(),
+              data: "id="+$("#formula").val()+"&idIndicador="+$("#id").val(),
               success:function(data,textStatus)
                   {
               
