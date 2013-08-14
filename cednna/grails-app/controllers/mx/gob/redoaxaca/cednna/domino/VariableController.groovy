@@ -29,6 +29,29 @@ class VariableController {
 
     def save() {
         def variableInstance = new Variable(params)
+		
+		
+	
+		
+		def numCategorias= params.numCategorias
+
+			for(i in 1 .. numCategorias){
+			
+		
+				
+				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+				if(temCategoria){
+					
+					variableInstance.addToCategorias(temCategoria)
+					
+				}
+				
+			}
+			
+			
+		
+		
+		
         if (!variableInstance.save(flush: true)) {
             render(view: "create", model: [variableInstance: variableInstance])
             return

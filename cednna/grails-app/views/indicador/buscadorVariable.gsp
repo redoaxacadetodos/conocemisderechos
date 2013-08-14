@@ -275,7 +275,7 @@
 							llenaCombo({
 								url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num+"_"+vari).val(),
 								htmlOptions : {
-									name : "categoria_"+num+"_"+vari+".id",
+									name : "categoria_"+num+"_"+vari,
 									id : "categoria_"+num+"_"+vari,
 									clase : "chosen-select",
 									
