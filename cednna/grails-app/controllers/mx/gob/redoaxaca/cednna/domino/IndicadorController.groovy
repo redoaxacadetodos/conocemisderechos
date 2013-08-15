@@ -380,18 +380,20 @@ class IndicadorController {
 		def formula = Formula.get(params.id);
 		def var
 		def resultado 
-		if(formula){
+		if(formula)
+		{
 			
 			var= formula.variables.split("\\|")
 
-			def indicador =  Indicador.get(params.idIndicador);
-			
-			if(indicador){
+			if(params.idIndicador!=""){
+				def indicador =  Indicador.get(params.idIndicador);
 				
-				
-				var= indicador.variables
+				if(indicador){
+					
+					
+					var= indicador.variables
+				}
 			}
-			
 		}		
 		
 		
@@ -417,12 +419,12 @@ class IndicadorController {
 		def poblacion = params.getAt("poblacion_"+variable)
 
 	
-		
+
 		//def rango = RangoEdad.findAllByMinimoBetweenAndMaximo(rInicial,rFinal);
-		
-		
-	//	System.out.println(rango);
-		
+
+
+		//	System.out.println(rango);
+
 		def var = Variable.findAllByLocalidadAndMunicipioAndRegionAndEstadoAndAnio(localidad,municipio,region,estado,anio);
 	
 
