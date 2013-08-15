@@ -14,7 +14,7 @@
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'descripcion', 'error')} required">
 	<label class="uk-form-label" for="descripcion">
-		<g:message code="variable.descripcion.label" default="Descripcion" />
+		<g:message code="variable.descripcion.label" default="Descripción" />
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
@@ -30,7 +30,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  class="chosen-select" style="width:350px;"  value="${variableInstance?.region?.id}"  noSelection="['null': '-Selecciona una region-']"/>
+	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  class="chosen-select" style="width:350px;"  value="${variableInstance?.region?.id}"  noSelection="['null': '-Selecciona una región-']"/>
 	</div>
 </div>
 
@@ -69,6 +69,16 @@
 	</div>
 </div>
 
+<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'mujeres', 'error')} required">
+	<label class="uk-form-label" for="mujeres">
+		<g:message code="variable.mujeres.label" default="Mujeres" />
+		<span class="required-indicator">*</span>
+	</label>
+	<div class="uk-form-controls">
+	<g:field name="mujeres" type="number" value="${variableInstance.mujeres}" required=""/>
+	</div>
+</div>
+
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'hombres', 'error')} required">
 	<label class="uk-form-label" for="hombres">
 		<g:message code="variable.hombres.label" default="Hombres" />
@@ -79,15 +89,7 @@
 	</div>
 </div>
 
-<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'mujeres', 'error')} required">
-	<label class="uk-form-label" for="mujeres">
-		<g:message code="variable.mujeres.label" default="Mujeres" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="uk-form-controls">
-	<g:field name="mujeres" type="number" value="${variableInstance.mujeres}" required=""/>
-	</div>
-</div>
+
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
 	<label class="uk-form-label" for="anio">
@@ -103,7 +105,7 @@
 <br>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 	<label for="localidad">
-		<g:message code="indicador.localidad.label" default="Tipo de categoria" />
+		<g:message code="indicador.localidad.label" default="Tipo de categoría" />
 
 	</label>
 	<g:select id="tipo_1" name="tipo_1" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
@@ -111,7 +113,7 @@
 </div>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 	<label for="localidad">
-		<g:message code="indicador.localidad.label" default="Categoria" />
+		<g:message code="indicador.localidad.label" default="Categoría" />
 
 	</label>
 	<div id="divTipo_1">
