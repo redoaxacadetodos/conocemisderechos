@@ -32,7 +32,7 @@
 				<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
 				</fieldset>
-				<fieldset class=" class="uk-form uk-form-horizontal"">
+				<fieldset class="uk-form uk-form-horizontal">
 
 				<div>
 					<g:actionSubmit class="save uk-button" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

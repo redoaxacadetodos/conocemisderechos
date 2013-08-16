@@ -2,24 +2,24 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: localidadInstance, field: 'clave', 'error')} ">
-	<label for="clave">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: localidadInstance, field: 'clave', 'error')} ">
+	<label for="clave" class="uk-form-label">
 		<g:message code="localidad.clave.label" default="Clave" />
 		
 	</label>
 	<g:textField name="clave" value="${localidadInstance?.clave}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: localidadInstance, field: 'descripcion', 'error')} ">
-	<label for="descripcion">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: localidadInstance, field: 'descripcion', 'error')} ">
+	<label for="descripcion" class="uk-form-label">
 		<g:message code="localidad.descripcion.label" default="Descripcion" />
 		
 	</label>
 	<g:textField name="descripcion" value="${localidadInstance?.descripcion}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: localidadInstance, field: 'municipio', 'error')} required">
-	<label for="municipio">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: localidadInstance, field: 'municipio', 'error')} required">
+	<label for="municipio" class="uk-form-label">
 		<g:message code="localidad.municipio.label" default="Municipio" />
 		<span class="required-indicator">*</span>
 	</label>
