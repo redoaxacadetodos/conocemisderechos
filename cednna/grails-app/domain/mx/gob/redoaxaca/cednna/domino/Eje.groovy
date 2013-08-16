@@ -1,11 +1,11 @@
 package mx.gob.redoaxaca.cednna.domino
 
-class Division {
+class Eje {
 
-	
 		
-		String descripcion
-
+	String descripcion
+	
+	static hasMany = [division:Division]
 	
 	
     static constraints = {

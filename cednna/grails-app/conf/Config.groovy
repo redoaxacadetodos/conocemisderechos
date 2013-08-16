@@ -94,33 +94,16 @@ log4j = {
 
 
 grails.plugins.springsecurity.rejectIfNoRule = true
-grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
-grails.plugins.springsecurity.interceptUrlMap = [
-			'/login/**':     [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-			'/logout/**':    [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-			'/css/**':     [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-			'/img/**':     [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-			'/js/**':     [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-			'/plugins/**':     [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-			'/images/**':     [
-				'IS_AUTHENTICATED_ANONYMOUSLY'
-			],
-      '/dbconsole/**':     [
-        'IS_AUTHENTICATED_ANONYMOUSLY'
-      ],      
-			'/**':     ['ROLE_USER']]
+grails.plugins.springsecurity.securityConfigType = "Annotation"
+grails.plugins.springsecurity.controllerAnnotations.staticRules = [
+	'/css/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+	'/img/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+	'/images/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+	'/js/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+	'/json/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+	'/fonts/**':     ['IS_AUTHENTICATED_ANONYMOUSLY']
+
+]
 
 
 

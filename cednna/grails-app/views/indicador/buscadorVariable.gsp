@@ -21,20 +21,6 @@
 	</div><br />
 
 
-
-<%----%>
-<%--<g:hiddenField name="estado_${var}" />--%>
-
-
-<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">--%>
-<%--	<label class="uk-form-label" for="estado">--%>
-<%--		<g:message code="indicador.estado.label" default="Estado" />--%>
-<%----%>
-<%--	</label>--%>
-<%--	<g:select id="estado" name="estado_${var}" from="${mx.gob.redoaxaca.cednna.domino.Estado.list()}" optionKey="id" required="" optionValue="descripcion" value="${indicadorInstance?.estado?.id}" class="many-to-one" noSelection="['null':'-Seleccione un estado-']"/>--%>
-<%--</div>--%>
-
-
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
 	<label class="uk-form-label" for="region">
 		<g:message code="indicador.region.label" default="Region" />
@@ -78,7 +64,7 @@
 	<div id="divCate_${var.clave}">
 
 	
-			<g:if  test="${var.categorias.size()>0}">
+			<g:if  test="${var?.categorias}">
 			
 			
 					<g:each   status="i" var="cat"  in="${var.categorias}" >
@@ -104,6 +90,8 @@
 						</div>
 					</div>
 					</g:each>
+					
+					<g:hiddenField name="numCategorias_${var.clave}" value="${var.categorias.size()}"/>
 			</g:if>
 			<g:else>
 					<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
@@ -127,6 +115,7 @@
 							</div>
 						</div>
 					</div>
+					<g:hiddenField name="numCategorias_${var.clave}" value="1"/>
 			</g:else>
 	<br>
 	</div>
@@ -134,7 +123,7 @@
 	<input id="addCat_${var.clave}" name="addCat_${var.clave}"  value="Agregar Categoria" type="button"  class="uk-button"/>
 	
 
-<g:hiddenField name="numCategorias_${var.clave}" value="${var.categorias.size()}"/>
+
 
 <br>
 

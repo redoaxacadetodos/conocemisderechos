@@ -330,7 +330,7 @@ class IndicadorController {
 						
 							def dVariable = new  DVariable()
 							dVariable.clave=v
-							dVariable.descripcion=params.getAt("d escripcion_"+v)
+							dVariable.descripcion=params.getAt("descripcion_"+v)
 							dVariable.localidad=localidad
 							dVariable.municipio=municipio
 							dVariable.region=region
@@ -385,7 +385,7 @@ class IndicadorController {
 			
 			var= formula.variables.split("\\|")
 
-			if(params.idIndicador!=""){
+			if(params.idIndicador!="undefined"){
 				def indicador =  Indicador.get(params.idIndicador);
 				
 				if(indicador){
@@ -393,12 +393,25 @@ class IndicadorController {
 					
 					var= indicador.variables
 				}
+				
+				[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
+			}
+			else{
+				def vare = new ArrayList<DVariable>()
+						for(s in var){
+							
+							def tem= new  DVariable()
+							tem.clave=s
+							vare.add(tem);
+							
+						}
+				[variable:vare,sentencia:formula.sentencia,descripcion:formula.descripcion]
 			}
 		}		
 		
 		
 		
-		[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
+	
 	}
 	
 	
