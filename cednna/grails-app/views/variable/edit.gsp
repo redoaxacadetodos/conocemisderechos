@@ -10,8 +10,8 @@
 		<a href="#edit-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Origen de datos</g:link></li>
+				<li><g:link class="create" action="create">Nuevo origen de datos</g:link></li>
 			</ul>
 </nav>
 		<div id="edit-variable" class="content scaffold-edit" role="main">
