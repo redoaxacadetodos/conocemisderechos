@@ -36,9 +36,11 @@
 					
 						<g:sortableColumn property="descripcion" title="${message(code: 'variable.descripcion.label', default: 'Descripcion')}" />
 					
-						<th><g:message code="variable.estado.label" default="Estado" /></th>
+						<g:sortableColumn property="region.descripcion" title="${message(code: 'variable.poblacionTotal.label', default: 'Region')}" />
 					
-						<th><g:message code="variable.municipio.label" default="Municipio" /></th>
+						<g:sortableColumn property="municipio.descripcion" title="${message(code: 'variable.poblacionTotal.label', default: 'Municipio')}" />
+						
+						<g:sortableColumn property="localidad.descripcion" title="${message(code: 'variable.poblacionTotal.label', default: 'Localidad')}" />
 					
 						<g:sortableColumn property="poblacionTotal" title="${message(code: 'variable.poblacionTotal.label', default: 'Poblacion Total')}" />
 					
@@ -59,6 +61,8 @@
 						<td>${fieldValue(bean: variableInstance, field: "estado")}</td>
 					
 						<td>${fieldValue(bean: variableInstance, field: "municipio")}</td>
+						
+						<td>${fieldValue(bean: variableInstance, field: "localidad")}</td>
 					
 						<td>${fieldValue(bean: variableInstance, field: "poblacionTotal")}</td>
 					

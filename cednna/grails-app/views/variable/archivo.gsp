@@ -11,9 +11,9 @@
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 
-			<li><g:link class="list" action="list">Listado variables</g:link></li>
+			<li><g:link class="list" action="list">Origen de datos</g:link></li>
 			
-			<li class="uk-active"><g:link class="create" action="create">Nueva variable</g:link></li>
+			<li class="uk-active"><g:link class="create" action="create">Nuevo  origen de datos</g:link></li>
 			
 	
 </nav>

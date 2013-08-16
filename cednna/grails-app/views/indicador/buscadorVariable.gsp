@@ -9,7 +9,7 @@
 <g:each var="var"  in="${variable}" >
 
 
-<h3>Ubicación de datos para variable ${var}</h3>
+<h3>Ubicación de datos para variable ${var.clave}</h3>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
 	<label class="uk-form-label" for="descripcion">
@@ -17,13 +17,13 @@
 
 	</label>
 
-	<g:textField name="descripcion_${var}" value=""/>
+	<g:textField name="descripcion_${var.clave}" value="${var.descripcion}"/>
 	</div><br />
 
 
 
-
-<g:hiddenField name="estado_${var}" />
+<%----%>
+<%--<g:hiddenField name="estado_${var}" />--%>
 
 
 <%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">--%>
@@ -40,7 +40,7 @@
 		<g:message code="indicador.region.label" default="Region" />
 
 	</label>
-	<g:select id="region_${var}" name="region_${var}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${indicadorInstance?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>
+	<g:select id="region_${var.clave}" name="region_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${var?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
@@ -48,8 +48,8 @@
 		<g:message code="indicador.municipio.label" default="Municipio" />
 	
 	</label>
-	<div id="divMun_${var}">
-	<g:select id="municipio_${var}" name="municipio_${var}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>
+	<div id="divMun_${var.clave}">
+	<g:select id="municipio_${var.clave}" name="municipio_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${var?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>
 	</div>
 </div>
 
@@ -58,8 +58,8 @@
 		<g:message code="indicador.localidad.label" default="Localidad" />
 
 	</label>
-	<div id="divLoc_${var}">
-	<g:select id="localidad_${var}" name="localidad_${var}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${indicadorInstance?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>
+	<div id="divLoc_${var.clave}">
+	<g:select id="localidad_${var.clave}" name="localidad_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${var?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>
 	</div>
 </div>
 
@@ -69,48 +69,77 @@
 		<g:message code="indicador.localidad.label" default="Poblacion" />
 
 	</label>
-	<g:select id="poblacion" name="poblacion_${var}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list()}" optionKey="id" optionValue="descripcion" class="many-to-one"/>
+	<g:select id="poblacion" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list()}" optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}"  class="many-to-one"/>
 	
 </div>
 
 	<br>
-<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-<div class="uk-grid">
-<div class="uk-width-1-2">
-	<label class="uk-form-label" for="localidad">
-		<g:message code="indicador.localidad.label" default="Tipo de categoria" />
 
-	</label>
-	
-	<g:select id="tipo_1_${var}" name="tipo_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
-</div>
-<div class="uk-width-1-2">
-	<label class="uk-form-label" for="localidad">
-		<g:message code="indicador.localidad.label" default="Categoria" />
+	<div id="divCate_${var.clave}">
 
-	</label>
-	<div id="divTipo_1_${var}">
-	<g:select id="categoria" name="categoria_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
-	</div>
-</div>
-</div>
-	<div id="divCate_${var}">
 	
-	
-	</div>
-	
+			<g:if  test="${var.categorias.size()>0}">
+			
+			
+					<g:each   status="i" var="cat"  in="${var.categorias}" >
+			
+					<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+						<div class="uk-grid">
+								<div class="uk-width-1-2">
+										<label class="uk-form-label" for="localidad">
+											<g:message code="indicador.localidad.label" default="Tipo de categoria" />
+									
+										</label>
+										<g:select id="tipo_${i+1}_${var.clave}" name="tipo_${i+1}_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" value="${cat?.tipo?.id}"   optionValue="descripcion"/>
+										<div class="uk-width-1-2">
+											<label class="uk-form-label" for="localidad">
+												<g:message code="indicador.localidad.label" default="Categoria" />
+										
+											</label>
+											<div id="divTipo_${i+1}_${var.clave}">
+											<g:select id="categoria" name="categoria_${i+1}_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select"  value="${cat?.id}" optionValue="descripcion"   />
+											</div>
+										</div>
+								</div>
+						</div>
+					</div>
+					</g:each>
+			</g:if>
+			<g:else>
+					<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+						<div class="uk-grid">
+							<div class="uk-width-1-2">
+								<label class="uk-form-label" for="localidad">
+									<g:message code="indicador.localidad.label" default="Tipo de categoria" />
+							
+								</label>
+								
+								<g:select id="tipo_1_${var}" name="tipo_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
+							</div>
+							<div class="uk-width-1-2">
+								<label class="uk-form-label" for="localidad">
+									<g:message code="indicador.localidad.label" default="Categoria" />
+							
+								</label>
+								<div id="divTipo_1_${var}">
+								<g:select id="categoria" name="categoria_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
+								</div>
+							</div>
+						</div>
+					</div>
+			</g:else>
 	<br>
+	</div>
 
-	<input id="addCat_${var}" name="addCat_${var}"  value="Agregar Categoria" type="button"  class="uk-button"/>
+	<input id="addCat_${var.clave}" name="addCat_${var.clave}"  value="Agregar Categoria" type="button"  class="uk-button"/>
 	
-</div>
 
-<g:hiddenField name="numCategorias_${var}" value="1"/>
+<g:hiddenField name="numCategorias_${var.clave}" value="${var.categorias.size()}"/>
 
 <br>
 
 	
-	<div id="divResult_${var}">
+	<div id="divResult_${var.clave}">
 	
 	</div>
 <br>
@@ -133,17 +162,17 @@
 						    }
 
 					
-						$("#btn_${var}").click(function(){
+						$("#btn_${var.clave}").click(function(){
 							
 							var datosFrm =$("#indicador").serialize();
 					
 									  	var unused = $.ajax({type:'POST', 
-								              url:CONTEXT_ROOT+'/indicador/resultadoVariable/${var}',
+								              url:CONTEXT_ROOT+'/indicador/resultadoVariable/${var.clave}',
 								              data: datosFrm,
 								              success:function(data,textStatus)
 								                  {
 								              
-								              		$('#divResult_${var}').html(data);
+								              		$('#divResult_${var.clave}').html(data);
 								          
 								             
 								                  },
@@ -153,22 +182,22 @@
 						});
 					
 				
-					asignaEventorTipo(1,"${var}");
+					asignaEventorTipo(1,"${var.clave}");
 
-					$("#addCat_${var}").click(function(){
+					$("#addCat_${var.clave}").click(function(){
 
-					var cont=	parseInt($("#numCategorias_${var}").val());
+					var cont=	parseInt($("#numCategorias_${var.clave}").val());
 					cont=cont+1;
-					$("#numCategorias_${var}").val(cont);				  
+					$("#numCategorias_${var.clave}").val(cont);				  
 			
 						var unused = $.ajax({type:'POST', 
-								              url:CONTEXT_ROOT+'/indicador/categorias/${var}',
+								              url:CONTEXT_ROOT+'/indicador/categorias/${var.clave}',
 								              data: "con="+cont,
 								              success:function(data,textStatus)
 								              {
 								              
-								              		$('#divCate_${var}').append(data);
-								              		asignaEventorTipo(cont,"${var}");
+								              		$('#divCate_${var.clave}').append(data);
+								              		asignaEventorTipo(cont,"${var.clave}");
 								             
 								              },
 								           			   error:function(XMLHttpRequest,textStatus,errorThrown)
@@ -209,24 +238,24 @@
 				function asignaEventorRegion(){
 
 
-				$("#region_${var}").change(function(){
+				$("#region_${var.clave}").change(function(){
 
 						
 						llenaCombo({
-							url : CONTEXT_ROOT+'/variable/getMunicipioByRegion/'+$("#region_${var}").val(),
+							url : CONTEXT_ROOT+'/variable/getMunicipioByRegion/'+$("#region_${var.clave}").val(),
 							htmlOptions : {
-								name : "municipio_${var}.id",
-								id : "municipio_${var}",
+								name : "municipio_${var.clave}.id",
+								id : "municipio_${var.clave}",
 								clase : "chosen-select"
 							},
 							index : 0,
 							chained : false,
-							anchor : "#municipio_${var}",
+							anchor : "#municipio_${var.clave}",
 							combo : true,
 							valorDefault:true,
 							valorDefaultText:" Seleccione el municipio ",
 							delTag: true,
-							tag:"#divMun_${var}"
+							tag:"#divMun_${var.clave}"
 						});  
 
 						});
@@ -238,27 +267,27 @@
 
 				function asignaEventorMunicipio(){
 
-					$("#municipio_${var}").change(function(){
+					$("#municipio_${var.clave}").change(function(){
 
 
 						
 						
 						llenaCombo({
-							url : CONTEXT_ROOT+'/variable/getLocalidadByMunicipio/'+$("#municipio_${var}").val(),
+							url : CONTEXT_ROOT+'/variable/getLocalidadByMunicipio/'+$("#municipio_${var.clave}").val(),
 							htmlOptions : {
-								name : "localidad_${var}.id",
-								id : "localidad_${var}",
+								name : "localidad_${var.clave}.id",
+								id : "localidad_${var.clave}",
 								clase : "chosen-select",
 								
 							},
 							index : 0,
 							chained : false,
-							anchor : "#localidad_${var}",
+							anchor : "#localidad_${var.clave}",
 							combo : true,
 							valorDefault:true,
 							valorDefaultText:" Seleccione la localidad ",
 							delTag: true,
-							tag:"#divLoc_${var}"
+							tag:"#divLoc_${var.clave}"
 						});  
 
 

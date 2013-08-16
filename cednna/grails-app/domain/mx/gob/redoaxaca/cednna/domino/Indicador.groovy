@@ -27,7 +27,7 @@ class Indicador {
 //	Estado         estado
 //	Municipio      municipio
 	
-
+	Division       division
 	
 	boolean        publico
 	
@@ -51,6 +51,7 @@ class Indicador {
 				ejecutora(blank:false, nullable:false)
 				frecuencia(blank:false, nullable:false)
 				formula(blank:false, nullable:false)
+				division(blank:true, nullable:true)
 				
 //				region(blank:false, nullable:false) 
 //			    localidad(blank:false, nullable:false) 

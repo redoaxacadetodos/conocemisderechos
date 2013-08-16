@@ -216,7 +216,7 @@ class IndicadorController {
 			
 				def dVariable = new  DVariable()
 				dVariable.clave=v
-				dVariable.descripcion=params.getAt("descripcion_"+v)
+				dVariable.descripcion=params.getAt("d escripcion_"+v)
 				dVariable.localidad=localidad
 				dVariable.municipio=municipio
 				dVariable.region=region
@@ -291,7 +291,68 @@ class IndicadorController {
         }
 
         indicadorInstance.properties = params
-
+		
+		def sentencia= indicadorInstance?.formula?.variables
+		def variables= sentencia.split("\\|")
+		
+		def resultado
+		for(v in variables){
+			
+							def numCategorias= params.getAt("numCategorias_"+v)
+							
+							def localidad=null
+							def municipio=null
+							def region=null
+							def estado=null
+							
+							if(params.getAt("localidad_"+v)!="null")
+								localidad=  Localidad.get(params.getAt("localidad_"+v+".id"))
+							
+							
+							if(params.getAt("municipio_"+v)!="null")
+								municipio=  Municipio.get(params.getAt("municipio_"+v+".id"))
+						
+							
+							
+							if(params.getAt("region_"+v)!="null")
+								region =    Region.get(params.getAt("region_"+v+".id"))
+							
+							
+							
+							if(params.getAt("estado_"+v)!="null")
+								estado =    Estado.get(params.getAt("estado_"+v+".id"))
+							
+							
+							
+							
+							
+							def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
+						
+							def dVariable = new  DVariable()
+							dVariable.clave=v
+							dVariable.descripcion=params.getAt("d escripcion_"+v)
+							dVariable.localidad=localidad
+							dVariable.municipio=municipio
+							dVariable.region=region
+							dVariable.estado=estado
+							dVariable.poblacion=poblacion
+							
+							
+							for(i in 1 .. numCategorias){
+								
+								
+									 def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
+									if(categoria)
+									{
+										dVariable.addToCategorias(categoria)
+									}
+							}
+							
+							indicadorInstance.addToVariables(dVariable)
+							
+					}
+		
+		
         if (!indicadorInstance.save(flush: true)) {
             render(view: "edit", model: [indicadorInstance: indicadorInstance])
             return
@@ -318,12 +379,21 @@ class IndicadorController {
 		
 		def formula = Formula.get(params.id);
 		def var
-		if(formula){
+		def resultado 
+		if(formula)
+		{
 			
 			var= formula.variables.split("\\|")
 
-							
-//			System.out.println(formula);
+			if(params.idIndicador!=""){
+				def indicador =  Indicador.get(params.idIndicador);
+				
+				if(indicador){
+					
+					
+					var= indicador.variables
+				}
+			}
 		}		
 		
 		
@@ -349,12 +419,12 @@ class IndicadorController {
 		def poblacion = params.getAt("poblacion_"+variable)
 
 	
-		
+
 		//def rango = RangoEdad.findAllByMinimoBetweenAndMaximo(rInicial,rFinal);
-		
-		
-	//	System.out.println(rango);
-		
+
+
+		//	System.out.println(rango);
+
 		def var = Variable.findAllByLocalidadAndMunicipioAndRegionAndEstadoAndAnio(localidad,municipio,region,estado,anio);
 	
 

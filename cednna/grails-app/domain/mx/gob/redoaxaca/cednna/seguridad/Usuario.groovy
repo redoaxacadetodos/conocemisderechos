@@ -1,5 +1,7 @@
 package mx.gob.redoaxaca.cednna.seguridad
 
+import mx.gob.redoaxaca.cednna.domino.Dependencia
+
 class Usuario {
 
 	transient springSecurityService
@@ -10,11 +12,15 @@ class Usuario {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	Dependencia dependencia
+	
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+		dependencia blank: true,nullable:true
 	}
+	
 
 	 static mapping = {
         table 'sys_usuario'
