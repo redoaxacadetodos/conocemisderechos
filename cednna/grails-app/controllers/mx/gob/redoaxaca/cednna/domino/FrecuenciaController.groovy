@@ -2,6 +2,11 @@ package mx.gob.redoaxaca.cednna.domino
 
 import org.springframework.dao.DataIntegrityViolationException
 
+
+import grails.plugins.springsecurity.Secured
+
+
+@Secured(["hasRole('ROLE_ADMIN')"])
 class FrecuenciaController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
