@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<div id="division">		
+			<h3>Manual - Público general</h3>
 		</div>
 	</body>
 </html>

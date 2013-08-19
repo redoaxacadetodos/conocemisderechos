@@ -58,12 +58,19 @@
 		
 		<nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
-		<li><g:link class="list" action="list">Calendario</g:link></li>
-		<li><g:link class="create" action="create">Directorio</g:link></li>
-		<li><g:link class="create" action="create">Contacto</g:link></li>
-		<li><g:link class="create" action="create">Ayuda</g:link></li>		
+		<li><g:link class="list" action="calendario">Calendario</g:link></li>
+		<li><g:link class="create" action="directorio">Directorio</g:link></li>
+		<li><g:link class="create" action="contacto">Contacto</g:link></li>
+		<li><g:link class="create" action="ayuda">Ayuda</g:link></li>		
 		</ul>
 </nav>
+	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
+		<input onclick="${remoteFunction(
+			controller:'publico',
+			action: 'infoIndicador',
+			update: 'division',
+			id: eje.id)}" type="button" value="${eje.descripcion}" id="${eje.id}">		
+	</g:each>
 		
 
 		<div class="tm-middle">
@@ -111,11 +118,10 @@
 				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
 					<li class="uk-parent uk-active"><a href="#">Índice</a>
 						<ul class="uk-nav-sub">
-							<li><g:link controller="Indicador">Indicadores</g:link></li>
-							<li><g:link controller="Formula">Fórmulas</g:link></li>
-							<li><g:link controller="Variable">Origen de datos</g:link></li>
-							<li><g:link controller="logout">Cerrar sesión </g:link></li>
-					
+							<li><g:link class="list" action="list">Calendario</g:link></li>
+							<li><g:link class="create" action="create">Directorio</g:link></li>
+							<li><g:link class="create" action="create">Contacto</g:link></li>
+							<li><g:link class="create" action="create">Ayuda</g:link></li>
 						</ul>
 					</li>
 

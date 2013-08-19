@@ -8,7 +8,14 @@
 		
 	</head>
 	<body>
-		<div id="division">		
+		<div id="division">
+			<table>
+				<tbody>
+					<tr><td>NOMBRE</td><td>CARGO E INSTITUCIÓN</td><td>DEPENDENCIA</td></tr>
+					
+					<tr></tr>
+				</tbody>
+			</table>		
 		</div>
 	</body>
 </html>
