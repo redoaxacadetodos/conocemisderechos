@@ -10,8 +10,8 @@
 		<a href="#edit-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Origen de datos</g:link></li>
+				<li><g:link class="create" action="create">Nuevo origen de datos</g:link></li>
 			</ul>
 </nav>
 		<div id="edit-variable" class="content scaffold-edit" role="main">
@@ -33,7 +33,7 @@
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="uk-form uk-form-horizontal">
-				<div class="uk-form-controls">
+				<div>
 				<p>
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" class="uk-button"/>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" class="uk-button"/>

@@ -4,6 +4,8 @@ import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Row
 import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
+import mx.gob.redoaxaca.cednna.seguridad.Usuario;
+
 import org.springframework.dao.DataIntegrityViolationException
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest
@@ -13,7 +15,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 class VariableController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+	def springSecurityService
     def index() {
         redirect(action: "list", params: params)
     }
@@ -142,7 +144,7 @@ class VariableController {
 	
 	
 	def subirArchivo(){
-		
+		def usuario = springSecurityService.currentUser
 		def dependencia
 		def archivo
 
@@ -168,11 +170,10 @@ class VariableController {
 			 renglones = archivo.getDatos();
 		     renglonesMalos = new ArrayList<Row>();
 
-
-			 dependencia = Dependencia.get(archivo.getClaveDependencia())
+			 if(usuario)
+			 	dependencia = usuario.dependencia
 		
-		
-			
+	
 		
 			
 	

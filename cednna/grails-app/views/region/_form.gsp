@@ -2,8 +2,8 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: regionInstance, field: 'descripcion', 'error')} ">
-	<label for="descripcion">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: regionInstance, field: 'descripcion', 'error')} ">
+	<label for="descripcion" class="uk-form-label">
 		<g:message code="region.descripcion.label" default="Descripcion" />
 		
 	</label>
