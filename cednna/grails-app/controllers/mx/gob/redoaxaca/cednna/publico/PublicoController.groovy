@@ -6,6 +6,7 @@ class PublicoController {
 		
 	}
 	
+	@Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
 	def indicadores = {
 		
 	}
