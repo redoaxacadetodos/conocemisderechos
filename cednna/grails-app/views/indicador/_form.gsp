@@ -130,6 +130,8 @@
 		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" />
 		<span class="required-indicator">*</span>
 	</label>
+	<input  id="fec"  type="text" />
+	
 	<g:datePicker name="fechaActualizacion" precision="day"  value="${indicadorInstance?.fechaActualizacion}"  />
 </div>
 
@@ -166,7 +168,9 @@ $(function(){
 
 	
 	$(document).ready(function() {
-		
+
+
+		$('#fec').pickadate();
 		$(".screen").html($(".outcome").val() );
 
 	 	var unused = $.ajax({type:'POST', 

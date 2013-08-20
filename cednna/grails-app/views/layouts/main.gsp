@@ -18,6 +18,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'calc.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'default.css')}" type="text/css">
+	    <link rel="stylesheet" href="${resource(dir: 'css', file: 'default.date.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'default.time.css')}" type="text/css">
 
 <%--	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/style.css')}" type="text/css">--%>
 <%-- 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/prism.css')}" type="text/css">--%>
@@ -27,8 +30,15 @@
  						<g:javascript src="jquery.dataTables.js" />
 		
 
- 	<g:javascript src="chosen.jquery.js" />
-  	<g:javascript src="docsupport/prism.js"  />
+
+
+					
+						<g:javascript src="picker.js" />
+						<g:javascript src="picker.date.js" />
+						<g:javascript src="picker.time.js" />
+						<g:javascript src="es_ES.js" />
+					 	<g:javascript src="chosen.jquery.js" />
+					  	<g:javascript src="docsupport/prism.js"  />
   	
 
 				<g:javascript src="Utilerias.js" />	
@@ -84,7 +94,7 @@
 		<g:layoutBody/>
 	
 	
-					</div>
+					</div> 
 				</div>
 
 			</div>
