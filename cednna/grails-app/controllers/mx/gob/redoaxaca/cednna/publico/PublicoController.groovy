@@ -42,15 +42,17 @@ class PublicoController {
 	
 	def detalleIndicador (Long id){
 		def indicador = Indicador.get(id)
-		render(template: "detalleIndicador", model: [indicador: indicador])
+		def resultados = visor(id)
+		
+		render(template: "detalleIndicador", model: [indicadorInstance: indicador, resultados:resultados])
 	}
 	
 	
 	
-	def visor(){
+	def List visor(Long id){
 		
 		
-		def indicadorInstance = Indicador.get(params.id);
+		def indicadorInstance = Indicador.get(id);
 		
 		
 	
@@ -130,7 +132,7 @@ class PublicoController {
 			
 			
 		}
-		[indicadorInstance:indicadorInstance,resultados:resultados]
+		return resultados
 	}
 	
 	

@@ -4,12 +4,20 @@
 <html>
 	<head>		
 		<meta name="layout" content="public">
-			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" ></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		
 		
 	</head>
 	<body>
 		<div id="division">		
 		</div>
+		<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
+	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>
+	  	
 	</body>
 </html>
 
