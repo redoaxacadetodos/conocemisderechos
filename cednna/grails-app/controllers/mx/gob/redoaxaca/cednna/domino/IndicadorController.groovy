@@ -8,7 +8,9 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
+@Secured(["hasRole('ROLE_ADMIN')"])
 class IndicadorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -16,7 +18,7 @@ class IndicadorController {
 	def dataTablesService
 	
     def index() {
-        redirect(action: "list", params: params)
+        
     }
 
     def list(Integer max) {
@@ -60,6 +62,7 @@ class IndicadorController {
 		],1,"text") as JSON
 }
 
+	
 	
 	
 	

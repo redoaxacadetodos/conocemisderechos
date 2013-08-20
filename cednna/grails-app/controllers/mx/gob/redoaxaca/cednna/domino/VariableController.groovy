@@ -12,6 +12,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 
+import grails.plugins.springsecurity.Secured
+
+
+@Secured(["hasRole('ROLE_ADMIN')"])
 class VariableController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
