@@ -130,9 +130,10 @@
 		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" />
 		<span class="required-indicator">*</span>
 	</label>
-	<input  id="fec"  type="text" />
+	<input  id="fec"  type="text" value= />
+	<input  id="fechaActualizacion" name="fechaActualizacion"  value="${indicadorInstance?.fec}"/>
+
 	
-	<g:datePicker name="fechaActualizacion" precision="day"  value="${indicadorInstance?.fechaActualizacion}"  />
 </div>
 
 
@@ -170,7 +171,28 @@ $(function(){
 	$(document).ready(function() {
 
 
-		$('#fec').pickadate();
+		$('#fec').pickadate({
+		    onOpen: function() {
+		        console.log('Opened up!');
+		    },
+		    onClose: function() {
+		    	
+		    },
+		    onRender: function() {
+		        console.log('Just rendered anew');
+		    },
+		    onStart: function() {
+		        console.log('Hello there :)');
+		    },
+		    onStop: function() {
+		        console.log('See ya');
+		    },
+		    onSet: function(event) {
+		        console.log('Set stuff:', event);
+		    }
+		});
+		
+		
 		$(".screen").html($(".outcome").val() );
 
 	 	var unused = $.ajax({type:'POST', 

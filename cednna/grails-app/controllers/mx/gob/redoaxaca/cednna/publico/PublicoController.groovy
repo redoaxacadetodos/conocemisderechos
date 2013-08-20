@@ -3,6 +3,7 @@ package mx.gob.redoaxaca.cednna.publico
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 import mx.gob.redoaxaca.cednna.domino.*
+
 import com.redoaxaca.java.Resultado
 import grails.plugins.springsecurity.Secured
 
@@ -131,4 +132,19 @@ class PublicoController {
 		}
 		[indicadorInstance:indicadorInstance,resultados:resultados]
 	}
+	
+	
+	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
+		
+			def ban = false
+			System.out.println(" id variable  " +v.id);
+			for(c in v.categorias){
+				
+				System.out.println("categoria de la variable : "+ c.descripcion+"  categoria p : "+cat.descripcion);
+				if(c.id==cat.id)
+					ban=true
+			}
+	
+		return ban;
+		}
 }
