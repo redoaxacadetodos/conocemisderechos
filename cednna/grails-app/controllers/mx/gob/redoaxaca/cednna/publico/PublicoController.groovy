@@ -5,7 +5,9 @@ import javax.script.ScriptEngineManager
 import mx.gob.redoaxaca.cednna.domino.*
 
 import com.redoaxaca.java.Resultado
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovy.json.JsonBuilder
 
 @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
 class PublicoController {
@@ -44,7 +46,29 @@ class PublicoController {
 		def indicador = Indicador.get(id)
 		def resultados = visor(id)
 		
-		render(template: "detalleIndicador", model: [indicadorInstance: indicador, resultados:resultados])
+		def series = []
+		def categorias = []
+		def datos = []
+		def a = [title: [text: indicador?.nombre?.toString(), x: -20]]		
+		a.put("yAxis", [title: [text: 'Temperatura']])	
+		a.put("tooltip", [valueSuffix: 'C'])
+		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
+		resultados.each { result ->
+			categorias.add(result?.anio)
+			//categorias.add("2013")
+			datos.add(result?.indicador)
+			//datos.add(90)
+		}
+		a.put("xAxis", [categories: categorias] )
+		System.out.println(categorias)
+		def serie = [name: "Indicador", data: datos]
+		series << serie
+		a.put("series", series)
+		
+		def jsodata = a as JSON
+		
+		System.out.println(jsodata)
+		render(template: "detalleIndicador", model: [indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata])
 	}
 	
 	
