@@ -11,9 +11,9 @@
 			}}">	
 					
 			${indicador.nombre }
-			<g:remoteLink update="division" action="detalleIndicador" id="${indicador.id}">
-			Ver indicadores
-			</g:remoteLink> <br>
+			
+			<g:link action="detalleIndicador" id="${indicador.id}">Ver indicadores</g:link>
+			 <br>
 		</g:each>	
 	</g:each>	
 </div>

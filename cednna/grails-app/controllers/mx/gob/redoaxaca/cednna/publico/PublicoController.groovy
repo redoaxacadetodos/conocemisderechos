@@ -50,8 +50,8 @@ class PublicoController {
 		def categorias = []
 		def datos = []
 		def a = [title: [text: indicador?.nombre?.toString(), x: -20]]		
-		a.put("yAxis", [title: [text: 'Temperatura']])	
-		a.put("tooltip", [valueSuffix: 'C'])
+		a.put("yAxis", [title: [text: '%']])	
+		a.put("tooltip", [valueSuffix: '%'])
 		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
 		resultados.each { result ->
 			categorias.add(result?.anio)
@@ -67,8 +67,26 @@ class PublicoController {
 		
 		def jsodata = a as JSON
 		
+		def formula = indicador?.formula?.sentencia
+		def patron = ~"/"
+		
+		
+		def formulaEspacion = ""
+		/*
+		def aux = 0
+		for(def i=0; i<formula.length(); i++ ){
+			System.out.println(i)
+			formulaEspacion[aux] = formula[i].toString()
+			if ((i+1)<formula.length() && formula[i+1]=="/"){
+				formulaEspacion[aux]=" "
+				aux++
+			}
+			aux++
+		}
+		*/
+		System.out.println(formulaEspacion)
 		System.out.println(jsodata)
-		render(template: "detalleIndicador", model: [indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata])
+		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, formula: formula]
 	}
 	
 	

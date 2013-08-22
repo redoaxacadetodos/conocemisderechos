@@ -1,22 +1,30 @@
-<head>	  
-	  <script>
-	  $(function() {
-	    $( "#tabs" ).tabs();
-	  });
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+	<head>		
+		<meta name="layout" content="public">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	  
+	  <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+		
+		
+		<script>
+	  $(function () {
+		  $( "#tabs" ).tabs();
+	        $('#container').highcharts(
+	            ${tablaJSON});
+	    });
 	  </script>
+	</head>
+	<body>
 	  
-	  
-		<script type="text/javascript">
-$(function () {
-        $('#container').highcharts(
-            ${tablaJSON});
-    });
-    
-
-		</script>
-</head>
-
-<div>
+<div id="division">
 	<h3>${indicadorInstance?.nombre }</h3>
 	<div id="tabs">
 	  <ul>
@@ -90,8 +98,9 @@ $(function () {
 	  		<tr><td>Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
 	  		<tr><td>Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
 	  		<tr><td>Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
-	  		<tr><td>Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  		
-	  		<tr><td>Fórmula de cálculo:</td><td>${indicadorInstance.formula?.descripcion }</td></tr>
+	  		<tr><td>Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>
+	  		<tr><td>Fórmula de cálculo latex:</td><td><div lang="latex">${indicadorInstance.formula?.sentencia}</div></td></tr>	  		
+	  		<tr><td>Fórmula de cálculo:</td><td>${indicadorInstance.formula?.sentencia }</td></tr>
 	  		<tr><td>Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
 	  		<tr><td>Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
 	  		<tr><td>Fecha de actualización:</td><td>${indicadorInstance?.fechaActualizacion }</td></tr>	  		  		
@@ -129,5 +138,14 @@ $(function () {
 	    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
 	  </div>
 	  
-	</div>		
+	</div>
+	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
+	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>		
 </div>
+
+
+	  
+</body>
+</html>
+
+	  
