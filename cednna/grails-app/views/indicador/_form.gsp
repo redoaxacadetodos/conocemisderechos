@@ -130,8 +130,9 @@
 		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" />
 		<span class="required-indicator">*</span>
 	</label>
-	<input  id="fec"  type="text" value= />
-	<input  id="fechaActualizacion" name="fechaActualizacion"  value="${indicadorInstance?.fec}"/>
+	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}"  />
+	
+	
 
 	
 </div>
@@ -171,7 +172,7 @@ $(function(){
 	$(document).ready(function() {
 
 
-		$('#fec').pickadate({
+		$('#fechaActua').pickadate({
 		    onOpen: function() {
 		        console.log('Opened up!');
 		    },
@@ -182,7 +183,7 @@ $(function(){
 		        console.log('Just rendered anew');
 		    },
 		    onStart: function() {
-		        console.log('Hello there :)');
+		    	  console.log('Opened up!');
 		    },
 		    onStop: function() {
 		        console.log('See ya');

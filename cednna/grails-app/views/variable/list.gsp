@@ -6,6 +6,12 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'variable.label', default: 'Variable')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" ></script>
+				<g:javascript src="jquery.dataTables.js"  />
+			<g:datatablehelperjs ctrlid="variableTable" context="${request.getContextPath()}" 
+				controller="variable" action="dataTablesListadoVariables" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
+				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}']"   
+				/>
 	</head>
 	<body>
 		<a href="#list-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -22,60 +28,40 @@
 
 </nav>
 
+					<br>
+					<br>
+				  <div class="body">
+				  
+				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripcion','Region','Municipio','Localidad','Poblacion Total','Hombres','Mujeres']" class="table table-striped table-bordered"></g:datatablehelper>
+				  </div>
+</body>
+<script type="text/javascript" >
 
-		<div id="list-variable" class="content scaffold-list" role="main">
-			<h1 class="uk-article-title">Origen de datos</h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<table>
-				<thead>
-					<tr>
-					
-						<g:sortableColumn property="clave" title="${message(code: 'variable.clave.label', default: 'Clave')}" />
-					
-						<g:sortableColumn property="descripcion" title="${message(code: 'variable.descripcion.label', default: 'Descripcion')}" />
-					
-						<g:sortableColumn property="region.descripcion" title="${message(code: 'variable.poblacionTotal.label', default: 'Region')}" />
-					
-						<g:sortableColumn property="municipio.descripcion" title="${message(code: 'variable.poblacionTotal.label', default: 'Municipio')}" />
-						
-						<g:sortableColumn property="localidad.descripcion" title="${message(code: 'variable.poblacionTotal.label', default: 'Localidad')}" />
-					
-						<g:sortableColumn property="poblacionTotal" title="${message(code: 'variable.poblacionTotal.label', default: 'Poblacion Total')}" />
-					
-						<g:sortableColumn property="hombres" title="${message(code: 'variable.hombres.label', default: 'Hombres')}" />
-						
-						<g:sortableColumn property="mujeres" title="${message(code: 'variable.hombres.label', default: 'Mujeres')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${variableInstanceList}" status="i" var="variableInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${variableInstance.id}">${fieldValue(bean: variableInstance, field: "clave")}</g:link></td>
-					
-						<td>${fieldValue(bean: variableInstance, field: "descripcion")}</td>
-					
-						<td>${fieldValue(bean: variableInstance, field: "estado")}</td>
-					
-						<td>${fieldValue(bean: variableInstance, field: "municipio")}</td>
-						
-						<td>${fieldValue(bean: variableInstance, field: "localidad")}</td>
-					
-						<td>${fieldValue(bean: variableInstance, field: "poblacionTotal")}</td>
-					
-						<td>${fieldValue(bean: variableInstance, field: "hombres")}</td>
-					
-						<td>${fieldValue(bean: variableInstance, field: "mujeres")}</td>
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${variableInstanceTotal}" />
-			</div>
-		</div>
-	</body>
+
+		function muestraBoton(source, type, val) 	
+		{
+		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/><a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
+		}
+
+		
+
+
+		function mostrarRegistro(id){
+			
+			document.location.href=CONTEXT_ROOT+"/indicador/visor/"+id;
+
+		}
+
+
+		function editaRegistro(id){
+			
+			document.location.href=CONTEXT_ROOT+"/indicador/edit/"+id;
+
+		}
+			
+				
+
+				
+</script>
+
 </html>

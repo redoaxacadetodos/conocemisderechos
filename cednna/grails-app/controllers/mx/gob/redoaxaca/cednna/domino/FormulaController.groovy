@@ -3,17 +3,50 @@ package mx.gob.redoaxaca.cednna.domino
 import org.springframework.dao.DataIntegrityViolationException
 
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class FormulaController {
 
+	def dataTablesService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
     }
+	
+	def dataTablesListadoFormulas = {
+		
+	def query=" from cat_formula	 as f  "
+		
+		
+		
+		render dataTablesService.datosParaTablaQuery(query,params,
+		[
+		"ctf_id as id",
+		"ctf_descripcion as descripcion" ,
+		"ctf_nombre as nombre",
+		"ctf_sentencia as sentencia" 
+		],
+		[
+		"ctf_descripcion" ,
+		"ctf_nombre",
+		"ctf_sentencia" 
+		],
+	
+		[
+		"id",
+		"descripcion" ,
+		"nombre",
+		"sentencia" 
+		],1,"text") as JSON
+}
+	
+	
+	
+	
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)

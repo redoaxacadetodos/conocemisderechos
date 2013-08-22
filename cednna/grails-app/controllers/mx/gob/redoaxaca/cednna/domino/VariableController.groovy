@@ -17,12 +17,62 @@ import grails.plugins.springsecurity.Secured
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class VariableController {
-
+	def dataTablesService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
     def index() {
         redirect(action: "list", params: params)
     }
+	
+	
+	def dataTablesListadoVariables = {
+		
+	def query=" from cat_variable	 as v  "+
+			  "	left join  cat_region as r on r.crg_id=v.cvv_region   "+
+			  " left join  cat_municipio as m on m.mun_id=v.cvv_municipio   "+
+			  " left join  cat_localidad as l on l.ctl_id=v.cvv_localidad   "
+		
+		
+		
+		render dataTablesService.datosParaTablaQuery(query,params,
+		[
+		"cvv_id as id ", 
+		"cvv_clave as clave " , 
+		"cvv_descripcion as descripcion ", 
+		"coalesce(r.crg_descripcion , '') as region " ,
+		"coalesce(m.mun_descripcion , '') as municipio " ,
+		"coalesce(l.ctl_descripcion , '') as localidad " ,
+		"cvv_poblacion_total as total ",
+		"cvv_hombres as hombres ",
+		"cvv_mujeres as mujeres"
+		],
+		[
+		"cvv_clave " , 
+		"cvv_descripcion ", 
+		"coalesce(r.crg_descripcion , '') " ,
+		"coalesce(m.mun_descripcion , '') " ,
+		"coalesce(l.ctl_descripcion , '') " ,
+		"cvv_poblacion_total ",
+		"cvv_hombres ",
+		"cvv_mujeres "
+		],
+	
+		[
+		"id", 
+		"clave" , 
+		"descripcion", 
+		"region" ,
+		"municipio" ,
+		"localidad" ,
+		"total",
+		"hombres",
+		"mujeres"
+		],1,"text") as JSON
+}
+
+	
+	
+	
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
