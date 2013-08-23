@@ -35,60 +35,58 @@
 	    <li><a href="#tabs-5">Mapa</a></li>
 	  </ul>
 	  <div id="tabs-1">
-	  	<!-- Tabla indicador general -->
-	  	<table>
-	  	<thead><tr>${indicadorInstance?.nombre }</tr></thead>
-	  	<tbody>
-	  	<tr><td>Periodo </td><td>Total</td></tr>
-	  	<g:each var="resultado" in="${resultados }">
-	  	<tr><td>${resultado?.anio }</td><td>${resultado?.indicador }</td></tr>
-	  	</g:each>
-	  	</tbody>
-	  	</table>
+	  <div>
+			  <!-- Tabla indicador general -->
+			  <table>
+				  	<caption>${indicadorInstance?.nombre }</caption>
+				  	<thead>
+				  		<tr><th>Periodo </th><th>Total</th></tr>
+				  	</thead>
+				  	<tbody>
+					  	<g:each var="resultado" in="${resultados }">
+					  	<tr><td>${resultado?.anio }</td><td>${resultado?.indicador }</td></tr>
+					  	</g:each>
+				  	</tbody>
+			  	</table>
+			  	<!-- Termina tabla indicador general -->
+			  	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+		</div>
 	  	
-		
-		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-	  	
-	  	<h2>Tabla indicador estatal</h2>
-	  	<table>
-	  	<thead><tr>${indicadorInstance?.nombre }</tr></thead>
-	  	<tbody>
-	  	<tr><td>Clave</td><td>Desagregación geográfica</td><td>2012</td><td>2013 p/</td></tr>
-	  	</tbody>
-	  	</table>
-	  	<p>
-	  	<b>NOTA:</b> P/ Cifras preliminares ${new Date().month+1} 2013 <br>
-		<b>FUENTE:</b> <br>
-		<b>FECHA DE ACTUALIZACIÓN:</b> ${indicadorInstance?.fechaActualizacion } <br>
-		<b>PRÓXIMA ACTUALIZACIÓN:</b> <br>
-	  	</p>
-	    
-	    <h2>Tabla indicadorInstance regional</h2>
-	    <table>
-	  	<tbody>
-	  	<tr><td>Clave</td><td>Desagregación geográfica</td><td>2012</td><td>2013 p/</td></tr>
-	  	</tbody>
-	  	</table>
-	  	<p>
-	  	<b>NOTA:</b> P/ Cifras preliminares (mes actual) 2013 <br>
-		<b>FUENTE:</b> <br>
-		<b>FECHA DE ACTUALIZACIÓN:</b> ${indicadorInstance?.fechaActualizacion } <br>
-		<b>PRÓXIMA ACTUALIZACIÓN:</b> <br>
-	  	</p>
-	    
-	    <h2>Tabla indicadorInstance municipal</h2>
-	    <table>
-	  	<tbody>
-	  	<tr><td>Clave</td><td>Desagregación geográfica</td><td>2012</td><td>2013 p/</td></tr>
-	  	</tbody>
-	  	</table>
-	  	<p>
-	  	<b>NOTA:</b> P/ Cifras preliminares (mes actual) 2013 <br>
-		<b>FUENTE:</b> <br>
-		<b>FECHA DE ACTUALIZACIÓN:</b> ${indicadorInstance?.fechaActualizacion } <br>
-		<b>PRÓXIMA ACTUALIZACIÓN:</b> <br>
-	  	</p>
-	    
+				<!-- Tabla de variación -->
+				<table style="text-align: center">
+			  		<tr>
+			  			<th rowspan="2" valign="middle">Indicador</th>
+			  			<th colspan="${resultados.size()-1}">Variación</th>			  			
+			  		</tr>
+			  		<tr>			  			
+			  			<g:set value="false" var="imprimir"></g:set>
+			  			<g:each var="resultado" in="${resultados}">
+			  				<g:if test="${imprimir=='true'}">
+			  					<th>${anio}/${resultado?.anio}</th>
+			  					<g:set value="${resultado?.anio}" var="anio"></g:set>			  					
+			  				</g:if>
+			  				<g:else>
+			  					<g:set value="${resultado?.anio}" var="anio"></g:set>
+			  					<g:set value="true" var="imprimir"></g:set>
+			  				</g:else>
+					  	</g:each>				  		
+			  		</tr>
+			  		<tr>
+			  			<g:set value="false" var="imprimirDatos"></g:set>
+			  			<td>${indicadorInstance?.nombre}</td>
+				  		<g:each var="resultado" in="${resultados}">
+					  		<g:if test="${imprimirDatos=='true'}">
+			  					<td>${Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos</td>
+			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>			  					
+			  				</g:if>
+			  				<g:else>
+			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>
+			  					<g:set value="true" var="imprimirDatos"></g:set>
+			  				</g:else>
+					  	</g:each>	
+			  		</tr>
+			  	</table>
+			  	<!-- termina tabla de variación -->	  	
 	  </div>
 	  <div id="tabs-2"> <!-- Metadato -->
 	  	<table>
@@ -98,9 +96,14 @@
 	  		<tr><td>Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
 	  		<tr><td>Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
 	  		<tr><td>Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
-	  		<tr><td>Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>
-	  		<tr><td>Fórmula de cálculo latex:</td><td><div lang="latex">${indicadorInstance.formula?.sentencia}</div></td></tr>	  		
-	  		<tr><td>Fórmula de cálculo:</td><td>${indicadorInstance.formula?.sentencia }</td></tr>
+	  		<tr><td>Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  			  	
+	  		
+	  		<tr><td>Fórmula de cálculo:</td>
+	  		<td>
+	  		<p lang="latex">$${indicadorInstance.formula?.sentencia}$</p> 
+	  		<p>${indicadorInstance.formula?.descripcion}</p>
+	  		</td></tr>
+	  		
 	  		<tr><td>Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
 	  		<tr><td>Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
 	  		<tr><td>Fecha de actualización:</td><td>${indicadorInstance?.fechaActualizacion }</td></tr>	  		  		
