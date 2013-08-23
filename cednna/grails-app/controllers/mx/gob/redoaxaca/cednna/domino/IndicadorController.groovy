@@ -183,6 +183,12 @@ class IndicadorController {
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
 		
+		if(params.fechaActua){
+			Date finicial = Date.parse("dd/MM/yyyy", params.fechaActua)
+			
+			indicadorInstance.fechaActualizacion=finicial
+		
+		}
 		def resultado
 		
 		for(v in variables){
@@ -219,7 +225,7 @@ class IndicadorController {
 			
 				def dVariable = new  DVariable()
 				dVariable.clave=v
-				dVariable.descripcion=params.getAt("d escripcion_"+v)
+				dVariable.descripcion=params.getAt("descripcion_"+v)
 				dVariable.localidad=localidad
 				dVariable.municipio=municipio
 				dVariable.region=region
@@ -298,6 +304,13 @@ class IndicadorController {
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
 		
+		
+		if(params.fechaActua){
+			Date finicial = Date.parse("dd/MM/yyyy", params.fechaActua)
+			
+			indicadorInstance.fechaActualizacion=finicial
+		
+		}
 		def resultado
 		for(v in variables){
 			
@@ -340,18 +353,24 @@ class IndicadorController {
 							dVariable.estado=estado
 							dVariable.poblacion=poblacion
 							
+							indicadorInstance.variables.removeAll{ id!=null }
+//							if (!indicadorInstance.save(flush: true)) {
+//								render(view: "edit", model: [indicadorInstance: indicadorInstance])
+//								return
+//							}
 							
-							for(i in 1 .. numCategorias){
-								
-								
-									 def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
-									if(categoria)
-									{
-										dVariable.addToCategorias(categoria)
-									}
-							}
 							
-							indicadorInstance.addToVariables(dVariable)
+//							for(i in 1 .. numCategorias){
+//								
+//								
+//									 def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
+//									if(categoria)
+//									{
+//										dVariable.addToCategorias(categoria)
+//									}
+//							}
+//							
+//							indicadorInstance.addToVariables(dVariable)
 							
 					}
 		
