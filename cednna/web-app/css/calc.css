@@ -8,17 +8,31 @@
     height:auto;
     padding:10px 0;
     margin: auto;
-    background:#232323;
-    border:#000 1px solid;
+    border:#ccc 1px solid;
     border-radius:7px;
     -webkit-border-radius:7px;
      -moz-border-radius:7px;
      box-shadow:rgba(0,0,0,0.4) 0px 2px 5px, inset rgba(255,255,255,0.9) 0px 1px 1px -1px;
      -webkit-box-shadow:rgba(0,0,0,0.4) 0px 2px 5px, inset rgba(255,255,255,0.9) 0px 1px 1px -1px;
      -moz-box-shadow:rgba(0,0,0,0.4) 0px 2px 5px, inset rgba(255,255,255,0.9) 0px 1px 1px -1px;
-     background-image:-moz-linear-gradient(top, #333333, #1f1f1f);
-      background-image:-webkit-linear-gradient(top, #333333, #1f1f1f);
-       background-image:linear-gradient(top, #333333, #1f1f1f);
+
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #EEEEEE));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom, #FFFFFF 0%, #EEEEEE 100%);
      overflow: hidden;
      text-align: center;
 }
@@ -28,21 +42,36 @@
      height:93px;
     margin: 12px auto 30px;
      padding:15px 20px;
-     color:#c0c0c0;
+     color:#3b5e5f;
      text-align: right;
      font-size: 3em;
      letter-spacing: 3px;
      overflow:hidden;
-     border:#000 1px solid;
+     border:#ddd 1px solid;
      border-radius:7px;
      -webkit-border-radius:7px;
      -moz-border-radius:7px;
-     box-shadow:inset rgba(0,0,0,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
-     -webkit-box-shadow:inset rgba(0,0,0,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
-     -moz-box-shadow:inset rgba(0,0,0,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
-     background-image: -moz-linear-gradient(top, #3e3e3e 0%, #303030 100%);
-      background-image: -webkit-linear-gradient(top, #3e3e3e 0%, #303030 100%);
-      background-image: linear-gradient(top, #3e3e3e 0%, #303030 100%);
+     box-shadow:inset rgba(190,230,230,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
+     -webkit-box-shadow:inset rgba(190,230,230,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
+     -moz-box-shadow:inset rgba(190,230,230,1) 0px 1px 4px, inset rgba(225,225,225,0.3) 0px -2px 4px -2px;
+    
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top, #FEFEFE 0%, #DAEDEC 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #FEFEFE 0%, #DAEDEC 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #FEFEFE 0%, #DAEDEC 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FEFEFE), color-stop(1, #DAEDEC));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #DAEDEC 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom, #FEFEFE 0%, #DAEDEC 100%);
      -moz-box-sizing:border-box;
      -webkit-box-sizing:border-box;
      box-sizing:border-box;
@@ -71,25 +100,39 @@
      width:95px;
      height:68px;
      padding:18px 0 12px;
-     color:#c0c0c0 !important;
+     color:#666 !important;
      font-family: "Myriad Pro", Arial, sans-serif;
      font-size:1.6em;
      font-weight: 500;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     background-color:#2f2f2f;
-     border: #000 1px solid;
+     border: #ddd 1px solid;
      border-radius:5px;
      -webkit-border-radius:5px;
      -moz-border-radius:5px;
      text-align: center;
      text-decoration: none;
-    text-shadow:#000 0px -1px 0px;
+    text-shadow:#fff 0px -1px 0px;
      box-shadow: inset rgba(255,255,255,0.1) 0px 1px 0px, inset rgba(0,0,0,0.2) 0px -2px 2px;
      -webkit-box-shadow: inset rgba(255,255,255,0.1) 0px 1px 0px, inset rgba(0,0,0,0.2) 0px -2px 2px;
      -moz-box-shadow: inset rgba(255,255,255,0.1) 0px 1px 0px, inset rgba(0,0,0,0.2) 0px -2px 2px;
-    background-image:-moz-linear-gradient(top, #363636 0%, #313234 40%, #2f2f2f 100%);
-      background-image:-webkit-linear-gradient(top, #363636 0%, #313234 40%, #2f2f2f 100%);
-       background-image:linear-gradient(top, #363636 0%, #313234 40%, #2f2f2f 100%);
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top, #FEFEFE 0%, #EDEDED 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #FEFEFE 0%, #EDEDED 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #FEFEFE 0%, #EDEDED 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FEFEFE), color-stop(1, #EDEDED));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #EDEDED 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom, #FEFEFE 0%, #EDEDED 100%);
      -moz-box-sizing:border-box;
      -webkit-box-sizing:border-box;
      box-sizing:border-box;
@@ -97,9 +140,23 @@
 }
 .botonesCal a:active{
      box-shadow: inset rgba(0,0,0,0.5) 0px 2px 8px;
-     background-image:-moz-linear-gradient(top, #2f2f2f 0%, #363636 100%);
-      background-image:-webkit-linear-gradient(top, #2f2f2f 0%, #363636 100%);
-       background-image:linear-gradient(top, #2f2f2f 0%, #363636 100%);
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(bottom, #FEFEFE 0%, #EDEDED 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(bottom, #FEFEFE 0%, #EDEDED 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(bottom, #FEFEFE 0%, #EDEDED 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FEFEFE), color-stop(1, #EDEDED));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(bottom, #FEFEFE 0%, #EDEDED 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to top, #FEFEFE 0%, #EDEDED 100%);
 }
 .tall{height:151px !important;}
 .wide{width:205px !important;}

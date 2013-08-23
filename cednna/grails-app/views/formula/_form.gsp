@@ -43,7 +43,7 @@
 		<a class="uk-modal-close uk-close">
 		</a>
 		
-		<h4 id="myModalLabel">Crea tu variable </h4>
+		<h2 id="myModalLabel">Crea tu variable </h2>
 			 
 			 
 			    <div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
