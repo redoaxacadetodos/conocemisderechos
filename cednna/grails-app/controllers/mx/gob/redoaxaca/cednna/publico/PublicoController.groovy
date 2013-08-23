@@ -46,6 +46,26 @@ class PublicoController {
 		def indicador = Indicador.get(id)
 		def resultados = visor(id)
 		
+		//Prueba
+		/*
+		Resultado resultado = new Resultado()
+		Resultado resultado2 = new Resultado()
+		Resultado resultado3 = new Resultado()
+		Resultado resultado4 = new Resultado()
+		resultado.setAnio(2013)	
+		resultado.setIndicador(15)	
+		resultado2.setAnio(2014)
+		resultado2.setIndicador(17)
+		resultado3.setAnio(2015)
+		resultado3.setIndicador(100)
+		resultado4.setAnio(2016)
+		resultado4.setIndicador(17)
+		resultados.add(resultado)
+		resultados.add(resultado2)		
+		resultados.add(resultado3)
+		resultados.add(resultado4)
+		*/
+		
 		def series = []
 		def categorias = []
 		def datos = []
@@ -54,39 +74,20 @@ class PublicoController {
 		a.put("tooltip", [valueSuffix: '%'])
 		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
 		resultados.each { result ->
-			categorias.add(result?.anio)
-			//categorias.add("2013")
-			datos.add(result?.indicador)
-			//datos.add(90)
+			categorias.add(result?.anio)			
+			datos.add(result?.indicador)					
 		}
+		
 		a.put("xAxis", [categories: categorias] )
 		System.out.println(categorias)
 		def serie = [name: "Indicador", data: datos]
 		series << serie
 		a.put("series", series)
 		
-		def jsodata = a as JSON
+		def jsodata = a as JSON		
 		
-		def formula = indicador?.formula?.sentencia
-		def patron = ~"/"
-		
-		
-		def formulaEspacion = ""
-		/*
-		def aux = 0
-		for(def i=0; i<formula.length(); i++ ){
-			System.out.println(i)
-			formulaEspacion[aux] = formula[i].toString()
-			if ((i+1)<formula.length() && formula[i+1]=="/"){
-				formulaEspacion[aux]=" "
-				aux++
-			}
-			aux++
-		}
-		*/
-		System.out.println(formulaEspacion)
 		System.out.println(jsodata)
-		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, formula: formula]
+		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata]
 	}
 	
 	
