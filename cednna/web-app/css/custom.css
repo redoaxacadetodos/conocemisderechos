@@ -163,9 +163,10 @@ html { overflow-y: scroll; }
 	border-radius: 3px;
 	text-shadow: none;
 	font-size: 15px;
+  padding: 0 5px !important;
 }
 
-.tm-navbar .uk-navbar-nav > li { margin-left: 20px; }
+.tm-navbar .uk-navbar-nav > li { margin-left: 0px; }
 
 /* Hover */
 .tm-navbar .uk-navbar-nav > li:hover > a,
@@ -173,12 +174,12 @@ html { overflow-y: scroll; }
 .tm-navbar .uk-navbar-nav > li.uk-open > a {
 	border: none;
 	color: #FFF;
+  box-shadow: none !important;
 }
 
 /* Active */
 .tm-navbar .uk-navbar-nav > li.uk-active > a {
-	background-color: #2BA3D4;
-	color: #FFF;
+box-shadow: none !important;
 }
 
 /* OnClick */
@@ -781,3 +782,22 @@ text-shadow: 0 1px 0 #fff !important;
   background-image:none !important;
   box-shadow:inset 0 2px 4px rgba(0,0,0,0.1)  !important;
 }
+
+.tm-navbar .uk-navbar-nav {
+margin: 0;
+padding: 0;
+list-style: none;
+float: right;
+}
+
+.iconobar { display: block; width: 28px; height: 32px; margin: 7px 0 0 20px !important;}
+
+.icono_calendar { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+.icono_directorio { background: url(../img/icons/directorio.png) 0 8px no-repeat !important; }
+.icono_contacto { background: url(../img/icons/contacto.png) 0 8px no-repeat !important; }
+.icono_ayuda { background: url(../img/icons/ayuda.png) 0 10px no-repeat !important; }
+
+.icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 10px no-repeat !important; }
+.icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
+.icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
+.icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }

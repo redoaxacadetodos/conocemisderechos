@@ -47,7 +47,13 @@
 			<div class="uk-container uk-container-center">
 
 				<a class="uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
-                <a class="uk-logo-edos uk-hidden-small" ><img src="${request.getContextPath()}/img/logos_edo.png"  title="Oaxaca de todos" alt="Oaxaca de todos"></a>
+
+				<ul class="uk-navbar-nav uk-hidden-small">
+		<li><g:link class="list iconobar icono_calendar" action="calendario" data-uk-tooltip="{pos:'bottom'}" title="Calendario"></g:link></li>
+		<li><g:link class="create iconobar icono_directorio" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
+		<li><g:link class="create iconobar icono_contacto" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
+		<li><g:link class="create iconobar icono_ayuda" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="ayuda"></g:link></li>	
+				</ul>
 
 				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
 
@@ -56,26 +62,26 @@
 			</div>
 		</nav>
 		
-		<nav class="uk-navbar">
-		<ul class="uk-navbar-nav">
-		<li><g:link class="list" action="calendario">Calendario</g:link></li>
-		<li><g:link class="create" action="directorio">Directorio</g:link></li>
-		<li><g:link class="create" action="contacto">Contacto</g:link></li>
-		<li><g:link class="create" action="ayuda">Ayuda</g:link></li>		
-		</ul>
-		</nav>
-	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-		<input onclick="${remoteFunction(
-			controller:'publico',
-			action: 'infoIndicador',
-			update: 'division',
-			id: eje.id)}" type="button" value="${eje.descripcion}" id="${eje.id}" class="uk-button">		
-	</g:each>
-		
+
 
 		<div class="tm-middle">
 			<div class="uk-container uk-container-center">
 
+<div class="uk-grid">
+<div class="uk-width-1-1">
+	<ul class="uk-tab" data-uk-tab>
+	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
+		<li><a href="#" onclick="${remoteFunction(
+			controller:'publico',
+			action: 'infoIndicador',
+			update: 'division',
+			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}">${eje.descripcion}</a>
+		</li>
+					
+	</g:each>
+	</ul>
+</div>
+</div>	
 				<div class="uk-grid" data-uk-grid-margin>
 				
 					<div class="tm-sidebar uk-width-medium-1-5 uk-hidden-small">
