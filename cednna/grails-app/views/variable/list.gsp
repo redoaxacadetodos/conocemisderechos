@@ -25,6 +25,7 @@
 			
 				<li><g:link class="create" action="create">Agregar origen de datos</g:link></li>
 				<li><g:link class="create" action="archivo">Subir desde archivo</g:link></li>
+				<li><g:link class="create" action="monitor">Monitor de datos</g:link></li>
 
 </nav>
 

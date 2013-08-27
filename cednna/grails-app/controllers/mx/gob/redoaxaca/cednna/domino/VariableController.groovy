@@ -2,6 +2,7 @@ package mx.gob.redoaxaca.cednna.domino
 
 import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Row
+import com.redoaxaca.java.TotalVariable
 import grails.converters.JSON
 import org.springframework.dao.DataIntegrityViolationException
 import mx.gob.redoaxaca.cednna.seguridad.Usuario;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 
 import grails.plugins.springsecurity.Secured
+import groovy.sql.Sql
 
 
 @Secured(["hasRole('ROLE_ADMIN')"])
@@ -72,6 +74,43 @@ class VariableController {
 
 	
 	
+	
+	def dataTablesListadoPanel = {
+		
+	def query="   from cat_variable group by cvv_clave,cvv_descripcion   "
+		
+		
+		
+		render dataTablesService.datosParaTablaQuery(query,params,
+		[
+		"cvv_clave as clave",
+		"cvv_descripcion as descripcion",
+		"sum(cvv_mujeres) as mujeres",
+		"sum(cvv_hombres) as hombres",
+		"sum(cvv_poblacion_total)  as total"
+		
+		],
+		[
+		"cvv_clave",
+		"cvv_descripcion",
+		"sum(cvv_mujeres)",
+		"sum(cvv_hombres)",
+		"sum(cvv_poblacion_total)"
+		],
+	
+		[
+		"clave",
+		"descripcion",
+		"mujeres",
+		"hombres",
+		"total"
+		],1,"text") as JSON
+}
+
+	
+	def monitor(){
+		
+	}
 	
 
     def list(Integer max) {
@@ -192,10 +231,154 @@ class VariableController {
 	}
 	
 	
+	def resultadoPanel() {
+		
+		def variablesLocalidad = new TotalVariable()
+		def variablesMunicipio = new TotalVariable()
+		def variablesRegion = new TotalVariable()
+	    def variables = new TotalVariable()
+					
+						if(params.localidad)
+						{		
+							variablesLocalidad=Variable.findByClaveAndLocalidad(params.id,localidad);
+						
+							
+						
+						}
+						
+						
+						if(params.municipio)
+						{
+							def vmunicipio
+							def municipio = Region.get(params.municipio)	
+							vmunicipio= Variable.findByClaveAndMunicipio(params.id,municipio);
+							if(vmunicipio)
+							{
+								
+								variablesMunicipio.variables=vmunicipio
+								
+								vmunicipio.each {
+									variablesMunicipio.total+=it.poblacionTotal
+									variablesMunicipio.mujeres+=it.mujeres
+									variablesMunicipio.hombres+it.hombres
+								}
+								
+							}else{
+									def result=vLocalidades(municipio)
+									variablesMunicipio.total=result.total
+									variablesMunicipio.mujeres=result.mujeres
+									variablesMunicipio.hombres=result.hombres
+							}
+						}
+						
+						
+						if(params.region)
+						{	
+							def vregiones
+							def region = Region.get(params.region)	
+							vregiones= Variable.findByClaveAndRegion(params.id,region);
+							if(vregiones)
+							{
+								
+								variablesRegion.variables=vregiones
+								
+								vregiones.each {
+									variablesRegion.total+=it.poblacionTotal
+									variablesRegion.mujeres+=it.mujeres
+									variablesRegion.hombres+it.hombres
+								}
+								
+							}else{
+									def result=vMunicipios(region)
+									variablesRegion.total=result.total
+									variablesRegion.mujeres=result.mujeres
+									variablesRegion.hombres=result.hombres
+							}
+						}
+						
+						
+						
+						
+						
+						
+						if(params.municipio)
+						{
+						   variables = Variable.findByClave(params.id);
+						}
+			
+						
+						
+						
+						
+		[general:variables,vregion:variablesRegion,vmunicipio:variablesMunicipio,vlocalidad: variablesLocalidad]				
+						
+	}
 	
 	
+	def vLocalidades(municipio){
+		
+		def ids = new ArrayList()
+		def result = new TotalVariable()
+		Integer  total =0
+		Integer  hombres=0
+		Integer  mujeres=0
+		
+		
+		def loc= Localidad.findAllByMunicipio(municipio)
+		loc.each { ids.add(it) }
+		
+		String sqlVariables=" select * from cat_variable where localidad in (:list)  "
+		
+		def variables=Variable.executeQuery(sqlVariables,[list:ids])
+			
+		
+		variables.each {
+			 mujeres+=it.mujeres 
+			 hombres+=it.hombres
+			 total+=it.poblacionTotal
+		}
+		
+		result.mujeres=mujeres
+		result.hombres=hombres
+		result.total=total
+		result.variables=variables
+		
+		return result
+	}
 	
 	
+	def vMunicipios(region){
+		
+		def ids = new ArrayList()
+		def result = new TotalVariable()
+		Integer  total =0
+		Integer  hombres=0
+		Integer  mujeres=0
+		
+		
+		def mun= Municipio.findAllByRegion(region)
+		mun.each { ids.add(it) }
+		
+		String sqlVariables=" select * from cat_variable where municipio in (:list)  "
+		
+		def variables=Variable.executeQuery(sqlVariables,[list:ids])
+			
+		
+		variables.each {
+			 mujeres+=it.mujeres 
+			 hombres+=it.hombres
+			 total+=it.poblacionTotal
+		}
+		
+		result.mujeres=mujeres
+		result.hombres=hombres
+		result.total=total
+		result.variables=variables
+		
+		return result
+	}
+	
+
 	
 	def subirArchivo(){
 		def usuario = springSecurityService.currentUser
@@ -227,10 +410,6 @@ class VariableController {
 			 if(usuario)
 			 	dependencia = usuario.dependencia
 		
-	
-		
-			
-	
 				try{
 					for(Row row : renglones){
 					
