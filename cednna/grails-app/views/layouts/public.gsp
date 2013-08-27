@@ -63,13 +63,13 @@
 		<li><g:link class="create" action="contacto">Contacto</g:link></li>
 		<li><g:link class="create" action="ayuda">Ayuda</g:link></li>		
 		</ul>
-</nav>
+		</nav>
 	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 		<input onclick="${remoteFunction(
 			controller:'publico',
 			action: 'infoIndicador',
 			update: 'division',
-			id: eje.id)}" type="button" value="${eje.descripcion}" id="${eje.id}">		
+			id: eje.id)}" type="button" value="${eje.descripcion}" id="${eje.id}" class="uk-button">		
 	</g:each>
 		
 
