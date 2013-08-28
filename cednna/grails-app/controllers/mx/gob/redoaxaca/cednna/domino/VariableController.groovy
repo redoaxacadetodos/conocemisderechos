@@ -231,6 +231,12 @@ class VariableController {
 	}
 	
 	
+	def panel(){
+		
+		
+		[clave:params.id,desc:params.desc]
+	}
+	
 	def resultadoPanel() {
 		
 		def variablesLocalidad = new TotalVariable()
@@ -238,17 +244,29 @@ class VariableController {
 		def variablesRegion = new TotalVariable()
 	    def variables = new TotalVariable()
 					
-						if(params.localidad)
-						{		
-							variablesLocalidad=Variable.findByClaveAndLocalidad(params.id,localidad);
-						
+						if(params.localidad!="null")
+						{	
+							def vlocalidad
+							def localidad = Localidad.get(params.localidad)
 							
+							vlocalidad= Variable.findByClaveAndLocalidad(params.id,localidad);
+							if(vlocalidad)
+							{
+								variablesLocalidad.variables=vlocalidad
+							
+								vlocalidad.each {
+									variablesMunicipio.total+=it.poblacionTotal
+									variablesMunicipio.mujeres+=it.mujeres
+									variablesMunicipio.hombres+it.hombres
+								}
+						
+							}
 						
 						}
 						
 						
-						if(params.municipio)
-						{
+						if(params.municipio!="null")
+						{	
 							def vmunicipio
 							def municipio = Region.get(params.municipio)	
 							vmunicipio= Variable.findByClaveAndMunicipio(params.id,municipio);
@@ -265,6 +283,7 @@ class VariableController {
 								
 							}else{
 									def result=vLocalidades(municipio)
+									variablesMunicipio.variables=result.variables
 									variablesMunicipio.total=result.total
 									variablesMunicipio.mujeres=result.mujeres
 									variablesMunicipio.hombres=result.hombres
@@ -272,7 +291,7 @@ class VariableController {
 						}
 						
 						
-						if(params.region)
+						if(params.region!="null")
 						{	
 							def vregiones
 							def region = Region.get(params.region)	
@@ -290,6 +309,7 @@ class VariableController {
 								
 							}else{
 									def result=vMunicipios(region)
+									variablesRegion.variables=result.variables
 									variablesRegion.total=result.total
 									variablesRegion.mujeres=result.mujeres
 									variablesRegion.hombres=result.hombres
@@ -297,18 +317,7 @@ class VariableController {
 						}
 						
 						
-						
-						
-						
-						
-						if(params.municipio)
-						{
-						   variables = Variable.findByClave(params.id);
-						}
 			
-						
-						
-						
 						
 		[general:variables,vregion:variablesRegion,vmunicipio:variablesMunicipio,vlocalidad: variablesLocalidad]				
 						
@@ -327,7 +336,9 @@ class VariableController {
 		def loc= Localidad.findAllByMunicipio(municipio)
 		loc.each { ids.add(it) }
 		
-		String sqlVariables=" select * from cat_variable where localidad in (:list)  "
+		if(ids.size>0){
+		
+		String sqlVariables=" from Variable where localidad in (:list)  "
 		
 		def variables=Variable.executeQuery(sqlVariables,[list:ids])
 			
@@ -338,10 +349,12 @@ class VariableController {
 			 total+=it.poblacionTotal
 		}
 		
+		result.variables=variables
+		}
 		result.mujeres=mujeres
 		result.hombres=hombres
 		result.total=total
-		result.variables=variables
+		
 		
 		return result
 	}
@@ -359,7 +372,9 @@ class VariableController {
 		def mun= Municipio.findAllByRegion(region)
 		mun.each { ids.add(it) }
 		
-		String sqlVariables=" select * from cat_variable where municipio in (:list)  "
+		if(ids.size>0){
+		
+		String sqlVariables=" from Variable where municipio in (:list)  "
 		
 		def variables=Variable.executeQuery(sqlVariables,[list:ids])
 			
@@ -370,10 +385,14 @@ class VariableController {
 			 total+=it.poblacionTotal
 		}
 		
+	
+		result.variables=variables
+		
+		}
+		
 		result.mujeres=mujeres
 		result.hombres=hombres
 		result.total=total
-		result.variables=variables
 		
 		return result
 	}

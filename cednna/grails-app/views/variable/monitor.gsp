@@ -16,15 +16,15 @@
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
+		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(\"" + source[0] + "\",\"" + source[1] + "\"); '\/>"
 		}
 
 		
 
 
-		function mostrarRegistro(id){
+		function mostrarRegistro(id,desc){
 			
-			document.location.href=CONTEXT_ROOT+"/variable/panel/"+id;
+			document.location.href=CONTEXT_ROOT+"/variable/panel?id="+id+"&desc="+desc;
 
 		}
 		 </script>
@@ -38,12 +38,12 @@
   <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 
-			<li class="uk-active"><g:link class="list" action="list">Origen de datos </g:link></li>
-
-			
+				<li class="uk-active"><g:link class="monitor" action="monitor">Monitor de datos </g:link></li>	
 				<li><g:link class="create" action="create">Agregar origen de datos</g:link></li>
 				<li><g:link class="create" action="archivo">Subir desde archivo</g:link></li>
-
+				<li ><g:link class="list" action="list">Origen de datos </g:link></li>
+				
+		</ul>
 </nav>
 
 					<br>

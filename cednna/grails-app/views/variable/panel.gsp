@@ -8,8 +8,18 @@
 <body>
   <div class="body">
   
-  
-  <h1>Variable  ${clave}</h1>
+    <nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
+
+				<li class="uk-active"><g:link class="monitor" action="monitor">Monitor de datos </g:link></li>	
+				<li><g:link class="create" action="create">Agregar origen de datos</g:link></li>
+				<li><g:link class="create" action="archivo">Subir desde archivo</g:link></li>
+				<li ><g:link class="list" action="list">Origen de datos </g:link></li>
+				
+		</ul>
+</nav>
+<br>
+  <h1>Variable  ${clave} - ${desc} </h1>
   <h2>Parametros busqueda</h2>
   
   <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
@@ -46,7 +56,7 @@
 	</div>
 	</div>
 </div>	
-  			
+  			<input id="btnValores" name="btnValores"  value="Mostrar valores" type="button"  class="uk-button"/>
   			
 		  	<div id="divResultado">
 		  			
@@ -54,5 +64,144 @@
 		  					
 		  	</div>		
   </div>
+  
+  
+  
+
+<script type="text/javascript" defer="defer">
+
+
+
+
+$(function(){
+	
+
+	var config = {
+		      '.chosen-select'           : {},
+		      '.chosen-select-deselect'  : {allow_single_deselect:true},
+		      '.chosen-select-no-single' : {disable_search_threshold:10},
+		      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+		      '.chosen-select-width'     : {width:"95%"}
+		    }
+		    for (var selector in config) {
+		      $(selector).chosen(config[selector]);
+		    }
+
+
+
+
+	asignaEventorRegion();
+
+	
+
+	
+	asignaEventorMunicipio();
+
+
+	$("#btnValores").click(function(){
+
+
+		buscarVariables();
+
+	});
+	
+	
+
+	 
+	
+});	
+
+
+						function buscarVariables(){
+
+
+							var unused = $.ajax({type:'POST', 
+					              url:CONTEXT_ROOT+'/variable/resultadoPanel',
+					              data: "region="+$("#region").val()+"&municipio="+$("#municipio").val()+"&localidad="+$("#localidad").val(),
+					              success:function(data,textStatus)
+					                  {
+					              
+					              	$('#divResultado').html(data);
+					          
+					             
+					                  },
+					              error:function(XMLHttpRequest,textStatus,errorThrown)
+					                  {$('#diverror').html(XMLHttpRequest.responseText);}
+									});
+
+
+						}
+
+
+						function asignaEventorRegion(){
+						
+						
+						$("#region").change(function(){
+						
+								
+								llenaCombo({
+									url : CONTEXT_ROOT+'/variable/getMunicipioByRegion/'+$("#region").val(),
+									htmlOptions : {
+										name : "municipio.id",
+										id : "municipio",
+										clase : "chosen-select"
+									},
+									index : 0,
+									chained : false,
+									anchor : "#municipio",
+									combo : true,
+									valorDefault:true,
+									valorDefaultText:" Seleccione el municipio ",
+									delTag: true,
+									tag:"#divMun"
+								});  
+						
+								});
+								
+								asignaEventorMunicipio();
+							
+							
+						}
+						
+						function asignaEventorMunicipio(){
+						
+							$("#municipio").change(function(){
+						
+						
+								
+								
+								llenaCombo({
+									url : CONTEXT_ROOT+'/variable/getLocalidadByMunicipio/'+$("#municipio").val(),
+									htmlOptions : {
+										name : "localidad.id",
+										id : "localidad",
+										clase : "chosen-select",
+										
+									},
+									index : 0,
+									chained : false,
+									anchor : "#localidad",
+									combo : true,
+									valorDefault:true,
+									valorDefaultText:" Seleccione la localidad ",
+									delTag: true,
+									tag:"#divLoc"
+								});  
+						
+						
+								});
+							
+						
+						
+							
+						}
+
+
+</script>
+  
+  
 </body>
+
 </html>
+
+
