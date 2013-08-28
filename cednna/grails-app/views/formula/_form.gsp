@@ -33,28 +33,35 @@
 
 <br>
 <br>
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
 
-    <h4 id="myModalLabel">Crea tu variable </h4>
-  </div>
-  <div class="modal-body">
-    
-		    <div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
-			<label class="uk-form-label" for="descripcion">
-				<g:message code="formula.descripcion.label" default="Nombre variable" />
-			
-			</label>
-			<g:textField name="variableTxt" />
-			</div>
+
+
+<!-- This is the modal -->
+<div id="my-id" class="uk-modal">
+	<div class="uk-modal-dialog">
 	
-  </div>
-  <div class="modal-footer">
-    <button class="btn uk-button" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-    <input type="button" class="btn btn-primary uk-button" id="btnGuardar" value="Guardar variable" />
-  </div>
+		<a class="uk-modal-close uk-close">
+		</a>
+		
+		<h2 id="myModalLabel">Crea tu variable </h2>
+			 
+			 
+			    <div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'descripcion', 'error')} required">
+						<label class="uk-form-label" for="descripcion">
+							<g:message code="formula.descripcion.label" default="Nombre variable" />
+						
+						</label>
+						<g:textField name="variableTxt" />
+						</div>
+						
+			    		<input type="button" class="btn btn-primary uk-button" id="btnGuardar" value="Guardar variable" />
+	
+			    
+				
+		
+		
+	</div>
 </div>
-<br>
 
 
 
@@ -102,6 +109,9 @@
 <script type="text/javascript">
 $(function(){
 
+
+	
+
 	
 	$(document).ready(function() {
 		$(".screen").html($(".outcome").val() );
@@ -112,7 +122,16 @@ $(function(){
 	});
 	$('#btnVariable').click(function (e) {
 
-		$('#myModal').show();
+		var modal = new $.UIkit.modal.Modal("#my-id");
+
+		if ( modal.isActive() ) {
+			modal.hide();
+		} else {
+			modal.show();
+		}
+
+		
+		
 		$('#variableTxt').val("");
 	});
 
@@ -120,7 +139,13 @@ $(function(){
 
 	$('#btnGuardar').click(function (e) {
 	
-			$('#myModal').hide();
+		var modal = new $.UIkit.modal.Modal("#my-id");
+
+		if ( modal.isActive() ) {
+			modal.hide();
+		} else {
+			modal.show();
+		}
 
 			 $(".screen").append($('#variableTxt').val());
 	

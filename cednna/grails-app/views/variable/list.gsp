@@ -10,8 +10,31 @@
 				<g:javascript src="jquery.dataTables.js"  />
 			<g:datatablehelperjs ctrlid="variableTable" context="${request.getContextPath()}" 
 				controller="variable" action="dataTablesListadoVariables" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
-				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}']"   
+				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}','{mData:muestraBoton}']"   
 				/>
+		<script type="text/javascript" >
+
+
+		function muestraBoton(source, type, val) 	
+		{
+		return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
+		}
+
+		
+
+
+
+
+		function editaRegistro(id){
+			
+			document.location.href=CONTEXT_ROOT+"/variable/edit/"+id;
+
+		}
+			
+				
+
+				
+</script>
 	</head>
 	<body>
 		<a href="#list-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -25,6 +48,7 @@
 			
 				<li><g:link class="create" action="create">Agregar origen de datos</g:link></li>
 				<li><g:link class="create" action="archivo">Subir desde archivo</g:link></li>
+				<li><g:link class="create" action="monitor">Monitor de datos</g:link></li>
 
 </nav>
 
@@ -32,36 +56,9 @@
 					<br>
 				  <div class="body">
 				  
-				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripcion','Region','Municipio','Localidad','Poblacion Total','Hombres','Mujeres']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripcion','Region','Municipio','Localidad','Poblacion Total','Hombres','Mujeres','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 </body>
-<script type="text/javascript" >
 
-
-		function muestraBoton(source, type, val) 	
-		{
-		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/><a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
-		}
-
-		
-
-
-		function mostrarRegistro(id){
-			
-			document.location.href=CONTEXT_ROOT+"/indicador/visor/"+id;
-
-		}
-
-
-		function editaRegistro(id){
-			
-			document.location.href=CONTEXT_ROOT+"/indicador/edit/"+id;
-
-		}
-			
-				
-
-				
-</script>
 
 </html>

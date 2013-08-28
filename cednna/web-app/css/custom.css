@@ -163,9 +163,10 @@ html { overflow-y: scroll; }
 	border-radius: 3px;
 	text-shadow: none;
 	font-size: 15px;
+  padding: 0 5px !important;
 }
 
-.tm-navbar .uk-navbar-nav > li { margin-left: 20px; }
+.tm-navbar .uk-navbar-nav > li { margin-left: 0px; }
 
 /* Hover */
 .tm-navbar .uk-navbar-nav > li:hover > a,
@@ -173,12 +174,12 @@ html { overflow-y: scroll; }
 .tm-navbar .uk-navbar-nav > li.uk-open > a {
 	border: none;
 	color: #FFF;
+  box-shadow: none !important;
 }
 
 /* Active */
 .tm-navbar .uk-navbar-nav > li.uk-active > a {
-	background-color: #2BA3D4;
-	color: #FFF;
+box-shadow: none !important;
 }
 
 /* OnClick */
@@ -726,3 +727,77 @@ border-color: rgba(216,80,48,0.3) !important;
 border-radius: 4px !important;
 text-shadow: 0 1px 0 #fff !important;
 }
+
+.dataTables_paginate a, .dataTables_paginate span a{
+  color: #666;
+  border:1px solid rgba(0,0,0,0.2);
+  border-bottom-color:rgba(0,0,0,0.3);
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #EEEEEE));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom, #FFFFFF 0%, #EEEEEE 100%);
+  text - shadow: 0 1px 0#fff;
+  -moz-box-sizing:content-box;
+  box-sizing:content-box;
+  display:inline-block;
+  min-width:16px;
+  padding:3px 5px;
+  line-height:20px;
+  text-decoration:none;
+  text-align:center;
+  border-radius:4px;
+  margin-left: 2px;
+  cursor:pointer;
+  }
+
+a>.ui-state-disabled {
+    background-color:#f5f5f5 !important;
+      background-image:none !important;
+color: #999 !important;
+border: 1px solid rgba(0,0,0,0.2) !important;
+text-shadow: 0 1px 0 #fff !important;
+  cursor:text;
+
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.1)  !important;
+}
+
+.dataTables_paginate a:active, .dataTables_paginate a:focus, .dataTables_paginate a:hover { 
+  background-color:#f5f5f5 !important;
+  color: #666;
+  border-color:rgba(0,0,0,0.2);
+  border-top-color:rgba(0,0,0,0.3);
+  background-image:none !important;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.1)  !important;
+}
+
+.tm-navbar .uk-navbar-nav {
+margin: 0;
+padding: 0;
+list-style: none;
+float: right;
+}
+
+.iconobar { display: block; width: 28px; height: 32px; margin: 7px 0 0 20px !important;}
+
+.icono_calendar { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+.icono_directorio { background: url(../img/icons/directorio.png) 0 8px no-repeat !important; }
+.icono_contacto { background: url(../img/icons/contacto.png) 0 8px no-repeat !important; }
+.icono_ayuda { background: url(../img/icons/ayuda.png) 0 10px no-repeat !important; }
+
+.icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 10px no-repeat !important; }
+.icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
+.icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
+.icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }
