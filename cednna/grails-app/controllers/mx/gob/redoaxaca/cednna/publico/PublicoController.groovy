@@ -47,7 +47,7 @@ class PublicoController {
 		def resultados = visor(id)
 		
 		//Prueba
-		/*
+		
 		Resultado resultado = new Resultado()
 		Resultado resultado2 = new Resultado()
 		Resultado resultado3 = new Resultado()
@@ -64,8 +64,8 @@ class PublicoController {
 		resultados.add(resultado2)		
 		resultados.add(resultado3)
 		resultados.add(resultado4)
-		*/
 		
+		//Creación de arreglo para Highcharts
 		def series = []
 		def categorias = []
 		def datos = []
@@ -76,18 +76,33 @@ class PublicoController {
 		resultados.each { result ->
 			categorias.add(result?.anio)			
 			datos.add(result?.indicador)					
-		}
-		
-		a.put("xAxis", [categories: categorias] )
-		System.out.println(categorias)
+		}		
+		a.put("xAxis", [categories: categorias] )		
 		def serie = [name: "Indicador", data: datos]
 		series << serie
 		a.put("series", series)
 		
-		def jsodata = a as JSON		
+		//Convertir el arreglo a JSON
+		def jsodata = a as JSON
 		
-		System.out.println(jsodata)
-		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata]
+		//Buscar datos para Google Maps
+		def ubicaciones = []
+		def ubicacioneString = []
+		indicador?.variables?.each { variable ->
+			if(variable?.localidad?.descripcion){
+				ubicaciones.add(variable?.localidad?.descripcion)
+			}else if(variable?.municipio?.descripcion){
+				ubicaciones.add(variable?.municipio?.descripcion)
+			}else if(variable?.region?.descripcion){
+				ubicaciones.add(variable?.region?.descripcion)
+			}							
+		}
+		ubicaciones.each { ubi ->
+			ubicacioneString.add("'"+ubi+"'")
+		}
+		System.out.println("variables: "+ubicacioneString)
+				
+		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString]
 	}
 	
 	

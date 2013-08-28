@@ -21,6 +21,53 @@
 	            ${tablaJSON});
 	    });
 	  </script>
+	  
+	  <!-- Google Maps -->
+	  
+	  	<script>
+	  	var geocoder;
+	  	var map;
+function initialize() {
+	geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(17.05, -96.72);
+  var mapOptions = {
+    zoom: 7,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+	var ubicaciones = ${ubicaciones};
+	
+	for(i=0; i<ubicaciones.length; i++){
+	var address = ubicaciones[i] + " oaxaca";
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } 
+    });
+	}
+	alert(ubicaciones.lenght());
+}
+
+function loadScript() {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDGVv816kgzORqTzz8IQjaBS0GW-QTr4hI&sensor=false&' +
+      'callback=initialize';
+  document.body.appendChild(script);
+}
+
+window.onload = loadScript;
+
+    </script>
+	  <!-- Termina Google Maps -->
+	  
 	</head>
 	<body>
 	  
@@ -137,17 +184,14 @@
 	  	
 	  </div>
 	  <div id="tabs-5"> <!-- Mapa -->
-	    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-	    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>		
 	  </div>
 	  
 	</div>
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>		
-</div>
+</div>	
 
-
-	  
 </body>
 </html>
 
