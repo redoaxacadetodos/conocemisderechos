@@ -4,7 +4,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'formula.label', default: 'Formula')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title>Nueva formula</title>
 		
 		
 		
@@ -18,7 +18,7 @@
 
 		
 				<li><g:link class="list" action="list">Listado de formulas</g:link></li>
-				<li class="uk-active"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li class="uk-active">	<li><g:link class="create" action="create">Nueva formula</g:link></li></li>
 
 		</ul>
 </nav>

@@ -16,9 +16,12 @@
 		<g:message code="indicador.estado.label" default="Descripción de la variable" />
 
 	</label>
-
-	<g:textField name="descripcion_${var.clave}" value="${var.descripcion}"/>
-	</div><br />
+		<div id="divDesc_${var.clave}">
+		<select id="descripcion_${var.clave}"></select>
+		
+	
+		</div>
+		</div><br />
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
@@ -216,6 +219,29 @@
 
 					
 					asignaEventorMunicipio();
+
+
+
+
+
+
+					llenaCombo({
+						url : CONTEXT_ROOT+'/indicador/descripciones',
+						htmlOptions : {
+							name : "descripcion_${var.clave}",
+							id : "descripcion_${var.clave}",
+							clase : "chosen-select",
+							
+						},
+						index : 0,
+						chained : false,
+						anchor : "#descripcion_${var.clave}",
+						combo : true,
+						valorDefault:false,
+						valorDefaultText:" Busca una variable ",
+						delTag: true,
+						tag:"#divDesc_${var.clave}"
+					});  
 
 					
 				});

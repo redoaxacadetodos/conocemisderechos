@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import com.redoaxaca.java.CVariable
 import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Resultado
 import grails.converters.JSON
@@ -9,12 +10,13 @@ import javax.script.ScriptException;
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
+import groovy.sql.Sql
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class IndicadorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+	def sessionFactory
 	def dataTablesService
 	
     def index() {
@@ -27,6 +29,8 @@ class IndicadorController {
     }
 
     def create() {
+		
+	
         [indicadorInstance: new Indicador(params)]
     }
 
@@ -176,6 +180,34 @@ class IndicadorController {
 	return ban;
 	}
 	
+	
+	def  descripciones(){
+		
+	  
+		def cvar= new ArrayList<CVariable>()
+		
+		def sql = new Sql(sessionFactory.currentSession.connection())
+
+		def query = "select cvv_clave as clave ,cvv_descripcion as descripcion  from cat_variable group by cvv_clave,cvv_descripcion"
+		
+		
+					def result = sql.rows(query.toString())
+					
+					
+					
+								cvar=result?.each
+								{
+								  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+									
+								  cvar.add(v)
+								}
+					 
+	//	render cvar						
+		render cvar as JSON
+	}
+	
+	
+	
     def save() {
         def indicadorInstance = new Indicador(params)
         
@@ -201,7 +233,7 @@ class IndicadorController {
 				def estado=null
 				
 				if(params.getAt("localidad_"+v)!="null")
-					localidad=  Localidad.get(params.getAt("localidad_"+v+".id"))
+ 					localidad=  Localidad.get(params.getAt("localidad_"+v+".id"))
 				
 				
 				if(params.getAt("municipio_"+v)!="null")

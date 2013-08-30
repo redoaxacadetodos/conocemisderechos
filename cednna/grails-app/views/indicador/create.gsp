@@ -1,4 +1,5 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
+
 <!DOCTYPE html>
 <html>
 	<head>

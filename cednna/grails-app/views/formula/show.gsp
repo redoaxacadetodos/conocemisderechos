@@ -12,7 +12,7 @@
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 				<li><g:link class="list" action="list">Listado de formulas</g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="create">Nueva formula</g:link></li>
 			</ul>
 </nav>
 		<div id="show-formula" class="content scaffold-show" role="main">
@@ -51,7 +51,7 @@
 			
 				<g:if test="${formulaInstance?.numVariables}">
 				<li class="fieldcontain">
-					<span id="numVariables-label" class="property-label"><g:message code="formula.numVariables.label" default="Num Variables" /></span>
+					<span id="numVariables-label" class="property-label"><g:message code="formula.numVariables.label" default="Numero de  Variables" /></span>
 					
 						<span class="property-value" aria-labelledby="numVariables-label"><g:fieldValue bean="${formulaInstance}" field="numVariables"/></span>
 					

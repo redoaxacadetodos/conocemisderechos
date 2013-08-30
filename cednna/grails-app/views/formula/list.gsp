@@ -10,9 +10,30 @@
 				<g:javascript src="jquery.dataTables.js"  />
 			<g:datatablehelperjs ctrlid="formulaTable" context="${request.getContextPath()}" 
 				controller="formula" action="dataTablesListadoFormulas" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
-				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}']"   
+				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:muestraBoton}']"   
 				/>
+	
+	<script type="text/javascript" >
+
+
+		function muestraBoton(source, type, val) 	
+		{
+		return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
+		}
+
+			function editaRegistro(id){
+			
+			document.location.href=CONTEXT_ROOT+"/formula/edit/"+id;
+
+		}
+			
+				
+
+				
+</script>
+	
 	</head>
+	
 	<body>
 		<a href="#list-formula" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
@@ -21,7 +42,7 @@
 
 		
 				<li class="uk-active"><g:link class="list" action="list">Lista de formulas</g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="create">Nueva formula</g:link></li>
 
 		</ul>
 </nav>
@@ -32,7 +53,7 @@
 
 			 <div class="body">
 				  
-				  <g:datatablehelper ctrlid="formulaTable"  cols="['ID','Descripcion','Nombre','Sentencia']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="formulaTable"  cols="['ID','Descripcion','Nombre','Sentencia','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 			
 			

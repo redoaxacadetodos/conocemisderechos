@@ -10,8 +10,8 @@
 		<a href="#edit-formula" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Listado de formulas</g:link></li>
+		<li><g:link class="create" action="create">Nueva formula</g:link></li>
 			</ul>
 </nav></br>
 		<div id="edit-formula" class="content scaffold-edit" role="main">

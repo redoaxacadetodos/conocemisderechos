@@ -10,7 +10,7 @@
 		<g:message code="indicador.nombre.label" default="Nombre del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="nombre" required="" value="${indicadorInstance?.nombre}"/>
+	<g:textField name="nombre" required="" value="${indicadorInstance?.nombre}" style="width:600px;"/>
 </div>
 
 
@@ -19,7 +19,8 @@
 		<g:message code="indicador.objetivo.label" default="Objetivo del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="objetivo" required="" value="${indicadorInstance?.objetivo}"/>
+	<textarea  name="objetivo" rows="5" cols="40">${indicadorInstance?.objetivo}</textarea>
+	
 </div>
 
 
@@ -72,7 +73,7 @@
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />
 		
 	</label>
-	<g:textField name="comentarios" value="${indicadorInstance?.comentarios}"/>
+	<textarea  name="comentarios" rows="5" cols="40">${indicadorInstance?.comentarios}</textarea>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
@@ -80,7 +81,7 @@
 		<g:message code="indicador.mediosVerificacion.label" default="Medios Verificacion" />
 		
 	</label>
-	<g:textField name="mediosVerificacion" value="${indicadorInstance?.mediosVerificacion}"/>
+	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>
 </div>
 
 
@@ -104,17 +105,17 @@
 		<g:message code="indicador.nombreResponsable.label" default="Nombre del responsable" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="nombreResponsable"  maxlength="500" required="" value="${indicadorInstance?.nombreResponsable}"/>
+	<g:textField name="nombreResponsable"  maxlength="500" required="" value="${indicadorInstance?.nombreResponsable}" style="width:500px;"/>
 </div>
 
 
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'areaResponsable', 'error')} required">
 	<label class="uk-form-label"for="areaResponsable">
-		<g:message code="indicador.areaResponsable.label" default="Area del responsable" />
+		<g:message code="indicador.areaResponsable.label" default="Area del responsable"  />
 		<span class="required-indicator">*</span>
 	</label>
-		<g:textField name="areaResponsable"  maxlength="500" required="" value="${indicadorInstance?.areaResponsable}"/>
+		<g:textField name="areaResponsable"  maxlength="500" required="" value="${indicadorInstance?.areaResponsable}"  style="width:500px;" />
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mailResponsable', 'error')} required">
@@ -122,15 +123,15 @@
 		<g:message code="indicador.mailResponsable.label" default="Email de contacto" />
 		<span class="required-indicator">*</span>
 	</label>
-		<g:textField name="mailResponsable"  maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"/>
+		<g:textField name="mailResponsable"  maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"  style="width:500px;"/>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">
 	<label class="uk-form-label"for="fechaActualizacion">
-		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion" />
+		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion"  />
 		<span class="required-indicator">*</span>
 	</label>
-	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}"  />
+	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}" style="width:500px;"  />
 	
 	
 
