@@ -3,6 +3,7 @@ package mx.gob.redoaxaca.cednna.domino
 class Frecuencia {
 
 		String descripcion
+		int    nmeses
 	
     static constraints = {
     }
@@ -12,6 +13,7 @@ class Frecuencia {
 		id(column: 'cfr_id')
 
 		descripcion(column: 'cfr_descripcion')
+		nmeses(column: 'cfr_nmeses')
 
 		version(false)
 	}
