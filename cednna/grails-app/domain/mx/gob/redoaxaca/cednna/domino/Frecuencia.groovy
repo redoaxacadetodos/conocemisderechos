@@ -6,6 +6,7 @@ class Frecuencia {
 		int    nmeses
 	
     static constraints = {
+		
     }
 
   static mapping = {

@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 	</head>
 	<body>
-	<div lang="latex">1/3</div>
+	
 		<div id="division">		
 		</div>
 		

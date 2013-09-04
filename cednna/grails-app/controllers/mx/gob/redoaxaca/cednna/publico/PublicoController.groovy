@@ -16,6 +16,10 @@ class PublicoController {
 		
 	}
 	
+	def semaforo = {
+		
+	}
+	
 	def calendario = {
 		
 	}
@@ -33,6 +37,12 @@ class PublicoController {
 	
 	def ayuda = {
 		
+	}
+	
+	def actualizarSemaforo(){
+		def dependencia = Dependencia.get(params.id)
+		def indicadores = Indicador.findAllByDependencia(dependencia)
+		render(template:"indicadorSemaforo", model:[indicadores:indicadores])
 	}
 	
 	def infoIndicador (Long id) {
@@ -207,4 +217,5 @@ class PublicoController {
 	
 		return ban;
 		}
+		
 }
