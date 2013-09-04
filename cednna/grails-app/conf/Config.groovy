@@ -63,11 +63,11 @@ grails.hibernate.cache.queries = false
 
 environments {
     development {
-        grails.logging.jul.usebridge = true
+        grails.logging.jul.usebridge = true		
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        // TODO: grails.serverURL = "http://www.changeme.com"		
     }
 }
 
@@ -113,3 +113,4 @@ mx.indesti.cednna.valores.directoriouploads="/var/lib/cednnafiles/"
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'mx.gob.redoaxaca.cednna.seguridad.Usuario'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'mx.gob.redoaxaca.cednna.seguridad.UsuarioRol'
 grails.plugins.springsecurity.authority.className = 'mx.gob.redoaxaca.cednna.seguridad.Rol'
+

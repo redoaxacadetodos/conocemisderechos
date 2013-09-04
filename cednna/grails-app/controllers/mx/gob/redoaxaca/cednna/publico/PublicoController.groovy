@@ -39,6 +39,15 @@ class PublicoController {
 		
 	}
 	
+	def enviarCorreo = {	
+	 sendMail {
+		from "me@org.com"	
+		to "absi.sosa@gmail.com"
+		subject "Hello"
+		body 'How are you?'
+	 }
+	}
+	
 	def actualizarSemaforo(){
 		def dependencia = Dependencia.get(params.id)
 		def indicadores = Indicador.findAllByDependencia(dependencia)
