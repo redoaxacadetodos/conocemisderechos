@@ -1,13 +1,15 @@
 package mx.gob.redoaxaca.cednna.publico
 
+import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
+
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
+
 import mx.gob.redoaxaca.cednna.domino.*
 
 import com.redoaxaca.java.Resultado
-import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
-import groovy.json.JsonBuilder
+
 
 @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
 class PublicoController {
@@ -39,13 +41,16 @@ class PublicoController {
 		
 	}
 	
-	def enviarCorreo = {	
-	 sendMail {
-		from "me@org.com"	
-		to "absi.sosa@gmail.com"
-		subject "Hello"
-		body 'How are you?'
-	 }
+	def enviarCorreo(Long id) {
+		def indicador = Indicador.get(id)
+		
+		 sendMail {
+			 to indicador?.mailResponsable		 	
+			subject "Actualización"
+			body 'Estimado '+ indicador?.nombreResponsable +
+				' le recordamos que debe actualizar el indicador ' +
+				indicador?.nombre + "."
+		 }
 	}
 	
 	def actualizarSemaforo(){
@@ -66,7 +71,7 @@ class PublicoController {
 		def resultados = visor(id)
 		
 		//Prueba
-		
+		/*
 		Resultado resultado = new Resultado()
 		Resultado resultado2 = new Resultado()
 		Resultado resultado3 = new Resultado()
@@ -83,7 +88,7 @@ class PublicoController {
 		resultados.add(resultado2)		
 		resultados.add(resultado3)
 		resultados.add(resultado4)
-		
+		*/
 		//Creación de arreglo para Highcharts
 		def series = []
 		def categorias = []
@@ -119,8 +124,7 @@ class PublicoController {
 		ubicaciones.each { ubi ->
 			ubicacioneString.add("'"+ubi+"'")
 		}
-		System.out.println("variables: "+ubicacioneString)
-				
+		
 		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString]
 	}
 	

@@ -14,7 +14,7 @@
 	</head>
 	<body>		
 		<div id="division">
-			<h3>SEMAFORO DE CONTROL</h3>
+			<h3>SEMÁFORO DE CONTROL</h3>
 			<h4>ESTATUS DE ACTUALIZACIÓN POR INDICADOR</h4>
 			<label for="dependencias">Dependencia: </label>			
 			<g:select name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}" 

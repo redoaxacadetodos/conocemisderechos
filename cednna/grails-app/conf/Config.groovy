@@ -63,10 +63,12 @@ grails.hibernate.cache.queries = false
 
 environments {
     development {
-        grails.logging.jul.usebridge = true		
+        grails.logging.jul.usebridge = true	
+		grails.serverURL = "http://localhost:8080/${appName}"		
     }
     production {
         grails.logging.jul.usebridge = false
+		grails.serverURL = "http://localhost:8080/${appName}"
         // TODO: grails.serverURL = "http://www.changeme.com"		
     }
 }
@@ -92,6 +94,18 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+grails {
+	mail {
+	  host = "smtp.gmail.com"
+	  port = 465
+	  username = "prueba.test.red@gmail.com"
+	  password = "pru3b4r3d"
+	  props = ["mail.smtp.auth":"true",
+			   "mail.smtp.socketFactory.port":"465",
+			   "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+			   "mail.smtp.socketFactory.fallback":"false"]
+	}
+ }
 
 grails.plugins.springsecurity.rejectIfNoRule = true
 grails.plugins.springsecurity.securityConfigType = "Annotation"
