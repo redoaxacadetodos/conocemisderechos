@@ -6,11 +6,13 @@ class Municipio {
 	String descripcion
 	Distrito distrito
 	Region region
+	List<Coordenada> coordenadas
 
     static constraints = {
 		
 		region(blank:true, nullable:true)
     }
+	
 
 	String toString() {
 		"${descripcion}"

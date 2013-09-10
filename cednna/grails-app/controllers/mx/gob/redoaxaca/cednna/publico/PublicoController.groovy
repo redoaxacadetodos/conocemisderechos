@@ -1,5 +1,8 @@
 package mx.gob.redoaxaca.cednna.publico
 
+import com.redoaxaca.java.Resultado
+import com.redoaxaca.kml.LeerKml
+import com.redoaxaca.kml.ObtenerCoordenadas
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
@@ -7,8 +10,6 @@ import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 
 import mx.gob.redoaxaca.cednna.domino.*
-
-import com.redoaxaca.java.Resultado
 
 
 @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
@@ -30,6 +31,32 @@ class PublicoController {
 	}
 	
 	def indicadores = {
+		
+	}
+		
+	def insertarCoordenadas = {
+		ObtenerCoordenadas kml = new ObtenerCoordenadas()		
+		/*
+		def municipios = Municipio.list()
+		municipios.each { muni ->
+			def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), muni.id)
+			coordenadas.each { coo->				
+				coo.save(flush: true)
+			}		
+		}
+		*/
+		def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), 1)
+		/*
+		def municipio = Municipio.createCriteria().list{  
+			order("id", "asc")
+		}
+		municipio.each { muni ->			
+			if(kml.quitarCaracteres(muni.descripcion.toUpperCase()).equals("ABEJONES")){
+				System.out.println("entra "+muni.descripcion)
+			}
+		}*/
+		//kml.quitarCaracteres("Ábéjónes")
+		//System.out.println(kml.quitarCaracteres("SANTA MARÍA GUELACÉ"))
 		
 	}
 	
