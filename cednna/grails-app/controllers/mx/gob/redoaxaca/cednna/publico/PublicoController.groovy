@@ -98,7 +98,7 @@ class PublicoController {
 		def resultados = visor(id)
 		
 		//Prueba
-		/*
+		
 		Resultado resultado = new Resultado()
 		Resultado resultado2 = new Resultado()
 		Resultado resultado3 = new Resultado()
@@ -115,7 +115,7 @@ class PublicoController {
 		resultados.add(resultado2)		
 		resultados.add(resultado3)
 		resultados.add(resultado4)
-		*/
+		
 		//Creación de arreglo para Highcharts
 		def series = []
 		def categorias = []
