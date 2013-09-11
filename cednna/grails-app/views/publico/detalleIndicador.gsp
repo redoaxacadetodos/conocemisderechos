@@ -12,14 +12,29 @@
 	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	  
 	  <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
-		
+						
+		<link href="${resource(dir: 'bootstrap', file: 'css/bootstrap.min.css')}" rel="stylesheet">		
 		
 		<script>
 	  $(function () {
 		  $( "#tabs" ).tabs();
 	        $('#container').highcharts(
 	            ${tablaJSON});
+	        $("#tabs").tabs({
+	            show: function(e, ui) {
+	                
+		                alert('prueba');
+	                    google.maps.event.trigger(map, "resize");
+	                
+	            }
+	        });
+	        $('#myTab a').click(function (e) {
+	      	  e.preventDefault();
+	      	  $(this).tab('show');
+	      	})
 	    });
+
+	
 	  </script>
 	  
 	  <!-- Google Maps -->
@@ -38,6 +53,7 @@ function initialize() {
 
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
+    
 	var ubicaciones = ${ubicaciones};
 	
 	for(i=0; i<ubicaciones.length; i++){
@@ -63,7 +79,9 @@ function loadScript() {
   document.body.appendChild(script);
 }
 
-window.onload = loadScript;
+//window.onload = loadScript;
+
+
 
     </script>
 	  <!-- Termina Google Maps -->
@@ -73,16 +91,17 @@ window.onload = loadScript;
 	  
 <div id="division">
 	<h3>${indicadorInstance?.nombre }</h3>
-	<div id="tabs">
-	  <ul>
-	    <li><a href="#tabs-1">Indicador</a></li>
-	    <li><a href="#tabs-2">Metadato</a></li>
-	    <li><a href="#tabs-3">Serie histórica</a></li>
-	    <li><a href="#tabs-4">Datos para el cálculo</a></li>
-	    <li><a href="#tabs-5">Mapa</a></li>
-	  </ul>
-	  <div id="tabs-1">
-	  <div>
+	<ul class="nav nav-tabs" id="myTab">
+	  <li class="active"><a href="#indicador">Indicador</a></li>
+	  <li><a href="#metadato">Metadato</a></li>
+	  <li><a href="#serie">Serie histórica</a></li>
+	  <li><a href="#calculo">Datos para el cálculo</a></li>
+	  <li><a onclick="loadScript();" href="#mapa">Mapa</a></li>
+	</ul>
+	 
+	<div class="tab-content">
+	  <div class="tab-pane active" id="indicador">
+	  	<div>
 			  <!-- Tabla indicador general -->
 			  <table>
 				  	<caption>${indicadorInstance?.nombre }</caption>
@@ -133,9 +152,10 @@ window.onload = loadScript;
 					  	</g:each>	
 			  		</tr>
 			  	</table>
-			  	<!-- termina tabla de variación -->	  	
+			  	<!-- termina tabla de variación -->
+	  	
 	  </div>
-	  <div id="tabs-2"> <!-- Metadato -->
+	  <div class="tab-pane" id="metadato">
 	  	<table>
 	  	<tbody>
 	  		<tr><td>Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
@@ -155,43 +175,18 @@ window.onload = loadScript;
 	  		<tr><td>Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
 	  		<tr><td>Fecha de actualización:</td><td>${indicadorInstance?.fechaActualizacion }</td></tr>	  		  		
 	  	</tbody>
-	  	</table>	    
-	  </div>
-	  <div id="tabs-3"> <!-- Serie histórica -->
-	    <table>
-	  	<thead><tr>${indicadorInstance?.nombre }</tr></thead>
-	  	<tbody>
-	  	<tr><td>Clave</td><td>Desagregación geográfica</td><td>2013 p/</td><td>2012</td><td>2011</td><td>2010</td></tr>
-	  	</tbody>
 	  	</table>
 	  </div>
-	  <div id="tabs-4"> <!-- Datos para el cálculo -->
-	    <table>
-	  	<thead><tr>${indicadorInstance?.nombre }</tr></thead>
-	  	<tbody>
-	  	<tr><td>Municipio/Población rural y urbana</td><td>Total</td><td>Hombre</td><td>Mujer</td></tr>	  	
-	  	</tbody>
-	  	</table>
-	  	<p><b>FUENTE:</b> <br></p>
-	  	
-	  	<table>
-	  	<thead><tr>${indicadorInstance?.nombre }</tr></thead>
-	  	<tbody>
-	  	<tr><td>Municipio/Población rural y urbana</td><td>Total</td><td>Hombre</td><td>Mujer</td></tr>	  	
-	  	</tbody>
-	  	</table>
-	  	<p><b>FUENTE:</b> <br></p>
-	  	
-	  </div>
-	  <div id="tabs-5"> <!-- Mapa -->
-	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>		
-	  </div>
-	  
-	</div>
+	  <div class="tab-pane" id="serie"></div>
+	  <div class="tab-pane" id="calculo"></div>
+	  <div class="tab-pane" id="mapa"><div id="map-canvas" style="width: 100%; height: 480px;"></div></div>
+	</div>	 	
+
+	
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>		
 </div>	
-
+ <script src="${resource(dir: 'bootstrap', file: 'js/bootstrap.min.js')}"></script>
 </body>
 </html>
 
