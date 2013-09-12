@@ -68,7 +68,8 @@ function initialize() {
       } 
     });
 	}
-	alert(ubicaciones.lenght());
+
+	${pintarUbicaciones}	
 }
 
 function loadScript() {
@@ -88,6 +89,24 @@ function loadScript() {
 	  
 	</head>
 	<body>
+	
+	<div class="uk-grid">
+<div class="uk-width-1-1">
+	<ul class="uk-tab" data-uk-tab>
+	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
+		<li><a href="#" onclick="${remoteFunction(
+			controller:'publico',
+			action: 'infoIndicador',
+			update: 'division',
+			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}">${eje.descripcion}</a>
+		</li>
+					
+	</g:each>
+	</ul>
+</div>
+</div>
+	
+	
 	  
 <div id="division">
 	<h3>${indicadorInstance?.nombre }</h3>
@@ -102,19 +121,37 @@ function loadScript() {
 	<div class="tab-content">
 	  <div class="tab-pane active" id="indicador">
 	  	<div>
-			  <!-- Tabla indicador general -->
+	  		<label for="opciones">Tipo:</label>
+	  		<select id="opciones" name="opciones" >
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>
+	  			<option value="4">Local</option>
+	  		</select>
+	  		<!-- Tabla indicador general -->
 			  <table>
 				  	<caption>${indicadorInstance?.nombre }</caption>
 				  	<thead>
-				  		<tr><th>Periodo </th><th>Total</th></tr>
+				  		<tr><th>Nombre</th>
+				  		<g:each var="resultado" in="${resultados }">
+				  		<th>${resultado?.anio }</th>
+				  		</g:each>
+				  		</tr>
 				  	</thead>
 				  	<tbody>
-					  	<g:each var="resultado" in="${resultados }">
-					  	<tr><td>${resultado?.anio }</td><td>${resultado?.indicador }</td></tr>
+				  		
+					  	<g:each var="lista" in="${listarResultados }">
+					  	<tr>
+					  	<td>Oaxaca</td>
+					  		<g:each var="result" in="${lista}">
+					  			<td>${result?.indicador }</td>
+					  		</g:each>
+					  	</tr>
 					  	</g:each>
 				  	</tbody>
 			  	</table>
 			  	<!-- Termina tabla indicador general -->
+			  		  				  
 			  	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		</div>
 	  	
@@ -167,8 +204,11 @@ function loadScript() {
 	  		
 	  		<tr><td>Fórmula de cálculo:</td>
 	  		<td>
-	  		<p lang="latex">$${indicadorInstance.formula?.sentencia}$</p> 
-	  		<p>${indicadorInstance.formula?.descripcion}</p>
+	  		<p lang="latex">$${indicadorInstance?.formula?.sentencia}$</p>
+	  		<g:each var="variable" in="${ indicadorInstance?.variables}">
+	  			<p>${variable?.clave} = ${variable?.descripcion} </p>
+	  		</g:each>	  			  		
+	  		<p>${indicadorInstance?.formula?.descripcion}</p>
 	  		</td></tr>
 	  		
 	  		<tr><td>Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
@@ -181,7 +221,6 @@ function loadScript() {
 	  <div class="tab-pane" id="calculo"></div>
 	  <div class="tab-pane" id="mapa"><div id="map-canvas" style="width: 100%; height: 480px;"></div></div>
 	</div>	 	
-
 	
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>		

@@ -95,9 +95,10 @@ class PublicoController {
 	
 	def detalleIndicador (Long id){
 		def indicador = Indicador.get(id)
-		def resultados = visor(id)
 		
-		//Prueba
+		if(indicador){
+			def resultados = visor(id)
+			//Prueba
 		
 		Resultado resultado = new Resultado()
 		Resultado resultado2 = new Resultado()
@@ -139,11 +140,16 @@ class PublicoController {
 		//Buscar datos para Google Maps
 		def ubicaciones = []
 		def ubicacioneString = []
+		def coordenadas = []
+		
 		indicador?.variables?.each { variable ->
 			if(variable?.localidad?.descripcion){
-				ubicaciones.add(variable?.localidad?.descripcion)
+				ubicaciones.add(variable?.localidad?.descripcion)								
 			}else if(variable?.municipio?.descripcion){
 				ubicaciones.add(variable?.municipio?.descripcion)
+				def coor = Coordenada.findAllByMunicipio(variable?.municipio)
+				//System.out.println("coordenadas: "+coor)
+				coordenadas.add(coor)
 			}else if(variable?.region?.descripcion){
 				ubicaciones.add(variable?.region?.descripcion)
 			}							
@@ -151,8 +157,33 @@ class PublicoController {
 		ubicaciones.each { ubi ->
 			ubicacioneString.add("'"+ubi+"'")
 		}
+		List listarResultados = []
+		listarResultados.add(resultados)
+		//listarResultados.add(resultados)
 		
-		[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString]
+		//Crear poligonos		
+		def coo = ""
+		def pintarUbicaciones = ""
+		coordenadas.each { coorde ->			
+			coorde.each { ubicacion ->
+				coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "
+			}
+			pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
+				"ubicacion = new google.maps.Polygon({"+
+				"paths: coordenadas,"+
+				"strokeColor: '#FF0000',"+
+				"strokeOpacity: 0.8,"+
+				"strokeWeight: 2,"+
+				"fillColor: '#FF0000',"+
+				"fillOpacity: 0.35});"+
+				"ubicacion.setMap(map); "
+			coo = ""
+		}
+				
+		[indicadorInstance: indicador, resultados:resultados, listarResultados:listarResultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, pintarUbicaciones:pintarUbicaciones]
+		}else{
+			redirect(action:"indicadores")
+		}
 	}
 	
 	

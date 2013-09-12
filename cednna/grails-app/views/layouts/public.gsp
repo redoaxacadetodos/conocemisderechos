@@ -66,7 +66,7 @@
 
 		<div class="tm-middle">
 			<div class="uk-container uk-container-center">
-
+<!-- 
 <div class="uk-grid">
 <div class="uk-width-1-1">
 	<ul class="uk-tab" data-uk-tab>
@@ -81,7 +81,8 @@
 	</g:each>
 	</ul>
 </div>
-</div>	
+</div>
+ -->	
 				<div class="uk-grid" data-uk-grid-margin>
 
 <!-- barra lateral				
