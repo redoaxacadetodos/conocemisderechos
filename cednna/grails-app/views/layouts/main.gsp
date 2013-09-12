@@ -81,6 +81,10 @@
 							<li><g:link controller="Indicador" action="list">Indicadores</g:link></li>
 							<li><g:link controller="Formula">Formulas</g:link></li>
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
+
+							<li class="uk-nav-header">Cat&aacute;logos</li>
+							<li><g:link controller="tipo">Categor&iacute;as</g:link></li>
+							<br/>
 							<li><g:link controller="logout">Cerrar sesion </g:link></li>
 
 						</ul>
