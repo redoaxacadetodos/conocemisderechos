@@ -9,25 +9,23 @@
 				<g:javascript src="jquery.dataTables.js"  />
 			<g:datatablehelperjs ctrlid="variableTable" context="${request.getContextPath()}" 
 				controller="variable" action="dataTablesListadoPanel" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
-				aoColumns="['{mData:0} ','{mData:1}','{mData:2}','{mData:3}','{mData:4}','{mData:muestraBoton}']"   
+				aoColumns="['{bVisible: false}','{bVisible: false}','{bVisible: false}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}','{mData:9}','{mData:10}','{mData:muestraBoton}']"   
 				/>
  <script type="text/javascript" >
 
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(\"" + source[0] + "\",\"" + source[1] + "\"); '\/>"
+		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(\"" + source[3] + "\",\"" + source[4] + "\",\"" + source[0] + "\",\"" + source[1] + "\",\"" + source[2] +  "\",\"" + source[8] + "\",\"" + source[9] + "\",\"" + source[10] + "\"); '\/>"
 		}
 
 		
-
-
-		function mostrarRegistro(id,desc){
+		function mostrarRegistro(id,desc,reg,mun,loc,hombres,mujeres,total){
 			
-			document.location.href=CONTEXT_ROOT+"/variable/panel?id="+id+"&desc="+desc;
+			document.location.href=CONTEXT_ROOT+"/variable/panel?id="+id+"&desc="+desc+"&region="+reg+"&municipio="+mun+"&localidad="+loc+"&mujeres="+mujeres+"&hombres="+hombres+"&total="+total;
 
 		}
-		 </script>
+		 </script> 
  		
 </head>
 
@@ -49,8 +47,7 @@
 					<br>
 					<br>
 				  <div class="body">
-				  
-				  <g:datatablehelper ctrlid="variableTable"  cols="['Clave','Descripcion','Hombres','Mujeres','Poblacion Total','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="variableTable"  cols="['ID_REGION','ID_MUNICIPIO','ID_LOCALIDAD','Clave','Descripcion','Region','Municipio','Localidad','Hombres','Mujeres','Poblacion Total','Detalle']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 </body>
   

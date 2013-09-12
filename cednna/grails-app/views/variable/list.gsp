@@ -17,7 +17,7 @@
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
+		return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/><a href='#'  class='uk-icon-button uk-icon-edit'  onclick='monitorRegistro(" + source[0] + "); '\/>"
 		}
 
 		
@@ -30,6 +30,14 @@
 			document.location.href=CONTEXT_ROOT+"/variable/edit/"+id;
 
 		}
+
+
+		function monitorRegistro(id){
+			
+			document.location.href=CONTEXT_ROOT+"/variable/panel/"+id;
+
+		}
+			
 			
 				
 

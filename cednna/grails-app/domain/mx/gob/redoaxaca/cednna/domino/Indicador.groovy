@@ -20,12 +20,8 @@ class Indicador {
 	String          mailResponsable
 	String          areaResponsable
 	Date		    fechaActualizacion
-	
-	
-//	Region         region
-//	Localidad      localidad
-//	Estado         estado
-//	Municipio      municipio
+	UnidadMedida    uMedida
+	PNDesarrollo    pnDesarrollo
 	
 	Division       division
 	
@@ -52,6 +48,8 @@ class Indicador {
 				frecuencia(blank:false, nullable:false)
 				formula(blank:false, nullable:false)
 				division(blank:true, nullable:true)
+				pnDesarrollo(blank:true, nullable:true)
+				uMedida(blank:true, nullable:true)
 				
 //				region(blank:false, nullable:false) 
 //			    localidad(blank:false, nullable:false) 
