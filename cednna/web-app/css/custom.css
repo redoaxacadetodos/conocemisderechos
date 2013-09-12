@@ -7,13 +7,15 @@
 /* Fonts
  ========================================================================== */
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,600,800);
 
 body, h1, h2, h3, h4, h5, h6,
-.uk-navbar-nav > li > a { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.uk-navbar-nav > li > a { font-family: 'Raleway', sans-serif; }
 
 
-h1, h2, h3, h4, h5, h6 { color:#6d5123 !important;}
+h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 600;}
+
+.tm-main h1, .tm-main h2 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px;}
 
 /* Base
  ========================================================================== */
@@ -801,3 +803,54 @@ float: right;
 .icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
 .icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
 .icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }
+
+#dashboard { 
+width: 98%;
+margin: 0 auto;
+text-align: center;
+} 
+
+#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6 { 
+width: 270px;
+height: 200px;
+display: block;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+margin-bottom: 8px;
+float: left;
+margin: 0 20px 20px 0;
+}
+
+#bot_prog .bot1 { background: url(../img/dashboard/bot1.png) 30px 28px no-repeat #b6d8ce; }
+#bot_prog .bot2 { background: url(../img/dashboard/bot2.png) 66px 28px no-repeat #dcd5b2; }
+#bot_prog .bot3 { background: url(../img/dashboard/bot3.png) 76px 28px no-repeat #ebd5b1; }
+#bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 70px 28px no-repeat #ffdca5; }
+#bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 60px 28px no-repeat #e3c5bb; }
+#bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 40px 28px no-repeat #e6cbb3; }
+
+#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover { 
+-webkit-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
+-moz-box-shadow:    inset 0px 0px 10px rgba(255, 255, 255, 1);
+box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
+}
+
+
+#bot_prog .dash_becas:hover { background: url(../img/icons/becas02.png) no-repeat center; }
+
+
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both;
+}
+

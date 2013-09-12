@@ -12,7 +12,25 @@
 		<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 	</head>
 	<body>
+<div id="dashboard">
+	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
+
+		<div id="bot_prog">
+			<a href="#" onclick="${remoteFunction(
+				controller:'publico',
+				action: 'infoIndicador',
+				update: 'division',
+				id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="bot${eje.id}">
+			
+			</a>
+		</div>
+					
+	</g:each>
+
+</div>
 	
+		
+
 		<div id="division">		
 		</div>
 		

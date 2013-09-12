@@ -49,7 +49,7 @@
 				<a class="uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
 
 				<ul class="uk-navbar-nav uk-hidden-small">
-		<li><g:link class="list iconobar icono_calendar" action="calendario" data-uk-tooltip="{pos:'bottom'}" title="Calendario"></g:link></li>
+		<!-- <li><g:link class="list iconobar icono_calendar" action="calendario" data-uk-tooltip="{pos:'bottom'}" title="Calendario"></g:link></li>-->
 		<li><g:link class="create iconobar icono_directorio" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
 		<li><g:link class="create iconobar icono_contacto" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
 		<li><g:link class="create iconobar icono_ayuda" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="ayuda"></g:link></li>	
@@ -83,7 +83,8 @@
 </div>
 </div>	
 				<div class="uk-grid" data-uk-grid-margin>
-				
+
+<!-- barra lateral				
 					<div class="tm-sidebar uk-width-medium-1-5 uk-hidden-small">
 
 						<ul class="tm-nav uk-nav" data-uk-nav>
@@ -94,8 +95,8 @@
 						</ul>
 
 					</div>
-                
-				<div class="tm-main uk-width-medium-4-5">
+-->                
+				<div class="tm-main uk-width-medium-1-1" style="border-left:none !important;">
 							
 							
 	
