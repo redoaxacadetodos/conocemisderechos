@@ -84,8 +84,6 @@ class IndicadorController {
 		
 		def indicadorInstance = Indicador.get(params.id);
 		
-		
-	
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
@@ -166,6 +164,37 @@ class IndicadorController {
 	}
 	
 	
+	
+	
+	
+	def  getVariableByRegion(){
+		
+	  
+		def cvar= new ArrayList<CVariable>()
+		
+		def sql = new Sql(sessionFactory.currentSession.connection())
+
+		def query = "select cvv_clave as clave ,cvv_descripcion as descripcion  from cat_variable group by cvv_clave,cvv_descripcion"
+		
+		
+					def result = sql.rows(query.toString())
+					
+					
+					
+								cvar=result?.each
+								{
+								  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+									
+								  cvar.add(v)
+								}
+					 
+	//	render cvar						
+		render cvar as JSON
+	}
+	
+	
+	
+	
 	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
 	
 		def ban = false
@@ -227,29 +256,7 @@ class IndicadorController {
 
 				def numCategorias= params.getAt("numCategorias_"+v)
 				
-				def localidad=null
-				def municipio=null
-				def region=null
-				def estado=null
-				
-				if(params.getAt("localidad_"+v)!="null")
- 					localidad=  Localidad.get(params.getAt("localidad_"+v+".id"))
-				
-				
-				if(params.getAt("municipio_"+v)!="null")
-					municipio=  Municipio.get(params.getAt("municipio_"+v+".id"))
-			
-				
-				
-				if(params.getAt("region_"+v)!="null")
-					region =    Region.get(params.getAt("region_"+v+".id"))
-				
-				
-				
-				if(params.getAt("estado_"+v)!="null")
-					estado =    Estado.get(params.getAt("estado_"+v+".id"))
-				
-				
+								
 				
 				
 				
@@ -258,10 +265,7 @@ class IndicadorController {
 				def dVariable = new  DVariable()
 				dVariable.clave=v
 				dVariable.descripcion=params.getAt("descripcion_"+v)
-				dVariable.localidad=localidad
-				dVariable.municipio=municipio
-				dVariable.region=region
-				dVariable.estado=estado
+			
 				dVariable.poblacion=poblacion
 				
 				
@@ -348,27 +352,7 @@ class IndicadorController {
 			
 							def numCategorias= params.getAt("numCategorias_"+v)
 							
-							def localidad=null
-							def municipio=null
-							def region=null
-							def estado=null
 							
-							if(params.getAt("localidad_"+v)!="null")
-								localidad=  Localidad.get(params.getAt("localidad_"+v+".id"))
-							
-							
-							if(params.getAt("municipio_"+v)!="null")
-								municipio=  Municipio.get(params.getAt("municipio_"+v+".id"))
-						
-							
-							
-							if(params.getAt("region_"+v)!="null")
-								region =    Region.get(params.getAt("region_"+v+".id"))
-							
-							
-							
-							if(params.getAt("estado_"+v)!="null")
-								estado =    Estado.get(params.getAt("estado_"+v+".id"))
 							
 							
 							
@@ -379,10 +363,7 @@ class IndicadorController {
 							def dVariable = new  DVariable()
 							dVariable.clave=v
 							dVariable.descripcion=params.getAt("descripcion_"+v)
-							dVariable.localidad=localidad
-							dVariable.municipio=municipio
-							dVariable.region=region
-							dVariable.estado=estado
+							
 							dVariable.poblacion=poblacion
 							
 							indicadorInstance.variables.removeAll{ id!=null }

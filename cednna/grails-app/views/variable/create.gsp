@@ -35,14 +35,34 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form action="save"  name="frmVariable">
 				<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
 				
 					
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" class="uk-button"/>
+					<input type="button" id="newVariable" name="newVariable"  value="${message(code: 'default.button.create.label', default: 'Create')}" class="uk-button"/>
 				</fieldset>
 			</g:form>
 		</div>
 	</body>
+	
+	<script type="text/javascript">
+
+
+	$(function(){
+
+		
+	//	alert("asdasd");
+		
+
+
+		
+		
+
+	});
+			
+
+
+
+	</script>
 </html>

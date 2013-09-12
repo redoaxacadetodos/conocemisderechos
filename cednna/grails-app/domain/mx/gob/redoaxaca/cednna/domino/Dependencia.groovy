@@ -4,7 +4,7 @@ class Dependencia {
 
 	String descripcion
 	String clave
-	
+
 	
     static constraints = {
     }

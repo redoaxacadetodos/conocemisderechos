@@ -22,26 +22,27 @@
   <h1>Variable  ${clave} - ${desc} </h1>
   <h2>Parametros busqueda</h2>
   
-  <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
+<g:hiddenField name="region.id"  value="${region?.id}"/>
+<g:hiddenField name="municipio.id"  value="${municipio?.id}"/>
+<g:hiddenField name="localidad.id"  value="${localidad?.id}"/>  
+  
+<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 	<label class="uk-form-label" for="region">
-		<g:message code="variable.region.label" default="Región" />
+		<h3><g:message code="variable.region.label" default="Región" /><h3>
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  class="chosen-select" style="width:350px;"  value="${variableInstance?.region?.id}"  noSelection="['null': '-Selecciona una región-']"/>
+		<label>${region?.descripcion}</label>
 	</div>
 </div>
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'municipio', 'error')} ">
 	<label class="uk-form-label" for="municipio">
-		<g:message code="variable.municipio.label" default="Municipio" />
-		
+		<h3><g:message code="variable.municipio.label" default="Municipio" /></h3>
 	</label>
 	<div class="uk-form-controls">
-	<div id="divMun">
-	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion"  value="${variableInstance?.municipio?.id}"   noSelection="['null':'-Selecciona un municipio-']"/>
-	</div>
+		<label>${municipio?.descripcion}</label>
 	</div>
 </div>
 
@@ -52,21 +53,40 @@
 	</label>
 	<div class="uk-form-controls">
 	<div id="divLoc">
-	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion" value="${variableInstance?.localidad?.id}" noSelection="['null': '-Selecciona un localidad-']"/>
-	</div>
+	<label><h3>${localidad?.descripcion}</h3></label>
+   </div>
 	</div>
 </div>	
-  			<input id="btnValores" name="btnValores"  value="Mostrar valores" type="button"  class="uk-button"/>
+<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'localidad', 'error')} required">
+	<label><h3>Mujeres : ${mujeres}</h3><h3>Hombres : ${hombres}</h3><h3>Total : ${total}</h3></label>
+</div>
+<br>
+<br>
+			<h2>Desgloce por categorias</h2>
+			<br>
+  			<input id="btnValores" name="btnValores"  value="Agregar categoria" type="button"  class="uk-button"/>
   			
+  			
+  			<g:hiddenField name="numCategorias" value="0"/>
+  	
 		  	<div id="divResultado">
-		  			
+		  		
 		  			
 		  					
 		  	</div>		
+		  	
+		  		<div id="dviBtnResult">
+		  		<input id="btnResult" name="btnResult"  value="Realiza busqueda" type="button"  class="uk-button"/>
+		  		</div>
+		  
+		  	<br>
+			<br>
+			<h2>Resultados</h2>
+			<br>
   </div>
   
   
-  
+ 
 
 <script type="text/javascript" defer="defer">
 
@@ -74,7 +94,20 @@
 
 
 $(function(){
+
+
 	
+
+	$(document).ready(function() {
+
+
+		
+			$("#dviBtnResult").hide();
+
+			
+		
+
+	});
 
 	var config = {
 		      '.chosen-select'           : {},
@@ -91,17 +124,19 @@ $(function(){
 
 
 	asignaEventorRegion();
-
-	
-
-	
 	asignaEventorMunicipio();
 
+
+	
+
+
+	
 
 	$("#btnValores").click(function(){
 
 
-		buscarVariables();
+		$("#dviBtnResult").show();
+		addVariables();
 
 	});
 	
@@ -112,20 +147,20 @@ $(function(){
 });	
 
 
-						function buscarVariables(){
+						function addVariables(){
 
-
+							var contador = $("#numCategorias").val();
 							var unused = $.ajax({type:'POST', 
-					              url:CONTEXT_ROOT+'/variable/resultadoPanel',
-					              data: "region="+$("#region").val()+"&municipio="+$("#municipio").val()+"&localidad="+$("#localidad").val(),
+					              url:CONTEXT_ROOT+'/variable/addCat',
+					              data: "contador="+contador,
 					              success:function(data,textStatus)
 					                  {
 					              
-					              	$('#divResultado').html(data);
+					              			$('#divResultado').append(data);
 					          
 					             
 					                  },
-					              error:function(XMLHttpRequest,textStatus,errorThrown)
+					             		 error:function(XMLHttpRequest,textStatus,errorThrown)
 					                  {$('#diverror').html(XMLHttpRequest.responseText);}
 									});
 

@@ -68,6 +68,38 @@
 	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
 </div>
 
+
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
+	<label class="uk-form-label"for="frecuencia">
+		<g:message code="indicador.frecuencia.label" default="Unidad de medida" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="uMedida" name="uMedida.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadMedida.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.uMedida?.id}" class="many-to-one"/>
+</div>
+
+
+
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
+	<label class="uk-form-label"for="frecuencia">
+		<g:message code="indicador.frecuencia.label" default="Derecho" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="division" name="division.id" from="${mx.gob.redoaxaca.cednna.domino.Division.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.id}" class="many-to-one"/>
+</div>
+
+
+
+
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
+	<label class="uk-form-label"for="frecuencia">
+		<g:message code="indicador.frecuencia.label" default="Plan de desarrollo" />
+
+	</label>
+	<g:select id="pnDesarrollo" name="pnDesarrollo.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.pnDesarrollo?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a plan-']"/>
+</div>
+
+
+
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
 	<label class="uk-form-label"for="comentarios">
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />

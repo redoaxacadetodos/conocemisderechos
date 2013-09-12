@@ -11,6 +11,7 @@ class DVariable {
 	Region     region
 	Localidad  localidad
 	Poblacion  poblacion
+	String     claveVar
 	
 	static hasMany = [categorias:Categoria]
 
@@ -23,6 +24,7 @@ class DVariable {
 		municipio(blank:true, nullable:true)
 		localidad(blank:true, nullable:true)
 		region(blank:true, nullable:true)
+		claveVar(blank:true, nullable:true)
     }
 
    static mapping = {
@@ -37,6 +39,7 @@ class DVariable {
 		indicador(column:'cdv_ind_id')
 		clave(column:'cdv_clave_id')
 		estado(column: 'cdv_ent_id')
+		claveVar(column:'cdv_claveVar')
 	//	categorias (column: 'cdc_cdv_id', joinTable: 'cat_dvariable_categoria')
 
 	 	categorias joinTable: [name: 'cat_dvariable_categoria',
