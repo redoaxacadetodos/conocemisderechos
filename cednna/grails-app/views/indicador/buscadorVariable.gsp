@@ -24,33 +24,33 @@
 		</div><br />
 
 
-<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">
-	<label class="uk-form-label" for="region">
-		<g:message code="indicador.region.label" default="Region" />
-
-	</label>
-	<g:select id="region_${var.clave}" name="region_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${var?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>
-</div>
-
-<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">
-	<label class="uk-form-label" for="municipio">
-		<g:message code="indicador.municipio.label" default="Municipio" />
-	
-	</label>
-	<div id="divMun_${var.clave}">
-	<g:select id="municipio_${var.clave}" name="municipio_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${var?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>
-	</div>
-</div>
-
-<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label class="uk-form-label" for="localidad">
-		<g:message code="indicador.localidad.label" default="Localidad" />
-
-	</label>
-	<div id="divLoc_${var.clave}">
-	<g:select id="localidad_${var.clave}" name="localidad_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${var?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>
-	</div>
-</div>
+<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">--%>
+<%--	<label class="uk-form-label" for="region">--%>
+<%--		<g:message code="indicador.region.label" default="Region" />--%>
+<%----%>
+<%--	</label>--%>
+<%--	<g:select id="region_${var.clave}" name="region_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${var?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>--%>
+<%--</div>--%>
+<%----%>
+<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">--%>
+<%--	<label class="uk-form-label" for="municipio">--%>
+<%--		<g:message code="indicador.municipio.label" default="Municipio" />--%>
+<%--	--%>
+<%--	</label>--%>
+<%--	<div id="divMun_${var.clave}">--%>
+<%--	<g:select id="municipio_${var.clave}" name="municipio_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${var?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>--%>
+<%--	</div>--%>
+<%--</div>--%>
+<%----%>
+<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">--%>
+<%--	<label class="uk-form-label" for="localidad">--%>
+<%--		<g:message code="indicador.localidad.label" default="Localidad" />--%>
+<%----%>
+<%--	</label>--%>
+<%--	<div id="divLoc_${var.clave}">--%>
+<%--	<g:select id="localidad_${var.clave}" name="localidad_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${var?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>--%>
+<%--	</div>--%>
+<%--</div>--%>
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
@@ -86,7 +86,7 @@
 										
 											</label>
 											<div id="divTipo_${i+1}_${var.clave}">
-											<g:select id="categoria" name="categoria_${i+1}_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select"  value="${cat?.id}" optionValue="descripcion"   />
+											<g:select id="categoria" name="categoria_${i+1}_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select "   value="${cat?.id}" optionValue="descripcion"   />
 											</div>
 										</div>
 								</div>

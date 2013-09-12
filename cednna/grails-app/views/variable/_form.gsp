@@ -1,5 +1,7 @@
+
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Variable" %>
 
+<div id="mensaje"></div>
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'clave', 'error')} required">
@@ -30,7 +32,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  class="chosen-select" style="width:350px;"  value="${variableInstance?.region?.id}"  noSelection="['null': '-Selecciona una región-']"/>
+	<g:select id="region" name="region.id" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id" optionValue="descripcion"  class="chosen-select" style="width:350px;"  value="${variableInstance?.region?.id}"  noSelection="['null': '- Ninguna región-']"/>
 	</div>
 </div>
 
@@ -42,7 +44,7 @@
 	</label>
 	<div class="uk-form-controls">
 	<div id="divMun">
-	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion"  value="${variableInstance?.municipio?.id}"   noSelection="['null':'-Selecciona un municipio-']"/>
+	<g:select id="municipio" name="municipio.id" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion"  value="${variableInstance?.municipio?.id}"   noSelection="['null':'- Ningun municipio-']"/>
 	</div>
 	</div>
 </div>
@@ -54,20 +56,12 @@
 	</label>
 	<div class="uk-form-controls">
 	<div id="divLoc">
-	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion" value="${variableInstance?.localidad?.id}" noSelection="['null': '-Selecciona un localidad-']"/>
+	<g:select id="localidad" name="localidad.id" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id"  class="chosen-select" style="width:350px;"  optionValue="descripcion" value="${variableInstance?.localidad?.id}" noSelection="['null': '- Ninguna  localidad -']"/>
 	</div>
 	</div>
 </div>
 
-<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'poblacionTotal', 'error')} required">
-	<label class="uk-form-label" for="poblacionTotal">
-		<g:message code="variable.poblacionTotal.label" default="Poblacion Total" />
 
-	</label>
-	<div class="uk-form-controls">
-	<g:field name="poblacionTotal" type="number" value="${variableInstance.poblacionTotal}" required=""/>
-	</div>
-</div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'mujeres', 'error')} required">
 	<label class="uk-form-label" for="mujeres">
@@ -75,7 +69,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:field name="mujeres" type="number" value="${variableInstance.mujeres}" required=""/>
+	<g:field name="mujeres" id="mujeres" type="number" value="${variableInstance.mujeres}" required=""/>
 	</div>
 </div>
 
@@ -85,11 +79,19 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:field name="hombres" type="number" value="${variableInstance.hombres}" required="" class="uk-button"/>
+	<g:field name="hombres"  id="hombres" type="number" value="${variableInstance.hombres}" required="" class="uk-button"/>
 	</div>
 </div>
 
+<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'poblacionTotal', 'error')} required">
+	<label class="uk-form-label" for="poblacionTotal">
+		<g:message code="variable.poblacionTotal.label" default="Poblacion Total" />
 
+	</label>
+	<div class="uk-form-controls">
+	<input name="poblacionTotal" id="poblacionTotal" type="text" value="${variableInstance.poblacionTotal}"  readonly="readonly"/>
+	</div>
+</div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
 	<label class="uk-form-label" for="anio">
@@ -109,7 +111,7 @@
 				
 				
 				
-				
+			<li>	
 				
 				<g:if  test="${variableInstance?.categorias}">
 			
@@ -123,7 +125,7 @@
 														<g:message code="indicador.localidad.label" default="Tipo de categoria" />
 												
 													</label>
-													<g:select id="tipo_${i+1}" name="tipo_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" value="${cat?.tipo?.id}"   optionValue="descripcion"/>
+													<g:select id="tipo_${i+1}" name="tipo_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select sel-var" value="${cat?.tipo?.id}"   optionValue="descripcion"/>
 											</div>
 											<div class="uk-width-1-2">
 														<label class="uk-form-label" for="localidad">
@@ -131,46 +133,22 @@
 													
 														</label>
 														<div id="divTipo_${i+1}">
-														<g:select id="categoria" name="categoria_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select"  value="${cat?.id}" optionValue="descripcion"   />
+														<g:select id="categoria" name="categoria_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select "  value="${cat?.id}" optionValue="descripcion"   />
 														</div>
 											</div>
 								</div>
 						</div>
-			
+					 <input type="button" value="-"  id="del_${con}" class="uk-button" />
 					</g:each>
 					
 					<g:hiddenField name="numCategorias" value="${variableInstance.categorias.size()}"/>
 			</g:if>
 			<g:else>
-				<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">	
-					 <div class="uk-grid">
-								<div class="uk-width-1-2">
-										<label for="localidad" class="uk-form-label">
-											<g:message code="indicador.localidad.label" default="Tipo de categoria" />
-									
-									
-										</label>
-										<g:select id="tipo_1" name="tipo_1" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
-										
-								</div>
-								<div class="uk-width-1-2">
-											<label for="localidad" class="uk-form-label">
-												<g:message code="indicador.localidad.label" default="Categoria" />
-										
-										
-											</label>
-											<div id="divTipo_1">
-											<g:select id="categoria_1" name="categoria_1" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
-											</div>
-									
-								</div>
-					</div>
-			  </div>
-			  	<g:hiddenField name="numCategorias" value="1"/>
+			
+					<g:hiddenField name="numCategorias" value="0"/>
 			</g:else>
 				
-				
-				
+			</li>	
 				
 
 	<div id="divCate">
@@ -223,17 +201,74 @@ $(function(){
 	});  
 
 
-	asignaEventorRegion();
+	    asignaEventorRegion();
+		asignaEventorMunicipio();
+		asignaEventorTipo(1);
 
-	
-
-	
-	asignaEventorMunicipio();
-	
-	 asignaEventorTipo(1);
+		 $("#newVariable").click(function(){
 
 
 
+			 var selectedValues = $(".sel-var").map(function(){
+				    return this.value;
+				}).get().join(',');
+
+
+
+			 var arrVar = selectedValues.split(",");
+			 var num=0,cont=0;
+			  for (var i = 0; i < arrVar.length; i++) {
+		            num = arrVar[i];
+		            for (var j = i+1; j < arrVar.length; j++) {
+		                if (num == arrVar[j]) {
+		                    cont++;
+		                }
+		            }
+
+		        }
+		        if (cont > 0) {
+
+			        
+			        $("#mensaje").html(	"<div class='uk-alert uk-alert-danger' ><a  class='uk-alert-close uk-close'></a><p>Solo puedes seleccionar un solo tipo de categoria</p></div>");
+		        
+		         	
+		        } else {
+					var total= parseInt($("#poblacionTotal").val());
+			       if(total>0){
+		        	$("#frmVariable").submit();
+		       		}else{
+		       		  $("#mensaje").html(	"<div class='uk-alert uk-alert-danger' ><a  class='uk-alert-close uk-close'></a><p>Debe existir un valor mayor a 0 en el numero de Mujeres u Hombres </p></div>");
+			       	}	
+			    }
+		
+				
+
+		});
+
+
+
+
+	 
+		$("#hombres").change(function(){
+
+			var h= parseInt($("#hombres").val());
+			var m= parseInt( $("#mujeres").val());
+			var total=h+m;
+			$("#poblacionTotal").val(total);
+		});
+
+
+
+		$("#mujeres").change(function(){
+
+			var h= parseInt($("#hombres").val());
+			var m= parseInt( $("#mujeres").val());
+			var total=h+m;
+			$("#poblacionTotal").val(total);
+
+		});
+
+	 
 		$("#addCat").click(function(){
 
 			var cont=	parseInt($("#numCategorias").val());
@@ -265,7 +300,8 @@ $(function(){
 											    for (var selector in config) {
 											      $(selector).chosen(config[selector]);
 											    }
-																		
+
+						                	
 						              }
 										});
 				});

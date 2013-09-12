@@ -57,9 +57,7 @@ class VariableController {
 		"cvv_poblacion_total ",
 		"cvv_hombres ",
 		"cvv_mujeres "
-		],
-	
-		[
+		],[
 		"id", 
 		"clave" , 
 		"descripcion", 
@@ -77,30 +75,42 @@ class VariableController {
 	
 	def dataTablesListadoPanel = {
 		
-	def query="   from cat_variable group by cvv_clave,cvv_descripcion   "
-		
-		
-		
-		render dataTablesService.datosParaTablaQuery(query,params,
+	def query=" from viw_variable ";
+			
+			render dataTablesService.datosParaTablaQuery(query,params,
 		[
-		"cvv_clave as clave",
-		"cvv_descripcion as descripcion",
-		"sum(cvv_mujeres) as mujeres",
-		"sum(cvv_hombres) as hombres",
-		"sum(cvv_poblacion_total)  as total"
-		
-		],
-		[
-		"cvv_clave",
-		"cvv_descripcion",
-		"sum(cvv_mujeres)",
-		"sum(cvv_hombres)",
-		"sum(cvv_poblacion_total)"
-		],
-	
-		[
-		"clave",
-		"descripcion",
+		"region_id",
+		"municipio_id",
+		"localidad_id", 
+		"clave", 
+		"descripcion", 
+		"region" ,
+		"municipio" ,
+		"localidad" ,
+		"mujeres",
+		"hombres",
+		"total"
+		],[
+		"region_id",
+		"municipio_id",
+		"localidad_id", 
+		"clave", 
+		"descripcion", 
+		"region" ,
+		"municipio" ,
+		"localidad" ,
+		"mujeres",
+		"hombres",
+		"total"
+		],[
+		"region_id",
+		"municipio_id",
+		"localidad_id", 
+		"clave", 
+		"descripcion", 
+		"region" ,
+		"municipio" ,
+		"localidad" ,
 		"mujeres",
 		"hombres",
 		"total"
@@ -233,8 +243,64 @@ class VariableController {
 	
 	def panel(){
 		
+//		def variable = Variable.get(params.id)
 		
-		[clave:params.id,desc:params.desc]
+		def localidad
+		def municipio
+		def region
+		
+		if(params.localidad!='null')
+		localidad = Localidad.get(params.localidad)
+		
+		if(params.municipio!='null')
+		municipio =Municipio.get(params.municipio)
+		
+		if(params.region!='null')
+		region = Region.get(params.region)
+		
+		
+		[clave:params.id,desc:params.desc,region:region,localidad:localidad,municipio:municipio,mujeres:params.mujeres,hombres:params.hombres,total:params.total]
+	}
+	
+	
+	
+	def addCat(){
+		
+			
+			def num= params.contador 
+			
+			[num:num+1]	
+		
+	}
+	
+	
+	def resultadoSeleccion(){
+		
+		def localidad
+		def municipio
+		def region
+		
+		if(params.localidad.id!='null'){
+			
+				localidad = Localidad.get(params.localidad)
+		}
+		
+		if(params.municipio.id!='null'){
+			
+				municipio =Municipio.get(params.municipio)
+		}
+		
+		if(params.region.id!='null'){
+			
+				region = Region.get(params.region)
+		}
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	def resultadoPanel() {
@@ -322,6 +388,102 @@ class VariableController {
 		[general:variables,vregion:variablesRegion,vmunicipio:variablesMunicipio,vlocalidad: variablesLocalidad]				
 						
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	def busquedaMunicipio(){
+		
+		
+		
+		
+		
+		
+					"select  cvv_region as region, sum(cvv_hombres) as hombres, sum(cvv_mujeres) as mujeres, sum(cvv_poblacion_total) as total"+
+					"from cat_variable"+
+					"where cvv_region is not null"+
+					"and"+
+					"("+
+					"	cvv_id in (select  cvc_cvv_id from cat_variable_categoria where cvc_cct_id = 1) "+
+					"	or"+
+					"	cvv_id in (	select cvc_cvv_id  from cat_variable_categoria  where cvc_cct_id = 2) "+
+					")"+
+					"group by  cvv_region"
+		
+		
+		
+	}
+	
+	
+	def busquedaRegion(){
+		
+		
+		
+		
+		
+		
+					"select  cvv_region as region, sum(cvv_hombres) as hombres, sum(cvv_mujeres) as mujeres, sum(cvv_poblacion_total) as total"+
+					"from cat_variable"+
+					"where cvv_region is not null"+
+					"and"+
+					"("+
+					"	cvv_id in (select  cvc_cvv_id from cat_variable_categoria where cvc_cct_id = 1) "+
+					"	or"+
+					"	cvv_id in (	select cvc_cvv_id  from cat_variable_categoria  where cvc_cct_id = 2) "+
+					")"+
+					"group by  cvv_region"
+		
+		
+		
+	}
+	
+	
+	def busquedaLocalidad(){
+		
+		
+		
+		
+		
+		
+					"select  cvv_region as region, sum(cvv_hombres) as hombres, sum(cvv_mujeres) as mujeres, sum(cvv_poblacion_total) as total"+
+					"from cat_variable"+
+					"where cvv_region is not null"+
+					"and"+
+					"("+
+					"	cvv_id in (select  cvc_cvv_id from cat_variable_categoria where cvc_cct_id = 1) "+
+					"	or"+
+					"	cvv_id in (	select cvc_cvv_id  from cat_variable_categoria  where cvc_cct_id = 2) "+
+					")"+
+					"group by  cvv_region"
+		
+		
+		
+	}
+	
+	
+	
+	def addCategoria(val){
+		
+		return "select cvc_cvv_id from cat_variable_categoria  where cvc_cct_id = "+val
+		
+	}
+	
+	
+	def orCategoria(val){
+		
+		return "or cvv_id in ( select cvc_cvv_id from cat_variable_categoria  where cvc_cct_id = "+val+")"
+		
+	}
+	
+	
+	
 	
 	
 	def vLocalidades(municipio){
