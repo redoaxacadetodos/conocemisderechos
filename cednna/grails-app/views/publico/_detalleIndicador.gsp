@@ -86,12 +86,18 @@ function loadScript() {
 	  <div class="tab-pane active" id="indicador">
 	  	<div>
 	  		<label for="opciones">Tipo:</label>
-	  		<select id="opciones" name="opciones" >
+	  		<select id="opciones" name="opciones" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarTablaIndicador',
+					  params: '\'id=\' + this.value',
+					  id: this.value)}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>
 	  			<option value="4">Local</option>
 	  		</select>
+	  		<div id="tablaIndicador">
 	  		<!-- Tabla indicador general -->
 			  <table>
 				  	<caption>${indicadorInstance?.nombre }</caption>
@@ -115,7 +121,7 @@ function loadScript() {
 				  	</tbody>
 			  	</table>
 			  	<!-- Termina tabla indicador general -->
-			  		  				  
+			  	</div>	  				  
 			  	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		</div>
 	  	
@@ -129,7 +135,7 @@ function loadScript() {
 			  			<g:set value="false" var="imprimir"></g:set>
 			  			<g:each var="resultado" in="${resultados}">
 			  				<g:if test="${imprimir=='true'}">
-			  					<th>${anio}/${resultado?.anio}</th>
+			  					<th class="subcelda">${anio}/${resultado?.anio}</th>
 			  					<g:set value="${resultado?.anio}" var="anio"></g:set>			  					
 			  				</g:if>
 			  				<g:else>
@@ -159,14 +165,14 @@ function loadScript() {
 	  <div class="tab-pane" id="metadato">
 	  	<table>
 	  	<tbody>
-	  		<tr><td>Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
-	  		<tr><td>Objetivo del indicador:</td><td>${indicadorInstance?.objetivo }</td></tr>
-	  		<tr><td>Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
-	  		<tr><td>Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
-	  		<tr><td>Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
-	  		<tr><td>Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  			  	
+	  		<tr class="odd"><td class="marked">Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
+	  		<tr class="even"><td class="marked">Objetivo del indicador:</td><td>${indicadorInstance?.objetivo }</td></tr>
+	  		<tr class="odd"><td class="marked">Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
+	  		<tr class="even"><td class="marked">Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
+	  		<tr class="odd"><td class="marked">Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
+	  		<tr class="even"><td class="marked">Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  			  	
 	  		
-	  		<tr><td>Fórmula de cálculo:</td>
+	  		<tr class="odd"><td class="marked">Fórmula de cálculo:</td>
 	  		<td>
 	  		<p lang="latex">$${indicadorInstance?.formula?.sentencia}$</p>
 	  		<g:each var="variable" in="${ indicadorInstance?.variables}">
@@ -175,9 +181,9 @@ function loadScript() {
 	  		<p>${indicadorInstance?.formula?.descripcion}</p>
 	  		</td></tr>
 	  		
-	  		<tr><td>Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
-	  		<tr><td>Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
-	  		<tr><td>Fecha de actualización:</td><td>${indicadorInstance?.fechaActualizacion }</td></tr>	  		  		
+	  		<tr class="even"><td class="marked">Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
+	  		<tr class="odd"><td class="marked">Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
+	  		<tr class="even"><td class="marked">Fecha de actualización:</td><td><g:formatDate type="date" style="LONG" date="${indicadorInstance?.fechaActualizacion }"/></td></tr>	  		  		
 	  	</tbody>
 	  	</table>
 	  </div>
