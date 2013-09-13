@@ -97,7 +97,7 @@
 
 					</div>
 -->                
-				<div class="tm-main uk-width-medium-1-1" style="border-left:none !important;">
+				<div class="uk-container-center" style="border-left:none !important;">
 							
 							
 	
