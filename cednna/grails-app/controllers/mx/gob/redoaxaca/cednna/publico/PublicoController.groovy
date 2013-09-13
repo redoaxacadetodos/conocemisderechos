@@ -68,6 +68,22 @@ class PublicoController {
 		
 	}
 	
+	def actualizarTablaIndicador(Long id){
+		def tipo = params.id		
+		switch(tipo){
+			case '1':
+				System.out.println("aqui")
+				break
+			case '2':
+				break
+			case '3':
+				break
+			case '4':
+				break
+		}	
+		render (template:"tablaIndicador", model:[tipo:tipo])	
+	}
+	
 	def enviarCorreo(Long id) {
 		def indicador = Indicador.get(id)
 		
