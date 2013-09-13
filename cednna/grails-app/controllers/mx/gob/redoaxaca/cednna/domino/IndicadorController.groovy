@@ -4,6 +4,7 @@ import com.redoaxaca.java.Combo
 import com.redoaxaca.java.ComboVariable
 import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Resultado
+import com.redoaxaca.java.ResultadoIndicador
 import grails.converters.JSON
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -85,11 +86,13 @@ class IndicadorController {
 		
 		def indicadorInstance = Indicador.get(params.id);
 		def opcion= params.opciones;
-		
+	
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
-		def List resultados= new ArrayList<Resultado>() 
+		def List resultados= new ArrayList<ResultadoIndicador>() 
+		def tip
+		def vTip
 		for(anio in 2005..2020){
 		
 			boolean  b = true
@@ -104,22 +107,71 @@ class IndicadorController {
 											
 											case 1:
 													def sql = new Sql(sessionFactory.currentSession.connection())
-													def tipos =[]
-													def query = ""
+												
+												
+													def query = "SELECT o.region_id,"+
+																"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
+																"sum(o.mujeres) as mujeres, "+
+																"sum(o.hombres) as hombres , "+
+																"sum(o.total)  as total"+
+																"FROM ((((SELECT cat_variable.cvv_clave AS clave, "+
+																				"	cat_variable.cvv_descripcion AS descripcion, "+
+																				"	cat_variable.cvv_region AS region_id, "+
+																				"	cat_variable.cvv_municipio AS municipio_id, "+
+																				"	cat_variable.cvv_localidad AS localidad_id, "+
+																				"    cat_variable.cvv_mujeres AS mujeres, "+
+																				"	cat_variable.cvv_hombres AS hombres, "+
+																				"	cat_variable.cvv_poblacion_total AS total "+
+																"FROM cat_variable "+
+																"where "+
+																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null   and  cvv_municipio is not null  "
+																
+																if(vari.categorias){
+																	
+																	query=query+" and "+
+																	"("
+																	
+																}
+																def queryTipo="select ctt_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
+																 " and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+ vari.id+") group by ctt_id"
 													
-													for(cat in  vari.categoria)
-													{
-														
-														tipos.add(cat.tipo.id)
-														
-														cat.id
-														
-														
-													}				
+																def resultTipo
+																def result = sql.rows(queryTipo.toString())
+																
+																
+																								def tamTipo =result.size()
+																								def cc=1
+																								result?.each
+																								{
+																									
+																								
+																									def queryCat="select cct_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
+																									" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+  vari.id+" ) and ctt_id ="+ it.ctt_id
+																									resultTipo= sql.rows(queryCat.toString())
+																									def tam =resultTipo.size()
+																									def c=1
+																											resultTipo?.each
+																											{
+																												 query=query+" cvv_id in (select  cvc_cvv_id from cat_variable_categoria where cvc_cct_id = "+it.cct_id+")  "
+																												 if(c!=tam)
+																												 	query=query+" or "
+																												 c++
+																											}
+																									
+																									if(c!=tam)
+																									query=query+" and "
+																								
+																								}
+																query=query+") o LEFT JOIN cat_region cr ON ((cr.crg_id = o.region_id))) LEFT JOIN cat_municipio cm ON ((cm.mun_id = o.municipio_id))) LEFT JOIN cat_localidad cl ON ((cl.ctl_id = o.localidad_id))) "+
+																"GROUP BY "+
+																"o.region_id,  "+ 
+																"region"
 													
-																def result = sql.rows(query.toString())
+													
+													
+																def resultTotal = sql.rows(query.toString())
 											
-											
+																	
 											
 													
 																
@@ -130,64 +182,29 @@ class IndicadorController {
 											break;
 											
 											case 2:
-													
-													def sql = new Sql(sessionFactory.currentSession.connection())
-													def query = ""
+												
 											
 											
-																def result = sql.rows(query.toString())
 											
-											
-//											
-//																			cvar=result?.each
-//																			{
-//																			  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
-//																				v.setId(it.clave)
-//																				v.setDescripcion(it.clave+"-"+it.descripcion)
-//																			  cvar.add(v)
-//																			}
 //											
 											break;
 											
 											case 3:
 												
-											def sql = new Sql(sessionFactory.currentSession.connection())
-											def query = ""
-									
-									
-														def result = sql.rows(query.toString())
-									
-									
-									
-//																	cvar=result?.each
-//																	{
-//																	  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
-//																		v.setId(it.clave)
-//																		v.setDescripcion(it.clave+"-"+it.descripcion)
-//																	  cvar.add(v)
-//																	}
-													
+										
+												
 											
 											break;
 											
 											case 4:
 											
-											def sql = new Sql(sessionFactory.currentSession.connection())
-											def query = ""
 									
-									
-														def result = sql.rows(query.toString())
-									
-									
-									
-//																	cvar=result?.each
-//																	{
-//																	  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
-//																		v.setId(it.clave)
-//																		v.setDescripcion(it.clave+"-"+it.descripcion)
-//																	  cvar.add(v)
-//																	}
-//											
+											
+											
+											
+											
+											
+											
 											
 											
 											break;
@@ -231,38 +248,7 @@ class IndicadorController {
 		[indicadorInstance:indicadorInstance,resultados:resultados]
 	}
 	
-	
-	
-	
-	
-	def  getVariableByRegion(){
-		
-	  
-//		def cvar= new ArrayList<CVariable>()
-//		
-//		def sql = new Sql(sessionFactory.currentSession.connection())
-//
-//		def query = "select cvv_clave as clave ,cvv_descripcion as descripcion  from cat_variable group by cvv_clave,cvv_descripcion"
-//		
-//		
-//					def result = sql.rows(query.toString())
-//					
-//					
-//					
-//								cvar=result?.each
-//								{
-//								  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
-//									v.setId(it.clave)
-//									v.setDescripcion(it.clave+"-"+it.descripcion)
-//								  cvar.add(v)
-//								}
-//					 
-//	//	render cvar						
-//		render cvar as JSON
-	}
-	
-	
-	
+
 	
 	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
 	
@@ -566,14 +552,6 @@ class IndicadorController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
     def delete(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {
@@ -592,4 +570,18 @@ class IndicadorController {
             redirect(action: "show", id: id)
         }
     }
+	
+	
+	
+	def semaforo(){
+		
+		
+	}
+	
+	
+	def actualizarSemaforo(){
+		def dependencia = Dependencia.get(params.id)
+		def indicadores = Indicador.findAllByDependencia(dependencia)
+		render(template:"indicadorSemaforo", model:[indicadores:indicadores])
+	}
 }

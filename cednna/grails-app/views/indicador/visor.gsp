@@ -85,22 +85,22 @@
   
   
   
-  
-  <h3>Resultados del indicador por año </h3>
-  
-  
-  <table>
-  <tbody>
-  <tr><th>Año </th><th>Resultado</th></tr>
-	 <g:each in="${resultados}" var="resul">
-	  <tr>
-		  <td>${resul.anio}</td><td>${String.format(new Locale('es','MX'),'%1$,.2f',resul.indicador)}</td>
-	  </tr>
-	</g:each>
-  </tbody>
-  </table>
-  
- 
-  </div>
+<%--  --%>
+<%--  <h3>Resultados del indicador por año </h3>--%>
+<%--  --%>
+<%--  --%>
+<%--  <table>--%>
+<%--  <tbody>--%>
+<%--  <tr><th>Año </th><th>Resultado</th></tr>--%>
+<%--	 <g:each in="${resultados}" var="resul">--%>
+<%--	  <tr>--%>
+<%--		  <td>${resul.anio}</td><td>${String.format(new Locale('es','MX'),'%1$,.2f',resul.indicador)}</td>--%>
+<%--	  </tr>--%>
+<%--	</g:each>--%>
+<%--  </tbody>--%>
+<%--  </table>--%>
+<%--  --%>
+<%-- --%>
+<%--  </div>--%>
 </body>
 </html>

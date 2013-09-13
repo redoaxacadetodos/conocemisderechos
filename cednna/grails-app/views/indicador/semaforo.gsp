@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 	<head>		
-		<meta name="layout" content="public">
+		<meta name="layout" content="main">
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
@@ -15,7 +15,7 @@
 	  	function actualizar(){	  	
 		  	var id = $('select[name="dependencias"]').val();		  		
 	  		${ remoteFunction (
-					controller:'publico', 
+					controller:'indicador', 
 					action:'actualizarSemaforo', 
 					params: '\'id=\' + id',
 					update:'semaforo')}
@@ -30,7 +30,7 @@
 			<label for="dependencias">Dependencia: </label>			
 			<g:select name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}"		 
 			onchange="${ remoteFunction (
-				controller:'publico', 
+				controller:'indicador', 
 				action:'actualizarSemaforo', 
 				params: '\'id=\' + this.value',
 				update:'semaforo')}"/>

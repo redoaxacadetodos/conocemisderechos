@@ -91,6 +91,9 @@
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
 							<li><g:link controller="eje">Grupo de Derecho</g:link></li>
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
+							
+							<li class="uk-nav-header">Seguimiento</li>
+							<li><g:link controller="Indicador" action="semaforo">Semaforo</g:link></li>
 							<br/>
 							<li><g:link controller="logout">Cerrar sesion </g:link></li>
 
