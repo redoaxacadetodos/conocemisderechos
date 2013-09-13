@@ -56,7 +56,7 @@
 			<nav class="tm-navbar uk-navbar uk-navbar-attached">
 			<div class="uk-container uk-container-center">
 
-				<a class="uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
+				<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
                 <a class="uk-logo-edos uk-hidden-small" ><img src="${request.getContextPath()}/img/logos_edo.png"  title="Oaxaca de todos" alt="Oaxaca de todos"></a>
 
 				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
