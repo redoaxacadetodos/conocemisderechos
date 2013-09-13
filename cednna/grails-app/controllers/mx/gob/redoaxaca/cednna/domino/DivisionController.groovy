@@ -12,14 +12,16 @@ class DivisionController {
     def index() {
         redirect(action: "list", params: params)
     }
-
+/*
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [divisionInstanceList: Division.list(params), divisionInstanceTotal: Division.count()]
     }
-
+*/
     def create() {
-        [divisionInstance: new Division(params)]
+        def ejeInstance = Eje.findById(params.ideje)
+
+        [divisionInstance: new Division(params), ejeInstance:ejeInstance]
     }
 
     def save() {

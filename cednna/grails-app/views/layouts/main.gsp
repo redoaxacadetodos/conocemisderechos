@@ -90,7 +90,6 @@
 							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
 							<li><g:link controller="eje">Grupo de Derecho</g:link></li>
-							<li><g:link controller="division">Derecho</g:link></li>
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
 							<br/>
 							<li><g:link controller="logout">Cerrar sesion </g:link></li>

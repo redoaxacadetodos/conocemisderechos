@@ -32,12 +32,14 @@
 				</li>
 				</g:if>
 			
+
+
 				<g:if test="${ejeInstance?.division}">
 				<li class="fieldcontain">
-					<span id="division-label" class="property-label"><g:message code="eje.division.label" default="Division" /></span>
+					<span id="division-label" class="property-label"><g:message code="eje.division.label" default="Derechos asociados a grupo de derechos" /></span>
 					
 						<g:each in="${ejeInstance.division}" var="d">
-						<span class="property-value" aria-labelledby="division-label"><g:link controller="division" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="division-label"><g:link controller="division" action="show" id="${d.id}">${d?.descripcion.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
@@ -49,6 +51,7 @@
 					<g:hiddenField name="id" value="${ejeInstance?.id}" />
 					<g:link class="edit" action="edit" id="${ejeInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="edit" controller="division" action="create" params="[ideje:ejeInstance?.id]">Nuevo derecho</g:link>
 				</fieldset>
 			</g:form>
 		</div>
