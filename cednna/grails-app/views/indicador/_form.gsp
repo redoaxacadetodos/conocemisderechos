@@ -186,7 +186,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="formula" name="formula.id" from="${mx.gob.redoaxaca.cednna.domino.Formula.list()}" optionKey="id" required="" optionValue="nombre" value="${indicadorInstance?.formula?.id}" class="many-to-one"/>
-	<br />${indicadorInstance?.formula?.sentencia}
+
 </div>
 
 <br>

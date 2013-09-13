@@ -34,15 +34,15 @@ class Indicador {
 		
 		
 				nombreResponsable(blank:false, nullable:false, size:1..500)
-				fechaActualizacion(blank:false, nullable:false)
+				fechaActualizacion(blank:false, nullable:false, size:1..500)
 				areaResponsable(blank:false, nullable:false, size:1..500)
 				mailResponsable(blank:false, nullable:false, size:1..1024,email:true)
 		
 		
-		      
+				comentarios(blank:false, nullable:false, size:1..4048)
 				sentido(blank:false, nullable:false)
 			    nombre(blank:false, nullable:false)
-				objetivo(blank:false, nullable:false)
+				objetivo(blank:false, nullable:false, size:1..4048)
 				dependencia(blank:false, nullable:false)
 				ejecutora(blank:false, nullable:false)
 				frecuencia(blank:false, nullable:false)
@@ -51,11 +51,7 @@ class Indicador {
 				pnDesarrollo(blank:true, nullable:true)
 				uMedida(blank:true, nullable:true)
 				
-//				region(blank:false, nullable:false) 
-//			    localidad(blank:false, nullable:false) 
-//				
-//				estado(blank:false, nullable:false) 
-//				municipio(blank:false, nullable:false) 
+
     }
 
   static mapping = {

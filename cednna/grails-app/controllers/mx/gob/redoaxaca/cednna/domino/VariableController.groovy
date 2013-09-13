@@ -73,51 +73,51 @@ class VariableController {
 	
 	
 	
-	def dataTablesListadoPanel = {
-		
-	def query=" from viw_variable ";
+		def dataTablesListadoPanel = {
 			
-			render dataTablesService.datosParaTablaQuery(query,params,
-		[
-		"region_id",
-		"municipio_id",
-		"localidad_id", 
-		"clave", 
-		"descripcion", 
-		"region" ,
-		"municipio" ,
-		"localidad" ,
-		"mujeres",
-		"hombres",
-		"total"
-		],[
-		"region_id",
-		"municipio_id",
-		"localidad_id", 
-		"clave", 
-		"descripcion", 
-		"region" ,
-		"municipio" ,
-		"localidad" ,
-		"mujeres",
-		"hombres",
-		"total"
-		],[
-		"region_id",
-		"municipio_id",
-		"localidad_id", 
-		"clave", 
-		"descripcion", 
-		"region" ,
-		"municipio" ,
-		"localidad" ,
-		"mujeres",
-		"hombres",
-		"total"
-		],1,"text") as JSON
-}
-
+		def query=" from viw_variable ";
+				
+				render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"region_id",
+			"municipio_id",
+			"localidad_id", 
+			"clave", 
+			"descripcion", 
+			"region" ,
+			"municipio" ,
+			"localidad" ,
+			"mujeres",
+			"hombres",
+			"total"
+			],[
+			"region_id",
+			"municipio_id",
+			"localidad_id", 
+			"clave", 
+			"descripcion", 
+			"region" ,
+			"municipio" ,
+			"localidad" ,
+			"mujeres",
+			"hombres",
+			"total"
+			],[
+			"region_id",
+			"municipio_id",
+			"localidad_id", 
+			"clave", 
+			"descripcion", 
+			"region" ,
+			"municipio" ,
+			"localidad" ,
+			"mujeres",
+			"hombres",
+			"total"
+			],1,"text") as JSON
+		}
 	
+		
 	def monitor(){
 		
 	}

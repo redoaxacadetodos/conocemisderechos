@@ -84,6 +84,7 @@ class IndicadorController {
 		
 		
 		def indicadorInstance = Indicador.get(params.id);
+		def opcion= params.opciones;
 		
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
@@ -99,39 +100,105 @@ class IndicadorController {
 				
 						if(v==vari.clave){
 							
-									
-									def bandera= true
-									def origenDatos = Variable.findByLocalidadAndEstadoAndMunicipioAndRegionAndAnio(vari.localidad,vari.estado,vari.municipio,vari.region,anio)
-									
-									if(origenDatos){
-									
-											for(cat in  vari.categorias){
+										switch (opcion) {
 											
-												if(!encuentraVariablesAndCategoria(origenDatos,cat))
-													bandera=false
-											}
+											case 1:
+													def sql = new Sql(sessionFactory.currentSession.connection())
+													def tipos =[]
+													def query = ""
+													
+													for(cat in  vari.categoria)
+													{
+														
+														tipos.add(cat.tipo.id)
+														
+														cat.id
+														
+														
+													}				
+													
+																def result = sql.rows(query.toString())
 											
 											
-											if(bandera){
-													System.out.println("numero "+origenDatos.poblacionTotal);
-													switch (vari.poblacion.clave) {
-													case "T":
-																formula=formula.replaceAll(String.valueOf(v), String.valueOf(origenDatos.poblacionTotal))
-														break;
-													case "H":
-																formula=formula.replaceAll(String.valueOf(v),String.valueOf(origenDatos.hombres))
-													break;
-													case "M":
-																formula=formula.replaceAll(String.valueOf(v),String.valueOf(origenDatos.mujeres))
-													break;
-													}
-											}else{
-												b=false
-											}
-									}			
-									else{
-										b=false
-									}
+											
+													
+																
+																
+																
+																
+																
+											break;
+											
+											case 2:
+													
+													def sql = new Sql(sessionFactory.currentSession.connection())
+													def query = ""
+											
+											
+																def result = sql.rows(query.toString())
+											
+											
+//											
+//																			cvar=result?.each
+//																			{
+//																			  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+//																				v.setId(it.clave)
+//																				v.setDescripcion(it.clave+"-"+it.descripcion)
+//																			  cvar.add(v)
+//																			}
+//											
+											break;
+											
+											case 3:
+												
+											def sql = new Sql(sessionFactory.currentSession.connection())
+											def query = ""
+									
+									
+														def result = sql.rows(query.toString())
+									
+									
+									
+//																	cvar=result?.each
+//																	{
+//																	  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+//																		v.setId(it.clave)
+//																		v.setDescripcion(it.clave+"-"+it.descripcion)
+//																	  cvar.add(v)
+//																	}
+													
+											
+											break;
+											
+											case 4:
+											
+											def sql = new Sql(sessionFactory.currentSession.connection())
+											def query = ""
+									
+									
+														def result = sql.rows(query.toString())
+									
+									
+									
+//																	cvar=result?.each
+//																	{
+//																	  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+//																		v.setId(it.clave)
+//																		v.setDescripcion(it.clave+"-"+it.descripcion)
+//																	  cvar.add(v)
+//																	}
+//											
+											
+											
+											break;
+										
+										}
+									
+							
+							
+							
+							
+							
 									
 												
 						}
@@ -428,14 +495,28 @@ class IndicadorController {
 
 			if(params.idIndicador!="undefined"){
 				def indicador =  Indicador.get(params.idIndicador);
-				
 				if(indicador){
 					
+					if(indicador.formula.id==formula.id){
+						var= indicador.variables
+					[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
 					
-					var= indicador.variables
+					}
+					else{
+						
+						def vare = new ArrayList<DVariable>()
+						for(s in var){
+							
+							def tem= new  DVariable()
+							tem.clave=s
+							vare.add(tem);
+							
+						}
+						[variable:vare,sentencia:formula.sentencia,descripcion:formula.descripcion]
+					}
 				}
 				
-				[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
+				
 			}
 			else{
 				def vare = new ArrayList<DVariable>()
