@@ -13,44 +13,28 @@
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
 	<label class="uk-form-label" for="descripcion">
-		<g:message code="indicador.estado.label" default="Descripción de la variable" />
+		<g:message code="indicador.estado.label" default="Variable" />
 
 	</label>
-		<div id="divDesc_${var.clave}">
-		<select id="descripcion_${var.clave}"></select>
+		<div id="divDesc_${var?.clave}">
+		
+		<select id="claveVar_${var?.clave}"></select>
 		
 	
 		</div>
-		</div><br />
+</div>
+<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
+	<label class="uk-form-label" for="descripcion">
+		<g:message code="indicador.estado.label" default="Descripción de la variable" />
+
+	</label>
+		
+		<g:textField name="descripcion_${var.clave}"  value="${var?.descripcion}"  style="width:650px;"/>	
+</div>
+		
+<br />
 
 
-<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'region', 'error')} required">--%>
-<%--	<label class="uk-form-label" for="region">--%>
-<%--		<g:message code="indicador.region.label" default="Region" />--%>
-<%----%>
-<%--	</label>--%>
-<%--	<g:select id="region_${var.clave}" name="region_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Region.list()}" optionKey="id"  optionValue="descripcion" value="${var?.region?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"   noSelection="['null':'-Selecciona una region-']"/>--%>
-<%--</div>--%>
-<%----%>
-<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'municipio', 'error')} required">--%>
-<%--	<label class="uk-form-label" for="municipio">--%>
-<%--		<g:message code="indicador.municipio.label" default="Municipio" />--%>
-<%--	--%>
-<%--	</label>--%>
-<%--	<div id="divMun_${var.clave}">--%>
-<%--	<g:select id="municipio_${var.clave}" name="municipio_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Municipio.list()}" optionKey="id" optionValue="descripcion"  value="${var?.municipio?.id}"   data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;"  noSelection="['null':'-Selecciona un municipio-']"/>--%>
-<%--	</div>--%>
-<%--</div>--%>
-<%----%>
-<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">--%>
-<%--	<label class="uk-form-label" for="localidad">--%>
-<%--		<g:message code="indicador.localidad.label" default="Localidad" />--%>
-<%----%>
-<%--	</label>--%>
-<%--	<div id="divLoc_${var.clave}">--%>
-<%--	<g:select id="localidad_${var.clave}" name="localidad_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Localidad.list()}" optionKey="id" optionValue="descripcion"  value="${var?.localidad?.id}"  data-placeholder="Choose a Country..." class="chosen-select" style="width:350px;" noSelection="['null':'-Selecciona una localidad-']"/>--%>
-<%--	</div>--%>
-<%--</div>--%>
 
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
@@ -72,7 +56,7 @@
 			
 					<g:each   status="i" var="cat"  in="${var.categorias}" >
 			
-					<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+					<div id="divCat_${i+1}_${var.clave}" class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 						<div class="uk-grid">
 								<div class="uk-width-1-2">
 										<label class="uk-form-label" for="localidad">
@@ -91,34 +75,33 @@
 										</div>
 								</div>
 						</div>
+					<input id="del_${i+1}_${var.clave}" name="del_${i+1}_${var.clave}"  value="-" type="button"  class="uk-button"/>
+					<script type="text/javascript" defer="defer">
+
+						
+					
+							$("#del_${i+1}_${var.clave}").click(function(){
+								
+								$("#divCat_${i+1}_${var.clave}").remove();
+
+								var num = parseInt($("#numCategorias_${var.clave}").val()); 
+
+								num=num-1;
+
+								$("#numCategorias_${var.clave}").val(num);
+								
+								
+							});	
+					</script>
 					</div>
+					
 					</g:each>
 					
 					<g:hiddenField name="numCategorias_${var.clave}" value="${var.categorias.size()}"/>
 			</g:if>
 			<g:else>
-					<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-						<div class="uk-grid">
-							<div class="uk-width-1-2">
-								<label class="uk-form-label" for="localidad">
-									<g:message code="indicador.localidad.label" default="Tipo de categoria" />
-							
-								</label>
-								
-								<g:select id="tipo_1_${var}" name="tipo_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" optionValue="descripcion"/>
-							</div>
-							<div class="uk-width-1-2">
-								<label class="uk-form-label" for="localidad">
-									<g:message code="indicador.localidad.label" default="Categoria" />
-							
-								</label>
-								<div id="divTipo_1_${var}">
-								<g:select id="categoria" name="categoria_1_${var}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select" optionValue="descripcion"   />
-								</div>
-							</div>
-						</div>
-					</div>
-					<g:hiddenField name="numCategorias_${var.clave}" value="1"/>
+				
+					<g:hiddenField name="numCategorias_${var.clave}" value="0"/>
 			</g:else>
 	<br>
 	</div>
@@ -139,9 +122,11 @@
 
 				<script type="text/javascript" defer="defer">
 					
-				
+
 				$(function(){
 
+
+				
 					  var config = {
 						      '.chosen-select'           : {},
 						      '.chosen-select-deselect'  : {allow_single_deselect:true},
@@ -225,17 +210,17 @@
 
 
 
-					llenaCombo({
+					llenaComboVar({
 						url : CONTEXT_ROOT+'/indicador/descripciones',
 						htmlOptions : {
-							name : "descripcion_${var.clave}",
-							id : "descripcion_${var.clave}",
+							name : "claveVar_${var.clave}",
+							id : "claveVar_${var.clave}",
 							clase : "chosen-select",
 							
 						},
-						index : 0,
+						index : "${var.claveVar}",
 						chained : false,
-						anchor : "#descripcion_${var.clave}",
+						anchor : "#claveVar_${var.clave}",
 						combo : true,
 						valorDefault:false,
 						valorDefaultText:" Busca una variable ",
@@ -246,8 +231,8 @@
 					
 				});
 				
-
-
+			
+				
 
 
 				function asignaEventorRegion(){

@@ -1,6 +1,7 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import com.redoaxaca.java.CVariable
+import com.redoaxaca.java.Combo
+import com.redoaxaca.java.ComboVariable
 import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.Resultado
 import grails.converters.JSON
@@ -170,26 +171,27 @@ class IndicadorController {
 	def  getVariableByRegion(){
 		
 	  
-		def cvar= new ArrayList<CVariable>()
-		
-		def sql = new Sql(sessionFactory.currentSession.connection())
-
-		def query = "select cvv_clave as clave ,cvv_descripcion as descripcion  from cat_variable group by cvv_clave,cvv_descripcion"
-		
-		
-					def result = sql.rows(query.toString())
-					
-					
-					
-								cvar=result?.each
-								{
-								  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
-									
-								  cvar.add(v)
-								}
-					 
-	//	render cvar						
-		render cvar as JSON
+//		def cvar= new ArrayList<CVariable>()
+//		
+//		def sql = new Sql(sessionFactory.currentSession.connection())
+//
+//		def query = "select cvv_clave as clave ,cvv_descripcion as descripcion  from cat_variable group by cvv_clave,cvv_descripcion"
+//		
+//		
+//					def result = sql.rows(query.toString())
+//					
+//					
+//					
+//								cvar=result?.each
+//								{
+//								  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+//									v.setId(it.clave)
+//									v.setDescripcion(it.clave+"-"+it.descripcion)
+//								  cvar.add(v)
+//								}
+//					 
+//	//	render cvar						
+//		render cvar as JSON
 	}
 	
 	
@@ -213,7 +215,7 @@ class IndicadorController {
 	def  descripciones(){
 		
 	  
-		def cvar= new ArrayList<CVariable>()
+		def cvar= new ArrayList<ComboVariable>()
 		
 		def sql = new Sql(sessionFactory.currentSession.connection())
 
@@ -226,12 +228,20 @@ class IndicadorController {
 					
 								cvar=result?.each
 								{
-								  def v= new  CVariable(it.clave,it.clave+"-"+it.descripcion)
+								
+									
+								  def v= new  Combo();
+								  
+								  System.out.println("Variable  : "+it.clave);
+								  
+								
+								  v.descripcion=it.clave+"-"+it.descripcion;
+								  v.clave=it.clave
 									
 								  cvar.add(v)
 								}
 					 
-	//	render cvar						
+					
 		render cvar as JSON
 	}
 	
@@ -265,7 +275,7 @@ class IndicadorController {
 				def dVariable = new  DVariable()
 				dVariable.clave=v
 				dVariable.descripcion=params.getAt("descripcion_"+v)
-			
+				dVariable.claveVar=params.getAt("claveVar_"+v)
 				dVariable.poblacion=poblacion
 				
 				
@@ -352,17 +362,13 @@ class IndicadorController {
 			
 							def numCategorias= params.getAt("numCategorias_"+v)
 							
-							
-							
-							
-							
-							
-							
+								
 							def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
 						
 							def dVariable = new  DVariable()
 							dVariable.clave=v
 							dVariable.descripcion=params.getAt("descripcion_"+v)
+							dVariable.claveVar=params.getAt("claveVar_"+v)
 							
 							dVariable.poblacion=poblacion
 							
@@ -468,10 +474,6 @@ class IndicadorController {
 
 	
 
-		//def rango = RangoEdad.findAllByMinimoBetweenAndMaximo(rInicial,rFinal);
-
-
-		//	System.out.println(rango);
 
 		def var = Variable.findAllByLocalidadAndMunicipioAndRegionAndEstadoAndAnio(localidad,municipio,region,estado,anio);
 	
