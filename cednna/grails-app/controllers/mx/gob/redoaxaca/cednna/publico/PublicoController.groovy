@@ -69,10 +69,15 @@ class PublicoController {
 	}
 	
 	def actualizarTablaIndicador(Long id){
-		def tipo = params.id		
+		def tipo = params.idTipo
+		def indicador = Indicador.get(id)
+		
+		def resultados = []
+		
+		System.out.println("aqui:"+id)
 		switch(tipo){
 			case '1':
-				System.out.println("aqui")
+				resultados = visor(id)
 				break
 			case '2':
 				break
@@ -81,7 +86,29 @@ class PublicoController {
 			case '4':
 				break
 		}	
-		render (template:"tablaIndicador", model:[tipo:tipo])	
+		//Prueba
+		Resultado resultado = new Resultado()
+		Resultado resultado2 = new Resultado()
+		Resultado resultado3 = new Resultado()
+		Resultado resultado4 = new Resultado()
+		resultado.setAnio(2013)
+		resultado.setIndicador(15)
+		resultado2.setAnio(2014)
+		resultado2.setIndicador(17)
+		resultado3.setAnio(2015)
+		resultado3.setIndicador(100)
+		resultado4.setAnio(2016)
+		resultado4.setIndicador(17)
+		resultados.add(resultado)
+		resultados.add(resultado2)
+		resultados.add(resultado3)
+		resultados.add(resultado4)
+		List listarResultados = []
+		listarResultados.add(resultados)
+		
+		
+		
+		render (template:"tablaIndicador", model:[tipo:tipo, listarResultados:listarResultados, resultados:resultados])	
 	}
 	
 	def enviarCorreo(Long id) {
