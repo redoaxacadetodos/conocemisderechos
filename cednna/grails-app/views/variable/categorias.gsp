@@ -40,8 +40,15 @@ $(function(){
 
 
 			$("#del_${con}").click(function(){
-				
+
 				$("#div_${con}").remove();
+
+				var num = parseInt($("#numCategorias_${con}").val()); 
+
+				num=num-1;
+
+				$("#numCategorias_${var}").val(num);
+
 			});	
 });
 						                		

@@ -118,7 +118,7 @@
 			
 					<g:each   status="i" var="cat"  in="${variableInstance.categorias}" >
 			
-						<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+						<div  id="divVar_${i+1}" class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 							<div class="uk-grid">
 											<div class="uk-width-1-2">
 													<label class="uk-form-label" for="localidad">
@@ -133,12 +133,27 @@
 													
 														</label>
 														<div id="divTipo_${i+1}">
-														<g:select id="categoria" name="categoria_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select "  value="${cat?.id}" optionValue="descripcion"   />
+										 				<g:select id="categoria" name="categoria_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select "  value="${cat?.id}" optionValue="descripcion"   />
 														</div>
 											</div>
 								</div>
+									<input id="del_${i+1}" name="del_${i+1}"  value="-" type="button"  class="uk-button"/>
 						</div>
-					 <input type="button" value="-"  id="del_${con}" class="uk-button" />
+										
+									<script type="text/javascript">
+			
+									$(function(){
+													$("#del_${i+1}").click(function(){
+
+															$("#divVar_${i+1}").remove();
+									      					var num = parseInt($("#numCategorias").val()); 
+															num=num-1;
+										     				$("#numCategorias").val(num);
+									
+												});	
+									});
+									                		
+								</script>					                		
 					</g:each>
 					
 					<g:hiddenField name="numCategorias" value="${variableInstance.categorias.size()}"/>
@@ -174,6 +189,8 @@
 
 $(function(){
 
+
+	
 
 	var config = {
 		      '.chosen-select'           : {},
