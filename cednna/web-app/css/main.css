@@ -27,12 +27,14 @@ img {
 /* NAVIGATION MENU */
 
 .nav {
-	background-color: #efefef;
+
 	padding: 0.5em 0.75em;
-	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
-	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
-	        box-shadow: 0 0 3px 1px #aaaaaa;
+
 	zoom: 1;
+}
+
+.nav-tabs {
+border-bottom: dotted 2px #ccc !important;
 }
 
 .nav ul {
@@ -65,9 +67,8 @@ img {
 
 .nav a:focus, .nav a:hover {
 	background-color: #999999;
-	color: #ffffff;
+	color: #888;
 	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .no-borderradius .nav a:focus, .no-borderradius .nav a:hover {
@@ -217,8 +218,7 @@ input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
 
 /* TABLES */
 
-table {
-	border-top: 1px solid #DFDFDF;
+table {	
 	border-collapse: collapse;
 	width: 100%;
 	margin-bottom: 1em;
@@ -241,14 +241,11 @@ td, th {
 	padding: 0.5em 0.6em;
 	text-align: left;
 	vertical-align: top;
+		border: 2px solid #FFF;
 }
 
 th {
-	background-color: #efefef;
-	background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #eaeaea));
-	    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', EndColorStr = '#eaeaea');
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eaeaea')";
+	background: #e6f7f2;
 	color: #4b3510;
 	font-weight: bold;
 	line-height: 1.7em;

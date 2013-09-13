@@ -1,17 +1,16 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <div class="uk-grid">
 <div class="uk-width-1-1">
-	<ul class="uk-tab" data-uk-tab>
+<div id="menubloque">
 	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-		<li><a href="#" onclick="${remoteFunction(
+		<a href="#" onclick="${remoteFunction(
 			controller:'publico',
 			action: 'infoIndicador',
 			update: 'division',
-			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}">${eje.descripcion}</a>
-		</li>
-					
+			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="men${eje.id} botmenubloque"></a>			
 	</g:each>
-	</ul>
+	</div>	
+	
 </div>
 </div>
 <div>
@@ -25,9 +24,9 @@
 				}
 			}}">	
 					
-			${indicador.nombre }
+			<span class="nombre_indicador">${indicador.nombre }</span>
 			
-			<g:link action="detalleIndicador" id="${indicador.id}">Ver indicadores</g:link>
+			<br /><g:link action="detalleIndicador" id="${indicador.id}" class="ver_indicador">Ver indicadores</g:link><br /><br />
 			 <br>
 		</g:each>	
 	</g:each>	

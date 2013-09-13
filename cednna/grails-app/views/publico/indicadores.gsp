@@ -10,33 +10,32 @@
 	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>	  
 		<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
-		
 	</head>
 	<body>
-<div id="division">
+
+		<div id="division">		
+		
+	
+<div id="dashboard">
 	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 
 		<div id="bot_prog">
-			
 			<a href="#" onclick="${remoteFunction(
 				controller:'publico',
 				action: 'infoIndicador',
 				update: 'division',
-				id: eje.id
-				)}" 
-				
-				value="${eje.descripcion}" id="${eje.id}" class="bot${eje.id}">
-			
+				id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="bot${eje.id}">
+
 			</a>
 		</div>
 					
 	</g:each>
 
 </div>
-	
+	</div>
 		
 
-		
+
 		
 		<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>

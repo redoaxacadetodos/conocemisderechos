@@ -9,13 +9,18 @@
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,600,800);
 
+.marked {font-weight: 600;}
+
 body, h1, h2, h3, h4, h5, h6,
-.uk-navbar-nav > li > a { font-family: 'Raleway', sans-serif; }
+.uk-navbar-nav > li > a { font-family: 'Raleway', sans-serif !important; }
 
 
 h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 600;}
 
-h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px; margin-bottom: 15px;}
+h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px; margin: 15px 0 20px 0 !important;}
+
+.nombre_indicador {  font-weight: 600; font-size: 17px; text-transform: uppercase;}
+.ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; height:35px; margin-top: 5px;}
 
 /* Base
  ========================================================================== */
@@ -27,7 +32,7 @@ html { overflow-y: scroll; }
  ========================================================================== */
 
 
-.tm-background { background: #fff; }
+.tm-background { background: url(../img/back.jpg) no-repeat center 50px; }
 
 /*
  * Blocks
@@ -36,6 +41,9 @@ html { overflow-y: scroll; }
 .tm-middle,
 .tm-section,
 .tm-footer { padding: 15px 0 30px 0;  }
+
+
+
 
 /* Only tablets and desktop */
 @media (min-width: 768px) {
@@ -60,7 +68,7 @@ html { overflow-y: scroll; }
  * Middle
  */
 
-.tm-middle { background: #fff; margin-bottom: 60px;}
+.tm-middle { margin-bottom: 60px;}
 
 
 
@@ -378,16 +386,7 @@ border-radius: 4px;
 
 
 
-.table {
-  background-color: #f2f3f4;
-  border: 2px solid #ffffff;
-  border-collapse: separate;
-  *border-collapse: collapsed;
-  border-left: 0;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
+
 .table th {
   text-align: center;
   background-color: #bdc3c7;
@@ -433,17 +432,23 @@ border-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
-th:hover, tr:hover {
-	background: #f5e7cb;
+thead {
+  border: none !important;
+}
+
+tr:hover {
+	background: #fbf5eb;
 }
 
 .odd {
-	background: #fdf1d7;
+	background: #fff9ec;
 }
 
 .even {
-	background: #f7f3eb;
+	background: #fefcf9;
 }
+
+.subcelda {background: #f2fffb;}
 
 .pagination {
   font-weight: bold;
@@ -799,16 +804,29 @@ float: right;
 .icono_contacto { background: url(../img/icons/contacto.png) 0 8px no-repeat !important; }
 .icono_ayuda { background: url(../img/icons/ayuda.png) 0 10px no-repeat !important; }
 
+.icono_catalogo { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+.icono_inversion { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+
 .icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 10px no-repeat !important; }
 .icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
 .icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
 .icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }
 
+.icono_catalogo:hover { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+.icono_inversion:hover { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+
 #dashboard { 
 width: 98%;
-margin: 0 15%;
+margin: 5% 12%;
 text-align: center;
+
 } 
+
+#division { 
+padding-left: 25px;
+} 
+
+.mascara {background: #fff;}
 
 #bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6 { 
 width: 270px;
@@ -854,3 +872,45 @@ box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
   clear: both;
 }
 
+
+/* Only large screens */
+@media (min-width: 1215px) {
+#menubloque {width: 100%; text-align: center;display: block; height: 60px; margin-bottom: 10px;}
+#menubloque .botmenubloque { display: block; height: 38px; float: left; margin: 5px 30px 5px 0;}
+#menubloque .men1 { background: url(../img/menu/bot01.png) 0px 0px no-repeat; width: 244px; }
+#menubloque .men2 { background: url(../img/menu/bot02.png) 0px 0px no-repeat ; width: 129px; }
+#menubloque .men3 { background: url(../img/menu/bot03.png) 0px 0px no-repeat ; width: 115px; }
+#menubloque .men4 { background: url(../img/menu/bot04.png) 0px 0px no-repeat ; width: 122px; }
+#menubloque .men5 { background: url(../img/menu/bot05.png) 0px 0px no-repeat ; width: 140px; }
+#menubloque .men6 { background: url(../img/menu/bot06.png) 0px 0px no-repeat ; width: 204px; }
+
+#menubloque .men1:hover { border-bottom: #b6d8ce solid 5px; }
+#menubloque .men2:hover { border-bottom: #dcd5b2 solid 5px; }
+#menubloque .men3:hover { border-bottom: #ebd5b1 solid 5px; }
+#menubloque .men4:hover { border-bottom: #ffdca5 solid 5px; }
+#menubloque .men5:hover { border-bottom: #e3c5bb solid 5px; }
+#menubloque .men6:hover { border-bottom: #e6cbb3 solid 5px; }
+}
+
+/* Only tablets and desktop */
+@media (max-width: 1214px) {
+#menubloque {width: 100%; text-align: center;display: block; height: 35px; margin-bottom: 10px;}
+#menubloque .botmenubloque { display: block; height: 27px; float: left; margin: 5px 30px 5px 0;}
+#menubloque .men1 { background: url(../img/menu/bot01.png) 0px 0px no-repeat; width: 166px; background-size: 100%;}
+#menubloque .men2 { background: url(../img/menu/bot02.png) 0px 0px no-repeat ; width: 93px; background-size: 100%;}
+#menubloque .men3 { background: url(../img/menu/bot03.png) 0px 0px no-repeat ; width: 81px; background-size: 100%;}
+#menubloque .men4 { background: url(../img/menu/bot04.png) 0px 0px no-repeat ; width: 79px; background-size: 100%;}
+#menubloque .men5 { background: url(../img/menu/bot05.png) 0px 0px no-repeat ; width: 98px; background-size: 100%;}
+#menubloque .men6 { background: url(../img/menu/bot06.png) 0px 0px no-repeat ; width: 143px; background-size: 100%; }
+
+#menubloque .men1:hover { border-bottom: #b6d8ce solid 3px; }
+#menubloque .men2:hover { border-bottom: #dcd5b2 solid 3px; }
+#menubloque .men3:hover { border-bottom: #ebd5b1 solid 3px; }
+#menubloque .men4:hover { border-bottom: #ffdca5 solid 3px; }
+#menubloque .men5:hover { border-bottom: #e3c5bb solid 3px; }
+#menubloque .men6:hover { border-bottom: #e6cbb3 solid 3px; }
+}
+
+.nav-tabs>li {
+margin-bottom: -9px !important;
+}

@@ -90,25 +90,26 @@ function loadScript() {
 	</head>
 	<body>
 	
-	<div class="uk-grid">
+<div class="uk-grid">
 <div class="uk-width-1-1">
-	<ul class="uk-tab" data-uk-tab>
+<div id="menubloque" style="padding-left:25px;">
 	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-		<li><a href="#" onclick="${remoteFunction(
+		<a href="#" onclick="${remoteFunction(
 			controller:'publico',
 			action: 'infoIndicador',
 			update: 'division',
-			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}">${eje.descripcion}</a>
-		</li>
+			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="men${eje.id} botmenubloque"></a>
+		
 					
 	</g:each>
-	</ul>
+	</div>	
+	
 </div>
 </div>
 	
 	
 	  
-<div id="division">
+<div id="division" class="mascara">
 	<h3>${indicadorInstance?.nombre }</h3>
 	<ul class="nav nav-tabs" id="myTab">
 	  <li class="active"><a href="#indicador">Indicador</a></li>
@@ -141,7 +142,7 @@ function loadScript() {
 				  	<tbody>
 				  		
 					  	<g:each var="lista" in="${listarResultados }">
-					  	<tr>
+					  	<tr class="odd">
 					  	<td>Oaxaca</td>
 					  		<g:each var="result" in="${lista}">
 					  			<td>${result?.indicador }</td>
@@ -165,7 +166,7 @@ function loadScript() {
 			  			<g:set value="false" var="imprimir"></g:set>
 			  			<g:each var="resultado" in="${resultados}">
 			  				<g:if test="${imprimir=='true'}">
-			  					<th>${anio}/${resultado?.anio}</th>
+			  					<th class="subcelda">${anio}/${resultado?.anio}</th>
 			  					<g:set value="${resultado?.anio}" var="anio"></g:set>			  					
 			  				</g:if>
 			  				<g:else>
@@ -174,7 +175,7 @@ function loadScript() {
 			  				</g:else>
 					  	</g:each>				  		
 			  		</tr>
-			  		<tr>
+			  		<tr class="odd">
 			  			<g:set value="false" var="imprimirDatos"></g:set>
 			  			<td>${indicadorInstance?.nombre}</td>
 				  		<g:each var="resultado" in="${resultados}">
@@ -195,14 +196,14 @@ function loadScript() {
 	  <div class="tab-pane" id="metadato">
 	  	<table>
 	  	<tbody>
-	  		<tr><td>Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
-	  		<tr><td>Objetivo del indicador:</td><td>${indicadorInstance?.objetivo }</td></tr>
-	  		<tr><td>Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
-	  		<tr><td>Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
-	  		<tr><td>Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
-	  		<tr><td>Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  			  	
+	  		<tr class="odd"><td width="25%" class="marked">Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
+	  		<tr class="even"><td class="marked">Objetivo del indicador:</td><td>${indicadorInstance?.objetivo }</td></tr>
+	  		<tr class="odd"><td class="marked">Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
+	  		<tr class="even"><td class="marked">Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
+	  		<tr class="odd"><td class="marked">Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
+	  		<tr class="even"><td class="marked">Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  			  	
 	  		
-	  		<tr><td>Fórmula de cálculo:</td>
+	  		<tr class="odd"><td class="marked">Fórmula de cálculo:</td>
 	  		<td>
 	  		<p lang="latex">$${indicadorInstance?.formula?.sentencia}$</p>
 	  		<g:each var="variable" in="${ indicadorInstance?.variables}">
@@ -211,9 +212,9 @@ function loadScript() {
 	  		<p>${indicadorInstance?.formula?.descripcion}</p>
 	  		</td></tr>
 	  		
-	  		<tr><td>Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
-	  		<tr><td>Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
-	  		<tr><td>Fecha de actualización:</td><td>${indicadorInstance?.fechaActualizacion }</td></tr>	  		  		
+	  		<tr class="even"><td class="marked">Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
+	  		<tr class="odd"><td class="marked">Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
+	  		<tr class="even"><td class="marked">Fecha de actualización:</td><td>${indicadorInstance?.fechaActualizacion }</td></tr>	  		  		
 	  	</tbody>
 	  	</table>
 	  </div>

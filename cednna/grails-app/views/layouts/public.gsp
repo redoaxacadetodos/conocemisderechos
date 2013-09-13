@@ -44,15 +44,19 @@
 	</head>							
 <body class="tm-background">
 			<nav class="tm-navbar uk-navbar uk-navbar-attached">
-			<div class="uk-container uk-container-center">
+			<div class="uk-container uk-container-center" >
 
 				<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
 
 				<ul class="uk-navbar-nav uk-hidden-small">
+
+
+<li><g:link controller="Indicador" class="iconobar icono_catalogo" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>		
+<li><g:link controller="Indicador" class="iconobar icono_inversion" data-uk-tooltip="{pos:'bottom'}" title="Inversión Social e Infancia"></g:link>	</li>		
 		<!-- <li><g:link class="list iconobar icono_calendar" action="calendario" data-uk-tooltip="{pos:'bottom'}" title="Calendario"></g:link></li>-->
-		<li><g:link class="create iconobar icono_directorio" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
-		<li><g:link class="create iconobar icono_contacto" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
-		<li><g:link class="create iconobar icono_ayuda" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="ayuda"></g:link></li>	
+		<li><g:link class="iconobar icono_directorio" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
+		<li><g:link class="iconobar icono_contacto" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
+		<li><g:link class="iconobar icono_ayuda" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
 				</ul>
 
 				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
@@ -66,37 +70,9 @@
 
 		<div class="tm-middle">
 			<div class="uk-container uk-container-center">
-<!-- 
-<div class="uk-grid">
-<div class="uk-width-1-1">
-	<ul class="uk-tab" data-uk-tab>
-	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-		<li><a href="#" onclick="${remoteFunction(
-			controller:'publico',
-			action: 'infoIndicador',
-			update: 'division',
-			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}">${eje.descripcion}</a>
-		</li>
-					
-	</g:each>
-	</ul>
-</div>
-</div>
- -->	
 				<div class="uk-grid" data-uk-grid-margin>
 
-<!-- barra lateral				
-					<div class="tm-sidebar uk-width-medium-1-5 uk-hidden-small">
-
-						<ul class="tm-nav uk-nav" data-uk-nav>
-
-							<li class="uk-nav-header">Menu</li>
-							<li><g:link controller="Indicador">Catálogo de Indicadores de Infancia y Adolescencia</g:link></li>
-							<li><g:link controller="Indicador">Inversión Social e Infancia</g:link></li>						
-						</ul>
-
-					</div>
--->                
+           
 				<div class="uk-container-center" style="border-left:none !important;">
 							
 							
