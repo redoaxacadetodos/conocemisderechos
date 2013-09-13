@@ -46,7 +46,7 @@
 			<nav class="tm-navbar uk-navbar uk-navbar-attached">
 			<div class="uk-container uk-container-center">
 
-				<a class="uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
+				<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
 
 				<ul class="uk-navbar-nav uk-hidden-small">
 		<!-- <li><g:link class="list iconobar icono_calendar" action="calendario" data-uk-tooltip="{pos:'bottom'}" title="Calendario"></g:link></li>-->
@@ -97,7 +97,7 @@
 
 					</div>
 -->                
-				<div class="tm-main uk-width-medium-1-1" style="border-left:none !important;">
+				<div class="uk-container-center" style="border-left:none !important;">
 							
 							
 	

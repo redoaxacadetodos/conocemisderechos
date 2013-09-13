@@ -15,7 +15,7 @@ body, h1, h2, h3, h4, h5, h6,
 
 h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 600;}
 
-.tm-main h1, .tm-main h2 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px;}
+h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px; margin-bottom: 15px;}
 
 /* Base
  ========================================================================== */
@@ -806,7 +806,7 @@ float: right;
 
 #dashboard { 
 width: 98%;
-margin: 0 auto;
+margin: 0 15%;
 text-align: center;
 } 
 
@@ -819,7 +819,7 @@ display: block;
     border-radius: 8px;
 margin-bottom: 8px;
 float: left;
-margin: 0 20px 20px 0;
+margin: 0 5% 5% 0;
 }
 
 #bot_prog .bot1 { background: url(../img/dashboard/bot1.png) 30px 28px no-repeat #b6d8ce; }
