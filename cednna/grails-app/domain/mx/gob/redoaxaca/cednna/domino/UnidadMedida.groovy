@@ -3,6 +3,7 @@ package mx.gob.redoaxaca.cednna.domino
 class UnidadMedida {
 
 	String descripcion
+	String abreviatura
 	
     static constraints = {
     }
@@ -14,6 +15,7 @@ class UnidadMedida {
 	
 		
 		descripcion(column:'cum_descripcion')
+		abreviatura(column:'cum_abreviatura')
 			
 	
 		version(false)
