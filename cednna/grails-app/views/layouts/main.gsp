@@ -84,6 +84,13 @@
 
 							<li class="uk-nav-header">Cat&aacute;logos</li>
 							<li><g:link controller="tipo">Categor&iacute;as</g:link></li>
+							<li><g:link controller="sentido">Sentido</g:link></li>
+							<li><g:link controller="dependencia">Dependencia</g:link></li>
+							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
+							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
+							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
+							<li><g:link controller="eje">Grupo de Derecho</g:link></li>
+							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
 							<br/>
 							<li><g:link controller="logout">Cerrar sesion </g:link></li>
 
