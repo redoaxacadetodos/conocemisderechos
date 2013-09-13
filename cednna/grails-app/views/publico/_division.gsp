@@ -1,18 +1,4 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
-<div class="uk-grid">
-<div class="uk-width-1-1">
-<div id="menubloque">
-	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-		<a href="#" onclick="${remoteFunction(
-			controller:'publico',
-			action: 'infoIndicador',
-			update: 'division',
-			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="men${eje.id} botmenubloque"></a>			
-	</g:each>
-	</div>	
-	
-</div>
-</div>
 <div>
 	<g:each var="divi" in="${divisiones}">
 		<h2>${divi.descripcion }</h2>	

@@ -20,13 +20,7 @@
 	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 
 		<div id="bot_prog">
-			<a href="#" onclick="${remoteFunction(
-				controller:'publico',
-				action: 'infoIndicador',
-				update: 'division',
-				id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="bot${eje.id}">
-
-			</a>
+			<g:link action="detalleIndicador" params="[infoIndicador: 'true']" controller="publico"  value="${eje.descripcion}" id="${eje.id}" class="bot${eje.id}"></g:link>			
 		</div>
 					
 	</g:each>

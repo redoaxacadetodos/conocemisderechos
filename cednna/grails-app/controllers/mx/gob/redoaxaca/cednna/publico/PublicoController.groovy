@@ -88,101 +88,115 @@ class PublicoController {
 	
 	def infoIndicador (Long id) {
 		def eje = Eje.get(id)
-		def divisiones = eje.division
-	
-		render(template:"division", model: [divisiones: divisiones])
+		if(eje){
+			def divisiones = eje.division			
+			render(template:"division", model: [divisiones: divisiones])
+		}else{
+		redirect(action:"indicadores")
+		}		
 	}
 	
-	def detalleIndicador (Long id){
-		def indicador = Indicador.get(id)
-		
-		if(indicador){
-			def resultados = visor(id)
-			//Prueba
-		
-		Resultado resultado = new Resultado()
-		Resultado resultado2 = new Resultado()
-		Resultado resultado3 = new Resultado()
-		Resultado resultado4 = new Resultado()
-		resultado.setAnio(2013)	
-		resultado.setIndicador(15)	
-		resultado2.setAnio(2014)
-		resultado2.setIndicador(17)
-		resultado3.setAnio(2015)
-		resultado3.setIndicador(100)
-		resultado4.setAnio(2016)
-		resultado4.setIndicador(17)
-		resultados.add(resultado)
-		resultados.add(resultado2)		
-		resultados.add(resultado3)
-		resultados.add(resultado4)
-		
-		//Creación de arreglo para Highcharts
-		def series = []
-		def categorias = []
-		def datos = []
-		def a = [title: [text: indicador?.nombre?.toString(), x: -20]]		
-		a.put("yAxis", [title: [text: '%']])	
-		a.put("tooltip", [valueSuffix: '%'])
-		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
-		resultados.each { result ->
-			categorias.add(result?.anio)			
-			datos.add(result?.indicador)					
-		}		
-		a.put("xAxis", [categories: categorias] )		
-		def serie = [name: "Indicador", data: datos]
-		series << serie
-		a.put("series", series)
-		
-		//Convertir el arreglo a JSON
-		def jsodata = a as JSON
-		
-		//Buscar datos para Google Maps
-		def ubicaciones = []
-		def ubicacioneString = []
-		def coordenadas = []
-		
-		indicador?.variables?.each { variable ->
-			if(variable?.localidad?.descripcion){
-				ubicaciones.add(variable?.localidad?.descripcion)								
-			}else if(variable?.municipio?.descripcion){
-				ubicaciones.add(variable?.municipio?.descripcion)
-				def coor = Coordenada.findAllByMunicipio(variable?.municipio)
-				//System.out.println("coordenadas: "+coor)
-				coordenadas.add(coor)
-			}else if(variable?.region?.descripcion){
-				ubicaciones.add(variable?.region?.descripcion)
-			}							
-		}
-		ubicaciones.each { ubi ->
-			ubicacioneString.add("'"+ubi+"'")
-		}
-		List listarResultados = []
-		listarResultados.add(resultados)
-		//listarResultados.add(resultados)
-		
-		//Crear poligonos		
-		def coo = ""
-		def pintarUbicaciones = ""
-		coordenadas.each { coorde ->			
-			coorde.each { ubicacion ->
-				coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "
+	def detalleIndicador (Long id){		
+		if(params.infoIndicador=='true'){			
+			def eje = Eje.get(id)
+			if(eje){				
+				def divisiones = eje.division				
+				[divisiones: divisiones]
+			}else{
+				redirect(action:"indicadores")
 			}
-			pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
-				"ubicacion = new google.maps.Polygon({"+
-				"paths: coordenadas,"+
-				"strokeColor: '#FF0000',"+
-				"strokeOpacity: 0.8,"+
-				"strokeWeight: 2,"+
-				"fillColor: '#FF0000',"+
-				"fillOpacity: 0.35});"+
-				"ubicacion.setMap(map); "
-			coo = ""
-		}
-				
-		[indicadorInstance: indicador, resultados:resultados, listarResultados:listarResultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, pintarUbicaciones:pintarUbicaciones]
+			
 		}else{
-			redirect(action:"indicadores")
+			def indicador = Indicador.get(id)
+			if(indicador){
+				def resultados = visor(id)
+				//Prueba
+			
+			Resultado resultado = new Resultado()
+			Resultado resultado2 = new Resultado()
+			Resultado resultado3 = new Resultado()
+			Resultado resultado4 = new Resultado()
+			resultado.setAnio(2013)	
+			resultado.setIndicador(15)	
+			resultado2.setAnio(2014)
+			resultado2.setIndicador(17)
+			resultado3.setAnio(2015)
+			resultado3.setIndicador(100)
+			resultado4.setAnio(2016)
+			resultado4.setIndicador(17)
+			resultados.add(resultado)
+			resultados.add(resultado2)		
+			resultados.add(resultado3)
+			resultados.add(resultado4)
+			
+			//Creación de arreglo para Highcharts
+			def series = []
+			def categorias = []
+			def datos = []
+			def a = [title: [text: indicador?.nombre?.toString(), x: -20]]		
+			a.put("yAxis", [title: [text: '%']])	
+			a.put("tooltip", [valueSuffix: '%'])
+			a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
+			resultados.each { result ->
+				categorias.add(result?.anio)			
+				datos.add(result?.indicador)					
+			}		
+			a.put("xAxis", [categories: categorias] )		
+			def serie = [name: "Indicador", data: datos]
+			series << serie
+			a.put("series", series)
+			
+			//Convertir el arreglo a JSON
+			def jsodata = a as JSON
+			
+			//Buscar datos para Google Maps
+			def ubicaciones = []
+			def ubicacioneString = []
+			def coordenadas = []
+			
+			indicador?.variables?.each { variable ->
+				if(variable?.localidad?.descripcion){
+					ubicaciones.add(variable?.localidad?.descripcion)								
+				}else if(variable?.municipio?.descripcion){
+					ubicaciones.add(variable?.municipio?.descripcion)
+					def coor = Coordenada.findAllByMunicipio(variable?.municipio)
+					//System.out.println("coordenadas: "+coor)
+					coordenadas.add(coor)
+				}else if(variable?.region?.descripcion){
+					ubicaciones.add(variable?.region?.descripcion)
+				}							
+			}
+			ubicaciones.each { ubi ->
+				ubicacioneString.add("'"+ubi+"'")
+			}
+			List listarResultados = []
+			listarResultados.add(resultados)
+			//listarResultados.add(resultados)
+			
+			//Crear poligonos		
+			def coo = ""
+			def pintarUbicaciones = ""
+			coordenadas.each { coorde ->			
+				coorde.each { ubicacion ->
+					coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "
+				}
+				pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
+					"ubicacion = new google.maps.Polygon({"+
+					"paths: coordenadas,"+
+					"strokeColor: '#FF0000',"+
+					"strokeOpacity: 0.8,"+
+					"strokeWeight: 2,"+
+					"fillColor: '#FF0000',"+
+					"fillOpacity: 0.35});"+
+					"ubicacion.setMap(map); "
+				coo = ""
+			}
+					
+			[indicadorInstance: indicador, resultados:resultados, listarResultados:listarResultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, pintarUbicaciones:pintarUbicaciones]
+			}
+			else{
+				redirect(action:"indicadores")
+			}
 		}
 	}
 	
