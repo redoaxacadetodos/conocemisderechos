@@ -9,7 +9,7 @@
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,600,800);
 
-.marked {font-weight: 600;}
+.marked {font-weight: 600; width: 25%;}
 
 body, h1, h2, h3, h4, h5, h6,
 .uk-navbar-nav > li > a { font-family: 'Raleway', sans-serif !important; }
