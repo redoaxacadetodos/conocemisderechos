@@ -90,8 +90,9 @@ function loadScript() {
 	  			onchange="${remoteFunction(
 					  controller:'publico',
 					  action: 'actualizarTablaIndicador',
-					  params: '\'id=\' + this.value',
-					  id: this.value)}">
+					  params: '\'idTipo=\' + this.value',
+					  update: 'tablaIndicador',
+					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>
