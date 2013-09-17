@@ -99,31 +99,9 @@ function loadScript() {
 	  			<option value="4">Local</option>
 	  		</select>
 	  		<div id="tablaIndicador">
-	  		<!-- Tabla indicador general -->
-			  <table>
-				  	<caption>${indicadorInstance?.nombre }</caption>
-				  	<thead>
-				  		<tr><th>Nombre</th>
-				  		<g:each var="resultado" in="${resultados }">
-				  		<th>${resultado?.anio }</th>
-				  		</g:each>
-				  		</tr>
-				  	</thead>
-				  	<tbody>
-				  		
-					  	<g:each var="lista" in="${listarResultados }">
-					  	<tr>
-					  	<td>Oaxaca</td>
-					  		<g:each var="result" in="${lista}">
-					  			<td>${result?.indicador }</td>
-					  		</g:each>
-					  	</tr>
-					  	</g:each>
-				  	</tbody>
-			  	</table>
-			  	<!-- Termina tabla indicador general -->
-			  	</div>	  				  
-			  	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	  			<g:render template="tablaIndicador"></g:render>	  		
+			</div>	  				  
+			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		</div>
 	  	
 				<!-- Tabla de variación -->
@@ -190,7 +168,21 @@ function loadScript() {
 	  </div>
 	  <div class="tab-pane" id="serie"></div>
 	  <div class="tab-pane" id="calculo"></div>
-	  <div class="tab-pane" id="mapa"><div id="map-canvas" style="width: 100%; height: 480px;"></div></div>
+	  <div class="tab-pane" id="mapa">
+	  		<label for="opcionesMapa">Tipo:</label>
+	  		<select id="opcionesMapa" name="opcionesMapa" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarTablaIndicador',
+					  params: '\'idTipo=\' + this.value',
+					  update: 'tablaIndicador',
+					  id: indicadorInstance?.id  )}">
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>
+	  			<option value="4">Local</option>
+	  		</select>
+	  <div id="map-canvas" style="width: 100%; height: 480px;"></div></div>
 	</div>	 	
 	
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>

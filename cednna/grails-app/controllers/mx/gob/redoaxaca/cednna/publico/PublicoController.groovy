@@ -1,6 +1,7 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import com.redoaxaca.java.Resultado
+import com.redoaxaca.java.ResultadoIndicador
 import com.redoaxaca.kml.LeerKml
 import com.redoaxaca.kml.ObtenerCoordenadas
 import grails.converters.JSON
@@ -73,8 +74,7 @@ class PublicoController {
 		def indicador = Indicador.get(id)
 		
 		def resultados = []
-		
-		System.out.println("aqui:"+id)
+				
 		switch(tipo){
 			case '1':
 				resultados = visor(id)
@@ -103,12 +103,17 @@ class PublicoController {
 		resultados.add(resultado2)
 		resultados.add(resultado3)
 		resultados.add(resultado4)
-		List listarResultados = []
-		listarResultados.add(resultados)
 		
+				
+		ResultadoIndicador resultadoIndicador = new ResultadoIndicador() 
+		resultadoIndicador.resultados = resultados
+		resultadoIndicador.region = "Valles Centrales"
+		List <ResultadoIndicador> resultadosIndicador = [] 
+		resultadosIndicador.add(resultadoIndicador)
+		resultadosIndicador.add(resultadoIndicador)
+		resultadosIndicador.add(resultadoIndicador)
 		
-		
-		render (template:"tablaIndicador", model:[tipo:tipo, listarResultados:listarResultados, resultados:resultados])	
+		render (template:"tablaIndicador", model:[tipo:tipo, resultados:resultados, resultadosIndicador:resultadosIndicador])	
 	}
 	
 	def enviarCorreo(Long id) {
@@ -234,8 +239,14 @@ class PublicoController {
 					"ubicacion.setMap(map); "
 				coo = ""
 			}
+			
+			ResultadoIndicador resultadoIndicador = new ResultadoIndicador()
+			resultadoIndicador.resultados = resultados
+			resultadoIndicador.region = "Valles Centrales"
+			List <ResultadoIndicador> resultadosIndicador = []
+			resultadosIndicador.add(resultadoIndicador)
 					
-			[indicadorInstance: indicador, resultados:resultados, listarResultados:listarResultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, pintarUbicaciones:pintarUbicaciones]
+			[indicadorInstance: indicador, resultados:resultados, listarResultados:listarResultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, pintarUbicaciones:pintarUbicaciones, resultadosIndicador:resultadosIndicador, tipo:'1']
 			}
 			else{
 				redirect(action:"indicadores")
