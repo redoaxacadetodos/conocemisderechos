@@ -114,7 +114,7 @@ class IndicadorController {
 																"sum(o.mujeres) as mujeres, "+
 																"sum(o.hombres) as hombres , "+
 																"sum(o.total)  as total"+
-																"FROM ((((SELECT cat_variable.cvv_clave AS clave, "+
+																"FROM (SELECT cat_variable.cvv_clave AS clave, "+
 																				"	cat_variable.cvv_descripcion AS descripcion, "+
 																				"	cat_variable.cvv_region AS region_id, "+
 																				"	cat_variable.cvv_municipio AS municipio_id, "+
@@ -122,7 +122,7 @@ class IndicadorController {
 																				"    cat_variable.cvv_mujeres AS mujeres, "+
 																				"	cat_variable.cvv_hombres AS hombres, "+
 																				"	cat_variable.cvv_poblacion_total AS total "+
-																"FROM cat_variable "+
+																" FROM cat_variable "+
 																"where "+
 																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null   and  cvv_municipio is not null  "
 																
@@ -164,14 +164,21 @@ class IndicadorController {
 																									cc++
 																								
 																								}
-																query=query+") o LEFT JOIN cat_region cr ON ((cr.crg_id = o.region_id))) LEFT JOIN cat_municipio cm ON ((cm.mun_id = o.municipio_id))) LEFT JOIN cat_localidad cl ON ((cl.ctl_id = o.localidad_id))) "+
+																								
+																								if(vari.categorias){
+																									
+																									query=query+"  ) "
+																									
+																								}
+																								
+																query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "+
 																"GROUP BY "+
 																"o.region_id,  "+ 
 																"region"
 													
 													
 																System.out.println("LA CONSULTA ES : "+query);
-																def resultTotal = sql.rows(query.toString())
+																//def resultTotal = sql.rows(query.toString())
 											
 														
 																

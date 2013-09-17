@@ -8,9 +8,10 @@
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
 		
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	
-	   <g:javascript src="uikit.min.js" />
+<%--		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+<%--						--%>
+<%--						--%>
+	 
 	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -24,24 +25,20 @@
 
 <%--	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/style.css')}" type="text/css">--%>
 <%-- 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/prism.css')}" type="text/css">--%>
-	<link rel="stylesheet" href="${resource(dir: 'css', file: 'chosen.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'chosen.css')}" type="text/css">
  				
+ 						
+ 						<g:javascript src="jquery-1.10.2.js" />
+ 				 		<g:javascript src="uikit.min.js" />
  						<g:javascript src="jquery-ui-1.8.20.custom.min.js" />
  						<g:javascript src="jquery.dataTables.js" />
-		
-
-
-
-					
 						<g:javascript src="picker.js" />
 						<g:javascript src="picker.date.js" />
 						<g:javascript src="picker.time.js" />
 						<g:javascript src="es_ES.js" />
 					 	<g:javascript src="chosen.jquery.js" />
 					  	<g:javascript src="docsupport/prism.js"  />
-  	
-
-				<g:javascript src="Utilerias.js" />	
+  						<g:javascript src="Utilerias.js" />	
 
 		
 						<script type="text/javascript">
