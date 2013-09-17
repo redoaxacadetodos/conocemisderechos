@@ -17,8 +17,8 @@
 		<ul class="uk-navbar-nav">
 
 		
-				<li><g:link class="list" action="list">Listado de formulas</g:link></li>
-				<li class="uk-active">	<li><g:link class="create" action="create">Nueva formula</g:link></li></li>
+				<li><g:link class="list" action="list">Listado de f&oacute;rmulas</g:link></li>
+				<li class="uk-active">	<li><g:link class="create" action="create">Nueva f&oacute;rmula</g:link></li></li>
 
 		</ul>
 </nav>
@@ -26,7 +26,7 @@
 
 		<div id="create-formula" class="content scaffold-create" role="main">
 
-			<h1 class="uk-article-title"><g:message code="default.create.label" args="[entityName]" /></h1>
+			<h1 class="uk-article-title">Nueva f&oacute;rmula</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

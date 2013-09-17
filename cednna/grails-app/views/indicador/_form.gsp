@@ -54,7 +54,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'ejecutora', 'error')} required">
 	<label class="uk-form-label"for="ejecutora">
-		<g:message code="indicador.ejecutora.label" default="Unidad Ejecutora" />
+		<g:message code="indicador.ejecutora.label" default="Unidad ejecutora" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="ejecutora" name="ejecutora.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadEjecutora.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.ejecutora?.id}" class="many-to-one"/>
@@ -62,7 +62,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
-		<g:message code="indicador.frecuencia.label" default="Frecuencia de medicion" />
+		<g:message code="indicador.frecuencia.label" default="Frecuencia de medici&oacute;n" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
@@ -110,7 +110,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
 	<label class="uk-form-label"for="mediosVerificacion">
-		<g:message code="indicador.mediosVerificacion.label" default="Medios Verificacion" />
+		<g:message code="indicador.mediosVerificacion.label" default="Medios Verificaci&oacute;n" />
 		
 	</label>
 	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>
@@ -119,7 +119,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
 	<label class="uk-form-label"for="publico">
-		<g:message code="indicador.publico.label" default="Publico" />
+		<g:message code="indicador.publico.label" default="P&uacute;blico" />
 		
 	</label>
 	<g:checkBox name="publico" value="${indicadorInstance?.publico}" />
@@ -144,7 +144,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'areaResponsable', 'error')} required">
 	<label class="uk-form-label"for="areaResponsable">
-		<g:message code="indicador.areaResponsable.label" default="Area del responsable"  />
+		<g:message code="indicador.areaResponsable.label" default="Área del responsable"  />
 		<span class="required-indicator">*</span>
 	</label>
 		<g:textField name="areaResponsable"  maxlength="500" required="" value="${indicadorInstance?.areaResponsable}"  style="width:500px;" />
@@ -160,7 +160,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">
 	<label class="uk-form-label"for="fechaActualizacion">
-		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizacion"  />
+		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizaci&oacute;n"  />
 		<span class="required-indicator">*</span>
 	</label>
 	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}" style="width:500px;"  />

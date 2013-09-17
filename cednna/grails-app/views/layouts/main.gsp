@@ -72,11 +72,11 @@
 
 						<ul class="tm-nav uk-nav" data-uk-nav>
 
-							<li class="uk-nav-header">Menu</li>
+							<li class="uk-nav-header">Men&uacute;</li>
 
 							<li><g:link controller="Indicador" >Principal</g:link></li>
 							<li><g:link controller="Indicador" action="list">Indicadores</g:link></li>
-							<li><g:link controller="Formula">Formulas</g:link></li>
+							<li><g:link controller="Formula">F&oacute;rmulas</g:link></li>
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
 
 							<li class="uk-nav-header">Cat&aacute;logos</li>
@@ -90,9 +90,9 @@
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
 							
 							<li class="uk-nav-header">Seguimiento</li>
-							<li><g:link controller="Indicador" action="semaforo">Semaforo</g:link></li>
+							<li><g:link controller="Indicador" action="semaforo">Sem&aacute;foro</g:link></li>
 							<br/>
-							<li><g:link controller="logout">Cerrar sesion </g:link></li>
+							<li><g:link controller="logout">Cerrar sesi&oacute;n </g:link></li>
 
 						</ul>
 

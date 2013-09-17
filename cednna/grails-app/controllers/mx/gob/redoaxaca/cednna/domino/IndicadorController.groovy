@@ -3,6 +3,7 @@ package mx.gob.redoaxaca.cednna.domino
 import com.redoaxaca.java.Combo
 import com.redoaxaca.java.ComboVariable
 import com.redoaxaca.java.LeeArchivo
+import com.redoaxaca.java.RVariable;
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
 import grails.converters.JSON
@@ -90,15 +91,17 @@ class IndicadorController {
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
-		def List resultados= new ArrayList<ResultadoIndicador>() 
-		def tip
-		def vTip
+		def List resultados= new ArrayList<ResultadoIndicador>()
+		def List<RVariable> rVariables = new ArrayList<RVariable>()
+	
 		for(anio in 2005..2020){
 		
 			boolean  b = true
 			for(v in variables){
 			
+				RVariable temVar= new RVariable()
 				
+				temVar.letra=v
 				for(vari in indicadorInstance.variables){
 				
 						if(v==vari.clave){
@@ -113,7 +116,7 @@ class IndicadorController {
 																"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 																"sum(o.mujeres) as mujeres, "+
 																"sum(o.hombres) as hombres , "+
-																"sum(o.total)  as total"+
+																"sum(o.total)  as total "+
 																"FROM (SELECT cat_variable.cvv_clave AS clave, "+
 																				"	cat_variable.cvv_descripcion AS descripcion, "+
 																				"	cat_variable.cvv_region AS region_id, "+
@@ -124,7 +127,7 @@ class IndicadorController {
 																				"	cat_variable.cvv_poblacion_total AS total "+
 																" FROM cat_variable "+
 																"where "+
-																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null   and  cvv_municipio is not null  "
+																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+" and   cvv_municipio is not null  "
 																
 																if(vari.categorias){
 																	
@@ -177,9 +180,32 @@ class IndicadorController {
 																"region"
 													
 													
-																System.out.println("LA CONSULTA ES : "+query);
-																//def resultTotal = sql.rows(query.toString())
-											
+																//System.out.println("LA CONSULTA ES : "+query);
+																def resultTotal = sql.rows(query.toString())
+																resultTotal?.each
+																{
+																	System.out.println("LA CONSULTA ES : "+query);
+																	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																	
+																	switch (it.cdv_pob_id) {
+																	case 1:
+																				formula=formula.replaceAll(String.valueOf(v), String.valueOf(it.hombres))
+																		break;
+
+																	case 2:			
+																				formula=formula.replaceAll(String.valueOf(v), String.valueOf(it.mujeres))
+																		break;
+																					
+																	case 3:
+																				formula=formula.replaceAll(String.valueOf(v), String.valueOf(it.total))
+																		break;
+																	default:
+																		break;
+																	}
+																	
+																	
+																	
+																}
 														
 																
 											break;
@@ -214,29 +240,37 @@ class IndicadorController {
 			
 			}
 			
-//			if(b){
-//				System.out.println(formula);
-//				def resultado = new Resultado()
-//				ScriptEngineManager script = new ScriptEngineManager();
-//				ScriptEngine js = script.getEngineByName("JavaScript");
-//				try {
-//					
-//					resultado.indicador =js.eval("eval('"+formula+"')")
-//					System.out.println(resultado.indicador);
-//					resultado.anio=anio
-//					resultados.add(resultado)
-//					
-//				} catch (ScriptException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
+			
+				System.out.println(formula);
+				def resultado = new Resultado()
+				ScriptEngineManager script = new ScriptEngineManager();
+				ScriptEngine js = script.getEngineByName("JavaScript");
+				try {
+					
+					resultado.indicador =js.eval("eval('"+formula+"')")
+					System.out.println(resultado.indicador);
+					resultado.anio=anio
+					resultados.add(resultado)
+					
+				} catch (ScriptException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			
 			
 		}
 		[indicadorInstance:indicadorInstance,resultados:resultados]
 	}
 	
+	
+	
+	def getOrigenDatos(clave,indicador){
+		
+		
+		
+		
+	}
 
 	
 	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
