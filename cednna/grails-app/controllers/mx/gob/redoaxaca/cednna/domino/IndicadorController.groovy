@@ -6,6 +6,7 @@ import com.redoaxaca.java.LeeArchivo
 import com.redoaxaca.java.RVariable;
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
+import com.redoaxaca.java.ResultadoTemporal
 import grails.converters.JSON
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -102,6 +103,7 @@ class IndicadorController {
 				RVariable temVar= new RVariable()
 				
 				temVar.letra=v
+				
 				for(vari in indicadorInstance.variables){
 				
 						if(v==vari.clave){
@@ -186,25 +188,25 @@ class IndicadorController {
 																{
 																	System.out.println("LA CONSULTA ES : "+query);
 																	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
-																	
+																	ResultadoTemporal valorTem = new ResultadoTemporal()
 																	switch (it.cdv_pob_id) {
 																	case 1:
-																				formula=formula.replaceAll(String.valueOf(v), String.valueOf(it.hombres))
+																					valorTem.region=it.region
+																					valorTem.idRegion =it.region_id
+																					
+																					temVar.valores.add(valorTem)
 																		break;
 
 																	case 2:			
-																				formula=formula.replaceAll(String.valueOf(v), String.valueOf(it.mujeres))
+																					temVar
 																		break;
 																					
 																	case 3:
-																				formula=formula.replaceAll(String.valueOf(v), String.valueOf(it.total))
+																					temVar
 																		break;
 																	default:
 																		break;
 																	}
-																	
-																	
-																	
 																}
 														
 																

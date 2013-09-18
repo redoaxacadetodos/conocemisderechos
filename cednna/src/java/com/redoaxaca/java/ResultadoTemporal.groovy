@@ -11,7 +11,7 @@ class ResultadoTemporal {
 	Integer  idMunicipio
 	String   localidad
 	Integer  idLocalidad
-	Double   indicador
+	Integer  indicador
 	Integer  anio
 	public ResultadoIndicador(){
 		region = null
