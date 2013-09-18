@@ -2,6 +2,7 @@ package mx.gob.redoaxaca.cednna.publico
 
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
+import com.redoaxaca.kml.GuardarCoordenadas
 import com.redoaxaca.kml.ObtenerCoordenadas
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
@@ -35,7 +36,11 @@ class PublicoController {
 	}
 		
 	def insertarCoordenadas = {
-		ObtenerCoordenadas kml = new ObtenerCoordenadas()		
+		//ObtenerCoordenadas kml = new ObtenerCoordenadas()
+		//def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), 1)
+		GuardarCoordenadas gc = new GuardarCoordenadas(Municipio) 				
+		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())	
+		 
 		/*
 		def municipios = Municipio.list()
 		municipios.each { muni ->
@@ -45,7 +50,7 @@ class PublicoController {
 			}		
 		}
 		*/
-		def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), 1)
+		
 		/*
 		def municipio = Municipio.createCriteria().list{  
 			order("id", "asc")
@@ -91,13 +96,13 @@ class PublicoController {
 					if(region!=null){
 						def municipios = Municipio.findAllByRegion(region)
 						municipios.each { muni ->
-							coordenadas.add(Coordenada.findAllByMunicipio(muni))
+							coordenadas.add(muni?.coordenadas)
 						}
 					}					
 					break
 				case '3':
 					def municipio = Municipio.get(resultado.idMunicipio)
-					def coor = Coordenada.findAllByMunicipio(municipio)
+					def coor = municipio.coordenadas
 					coordenadas.add(coor)
 					break
 				case '4':
@@ -268,9 +273,14 @@ class PublicoController {
 					ubicaciones.add(variable?.region?.descripcion)								
 				}else if(variable?.municipio?.descripcion){
 					ubicaciones.add(variable?.municipio?.descripcion)
-					def coor = Coordenada.findAllByMunicipio(variable?.municipio)
-					//System.out.println("coordenadas: "+coor)
-					coordenadas.add(coor)
+					def coor = variable?.municipio?.coordenadas	
+					def coorAux = coor.sort{it.id}					
+					coorAux.each { o ->
+						System.out.println("coo: "+o.id+ " " + o.longitud + " "+ o.latitud  )
+					}
+					System.out.println("Municipio: "+variable?.municipio?.descripcion)
+					//System.out.println("coordenadas: "+coorAux)
+					coordenadas.add(coorAux)
 				}else if(variable?.localidad?.descripcion){
 					ubicaciones.add(variable?.localidad?.descripcion)
 				}							
@@ -283,11 +293,11 @@ class PublicoController {
 			//listarResultados.add(resultados)
 			
 			//Crear poligonos		
-			def coo = ""
+			def coo = ""			
 			def pintarUbicaciones = ""
 			coordenadas.each { coorde ->			
 				coorde.each { ubicacion ->
-					coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "
+					coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "					
 				}
 				pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
 					"ubicacion = new google.maps.Polygon({"+

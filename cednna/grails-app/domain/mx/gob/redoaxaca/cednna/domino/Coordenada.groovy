@@ -6,8 +6,6 @@ class Coordenada {
 	String latitud
 	String altitud
 	
-	static belongsTo = [municipio:Municipio, estado:Estado, region:Region, localidad:Localidad]
-	
     static constraints = {
     }		
 }
