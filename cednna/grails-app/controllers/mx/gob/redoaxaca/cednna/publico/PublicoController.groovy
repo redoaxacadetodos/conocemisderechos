@@ -69,6 +69,68 @@ class PublicoController {
 		
 	}
 	
+	def actualizarMapa(Long id) {
+		def tipo = params.idTipo
+		ResultadoIndicador resultadoIndicador = new ResultadoIndicador()		
+		resultadoIndicador.region = "Valles Centrales"
+		resultadoIndicador.idMunicipio = 506
+		List <ResultadoIndicador> resultadosIndicador = []
+		resultadosIndicador.add(resultadoIndicador)
+		
+		
+		def ubicaciones = []
+		def coordenadas = []
+		def ubicacioneString = []
+		ubicaciones.add(resultadoIndicador.region)		
+		resultadosIndicador.each { resultado ->
+			switch(tipo){
+				case '1':
+					
+					break
+				case '2':
+					def region = Region.get(resultado.idRegion)					
+					if(region!=null){
+						def municipios = Municipio.findAllByRegion(region)
+						municipios.each { muni ->
+							coordenadas.add(Coordenada.findAllByMunicipio(muni))
+						}
+					}					
+					break
+				case '3':
+					def municipio = Municipio.get(resultado.idMunicipio)
+					def coor = Coordenada.findAllByMunicipio(municipio)
+					coordenadas.add(coor)
+					break
+				case '4':
+					break
+			}			
+		}
+		
+		ubicaciones.each { ubi ->
+			ubicacioneString.add("'"+ubi+"'")
+		}
+
+		//Crear poligonos
+		def coo = ""
+		def pintarUbicaciones = ""
+		coordenadas.each { coorde ->
+			coorde.each { ubicacion ->
+				coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "
+			}
+			pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
+				"ubicacion = new google.maps.Polygon({"+
+				"paths: coordenadas,"+
+				"strokeColor: '#FF0000',"+
+				"strokeOpacity: 0.8,"+
+				"strokeWeight: 2,"+
+				"fillColor: '#FF0000',"+
+				"fillOpacity: 0.35});"+
+				"ubicacion.setMap(map); "
+			coo = ""
+		}
+		render(template:"mapa", model:[pintarUbicaciones:pintarUbicaciones, ubicaciones:ubicacioneString])
+	}
+	
 	def actualizarTablaIndicador(Long id){
 		def tipo = params.idTipo
 		def indicador = Indicador.get(id)
@@ -203,18 +265,18 @@ class PublicoController {
 			def coordenadas = []
 			
 			indicador?.variables?.each { variable ->
-				if(variable?.localidad?.descripcion){
-					ubicaciones.add(variable?.localidad?.descripcion)								
+				if(variable?.region?.descripcion){
+					ubicaciones.add(variable?.region?.descripcion)								
 				}else if(variable?.municipio?.descripcion){
 					ubicaciones.add(variable?.municipio?.descripcion)
 					def coor = Coordenada.findAllByMunicipio(variable?.municipio)
 					//System.out.println("coordenadas: "+coor)
 					coordenadas.add(coor)
-				}else if(variable?.region?.descripcion){
-					ubicaciones.add(variable?.region?.descripcion)
+				}else if(variable?.localidad?.descripcion){
+					ubicaciones.add(variable?.localidad?.descripcion)
 				}							
 			}
-			ubicaciones.each { ubi ->
+			ubicaciones.each { ubi ->				
 				ubicacioneString.add("'"+ubi+"'")
 			}
 			List listarResultados = []
