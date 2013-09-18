@@ -175,7 +175,7 @@
 
 	<br>
 
-	<input id="addCat" name="addCat"  value="Agregar Categoria" type="button"  class="uk-button"/>
+	<input id="addCat" name="addCat"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
 
 
 

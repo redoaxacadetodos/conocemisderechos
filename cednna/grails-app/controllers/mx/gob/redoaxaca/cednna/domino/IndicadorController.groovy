@@ -3,8 +3,10 @@ package mx.gob.redoaxaca.cednna.domino
 import com.redoaxaca.java.Combo
 import com.redoaxaca.java.ComboVariable
 import com.redoaxaca.java.LeeArchivo
+import com.redoaxaca.java.RVariable;
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
+import com.redoaxaca.java.ResultadoTemporal
 import grails.converters.JSON
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -90,14 +92,15 @@ class IndicadorController {
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
-		def List resultados= new ArrayList<ResultadoIndicador>() 
-		def tip
-		def vTip
+		def List resultados= new ArrayList<ResultadoIndicador>()
+		def List<RVariable> rVariables = new ArrayList<RVariable>()
+		RVariable temVar
 		for(anio in 2005..2020){
 		
 			boolean  b = true
 			for(v in variables){
 			
+				
 				
 				for(vari in indicadorInstance.variables){
 				
@@ -113,7 +116,7 @@ class IndicadorController {
 																"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 																"sum(o.mujeres) as mujeres, "+
 																"sum(o.hombres) as hombres , "+
-																"sum(o.total)  as total"+
+																"sum(o.total)  as total "+
 																"FROM (SELECT cat_variable.cvv_clave AS clave, "+
 																				"	cat_variable.cvv_descripcion AS descripcion, "+
 																				"	cat_variable.cvv_region AS region_id, "+
@@ -124,7 +127,7 @@ class IndicadorController {
 																				"	cat_variable.cvv_poblacion_total AS total "+
 																" FROM cat_variable "+
 																"where "+
-																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null   and  cvv_municipio is not null  "
+																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+" and   cvv_municipio is not null  "
 																
 																if(vari.categorias){
 																	
@@ -177,10 +180,51 @@ class IndicadorController {
 																"region"
 													
 													
-																System.out.println("LA CONSULTA ES : "+query);
-																//def resultTotal = sql.rows(query.toString())
-											
+																//System.out.println("LA CONSULTA ES : "+query);
+																def resultTotal = sql.rows(query.toString())
+																
+																if(resultTotal.size()){
+																	
+																	temVar= new RVariable()
+																	temVar.letra=vari.clave
+																
+																		resultTotal?.each
+																		{
+																			//System.out.println("LA CONSULTA ES : "+query);
+																			//System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																			ResultadoTemporal valorTem = new ResultadoTemporal()
+																			switch (vari.poblacion.clave) {
+																			case "H":
+																							valorTem.region=it.region
+																							valorTem.idRegion = it.region_id
+																							valorTem.indicador=it.hombres
+																							valorTem.anio=anio
+																							temVar.valores.add(valorTem)
+																				break;
+		
+																			case "M":			
+																							valorTem.region=it.region
+																							valorTem.idRegion =it.region_id
+																							valorTem.indicador=it.mujeres
+																							valorTem.anio=anio
+																							temVar.valores.add(valorTem)
+																				break;
+																							
+																			case "T":
+																							valorTem.region=it.region
+																							valorTem.idRegion =it.region_id
+																							valorTem.indicador=it.total
+																							valorTem.anio=anio
+																							temVar.valores.add(valorTem)
+																				break;
+																			default:
+																				break;
+																			}
+																		}
 														
+																		rVariables.add(temVar)
+																}
+																
 																
 											break;
 											
@@ -211,10 +255,29 @@ class IndicadorController {
 		
 				}
 	
-			
+				//rVariables.add(temVar)
+				
+				
+				
+				
+				
+				
 			}
 			
-//			if(b){
+			
+			
+					for(rv in  rVariables){
+						
+					System.out.println(rv.letra);
+						
+						
+					}
+			
+			
+			
+			
+			
+			
 //				System.out.println(formula);
 //				def resultado = new Resultado()
 //				ScriptEngineManager script = new ScriptEngineManager();
@@ -230,13 +293,21 @@ class IndicadorController {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
-//			}
-//			
+			
+			
 			
 		}
 		[indicadorInstance:indicadorInstance,resultados:resultados]
 	}
 	
+	
+	
+	def getOrigenDatos(clave,indicador){
+		
+		
+		
+		
+	}
 
 	
 	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
@@ -308,8 +379,6 @@ class IndicadorController {
 
 				def numCategorias= params.getAt("numCategorias_"+v)
 				
-								
-				
 				
 				
 				def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
@@ -322,7 +391,6 @@ class IndicadorController {
 				
 				
 				for(i in 1 .. numCategorias){
-					
 					
 				     	def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
 						if(categoria)

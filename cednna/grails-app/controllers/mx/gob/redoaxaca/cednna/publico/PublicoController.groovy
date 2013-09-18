@@ -381,23 +381,23 @@ class PublicoController {
 			
 			}
 			
-			if(b){
-				System.out.println(formula);
-				def resultado = new Resultado()
-				ScriptEngineManager script = new ScriptEngineManager();
-				ScriptEngine js = script.getEngineByName("JavaScript");
-				try {
-					
-					resultado.indicador =js.eval("eval('"+formula+"')")
-					System.out.println(resultado.indicador);
-					resultado.anio=anio
-					resultados.add(resultado)
-					
-				} catch (ScriptException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+//			if(b){
+//				System.out.println(formula);
+//				def resultado = new Resultado()
+//				ScriptEngineManager script = new ScriptEngineManager();
+//				ScriptEngine js = script.getEngineByName("JavaScript");
+//				try {
+//					
+//					resultado.indicador =js.eval("eval('"+formula+"')")
+//					System.out.println(resultado.indicador);
+//					resultado.anio=anio
+//					resultados.add(resultado)
+//					
+//				} catch (ScriptException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
 			
 			
 		}

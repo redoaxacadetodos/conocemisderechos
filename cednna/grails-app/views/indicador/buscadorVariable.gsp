@@ -39,7 +39,7 @@
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 	<label class="uk-form-label" for="localidad">
-		<g:message code="indicador.localidad.label" default="Poblacion" />
+		<g:message code="indicador.localidad.label" default="Poblaci&oacute;n" />
 
 	</label>
 	<g:select id="poblacion" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list()}" optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}"  class="many-to-one"/>
@@ -106,7 +106,7 @@
 	<br>
 	</div>
 
-	<input id="addCat_${var.clave}" name="addCat_${var.clave}"  value="Agregar Categoria" type="button"  class="uk-button"/>
+	<input id="addCat_${var.clave}" name="addCat_${var.clave}"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
 	
 
 

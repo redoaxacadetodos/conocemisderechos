@@ -19,9 +19,9 @@ h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 600;}
 
 h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px; margin: 15px 0 20px 0 !important;}
 
-.nombre_indicador {  font-weight: 600; font-size: 17px; text-transform: uppercase;}
-.ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; height:35px; margin-top: 5px;}
-
+.nombre_indicador {  font-weight: 600; font-size: 17px; text-transform: uppercase; color:#754e17; }
+.ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; height:35px; margin-top: 1px; margin-left: 25px; color: #907e58;}
+.ver_indicador:hover {color: #00a7ab;}
 /* Base
  ========================================================================== */
 
@@ -804,16 +804,16 @@ float: right;
 .icono_contacto { background: url(../img/icons/contacto.png) 0 8px no-repeat !important; }
 .icono_ayuda { background: url(../img/icons/ayuda.png) 0 10px no-repeat !important; }
 
-.icono_catalogo { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
-.icono_inversion { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+.icono_catalogos { background: url(../img/icons/catalogos.png) 0 10px no-repeat !important; }
+.icono_invierte { background: url(../img/icons/inversion.png) 0 10px no-repeat !important; }
 
 .icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 10px no-repeat !important; }
 .icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
 .icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
 .icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }
 
-.icono_catalogo:hover { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
-.icono_inversion:hover { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
+.icono_catalogos:hover { background: url(../img/icons/catalogos_2.png) 0 10px no-repeat !important; }
+.icono_invierte:hover { background: url(../img/icons/inversion_2.png) 0 10px no-repeat !important; }
 
 #dashboard { 
 width: 98%;
@@ -852,9 +852,6 @@ margin: 0 5% 5% 0;
 -moz-box-shadow:    inset 0px 0px 10px rgba(255, 255, 255, 1);
 box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
 }
-
-
-#bot_prog .dash_becas:hover { background: url(../img/icons/becas02.png) no-repeat center; }
 
 
 .clearfix {
