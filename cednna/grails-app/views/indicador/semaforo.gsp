@@ -25,8 +25,8 @@
 	</head>
 	<body>		
 		<div id="division">
-			<h3>SEMÁFORO DE CONTROL</h3>
-			<h4>ESTATUS DE ACTUALIZACIÓN POR INDICADOR</h4>
+			<h3>SEM&Aacute;FORO DE CONTROL</h3>
+			<h4>ESTATUS DE ACTUALIZACI&Oacute;N POR INDICADOR</h4>
 			<label for="dependencias">Dependencia: </label>			
 			<g:select name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}"		 
 			onchange="${ remoteFunction (
@@ -36,8 +36,8 @@
 				update:'semaforo')}"/>
 				
 			<div>
-			1.- La información se encuentra actualizada<br>
-			2.- La información necesita ser revalidada y/o actualizada<br><br>
+			1.- La informaci&oacute;n se encuentra actualizada<br>
+			2.- La informaci&oacute;n necesita ser revalidada y/o actualizada<br><br>
 			</div>
 			<div id="semaforo"></div>
 		</div>

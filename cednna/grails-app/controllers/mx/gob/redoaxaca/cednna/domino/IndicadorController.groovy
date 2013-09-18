@@ -94,15 +94,13 @@ class IndicadorController {
 		def variables= sentencia.split("\\|")
 		def List resultados= new ArrayList<ResultadoIndicador>()
 		def List<RVariable> rVariables = new ArrayList<RVariable>()
-	
+		RVariable temVar
 		for(anio in 2005..2020){
 		
 			boolean  b = true
 			for(v in variables){
 			
-				RVariable temVar= new RVariable()
 				
-				temVar.letra=v
 				
 				for(vari in indicadorInstance.variables){
 				
@@ -184,31 +182,49 @@ class IndicadorController {
 													
 																//System.out.println("LA CONSULTA ES : "+query);
 																def resultTotal = sql.rows(query.toString())
-																resultTotal?.each
-																{
-																	System.out.println("LA CONSULTA ES : "+query);
-																	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
-																	ResultadoTemporal valorTem = new ResultadoTemporal()
-																	switch (it.cdv_pob_id) {
-																	case 1:
-																					valorTem.region=it.region
-																					valorTem.idRegion =it.region_id
-																					
-																					temVar.valores.add(valorTem)
-																		break;
-
-																	case 2:			
-																					temVar
-																		break;
-																					
-																	case 3:
-																					temVar
-																		break;
-																	default:
-																		break;
-																	}
-																}
+																
+																if(resultTotal.size()){
+																	
+																	temVar= new RVariable()
+																	temVar.letra=vari.clave
+																
+																		resultTotal?.each
+																		{
+																			//System.out.println("LA CONSULTA ES : "+query);
+																			//System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																			ResultadoTemporal valorTem = new ResultadoTemporal()
+																			switch (vari.poblacion.clave) {
+																			case "H":
+																							valorTem.region=it.region
+																							valorTem.idRegion = it.region_id
+																							valorTem.indicador=it.hombres
+																							valorTem.anio=anio
+																							temVar.valores.add(valorTem)
+																				break;
+		
+																			case "M":			
+																							valorTem.region=it.region
+																							valorTem.idRegion =it.region_id
+																							valorTem.indicador=it.mujeres
+																							valorTem.anio=anio
+																							temVar.valores.add(valorTem)
+																				break;
+																							
+																			case "T":
+																							valorTem.region=it.region
+																							valorTem.idRegion =it.region_id
+																							valorTem.indicador=it.total
+																							valorTem.anio=anio
+																							temVar.valores.add(valorTem)
+																				break;
+																			default:
+																				break;
+																			}
+																		}
 														
+																		rVariables.add(temVar)
+																}
+																
 																
 											break;
 											
@@ -239,25 +255,44 @@ class IndicadorController {
 		
 				}
 	
-			
+				//rVariables.add(temVar)
+				
+				
+				
+				
+				
+				
 			}
 			
 			
-				System.out.println(formula);
-				def resultado = new Resultado()
-				ScriptEngineManager script = new ScriptEngineManager();
-				ScriptEngine js = script.getEngineByName("JavaScript");
-				try {
-					
-					resultado.indicador =js.eval("eval('"+formula+"')")
-					System.out.println(resultado.indicador);
-					resultado.anio=anio
-					resultados.add(resultado)
-					
-				} catch (ScriptException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			
+					for(rv in  rVariables){
+						
+					System.out.println(rv.letra);
+						
+						
+					}
+			
+			
+			
+			
+			
+			
+//				System.out.println(formula);
+//				def resultado = new Resultado()
+//				ScriptEngineManager script = new ScriptEngineManager();
+//				ScriptEngine js = script.getEngineByName("JavaScript");
+//				try {
+//					
+//					resultado.indicador =js.eval("eval('"+formula+"')")
+//					System.out.println(resultado.indicador);
+//					resultado.anio=anio
+//					resultados.add(resultado)
+//					
+//				} catch (ScriptException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			
 			
 			
@@ -344,8 +379,6 @@ class IndicadorController {
 
 				def numCategorias= params.getAt("numCategorias_"+v)
 				
-								
-				
 				
 				
 				def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
@@ -358,7 +391,6 @@ class IndicadorController {
 				
 				
 				for(i in 1 .. numCategorias){
-					
 					
 				     	def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
 						if(categoria)

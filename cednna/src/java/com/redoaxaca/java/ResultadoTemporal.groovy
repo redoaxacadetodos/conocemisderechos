@@ -6,20 +6,20 @@ class ResultadoTemporal {
 
 	
 	String   region
-	Integer  idRegion
+	int      idRegion
 	String   municipio
-	Integer  idMunicipio
+	int      idMunicipio
 	String   localidad
-	Integer  idLocalidad
-	Integer  indicador
-	Integer  anio
-	public ResultadoIndicador(){
-		region = null
-		municipio = null
-		localidad =  null
-		idRegion= null
-		idMunicipio= null
-		idLocalidad= null
+	int      idLocalidad
+	int      indicador
+	int      anio
+	
+	
+	
+	
+	public String toString(){
+		
+		return  region+" -  "+indicador+"--  "+anio
 	}
 	
 	

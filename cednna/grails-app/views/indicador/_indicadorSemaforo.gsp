@@ -4,7 +4,7 @@
 <div>
 	<table>
 		<thead>
-			<tr><th>INDICADOR</th><th>MEDICIÓN</th><th>ÚLTIMA ACTUALIZACIÓN</th><th>ESTATUS</th><th>ENVIAR</th></tr>
+			<tr><th>INDICADOR</th><th>MEDICI&Oacute;N</th><th>&Uacute;LTIMA ACTUALIZACI&Oacute;N</th><th>ESTATUS</th><th>ENVIAR</th></tr>
 		</thead>
 		<tbody>
 			<g:each var="indicador" in="${indicadores}">				
