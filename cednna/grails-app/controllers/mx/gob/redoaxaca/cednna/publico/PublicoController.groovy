@@ -2,7 +2,6 @@ package mx.gob.redoaxaca.cednna.publico
 
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
-import com.redoaxaca.kml.LeerKml
 import com.redoaxaca.kml.ObtenerCoordenadas
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
