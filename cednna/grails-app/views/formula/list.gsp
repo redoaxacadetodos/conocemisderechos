@@ -41,19 +41,19 @@
 		<ul class="uk-navbar-nav">
 
 		
-				<li class="uk-active"><g:link class="list" action="list">Lista de formulas</g:link></li>
-				<li><g:link class="create" action="create">Nueva formula</g:link></li>
+				<li class="uk-active"><g:link class="list" action="list">Lista de f&oacute;rmulas</g:link></li>
+				<li><g:link class="create" action="create">Nueva f&oacute;rmula</g:link></li>
 
 		</ul>
 </nav>
 				
 
 		<div id="list-formula" class="content scaffold-list" role="main">
-		<h1 class="uk-article-title">Listado de formulas</h1>
+		<h1 class="uk-article-title">Listado de f&oacute;rmulas</h1>
 
 			 <div class="body">
 				  
-				  <g:datatablehelper ctrlid="formulaTable"  cols="['ID','Descripcion','Nombre','Sentencia','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="formulaTable"  cols="['ID','Descripci&oacute;n','Nombre','Sentencia','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 			
 			
