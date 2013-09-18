@@ -12,8 +12,8 @@
 					
 			<span class="nombre_indicador">${indicador.nombre }</span>
 			
-			<br /><g:link action="detalleIndicador" id="${indicador.id}" class="ver_indicador">Ver indicadores</g:link><br /><br />
-			 <br>
+			<br /><g:link action="detalleIndicador" id="${indicador.id}" class="ver_indicador">Ver indicadores</g:link><br />
+			 
 		</g:each>	
 	</g:each>	
 </div>
