@@ -50,9 +50,9 @@
 
 				<ul class="uk-navbar-nav uk-hidden-small">
 
-
+<li><g:link controller="Indicador" class="iconobar icono_invierte" data-uk-tooltip="{pos:'bottom'}" title="Inversión Social e Infancia"></g:link>	</li>	
 <li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>		
-<li><g:link controller="Indicador" class="iconobar icono_invierte" data-uk-tooltip="{pos:'bottom'}" title="Inversión Social e Infancia"></g:link>	</li>		
+	
 		<!-- <li><g:link class="list iconobar icono_calendar" action="calendario" data-uk-tooltip="{pos:'bottom'}" title="Calendario"></g:link></li>-->
 		<li><g:link class="iconobar icono_directorio" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
 		<li><g:link class="iconobar icono_contacto" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
