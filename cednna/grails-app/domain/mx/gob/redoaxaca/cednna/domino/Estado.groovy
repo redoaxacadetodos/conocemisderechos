@@ -2,10 +2,12 @@ package mx.gob.redoaxaca.cednna.domino
 
 class Estado {
 
-	 String clave
+	String clave
     String descripcion
     String prefijo
 
+	static hasMany = [coordenadas: Coordenada]
+	
 	
     static constraints = {
     }

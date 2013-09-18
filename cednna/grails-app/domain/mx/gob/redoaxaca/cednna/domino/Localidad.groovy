@@ -5,6 +5,8 @@ class Localidad {
 	String clave
 	String descripcion
 	Municipio municipio
+	
+	static hasMany = [coordenadas: Coordenada]
 
 	String toString() {
 		"${descripcion}"

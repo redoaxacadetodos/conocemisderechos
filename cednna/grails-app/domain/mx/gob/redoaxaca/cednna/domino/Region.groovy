@@ -5,6 +5,7 @@ class Region {
 	String descripcion
 	String clave
 	
+	static hasMany = [coordenadas: Coordenada]
 	
 		String toString() {
 			"${descripcion}"

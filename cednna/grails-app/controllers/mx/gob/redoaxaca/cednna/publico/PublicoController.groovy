@@ -104,10 +104,10 @@ class PublicoController {
 					break
 			}			
 		}
-		
+		/*
 		ubicaciones.each { ubi ->
 			ubicacioneString.add("'"+ubi+"'")
-		}
+		}*/
 
 		//Crear poligonos
 		def coo = ""
