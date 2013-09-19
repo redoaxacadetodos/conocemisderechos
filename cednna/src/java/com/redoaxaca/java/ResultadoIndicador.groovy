@@ -7,7 +7,7 @@ class ResultadoIndicador {
 	Integer  idMunicipio
 	String   localidad
 	Integer  idLocalidad
-	List <Resultado> resultados 
+	List <Resultado> resultados = new ArrayList<Resultado>()
 	public ResultadoIndicador(){
 		region = null
 		municipio = null
