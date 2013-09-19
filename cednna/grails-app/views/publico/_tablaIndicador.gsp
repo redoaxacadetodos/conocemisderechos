@@ -17,11 +17,13 @@
 				  		<g:if test="${tipo?.equals('4') }">
 				  			<th>Localidad</th>
 				  		</g:if>
-				  		<g:set var="resultadoaux" value="${resultadosIndicador.get(0) }"></g:set>
+				  		<g:if test="${resultadosIndicador }">
+				  			<g:set var="resultadoaux" value="${resultadosIndicador?.get(0) }"></g:set>
 				  		
-				  		<g:each var="resultado" in="${resultadoaux.resultados }">
+				  		<g:each var="resultado" in="${resultadoaux?.resultados }">
 				  		<th>${resultado?.anio }</th>
 				  		</g:each>
+				  		</g:if>
 				  		</tr>
 				  	</thead>
 				  	<tbody>

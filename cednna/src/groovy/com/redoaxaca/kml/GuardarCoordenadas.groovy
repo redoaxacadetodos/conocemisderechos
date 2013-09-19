@@ -49,19 +49,19 @@ class GuardarCoordenadas {
 					for(Feature folders: folderList){
 						if(folders instanceof Placemark) {
 							Placemark placemark = (Placemark) folders;
-							/*
+							
 							obj.each { arr ->
 								if(remplazarAcentos(arr.descripcion.toUpperCase()).equals(placemark.getName())){
 									objeto = arr
 								}
-							}*/
-							objeto = Municipio.get(292)
-							//System.out.println(placemark.getName()+"="+objeto?.descripcion)
-							if(remplazarAcentos(objeto.descripcion.toUpperCase()).equals(placemark.getName())){							
+							}
+							//objeto = Municipio.get(67)
+							System.out.println(placemark.getName()+"="+objeto?.descripcion)
+							//if(remplazarAcentos(objeto.descripcion.toUpperCase()).equals(placemark.getName())){							
 							coordenadas = new ArrayList<Coordenada>();
 							MultiGeometry multiGeometry = (MultiGeometry) placemark.getGeometry();						
 							parseGeometry(multiGeometry);													
-							}									
+							//}									
 						}
 					}
 					
@@ -82,18 +82,12 @@ class GuardarCoordenadas {
 						List<Coordinate> coordinates = linearRing.getCoordinates();
 						if(coordinates != null) {
 							for(Coordinate coordinate : coordinates) {
-								this.coordenadas.add(parseCoordinate(coordinate));
-								//def co = parseCoordinate(coordinate)
-								//System.out.println("c: "+ co.latitud + " "+ co.longitud)								
+								this.coordenadas.add(parseCoordinate(coordinate));															
 							}
-							coordenadas.each{ co->
-								System.out.println("c: "+ co.longitud + " "+ co.latitud)
-							}
-							/*							
-							objeto.coordenadas = coordenadas;
+							objeto.setCoordenadas(coordenadas);														
 							if (!objeto.save(flush: true)) {
 								System.out.println("Error al insertar")
-							}*/
+							}
 						}
 					}
 				}

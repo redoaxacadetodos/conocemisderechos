@@ -37,8 +37,7 @@
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
-	  			<option value="3">Municipal</option>
-	  			<option value="4">Local</option>
+	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  		<div id="tablaIndicador">
 	  			<g:render template="tablaIndicador"></g:render>	  		
@@ -70,7 +69,7 @@
 			  			<td>${indicadorInstance?.nombre}</td>
 				  		<g:each var="resultado" in="${resultados}">
 					  		<g:if test="${imprimirDatos=='true'}">
-			  					<td>${Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos</td>
+			  					<td>${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos</td>
 			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>			  					
 			  				</g:if>
 			  				<g:else>
@@ -108,7 +107,23 @@
 	  	</tbody>
 	  	</table>
 	  </div>
-	  <div class="tab-pane" id="serie"></div>
+	  <div class="tab-pane" id="serie">
+	  	<label for="opcionSerie">Tipo:</label>
+	  		<select id="opcionSerie" name="opcionSerie" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarTablaIndicador',
+					  params: '\'idTipo=\' + this.value',
+					  update: 'tablaIndicadorSerie',
+					  id: indicadorInstance?.id  )}">
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>	  			
+	  		</select>
+	  		<div id="tablaIndicadorSerie">
+	  			<g:render template="tablaIndicador"></g:render>	  		
+			</div>	  	
+	  </div>
 	  <div class="tab-pane" id="calculo"></div>
 	  <div class="tab-pane" id="mapa">
 	  	<label for="opcionesMapa">Tipo:</label>
