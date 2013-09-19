@@ -86,8 +86,8 @@ class IndicadorController {
 	def visor(){
 		
 		
-		def indicadorInstance = Indicador.get(params.id);
-		def opcion= params.idTipo;
+		def indicadorInstance = Indicador.get(8);
+		def opcion= 1;
 	
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
@@ -190,20 +190,20 @@ class IndicadorController {
 																								
 																query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave"
 															
-																System.out.println("LA CONSULTA ES : "+query);
+															
 													
 																//System.out.println("LA CONSULTA ES : "+query);
 																def resultTotal = sql.rows(query.toString())
 																
 																if(resultTotal.size()>0){
-																	System.out.println("LA CONSULTA ES : "+query);
+//																	System.out.println("LA CONSULTA ES : "+query);
 																	temVar= new RVariable()
 																	temVar.letra=vari.clave
 																
 																		resultTotal?.each
 																		{
-																			
-																		//	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																			//System.out.println("LA CONSULTA ES : "+query);
+																		System.out.println("Variable "+vari.clave+" Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 																			ResultadoTemporal valorTem = new ResultadoTemporal()
 																			switch (vari.poblacion.clave) {
 																			case "H":
@@ -239,7 +239,7 @@ class IndicadorController {
 											/***
 											 * Comienza el calculo del indicador en base a las variables
 											 * */
-											
+//											System.out.println("ANIO : "+anio+ "  -   variables "+rVariables.size());
 											if(rVariables.size()>0){
 												
 												
@@ -277,7 +277,7 @@ class IndicadorController {
 												/***
 												 * Comienza el proceso de ordenamiento para salida
 												 * */
-												
+//												System.out.println("Valor final : "+listTemp.size()+ "anio"+anio );
 												listTemp.each {
 												actual->
 												def ban=0
@@ -287,7 +287,7 @@ class IndicadorController {
 																res.anio=actual.anio
 																res.indicador=actual.indicador
 																resultados.get(0).resultados.add(res)
-																	 
+//																System.out.println("Veces que entro al sistema 1 ");
 																
 															}else{
 																Resultado res= new Resultado()
@@ -297,7 +297,7 @@ class IndicadorController {
 																
 																ri.resultados.add(res)
 																resultados.add(ri)
-															
+//																System.out.println("Veces que entro al sistema 2 ");
 															}
 													}
 												
@@ -309,7 +309,7 @@ class IndicadorController {
 											
 											num=0
 											rVariables= new ArrayList<RVariable>()
-											
+											listTemp = new ArrayList<ResultadoTemporal>()
 											
 											
 											
@@ -404,7 +404,7 @@ class IndicadorController {
 																def resultTotal = sql.rows(query.toString())
 																
 																if(resultTotal.size()>0){
-																	System.out.println("LA CONSULTA ES : "+query);
+																	//System.out.println("LA CONSULTA ES : "+query);
 																	temVar= new RVariable()
 																	temVar.letra=vari.clave
 																
@@ -565,7 +565,7 @@ class IndicadorController {
 											
 											num=0
 											rVariables= new ArrayList<RVariable>()
-											
+											listTemp = new ArrayList<ResultadoTemporal>()
 											
 											
 											
@@ -840,7 +840,7 @@ class IndicadorController {
 											num=0
 											rVariables= new ArrayList<RVariable>()
 											
-											
+											listTemp = new ArrayList<ResultadoTemporal>()
 											
 											
 											
@@ -1073,7 +1073,7 @@ class IndicadorController {
 												/***
 												 * Comienza el proceso de ordenamiento para salida
 												 * */
-												
+											
 												listTemp.each {
 												actual->
 												def ban=0
@@ -1131,7 +1131,7 @@ class IndicadorController {
 											
 											num=0
 											rVariables= new ArrayList<RVariable>()
-											
+											listTemp = new ArrayList<ResultadoTemporal>()
 											
 									
 											
@@ -1143,13 +1143,15 @@ class IndicadorController {
 						
 		}
 		
-
+		
 					 
 		resultados.each {
 			
 			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
+			System.out.println("Tama–o  "+it.resultados.size());
 			it.resultados.each {
 				an->
+					
 					an.each {
 							
 						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
