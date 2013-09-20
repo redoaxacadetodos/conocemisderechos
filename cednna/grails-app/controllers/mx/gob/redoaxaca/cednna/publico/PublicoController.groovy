@@ -20,6 +20,7 @@ import mx.gob.redoaxaca.cednna.domino.*
 class PublicoController {
 	
 	def sessionFactory
+	def dataSource
 
     def index() { 
 		
@@ -85,7 +86,10 @@ class PublicoController {
 	}
 	
 	def actualizarMapa(Long id) {
-		def tipo = params.idTipo
+		int tipo = params.idTipo.toInteger()
+		
+		def resultadosIndicador = visorIndicador(id,tipo)
+		/*
 		ResultadoIndicador resultadoIndicador = new ResultadoIndicador()		
 		resultadoIndicador.region = "Valles Centrales"
 		resultadoIndicador.idMunicipio = 506
@@ -97,37 +101,44 @@ class PublicoController {
 		def ubicaciones = []
 		def coordenadas = []
 		def ubicacioneString = []
-		ubicaciones.add(resultadoIndicador.region)
+		//ubicaciones.add(resultadoIndicador.region)
+		def coordenadasList = []
 				
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
-				case '1':
-					def entidad = Estado.get(20)
-					if(entidad!=null){
-						def coor = entidad.coordenadas
-						coordenadas.add(coor)
+				case 1:					
+					def idEstado = 20					
+					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
+					def db = new Sql(dataSource)
+					def result  = db.rows(sql)
+					
+					result.each {
+						coordenadasList.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 					}
+					coordenadas.add(coordenadasList)					
 					break
-				case '2':
-					def region = Region.get(resultado.idRegion)					
-					if(region!=null){
-						def municipios = Municipio.findAllByRegion(region)
-						municipios.each { muni ->
-							coordenadas.add(muni?.coordenadas)
-						}
-					}					
-					break
-				case '3':
-					def municipio = Municipio.get(resultado.idMunicipio)
-					def coor = municipio.coordenadas
-					def coorAux = coor.sort{it.id}
-					coor.each { co ->
-						System.out.println(" long: "+co.longitud+" lat: "+co.latitud)			
+				case 2:
+					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_region_coordenada regi on (coor.id = regi.coordenada_id) where regi.region_coordenadas_id = "+resultado.idRegion
+					def db = new Sql(dataSource)
+					def result  = db.rows(sql)
+					
+					result.each {
+						coordenadasList.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 					}
-					coordenadas.add(coorAux)
+					coordenadas.add(coordenadasList)						
 					break
-				case '4':
+				case 3:					
+					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_municipio_coordenada muni on (coor.id = muni.coordenada_id) where muni.municipio_coordenadas_id = "+resultado.idMunicipio
+					def db = new Sql(dataSource)
+					def result  = db.rows(sql)
+					
+					result.each {
+						coordenadasList.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+					}
+					coordenadas.add(coordenadasList)					
+					break
+				case 4:
 					break
 			}			
 		}
@@ -135,26 +146,9 @@ class PublicoController {
 		ubicaciones.each { ubi ->
 			ubicacioneString.add("'"+ubi+"'")
 		}*/
-
-		//Crear poligonos
-		def coo = ""
-		def pintarUbicaciones = ""
-		coordenadas.each { coorde ->
-			coorde.each { ubicacion ->
-				coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "
-			}
-			pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
-				"ubicacion = new google.maps.Polygon({"+
-				"paths: coordenadas,"+
-				"strokeColor: '#FF0000',"+
-				"strokeOpacity: 0.8,"+
-				"strokeWeight: 2,"+
-				"fillColor: '#FF0000',"+
-				"fillOpacity: 0.35});"+
-				"ubicacion.setMap(map); "
-			coo = ""
-		}
-		render(template:"mapa", model:[pintarUbicaciones:pintarUbicaciones, ubicaciones:ubicacioneString])
+		
+		
+		render(template:"mapa", model:[ubicaciones:ubicacioneString, coordenadas: coordenadasList, coordenadasList:coordenadas])
 	}
 	
 	def actualizarTablaIndicador(Long id){

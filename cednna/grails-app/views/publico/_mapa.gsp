@@ -30,8 +30,21 @@ function initialize() {
       } 
     });
 	}
+	var coordendasList = ${coordenadasList ? coordenadasList:'[]' };
 
-	${pintarUbicaciones}	
+	$.each(coordendasList, function(index, value){
+		var coordenadas = value;	
+		
+		ubicacion = new google.maps.Polygon({
+			paths: coordenadas,
+			strokeColor: '#FF0000',
+			strokeOpacity: 0.8,
+			strokeWeight: 2,
+			fillColor: '#FF0000',
+			fillOpacity: 0.35
+			});
+		ubicacion.setMap(map);
+	});		
 }
 
 function loadScript() {
@@ -49,7 +62,6 @@ function loadScript() {
     </script>
 	  <!-- Termina Google Maps -->
 <div>
-	
 	  <div id="map-canvas" style="width: 100%; height: 480px;"></div>
 
 </div>

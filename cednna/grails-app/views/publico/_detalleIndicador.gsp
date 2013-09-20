@@ -137,8 +137,7 @@
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
-	  			<option value="3">Municipal</option>
-	  			<option value="4">Local</option>
+	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  	<div id="mapaIndicador">
 	  		<g:render template="mapa"></g:render>
