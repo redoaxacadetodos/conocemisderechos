@@ -43,9 +43,15 @@ class PublicoController {
 	def insertarCoordenadas = {
 		//ObtenerCoordenadas kml = new ObtenerCoordenadas()
 		//def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), 1)
+		
+		/*
 		GuardarCoordenadas gc = new GuardarCoordenadas(Municipio) 				
-		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())	
-		 
+		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())
+		
+		GuardarCoordenadas gc = new GuardarCoordenadas(Estado)
+		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/entidad.kml").getFile())
+		 */
+		
 		/*
 		def municipios = Municipio.list()
 		municipios.each { muni ->
@@ -97,7 +103,11 @@ class PublicoController {
 			
 			switch(tipo){
 				case '1':
-					
+					def entidad = Estado.get(20)
+					if(entidad!=null){
+						def coor = entidad.coordenadas
+						coordenadas.add(coor)
+					}
 					break
 				case '2':
 					def region = Region.get(resultado.idRegion)					
@@ -245,7 +255,7 @@ class PublicoController {
 			def indicador = Indicador.get(id)
 			if(indicador){
 			def resultadosIndicador = visorIndicador(id,1)
-			def resultados
+			def resultados = []
 			resultadosIndicador.each { r ->
 				resultados = r.resultados
 			}

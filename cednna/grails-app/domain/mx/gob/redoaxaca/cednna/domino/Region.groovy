@@ -1,9 +1,12 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import java.util.List;
+
 class Region {
 	
 	String descripcion
 	String clave
+	List coordenadas
 	
 	static hasMany = [coordenadas: Coordenada]
 	

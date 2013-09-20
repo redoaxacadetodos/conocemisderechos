@@ -5,6 +5,7 @@ class Estado {
 	String clave
     String descripcion
     String prefijo
+	List coordenadas
 
 	static hasMany = [coordenadas: Coordenada]
 	
