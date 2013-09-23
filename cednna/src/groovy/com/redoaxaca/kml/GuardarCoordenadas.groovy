@@ -21,6 +21,7 @@ class GuardarCoordenadas {
 	private ArrayList<Coordenada> coordenadas;	
 	Object objeto;
 	def obj;
+	boolean objetoSeleccionado;
 	
 	
 	public GuardarCoordenadas(Object objeto){
@@ -29,7 +30,8 @@ class GuardarCoordenadas {
 		coordenadas = new ArrayList<Coordenada>();			
 		obj = objeto.createCriteria().list{
 			order("id", "asc")
-		}		
+		}	
+		objetoSeleccionado=false;
 	}
 	
 	public guardarCoordenadas(File file) {		
@@ -48,20 +50,21 @@ class GuardarCoordenadas {
 					List<Feature> folderList = folder.getFeature();
 					for(Feature folders: folderList){
 						if(folders instanceof Placemark) {
-							Placemark placemark = (Placemark) folders;
-							
+							Placemark placemark = (Placemark) folders;							
 							obj.each { arr ->
 								if(remplazarAcentos(arr.descripcion.toUpperCase()).equals(placemark.getName())){
-									objeto = arr
+									objeto = arr;
+									objetoSeleccionado = true;
 								}
+								
 							}
-							//objeto = Municipio.get(67)
-							System.out.println(placemark.getName()+"="+objeto?.descripcion)
-							//if(remplazarAcentos(objeto.descripcion.toUpperCase()).equals(placemark.getName())){							
-							coordenadas = new ArrayList<Coordenada>();
-							MultiGeometry multiGeometry = (MultiGeometry) placemark.getGeometry();						
-							parseGeometry(multiGeometry);													
-							//}									
+							if(objetoSeleccionado){
+								System.out.println(placemark.getName()+"="+objeto?.descripcion)
+								coordenadas = new ArrayList<Coordenada>();
+								MultiGeometry multiGeometry = (MultiGeometry) placemark.getGeometry();
+								parseGeometry(multiGeometry);
+							}								
+							objetoSeleccionado=false;
 						}
 					}
 					

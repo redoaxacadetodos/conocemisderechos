@@ -41,40 +41,17 @@ class PublicoController {
 		
 	}
 		
-	def insertarCoordenadas = {
-		//ObtenerCoordenadas kml = new ObtenerCoordenadas()
-		//def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), 1)
-		
+	def insertarCoordenadas = {		
 		/*
 		GuardarCoordenadas gc = new GuardarCoordenadas(Municipio) 				
 		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())
 		
 		GuardarCoordenadas gc = new GuardarCoordenadas(Estado)
 		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/entidad.kml").getFile())
-		 */
+		 */		
 		
-		/*
-		def municipios = Municipio.list()
-		municipios.each { muni ->
-			def coordenadas = kml.obtenerCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/doc.kml").getFile(), muni.id)
-			coordenadas.each { coo->				
-				coo.save(flush: true)
-			}		
-		}
-		*/
-		
-		/*
-		def municipio = Municipio.createCriteria().list{  
-			order("id", "asc")
-		}
-		municipio.each { muni ->			
-			if(kml.quitarCaracteres(muni.descripcion.toUpperCase()).equals("ABEJONES")){
-				System.out.println("entra "+muni.descripcion)
-			}
-		}*/
-		//kml.quitarCaracteres("Ábéjónes")
-		//System.out.println(kml.quitarCaracteres("SANTA MARÍA GUELACÉ"))
-		
+		GuardarCoordenadas gcr = new GuardarCoordenadas(Region)
+		gcr.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/regiones.kml").getFile())
 	}
 	
 	def contacto = {
@@ -89,66 +66,47 @@ class PublicoController {
 		int tipo = params.idTipo.toInteger()
 		
 		def resultadosIndicador = visorIndicador(id,tipo)
-		/*
-		ResultadoIndicador resultadoIndicador = new ResultadoIndicador()		
-		resultadoIndicador.region = "Valles Centrales"
-		resultadoIndicador.idMunicipio = 506
-		List <ResultadoIndicador> resultadosIndicador = []
-		resultadosIndicador.add(resultadoIndicador)
-		/*
-		def muni = Municipio.get(506)
-		muni.setCoordenadas(resultadosIndicador)*/
+		
 		def ubicaciones = []
 		def coordenadas = []
-		def ubicacioneString = []
-		//ubicaciones.add(resultadoIndicador.region)
+		def nombreCoordenadas = []
 		def coordenadasList = []
+		def sql = ""
+		def sqlNombre=""
 				
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
 				case 1:					
-					def idEstado = 20					
-					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
-					def db = new Sql(dataSource)
-					def result  = db.rows(sql)
-					
-					result.each {
-						coordenadasList.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
-					}
-					coordenadas.add(coordenadasList)					
+					def idEstado = 20
+					sqlNombre = "select ent_descripcion descripcion from cat_entidad where ent_id = "+idEstado					
+					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado									
 					break
 				case 2:
-					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_region_coordenada regi on (coor.id = regi.coordenada_id) where regi.region_coordenadas_id = "+resultado.idRegion
-					def db = new Sql(dataSource)
-					def result  = db.rows(sql)
-					
-					result.each {
-						coordenadasList.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
-					}
-					coordenadas.add(coordenadasList)						
+					sqlNombre = "select crg_descripcion descripcion from cat_region where crg_id ="+resultado.idRegion
+					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_region_coordenada regi on (coor.id = regi.coordenada_id) where regi.region_coordenadas_id = "+resultado.idRegion										
 					break
 				case 3:					
-					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_municipio_coordenada muni on (coor.id = muni.coordenada_id) where muni.municipio_coordenadas_id = "+resultado.idMunicipio
-					def db = new Sql(dataSource)
-					def result  = db.rows(sql)
-					
-					result.each {
-						coordenadasList.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
-					}
-					coordenadas.add(coordenadasList)					
-					break
-				case 4:
-					break
-			}			
-		}
-		/*
-		ubicaciones.each { ubi ->
-			ubicacioneString.add("'"+ubi+"'")
-		}*/
+					sqlNombre = "select mun_descripcion descripcion from cat_municipio where mun_id = "+resultado.idMunicipio
+					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_municipio_coordenada muni on (coor.id = muni.coordenada_id) where muni.municipio_coordenadas_id = "+resultado.idMunicipio									
+					break				
+			}
+			def db = new Sql(dataSource)
+			def result  = db.rows(sql)
+			result.each {
+				coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+			}
+			coordenadasList.add(coordenadas)
+			
+			def db2 = new Sql(dataSource)			
+			def nombre  = db2.rows(sqlNombre)
+			nombre.each {
+				nombreCoordenadas.add("'"+it.descripcion+"'")
+			}
+						
+		}				
 		
-		
-		render(template:"mapa", model:[ubicaciones:ubicacioneString, coordenadas: coordenadasList, coordenadasList:coordenadas])
+		render(template:"mapa", model:[ubicaciones:ubicaciones, nombreCoordenadas: nombreCoordenadas, coordenadasList:coordenadasList])
 	}
 	
 	def actualizarTablaIndicador(Long id){
@@ -248,31 +206,15 @@ class PublicoController {
 		}else{
 			def indicador = Indicador.get(id)
 			if(indicador){
+			
 			def resultadosIndicador = visorIndicador(id,1)
 			def resultados = []
+			def coordenadasList = []
+			
 			resultadosIndicador.each { r ->
 				resultados = r.resultados
 			}
-			/*
-			//Prueba
 			
-			Resultado resultado = new Resultado()
-			Resultado resultado2 = new Resultado()
-			Resultado resultado3 = new Resultado()
-			Resultado resultado4 = new Resultado()
-			resultado.setAnio(2013)	
-			resultado.setIndicador(15)	
-			resultado2.setAnio(2014)
-			resultado2.setIndicador(17)
-			resultado3.setAnio(2015)
-			resultado3.setIndicador(100)
-			resultado4.setAnio(2016)
-			resultado4.setIndicador(17)
-			resultados.add(resultado)
-			resultados.add(resultado2)		
-			resultados.add(resultado3)
-			resultados.add(resultado4)
-			*/
 			//Creación de arreglo para Highcharts
 			def series = []
 			def categorias = []
@@ -296,162 +238,36 @@ class PublicoController {
 			//Buscar datos para Google Maps
 			def ubicaciones = []
 			def ubicacioneString = []
-			def coordenadas = []
-			
-			indicador?.variables?.each { variable ->
-				if(variable?.region?.descripcion){
-					ubicaciones.add(variable?.region?.descripcion)								
-				}else if(variable?.municipio?.descripcion){
-					ubicaciones.add(variable?.municipio?.descripcion)
-					def coor = variable?.municipio?.coordenadas	
-					def coorAux = coor.sort{it.id}					
-					coorAux.each { o ->
-						System.out.println("coo: "+o.id+ " " + o.longitud + " "+ o.latitud  )
-					}
-					System.out.println("Municipio: "+variable?.municipio?.descripcion)
-					//System.out.println("coordenadas: "+coorAux)
-					coordenadas.add(coorAux)
-				}else if(variable?.localidad?.descripcion){
-					ubicaciones.add(variable?.localidad?.descripcion)
-				}							
-			}
-			ubicaciones.each { ubi ->				
-				ubicacioneString.add("'"+ubi+"'")
-			}
-			List listarResultados = []
-			listarResultados.add(resultados)
-			//listarResultados.add(resultados)
-			
-			//Crear poligonos		
-			def coo = ""			
-			def pintarUbicaciones = ""
-			coordenadas.each { coorde ->			
-				coorde.each { ubicacion ->
-					coo += "new google.maps.LatLng(" + ubicacion?.latitud + ","+ubicacion?.longitud+"), "					
+			def coordenadas = []	
+			def nombreCoordenadas = []
+						
+			resultadosIndicador.each { resultado ->		
+				def idEstado = 20
+				def sqlNombre = "select ent_descripcion descripcion from cat_entidad where ent_id = "+idEstado
+				def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
+				def db = new Sql(dataSource)
+				def result  = db.rows(sql)						
+				
+				result.each {
+					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 				}
-				pintarUbicaciones += " var coordenadas = [ "+coo+"];"+
-					"ubicacion = new google.maps.Polygon({"+
-					"paths: coordenadas,"+
-					"strokeColor: '#FF0000',"+
-					"strokeOpacity: 0.8,"+
-					"strokeWeight: 2,"+
-					"fillColor: '#FF0000',"+
-					"fillOpacity: 0.35});"+
-					"ubicacion.setMap(map); "
-				coo = ""
-			}
-			
-			ResultadoIndicador resultadoIndicador = new ResultadoIndicador()
-			resultadoIndicador.resultados = resultados
-			resultadoIndicador.region = "Valles Centrales"
-
-			//resultadosIndicador.add(resultadoIndicador)
-			
-			resultadosIndicador.each{ re ->
-				System.out.println("tam: "+re.resultados.size())
-				re.resultados.each { r ->
-					System.out.println("indi anio: "+r.anio + " "+ r.indicador)
+				coordenadasList.add(coordenadas)
+				
+				def db2 = new Sql(dataSource)
+				def nombre  = db2.rows(sqlNombre)
+				nombre.each {
+					nombreCoordenadas.add("'"+it.descripcion+"'")
 				}
 			}
+			
 					
-			[indicadorInstance: indicador, resultados:resultados, listarResultados:listarResultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, pintarUbicaciones:pintarUbicaciones, resultadosIndicador:resultadosIndicador, tipo:'1']
+			[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas]
 			}
 			else{
 				redirect(action:"indicadores")
 			}
 		}
 	}
-	
-	
-	
-	def List visor(Long id){
-		
-		
-		def indicadorInstance = Indicador.get(id);
-		
-		
-	
-		def formula =  indicadorInstance?.formula?.sentencia
-		def sentencia= indicadorInstance?.formula?.variables
-		def variables= sentencia.split("\\|")
-		def List resultados= new ArrayList<Resultado>()
-		for(anio in 2005..2020){
-		
-			boolean  b = true
-			for(v in variables){
-			
-				
-				for(vari in indicadorInstance.variables){
-				
-						if(v==vari.clave){
-							
-									
-									def bandera= true
-									def origenDatos = Variable.findByLocalidadAndEstadoAndMunicipioAndRegionAndAnio(vari.localidad,vari.estado,vari.municipio,vari.region,anio)
-									
-									if(origenDatos){
-									
-											for(cat in  vari.categorias){
-											
-												if(!encuentraVariablesAndCategoria(origenDatos,cat))
-													bandera=false
-											}
-											
-											
-											if(bandera){
-													System.out.println("numero "+origenDatos.poblacionTotal);
-													switch (vari.poblacion.clave) {
-													case "T":
-																formula=formula.replaceAll(String.valueOf(v), String.valueOf(origenDatos.poblacionTotal))
-														break;
-													case "H":
-																formula=formula.replaceAll(String.valueOf(v),String.valueOf(origenDatos.hombres))
-													break;
-													case "M":
-																formula=formula.replaceAll(String.valueOf(v),String.valueOf(origenDatos.mujeres))
-													break;
-													}
-											}else{
-												b=false
-											}
-									}
-									else{
-										b=false
-									}
-									
-												
-						}
-		
-				}
-	
-			
-			}
-			
-//			if(b){
-//				System.out.println(formula);
-//				def resultado = new Resultado()
-//				ScriptEngineManager script = new ScriptEngineManager();
-//				ScriptEngine js = script.getEngineByName("JavaScript");
-//				try {
-//					
-//					resultado.indicador =js.eval("eval('"+formula+"')")
-//					System.out.println(resultado.indicador);
-//					resultado.anio=anio
-//					resultados.add(resultado)
-//					
-//				} catch (ScriptException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-			
-			
-		}
-		return resultados
-	}
-	
-	
-	
 	
 	def List visorIndicador(Long id, int idTipo){
 		
@@ -1540,20 +1356,4 @@ class PublicoController {
 		
 		
 	}
-	
-	
-	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
-		
-			def ban = false
-			System.out.println(" id variable  " +v.id);
-			for(c in v.categorias){
-				
-				System.out.println("categoria de la variable : "+ c.descripcion+"  categoria p : "+cat.descripcion);
-				if(c.id==cat.id)
-					ban=true
-			}
-	
-		return ban;
-		}
-		
-}
+}	

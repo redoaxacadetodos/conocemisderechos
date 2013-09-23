@@ -4,6 +4,9 @@
 	  	<script>
 	  	var geocoder;
 	  	var map;
+	  	var coordendasList;
+	  	var infoWindow;
+	  	var nombreCoordenadas;
 function initialize() {
 	geocoder = new google.maps.Geocoder();
 	var latlng = new google.maps.LatLng(17.05, -96.72);
@@ -30,11 +33,13 @@ function initialize() {
       } 
     });
 	}
-	var coordendasList = ${coordenadasList ? coordenadasList:'[]' };
+	coordendasList = ${coordenadasList ? coordenadasList:'[]' };
+	nombreCoordenadas = ${nombreCoordenadas ? nombreCoordenadas:'[]'};
 
 	$.each(coordendasList, function(index, value){
-		var coordenadas = value;	
 		
+		var coordenadas = value;	
+		coordenadas.nombre = nombreCoordenadas[index];
 		ubicacion = new google.maps.Polygon({
 			paths: coordenadas,
 			strokeColor: '#FF0000',
@@ -43,8 +48,30 @@ function initialize() {
 			fillColor: '#FF0000',
 			fillOpacity: 0.35
 			});
+
 		ubicacion.setMap(map);
+		infoWindow = new google.maps.InfoWindow();
+		
+		google.maps.event.addListener(ubicacion, 'click', function(event) {
+			var contentString = '<b>'+coordenadas.nombre+'</b><br>';	  			  
+			// Replace our Info Window's content and position
+			infoWindow.setContent(contentString);
+			infoWindow.setPosition(event.latLng);
+			infoWindow.open(map);
+		});
+		
 	});		
+}
+
+function mostrarVentana(event) {
+
+	  var contentString = '<b>Bermuda Triangle Polygon</b><br>';	  
+	  
+	  // Replace our Info Window's content and position
+	  infoWindow.setContent(contentString);
+	  infoWindow.setPosition(event.latLng);
+
+	  infoWindow.open(map);
 }
 
 function loadScript() {
