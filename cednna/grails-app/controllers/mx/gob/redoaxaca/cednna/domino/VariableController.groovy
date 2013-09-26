@@ -1,6 +1,10 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import java.util.ArrayList;
+
+import com.redoaxaca.java.ArchivoDescarga;
 import com.redoaxaca.java.LeeArchivo
+import com.redoaxaca.java.ResultCategorias;
 import com.redoaxaca.java.Row
 import com.redoaxaca.java.TotalVariable
 import grails.converters.JSON
@@ -17,7 +21,7 @@ import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
 
-@Secured(["hasRole('ROLE_ADMIN')"])
+@Secured(['ROLE_DEP'])
 class VariableController {
 	def dataTablesService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -166,6 +170,211 @@ class VariableController {
         redirect(action: "show", id: variableInstance.id)
     }
 
+	
+	def generaXLS() {
+		
+		def clave = params.clave
+		def descripcion= params.descripcion
+		int anio= params.anio.toInteger()
+		int opcion= params.opcionSerie.toInteger()
+		def numCategorias= params.numCategorias
+		ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
+		ArrayList<String> cats= new   ArrayList<String>();
+		ArrayList<Row> renglones = new ArrayList<Row>();
+		
+		System.out.println("Numero de categoiras :"+opcion);
+		switch (opcion) {
+			
+			case 1:
+						Row renglon = new Row()	
+						renglon.clave=clave
+						renglon.descripcion=descripcion
+						renglon.anio=anio;
+						renglon.categorias = new ArrayList<Integer>();
+						
+			
+//						for(i in 1 .. numCategorias){
+//								
+//								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+//								if(temCategoria){
+//									
+//									
+//									if(cts.size()>0){
+//										
+//										cts.each{
+//											
+//												if(temCategoria.tipo.id ==it.tipo.id){
+//													
+//													it.categorias.add(temCategoria);
+//												}
+//											
+//										}
+//										
+//									}else{
+//									ResultCategorias temRC = new ResultCategorias()
+//											
+//										temRC.tipo=it.tipo
+//										temRC.categorias.add(temCategoria)
+//									}
+//									
+//									
+//									
+//								}
+//								
+//							}
+						
+						
+						for(i in 1 .. numCategorias){
+							
+								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+								if(temCategoria){
+									cats.add(temCategoria.descripcion)
+									
+									renglon.categorias.add(new Long(temCategoria.id))
+								}
+								
+						}
+						
+					
+						renglones.add(renglon)
+							
+			break;
+			
+			
+			
+			case 2:
+							System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
+			
+							
+							def regiones=  Region.list()
+			
+							regiones.each {
+								
+			
+									Row renglon = new Row()
+									renglon.clave=clave
+									renglon.descripcion=descripcion
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Integer>();
+									renglon.idRegion=it.id
+									renglon.region=it.descripcion
+									
+						
+									for(i in 1 .. numCategorias){
+										
+											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+											if(temCategoria){
+												cats.add(temCategoria.descripcion)
+												
+												renglon.categorias.add(new Long(temCategoria.id))
+											}
+											
+									}
+									
+									renglones.add(renglon)
+							}
+							
+							
+			break;
+			
+			
+			
+			case 3:
+						
+							def municipios=  Municipio.list()
+			
+							municipios.each {
+			
+									Row renglon = new Row()
+									renglon.clave=clave
+									renglon.descripcion=descripcion
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Integer>();
+									
+									
+									renglon.idRegion=it.region.id
+									renglon.region=it.region.descripcion
+									renglon.idMunicipio=it.id
+									renglon.municipio=it.descripcion
+									
+						
+									for(i in 1 .. numCategorias){
+										
+											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+											if(temCategoria){
+												cats.add(temCategoria.descripcion)
+												
+												renglon.categorias.add(new Long(temCategoria.id))
+											}
+											
+									}
+									
+									renglones.add(renglon)
+							}
+			
+			break;
+
+			case 4:
+			
+							def localidades=  Localidad.list()
+			
+							localidades.each {
+			
+									Row renglon = new Row()
+									renglon.clave=clave
+									renglon.descripcion=descripcion
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Integer>();
+							
+									
+									renglon.idRegion=it.municipio.region.id
+									renglon.region=it.municipio.region.descripcion
+									renglon.idMunicipio=it.municipio.id
+									renglon.municipio=it.municipio.descripcion
+									
+									renglon.idLocalidad=it.id
+									renglon.localidad=it.descripcion
+						
+									for(i in 1 .. numCategorias){
+										
+											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+											if(temCategoria){
+												cats.add(temCategoria.descripcion)
+												
+												renglon.categorias.add(new Long(temCategoria.id))
+											}
+											
+											
+									}
+									
+									renglones.add(renglon)
+							}
+			
+							break;
+		
+		}
+		
+		
+			
+			
+			
+		
+		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cats)
+		try {
+			def archivo = new File (archivodown.getRuta())
+			response.setContentType("application/octet-stream")
+			response.setHeader("Content-disposition", "attachment;filename=${archivo.getName()}")
+			response.outputStream << archivo.newInputStream()
+		} catch(Exception ex){
+			response.sendError(500)
+		}
+			
+			
+		
+	}
+	
+	
+	
 	def archivo(){
 		
 		
@@ -718,7 +927,9 @@ class VariableController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'variable.label', default: 'Variable'), variableInstance.id])
         redirect(action: "show", id: variableInstance.id)
     }
-
+	
+	
+	@Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         def variableInstance = Variable.get(id)
         if (!variableInstance) {

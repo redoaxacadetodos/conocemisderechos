@@ -383,7 +383,7 @@ function llenaCombo(opciones){
 			       		if(!isEmpty(opciones.htmlOptions.valor))
 			       			$("select#"+opciones.htmlOptions.id).val(opciones.htmlOptions.valor); 		    
 			       		
-			       		asignaEventorMunicipio();
+			       	//	asignaEventorMunicipio();
 			       		
 			       		
 			       		

@@ -16,8 +16,9 @@ public class Row {
 	String  descripcion;
 	int     anio;
 	
+	String clave;
 	
-	List<Integer> categorias;
+	List<Long> categorias;
 	
 	
 
@@ -34,6 +35,23 @@ public class Row {
 				+ total + ", descripcion=" + descripcion + ", anio=" + anio
 				+ ", categorias=" + categorias + "]";
 	}
+
+	
+	
+	
+	public String getClave() {
+		return clave;
+	}
+
+
+
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+
+
+
 
 	public int getAnio() {
 		return anio;
@@ -115,14 +133,14 @@ public class Row {
 		this.total = total;
 	}
 
-	public List<Integer> getCategorias() {
+	public List<Long> getCategorias() {
 		return categorias;
 	}
 	
 	
 	
 
-	public void setCategorias(List<Integer> categorias) {
+	public void setCategorias(List<Long> categorias) {
 		this.categorias = categorias;
 	}
 	

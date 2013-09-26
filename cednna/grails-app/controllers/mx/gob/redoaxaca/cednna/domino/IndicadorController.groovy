@@ -16,17 +16,18 @@ import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
-@Secured(["hasRole('ROLE_ADMIN')"])
+@Secured(['ROLE_DEP'])
 class IndicadorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def sessionFactory
 	def dataTablesService
 	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def index() {
         
     }
-
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [indicadorInstanceList: Indicador.list(params), indicadorInstanceTotal: Indicador.count()]
@@ -38,7 +39,7 @@ class IndicadorController {
         [indicadorInstance: new Indicador(params)]
     }
 
-	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
 	def dataTablesListadoIndicadores = {
 		
 	def query="  from idn_indicador	 as i "
@@ -74,7 +75,7 @@ class IndicadorController {
 	
 	
 	
-	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
 	def tabla(){
 		
 		[dependencia:params.id]
@@ -82,12 +83,12 @@ class IndicadorController {
 		
 	}
 	
-	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
 	def visor(){
 		
 		
-		def indicadorInstance = Indicador.get(8);
-		def opcion= 1;
+		def indicadorInstance = Indicador.get(15778);
+		def opcion= 2;
 	
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
@@ -411,7 +412,7 @@ class IndicadorController {
 																		resultTotal?.each
 																		{
 																			
-																		//	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																			System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 																			ResultadoTemporal valorTem = new ResultadoTemporal()
 																			switch (vari.poblacion.clave) {
 																			case "H":
@@ -493,10 +494,12 @@ class IndicadorController {
 																	ScriptEngine js = script.getEngineByName("JavaScript");
 																	try {
 													
-																		rTemp.indicador =js.eval("eval('"+formula+"')")
+																		rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
 																		rTemp.region= base.region
 																		rTemp.idRegion= base.idRegion
 																		rTemp.anio=base.anio
+																		
+																		System.out.println("Region: "+base.idRegion+"-- "+base.region+"  Resultado indicador : "+ rTemp.resultadoIndicador);
 																		listTemp.add(rTemp)
 													
 																	} catch (ScriptException e) {
@@ -525,7 +528,7 @@ class IndicadorController {
 																			if(it.idRegion==actual.idRegion){
 																				Resultado res= new Resultado()
 																				res.anio=actual.anio
-																				res.indicador=actual.indicador
+																				res.indicador=actual.resultadoIndicador
 																				it.resultados.add(res)
 																				ban=1
 																			}
@@ -535,7 +538,7 @@ class IndicadorController {
 																if(ban==1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
-																	res.indicador=actual.indicador
+																	res.indicador=actual.resultadoIndicador
 																	ResultadoIndicador ri =  new  ResultadoIndicador()
 																	ri.region=actual.region
 																	ri.idRegion=actual.idRegion
@@ -546,7 +549,7 @@ class IndicadorController {
 															}else{
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																ResultadoIndicador ri =  new  ResultadoIndicador()
 																ri.region=actual.region
 																ri.idRegion=actual.idRegion
@@ -761,7 +764,7 @@ class IndicadorController {
 																	ScriptEngine js = script.getEngineByName("JavaScript");
 																	try {
 													
-																		rTemp.indicador =js.eval("eval('"+formula+"')")
+																		rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
 																		rTemp.region= base.region
 																		rTemp.idRegion= base.idRegion
 																		rTemp.municipio= base.municipio
@@ -795,7 +798,7 @@ class IndicadorController {
 																			if(it.idMunicipio==actual.idMunicipio){
 																				Resultado res= new Resultado()
 																				res.anio=actual.anio
-																				res.indicador=actual.indicador
+																				res.indicador=actual.resultadoIndicador
 																				it.resultados.add(res)
 																				ban=1
 																			}
@@ -805,7 +808,7 @@ class IndicadorController {
 																if(ban==1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
-																	res.indicador=actual.indicador
+																	res.indicador=actual.resultadoIndicador
 																	ResultadoIndicador ri =  new  ResultadoIndicador()
 																	ri.region=actual.region
 																	ri.idRegion=actual.idRegion
@@ -818,7 +821,7 @@ class IndicadorController {
 															}else{
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																ResultadoIndicador ri =  new  ResultadoIndicador()
 																ri.region=actual.region
 																ri.idRegion=actual.idRegion
@@ -1145,22 +1148,22 @@ class IndicadorController {
 		
 		
 					 
-		resultados.each {
-			
-			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
-			System.out.println("Tama–o  "+it.resultados.size());
-			it.resultados.each {
-				an->
-					
-					an.each {
-							
-						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
-						
-					}
-			}
-			
-		}
-		
+//		resultados.each {
+//			
+//			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
+//			System.out.println("Tama–o  "+it.resultados.size());
+//			it.resultados.each {
+//				an->
+//					
+//					an.each {
+//							
+//						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
+//						
+//					}
+//			}
+//			
+//		}
+//		
 			
 		
 			
@@ -1232,6 +1235,22 @@ class IndicadorController {
 	
 	
 	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
+	def categoriasByModulo(){
+		
+		def modulo = Eje.get(params.id)
+		def divisiones
+		if(modulo){
+			
+		divisiones=modulo.division
+			
+		}else{
+		divisiones =Division.list()
+		}
+		render divisiones as JSON
+	}
+	
+	
     def save() {
         def indicadorInstance = new Indicador(params)
         
@@ -1286,7 +1305,7 @@ class IndicadorController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'indicador.label', default: 'Indicador'), indicadorInstance.id])
         redirect(action: "show", id: indicadorInstance.id)
     }
-
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def show(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {
@@ -1387,7 +1406,7 @@ class IndicadorController {
 
 	
 	
-	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
 	def categorias(){
 		
 		def var =params.id
@@ -1480,7 +1499,7 @@ class IndicadorController {
 			
 	}
 	
-	
+	@Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {

@@ -12,6 +12,7 @@ class ResultadoTemporal {
 	String   localidad
 	int      idLocalidad
 	int      indicador
+	double   resultadoIndicador
 	int      anio
 	
 	

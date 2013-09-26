@@ -7,7 +7,7 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 
-@Secured(["hasRole('ROLE_ADMIN')"])
+@Secured(['ROLE_NUCLEO'])
 class FormulaController {
 
 	def dataTablesService
@@ -127,6 +127,7 @@ class FormulaController {
 		
 	}
 
+	@Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         def formulaInstance = Formula.get(id)
         if (!formulaInstance) {
