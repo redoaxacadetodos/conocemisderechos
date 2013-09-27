@@ -499,8 +499,8 @@ class VariableController {
 									Row renglon = new Row()
 									renglon.clave=clave
 									renglon.descripcion=descripcion
-									renglon.idRegion=it.id
-									renglon.region=it.descripcion
+									renglon.idRegion=it.region.id
+									renglon.region=it.region.descripcion
 									
 									renglon.idMunicipio=it.id
 									renglon.municipio=it.descripcion
