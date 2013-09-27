@@ -8,11 +8,12 @@
 	</head>
 	<body>
 		<a href="#create-tipo" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
 				<li><g:link class="list" action="list"><g:message code="tipo.list"  /></g:link></li>
+				<li class="uk-active"><g:link class="create" action="create"><g:message code="tipo.new" /></g:link></li>
 			</ul>
-		</div>
+</nav>
 		<div id="create-tipo" class="content scaffold-create" role="main">
 			<h1><g:message code="tipo.create"  /></h1>
 			<g:if test="${flash.message}">
@@ -26,11 +27,11 @@
 			</ul>
 			</g:hasErrors>
 			<g:form action="save" >
-				<fieldset class="form">
+	<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
 				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+				<fieldset class="uk-form uk-form-horizontal">
+					<g:submitButton name="create" class="save uk-button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
 		</div>

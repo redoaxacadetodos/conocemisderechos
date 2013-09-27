@@ -9,12 +9,12 @@
 	</head>
 	<body>
 		<a href="#show-tipo" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
 				<li><g:link class="list" action="list"><g:message code="tipo.list" /></g:link></li>
 				<li><g:link class="create" action="create" ><g:message code="tipo.new"  /></g:link></li>
 			</ul>
-		</div>
+</nav>
 		<div id="show-tipo" class="content scaffold-show" role="main">
 			<h1><g:message code="tipo.show"  /></h1>
 			<g:if test="${flash.message}">
@@ -57,7 +57,7 @@
 
 
 			<g:form>
-				<fieldset class="buttons">
+	<fieldset class="uk-form uk-form-horizontal">
 					<g:hiddenField name="id" value="${tipoInstance?.id}" />
 					<g:link class="edit" action="edit" id="${tipoInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />

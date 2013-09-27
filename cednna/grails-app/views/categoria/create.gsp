@@ -8,11 +8,11 @@
 	</head>
 	<body>
 		<a href="#create-categoria" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
 				<li><g:link class="list" controller="tipo" action="show" id="${tipoInstance.id}"><g:message code="categoria.father" args="[entityName]" /></g:link></li>
 			</ul>
-		</div>
+		</nav>
 		<div id="create-categoria" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -29,8 +29,10 @@
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+	<fieldset class="uk-form uk-form-horizontal">
+		<div class="fieldcontain">
+					<g:submitButton name="create" class="save uk-button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					</div>
 				</fieldset>
 			</g:form>
 		</div>
