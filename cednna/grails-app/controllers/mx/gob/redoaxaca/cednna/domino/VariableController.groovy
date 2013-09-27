@@ -186,10 +186,26 @@ class VariableController {
 		
 		
 		
-		System.out.println("Numero de categoiras :"+opcion);
+
 		switch (opcion) {
 			
 			case 1:
+						
+			def  ArrayList<Long> tipos =   new ArrayList<Long>()
+		
+			for(i in 1 .. numCategorias){
+				
+				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+					if(temCategoria){
+						
+						if(!vector.contains(x)){
+							vector.add(x);
+							t=true;
+							}
+						
+					}
+			}
+						
 
 			
 						for(i in 1 .. numCategorias){
@@ -205,6 +221,13 @@ class VariableController {
 													it.categorias.add(temCategoria);
 													System.out.println("valor :"+ temCategoria.id);
 												}
+												else{
+													
+													ResultCategorias temRC = new ResultCategorias()
+													temRC.tipo=temCategoria.tipo
+													temRC.categorias.add(temCategoria)
+													cts.add(temRC)
+												}
 										}
 										
 										
@@ -214,13 +237,13 @@ class VariableController {
 										temRC.tipo=temCategoria.tipo
 										temRC.categorias.add(temCategoria)
 										cts.add(temRC)
-										System.out.println("valor :"+ temCategoria.id);
+										System.out.println("Que llena y crea pr valor :"+ temCategoria.id);
 									}
 									
 								}
 						}
 						
-						System.out.println("Tama–o con tipos :"+ cts.size());
+													System.out.println("Tama–o con tipos :"+ cts.size());
 						
 													cts.each{
 							

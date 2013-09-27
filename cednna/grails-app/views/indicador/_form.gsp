@@ -113,36 +113,36 @@
 <br>
 <div id="divPND">
 	
-		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
+		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')}">
 		<label class="uk-form-label" for="nombre">
 			<g:message code="indicador.nombre.label" default="Tema" />
-			<span class="required-indicator">*</span>
+		
 		</label>
-		<g:textField name="tema" required="" value="${indicadorInstance?.tema}" style="width:600px;"/>
+		<g:textField name="tema"  value="${indicadorInstance?.tema}" style="width:600px;"/>
 		</div>
 		
-		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
+		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
 			<label class="uk-form-label" for="nombre">
 				<g:message code="indicador.nombre.label" default="Objetivo plan nacional de desarrollo" />
-				<span class="required-indicator">*</span>
+		
 			</label>
-			<g:textField name="objetivoPND" required="" value="${indicadorInstance?.objetivoPND}" style="width:600px;"/>
+			<g:textField name="objetivoPND"  value="${indicadorInstance?.objetivoPND}" style="width:600px;"/>
 		</div>
 		
-		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
+		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
 			<label class="uk-form-label" for="nombre">
 				<g:message code="indicador.nombre.label" default="Estrategia" />
-				<span class="required-indicator">*</span>
+		
 			</label>
-			<g:textField name="estrategia" required="" value="${indicadorInstance?.estrategia}" style="width:600px;"/>
+			<g:textField name="estrategia"  value="${indicadorInstance?.estrategia}" style="width:600px;"/>
 		</div>
 		
-		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
+		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
 			<label class="uk-form-label" for="nombre">
 				<g:message code="indicador.nombre.label" default="Nombre del Programa" />
-				<span class="required-indicator">*</span>
+			
 			</label>
-			<g:textField name="nombrePrograma" required="" value="${indicadorInstance?.nombrePrograma}" style="width:600px;"/>
+			<g:textField name="nombrePrograma"  value="${indicadorInstance?.nombrePrograma}" style="width:600px;"/>
 		</div>
 	
 	
