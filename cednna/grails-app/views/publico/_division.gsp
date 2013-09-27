@@ -1,12 +1,9 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <div>
-	<div id="menuflotante">
-		<h3>Indicadores</h3>
-		<g:each var="divi" in="${divisiones}">
-			<a href="#division${divi.id}">${divi.descripcion }</a><br>
-		</g:each>
-	</div>
-	<g:each var="divi" in="${divisiones}">
+<div class="uk-grid">
+
+	<div class="uk-width-7-10">
+<g:each var="divi" in="${divisiones}">
 		<div id="division${divi.id}">
 		<h2>${divi.descripcion }</h2>
 		</div>	
@@ -24,5 +21,19 @@
 			 
 		</g:each>	
 	</g:each>	
+	</div>
+	<div class="uk-width-3-10">
+	<br /><br /><br /><br />
+	<div class="uk-panel uk-panel-box" id="menuflotante">
+		<h3>Indicadores</h3>
+			<g:each var="divi" in="${divisiones}">
+				<a href="#division${divi.id}">${divi.descripcion }</a>
+			</g:each>
+	</div>
+
+	</div>
+</div>
+
+	
 	
 </div>
