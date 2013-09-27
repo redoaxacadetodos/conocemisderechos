@@ -20,7 +20,7 @@ h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 600;}
 h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px; margin: 15px 0 20px 0 !important;}
 
 .nombre_indicador {  font-weight: 600; font-size: 17px; text-transform: uppercase; color:#754e17; }
-.ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; height:35px; margin-top: 1px; margin-left: 25px; color: #907e58;}
+.ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; margin-top: 1px; margin-left: 25px; color: #907e58;}
 .ver_indicador:hover {color: #00a7ab;}
 /* Base
  ========================================================================== */

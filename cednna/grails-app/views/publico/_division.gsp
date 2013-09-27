@@ -7,19 +7,18 @@
 		<div id="division${divi.id}">
 		<h2>${divi.descripcion }</h2>
 		</div>	
-		<br>
+
 		<g:each var="indicador" 
 		in="${Indicador.createCriteria().list {
 				division{
 					eq("id", divi.id)					
 				}
-			}}">	
-					
+			}}">				
 			<span class="nombre_indicador">${indicador.nombre }</span>
 			
-			<br /><g:link action="detalleIndicador" id="${indicador.id}" class="ver_indicador">Ver indicadores</g:link><br />
-			 
-		</g:each>	
+			<br /><g:link action="detalleIndicador" id="${indicador.id}" class="ver_indicador">Ver indicadores</g:link>
+			<hr class="dotted">
+		</g:each>		
 	</g:each>	
 	</div>
 	<div class="uk-width-3-10">
