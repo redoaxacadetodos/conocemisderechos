@@ -190,22 +190,28 @@ class VariableController {
 		switch (opcion) {
 			
 			case 1:
-						
-			def  ArrayList<Long> tipos =   new ArrayList<Long>()
-		
-			for(i in 1 .. numCategorias){
-				
-				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-					if(temCategoria){
-						
-						if(!vector.contains(x)){
-							vector.add(x);
-							t=true;
+									
+						def  ArrayList<Long> tipos =   new ArrayList<Long>()
+					
+						for(i in 1 .. numCategorias){
+							
+							def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+								if(temCategoria){
+									
+									if(!tipos.contains(temCategoria.tipo.id)){
+										tipos.add(temCategoria.tipo.id);
+										
+										}
+									
+								}
+						}
+							tipos.each {
+								
+								ResultCategorias rc= new ResultCategorias()
+								rc.tipo=Tipo.get(it)
+								
+								cts.add( rc)
 							}
-						
-					}
-			}
-						
 
 			
 						for(i in 1 .. numCategorias){
@@ -221,103 +227,153 @@ class VariableController {
 													it.categorias.add(temCategoria);
 													System.out.println("valor :"+ temCategoria.id);
 												}
-												else{
-													
-													ResultCategorias temRC = new ResultCategorias()
-													temRC.tipo=temCategoria.tipo
-													temRC.categorias.add(temCategoria)
-													cts.add(temRC)
-												}
+											
 										}
 										
 										
-									}else{
-										
-										ResultCategorias temRC = new ResultCategorias()
-										temRC.tipo=temCategoria.tipo
-										temRC.categorias.add(temCategoria)
-										cts.add(temRC)
-										System.out.println("Que llena y crea pr valor :"+ temCategoria.id);
 									}
 									
 								}
 						}
+		
+						int tamY =cts.size()
+						int tamX =1;
 						
-													System.out.println("Tama–o con tipos :"+ cts.size());
+						cts.each{
 						
-													cts.each{
+								tamX= tamX *it.categorias.size()
 							
-																System.out.println("Tam–o categorias del tipo  "+it.tipo.descripcion+" -- > "+it.categorias.size())
+						}
+						long[][] mat=new long[tamX][tamY];
+						
+						int y=0
+						cts.each{
+							c ->
+										int veces=	tamX/c.categorias.size()
+										System.out.println("Numero de veces "+veces );
+										int x=0;
+										for(int xy=0; xy<veces;xy++){
+											
+												c.categorias.each {
+													
+													mat[x][y]= it.id
+													System.out.println("Matriz :"+ it.id);
+													x++;
+												}
+											
+										}
+								y++;
+						}
+						
+						
+						
+						
+						for(int x=0; x<tamX;x++){
 							
-													}
-						
-						
-						
-//						cts.each{
-//							tipo->
-//									ArrayList<Long> tamAC = new ArrayList<Long>();
-//									
-//									tipo.categorias.each {
-//										
-//											tamAC.add(it.id)
-//											System.out.println("valor :"+ it.id);
-//									}
-//									
-//									arryCat.add(tamAC)
-//						}
-//						int tamY =cts.size()
-//						int tamX =1;
-//						
-//						cts.each{
-//						
-//								tamY= tamY *it.categorias.size()
-//							
-//						}
-//							
-//						int[][] mat=new int[tamX][tamY];
-//						
-//							for(int x=0;x<tamX;x++){
-//								
-//								for(int y=0;y<tamY;y++){
-//									
-//									//mat[x][y]=cts.get(y).categorias.get(x);
-//									System.out.println("valor :"+ arryCat.get(y).get(x));								
-//								}
-//							}
-//						
-//						
-//						
-//						Row renglon = new Row()
-//						renglon.clave=clave
-//						renglon.descripcion=descripcion
-//						renglon.anio=anio;
-//						renglon.categorias = new ArrayList<Integer>();
-//						
-//						
-//						
-//						renglones.add(renglon)
-//						
-//						
-//						
-//						
-//						for(i in 1 .. numCategorias){
-//							
-//								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-//								if(temCategoria){
-//									
-//									cats.add(temCategoria.descripcion)
-//									renglon.categorias.add(new Long(temCategoria.id))
-//								}
-//						}
-//						
-//					
-//						renglones.add(renglon)
+							Row renglon = new Row()
+							renglon.clave=clave
+							renglon.descripcion=descripcion
+							renglon.anio=anio;
+							renglon.categorias = new ArrayList<Long>();
+							for(int v=0; v<tamY;v++){
+								
+								 renglon.categorias.add(mat[x][v]);
 							
+							}
+							
+							renglones.add(renglon)
+						}
+						
+					
+						
+										
+				
+						
+						
 			break;
 			
 			
 			
 			case 2:
+			
+									def  ArrayList<Long> tipos =   new ArrayList<Long>()
+									
+										for(i in 1 .. numCategorias){
+											
+											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+												if(temCategoria){
+													
+													if(!tipos.contains(temCategoria.tipo.id)){
+														tipos.add(temCategoria.tipo.id);
+														
+														}
+													
+												}
+										}
+											tipos.each {
+												
+												ResultCategorias rc= new ResultCategorias()
+												rc.tipo=Tipo.get(it)
+												
+												cts.add( rc)
+											}
+						
+							
+										for(i in 1 .. numCategorias){
+												
+												def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+												if(temCategoria){
+										
+													if(cts.size()>0){
+														
+														cts.each{
+															
+																if(temCategoria.tipo.id ==it.tipo.id){
+																	it.categorias.add(temCategoria);
+																	System.out.println("valor :"+ temCategoria.id);
+																}
+															
+														}
+														
+														
+													}
+													
+												}
+										}
+						
+										int tamY =cts.size()
+										int tamX =1;
+										
+										cts.each{
+										
+												tamX= tamX *it.categorias.size()
+											
+										}
+										long[][] mat=new long[tamX][tamY];
+										
+										int y=0
+										cts.each{
+											c ->
+														int veces=	tamX/c.categorias.size()
+														System.out.println("Numero de veces "+veces );
+														int x=0;
+														for(int xy=0; xy<veces;xy++){
+															
+																c.categorias.each {
+																	
+																	mat[x][y]= it.id
+																	System.out.println("Matriz :"+ it.id);
+																	x++;
+																}
+															
+														}
+												y++;
+										}
+			
+			
+			
+			
+			
 							System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
 			
 							
@@ -326,27 +382,26 @@ class VariableController {
 							regiones.each {
 								
 			
+								
+								for(int x=0; x<tamX;x++){
+									
 									Row renglon = new Row()
 									renglon.clave=clave
 									renglon.descripcion=descripcion
-									renglon.anio=anio;
-									renglon.categorias = new ArrayList<Integer>();
 									renglon.idRegion=it.id
 									renglon.region=it.descripcion
-									
-						
-									for(i in 1 .. numCategorias){
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Long>();
+									for(int v=0; v<tamY;v++){
 										
-											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-											if(temCategoria){
-												cats.add(temCategoria.descripcion)
-												
-												renglon.categorias.add(new Long(temCategoria.id))
-											}
-											
+										 renglon.categorias.add(mat[x][v]);
+									
 									}
 									
 									renglones.add(renglon)
+								}
+							
+								
 							}
 							
 							
@@ -355,36 +410,116 @@ class VariableController {
 			
 			
 			case 3:
+							def  ArrayList<Long> tipos =   new ArrayList<Long>()
+							
+								for(i in 1 .. numCategorias){
+									
+									def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+										if(temCategoria){
+											
+											if(!tipos.contains(temCategoria.tipo.id)){
+												tipos.add(temCategoria.tipo.id);
+												
+												}
+											
+										}
+								}
+									tipos.each {
+										
+										ResultCategorias rc= new ResultCategorias()
+										rc.tipo=Tipo.get(it)
+										
+										cts.add( rc)
+									}
+				
+					
+								for(i in 1 .. numCategorias){
+										
+										def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+										if(temCategoria){
+								
+											if(cts.size()>0){
+												
+												cts.each{
+													
+														if(temCategoria.tipo.id ==it.tipo.id){
+															it.categorias.add(temCategoria);
+															System.out.println("valor :"+ temCategoria.id);
+														}
+													
+												}
+												
+												
+											}
+											
+										}
+								}
+				
+								int tamY =cts.size()
+								int tamX =1;
+								
+								cts.each{
+								
+										tamX= tamX *it.categorias.size()
+									
+								}
+								long[][] mat=new long[tamX][tamY];
+								
+								int y=0
+								cts.each{
+									c ->
+												int veces=	tamX/c.categorias.size()
+												System.out.println("Numero de veces "+veces );
+												int x=0;
+												for(int xy=0; xy<veces;xy++){
+													
+														c.categorias.each {
+															
+															mat[x][y]= it.id
+															System.out.println("Matriz :"+ it.id);
+															x++;
+														}
+													
+												}
+										y++;
+								}
+
+
+			
+			
+			
+			
 						
 							def municipios=  Municipio.list()
 			
 							municipios.each {
-			
+								
+								for(int x=0; x<tamX;x++){
+									
 									Row renglon = new Row()
 									renglon.clave=clave
 									renglon.descripcion=descripcion
-									renglon.anio=anio;
-									renglon.categorias = new ArrayList<Integer>();
+									renglon.idRegion=it.id
+									renglon.region=it.descripcion
 									
-									
-									renglon.idRegion=it.region.id
-									renglon.region=it.region.descripcion
 									renglon.idMunicipio=it.id
 									renglon.municipio=it.descripcion
 									
-						
-									for(i in 1 .. numCategorias){
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Long>();
+									for(int v=0; v<tamY;v++){
 										
-											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-											if(temCategoria){
-												cats.add(temCategoria.descripcion)
-												
-												renglon.categorias.add(new Long(temCategoria.id))
-											}
-											
+										 renglon.categorias.add(mat[x][v]);
+									
 									}
 									
 									renglones.add(renglon)
+								}
+							
+								
+								
+			
+								
 							}
 			
 			break;
@@ -434,7 +569,7 @@ class VariableController {
 			
 			
 		
-		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cats)
+		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cts)
 		try {
 			def archivo = new File (archivodown.getRuta())
 			response.setContentType("application/octet-stream")

@@ -16,7 +16,7 @@ public class ArchivoDescarga {
 	
 	String ruta;
 	
-	public ArchivoDescarga(ArrayList<com.redoaxaca.java.Row> data, ArrayList<String>  categoria){
+	public ArchivoDescarga(ArrayList<com.redoaxaca.java.Row> data, ArrayList<ResultCategorias> cts){
 			
 		SXSSFWorkbook wb = new SXSSFWorkbook(); // keep 100 rows in memory, exceeding rows will be flushed to disk
         Sheet sh = wb.createSheet();
@@ -63,10 +63,10 @@ public class ArchivoDescarga {
    
         
         int cont =10;
-        for(String s : categoria){
+        for(ResultCategorias s : cts){
         		cont++;
         		 cellCabecera = rowCabecera.createCell(cont);
-        	   cellCabecera.setCellValue(s);
+        	   cellCabecera.setCellValue(s.tipo.getDescripcion());
               
                
         }
