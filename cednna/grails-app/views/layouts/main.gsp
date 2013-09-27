@@ -54,7 +54,7 @@
 			<div class="uk-container uk-container-center">
 
 				<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
-                <a class="uk-logo-edos uk-hidden-small" ><img src="${request.getContextPath()}/img/logos_edo.png"  title="Oaxaca de todos" alt="Oaxaca de todos"></a>
+                
 
 				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
 
@@ -72,13 +72,15 @@
 
 						<ul class="tm-nav uk-nav" data-uk-nav>
 
-							<li class="uk-nav-header">Menu</li>
+							<li class="uk-nav-header">Men&uacute;</li>
 
 							<li><g:link controller="Indicador" >Principal</g:link></li>
 							<li><g:link controller="Indicador" action="list">Indicadores</g:link></li>
-							<li><g:link controller="Formula">Formulas</g:link></li>
+							   <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
+								   <li><g:link controller="Formula">F&oacute;rmulas</g:link></li>
+							   </sec:ifAnyGranted>
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
-
+ 							 <sec:ifAnyGranted roles="ROLE_ADMIN">	
 							<li class="uk-nav-header">Cat&aacute;logos</li>
 							<li><g:link controller="tipo">Categor&iacute;as</g:link></li>
 							<li><g:link controller="sentido">Sentido</g:link></li>
@@ -88,11 +90,11 @@
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
 							<li><g:link controller="eje">Grupo de Derecho</g:link></li>
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
-							
+							</sec:ifAnyGranted>
 							<li class="uk-nav-header">Seguimiento</li>
-							<li><g:link controller="Indicador" action="semaforo">Semaforo</g:link></li>
+							<li><g:link controller="Indicador" action="semaforo">Sem&aacute;foro</g:link></li>
 							<br/>
-							<li><g:link controller="logout">Cerrar sesion </g:link></li>
+							<li><g:link controller="logout">Cerrar sesi&oacute;n </g:link></li>
 
 						</ul>
 

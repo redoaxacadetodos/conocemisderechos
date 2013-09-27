@@ -1,10 +1,15 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import java.util.List;
+
 class Localidad {
 
 	String clave
 	String descripcion
 	Municipio municipio
+	List coordenadas
+	
+	static hasMany = [coordenadas: Coordenada]
 
 	String toString() {
 		"${descripcion}"

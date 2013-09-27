@@ -1,6 +1,10 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import java.util.ArrayList;
+
+import com.redoaxaca.java.ArchivoDescarga;
 import com.redoaxaca.java.LeeArchivo
+import com.redoaxaca.java.ResultCategorias;
 import com.redoaxaca.java.Row
 import com.redoaxaca.java.TotalVariable
 import grails.converters.JSON
@@ -17,7 +21,7 @@ import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
 
-@Secured(["hasRole('ROLE_ADMIN')"])
+@Secured(['ROLE_DEP'])
 class VariableController {
 	def dataTablesService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -166,6 +170,421 @@ class VariableController {
         redirect(action: "show", id: variableInstance.id)
     }
 
+	
+	def generaXLS() {
+		
+		def clave = params.clave
+		def descripcion= params.descripcion
+		int anio= params.anio.toInteger()
+		int opcion= params.opcionSerie.toInteger()
+		def numCategorias= params.numCategorias
+		ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
+		ArrayList<String> cats= new   ArrayList<String>();
+		ArrayList<Row> renglones = new ArrayList<Row>();
+		
+		ArrayList<ArrayList<Long>> arryCat = new ArrayList<ArrayList<Long>>();
+		
+		
+		
+
+		switch (opcion) {
+			
+			case 1:
+									
+						def  ArrayList<Long> tipos =   new ArrayList<Long>()
+					
+						for(i in 1 .. numCategorias){
+							
+							def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+								if(temCategoria){
+									
+									if(!tipos.contains(temCategoria.tipo.id)){
+										tipos.add(temCategoria.tipo.id);
+										
+										}
+									
+								}
+						}
+							tipos.each {
+								
+								ResultCategorias rc= new ResultCategorias()
+								rc.tipo=Tipo.get(it)
+								
+								cts.add( rc)
+							}
+
+			
+						for(i in 1 .. numCategorias){
+								
+								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+								if(temCategoria){
+						
+									if(cts.size()>0){
+										
+										cts.each{
+											
+												if(temCategoria.tipo.id ==it.tipo.id){
+													it.categorias.add(temCategoria);
+													System.out.println("valor :"+ temCategoria.id);
+												}
+											
+										}
+										
+										
+									}
+									
+								}
+						}
+		
+						int tamY =cts.size()
+						int tamX =1;
+						
+						cts.each{
+						
+								tamX= tamX *it.categorias.size()
+							
+						}
+						long[][] mat=new long[tamX][tamY];
+						
+						int y=0
+						cts.each{
+							c ->
+										int veces=	tamX/c.categorias.size()
+										System.out.println("Numero de veces "+veces );
+										int x=0;
+										for(int xy=0; xy<veces;xy++){
+											
+												c.categorias.each {
+													
+													mat[x][y]= it.id
+													System.out.println("Matriz :"+ it.id);
+													x++;
+												}
+											
+										}
+								y++;
+						}
+						
+						
+						
+						
+						for(int x=0; x<tamX;x++){
+							
+							Row renglon = new Row()
+							renglon.clave=clave
+							renglon.descripcion=descripcion
+							renglon.anio=anio;
+							renglon.categorias = new ArrayList<Long>();
+							for(int v=0; v<tamY;v++){
+								
+								 renglon.categorias.add(Categoria.get(mat[x][v]));
+							
+							}
+							
+							renglones.add(renglon)
+						}
+						
+					
+						
+										
+				
+						
+						
+			break;
+			
+			
+			
+			case 2:
+			
+									def  ArrayList<Long> tipos =   new ArrayList<Long>()
+									
+										for(i in 1 .. numCategorias){
+											
+											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+												if(temCategoria){
+													
+													if(!tipos.contains(temCategoria.tipo.id)){
+														tipos.add(temCategoria.tipo.id);
+														
+														}
+													
+												}
+										}
+											tipos.each {
+												
+												ResultCategorias rc= new ResultCategorias()
+												rc.tipo=Tipo.get(it)
+												
+												cts.add( rc)
+											}
+						
+							
+										for(i in 1 .. numCategorias){
+												
+												def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+												if(temCategoria){
+										
+													if(cts.size()>0){
+														
+														cts.each{
+															
+																if(temCategoria.tipo.id ==it.tipo.id){
+																	it.categorias.add(temCategoria);
+																	System.out.println("valor :"+ temCategoria.id);
+																}
+															
+														}
+														
+														
+													}
+													
+												}
+										}
+						
+										int tamY =cts.size()
+										int tamX =1;
+										
+										cts.each{
+										
+												tamX= tamX *it.categorias.size()
+											
+										}
+										long[][] mat=new long[tamX][tamY];
+										
+										int y=0
+										cts.each{
+											c ->
+														int veces=	tamX/c.categorias.size()
+														System.out.println("Numero de veces "+veces );
+														int x=0;
+														for(int xy=0; xy<veces;xy++){
+															
+																c.categorias.each {
+																	
+																	mat[x][y]= it.id
+																	System.out.println("Matriz :"+ it.id);
+																	x++;
+																}
+															
+														}
+												y++;
+										}
+			
+			
+			
+			
+			
+							System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
+			
+							
+							def regiones=  Region.list( sort: "clave", order: "asc")
+			
+							regiones.each {
+								
+			
+								
+								for(int x=0; x<tamX;x++){
+									
+									Row renglon = new Row()
+									renglon.clave=clave
+									renglon.descripcion=descripcion
+									renglon.idRegion=it.id
+									renglon.region=it.descripcion
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Long>();
+									for(int v=0; v<tamY;v++){
+										
+										 renglon.categorias.add(Categoria.get(mat[x][v]));
+									
+									}
+									
+									renglones.add(renglon)
+								}
+							
+								
+							}
+							
+							
+			break;
+			
+			
+			
+			case 3:
+							def  ArrayList<Long> tipos =   new ArrayList<Long>()
+							
+								for(i in 1 .. numCategorias){
+									
+									def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+										if(temCategoria){
+											
+											if(!tipos.contains(temCategoria.tipo.id)){
+												tipos.add(temCategoria.tipo.id);
+												
+												}
+											
+										}
+								}
+									tipos.each {
+										
+										ResultCategorias rc= new ResultCategorias()
+										rc.tipo=Tipo.get(it)
+										
+										cts.add( rc)
+									}
+				
+					
+								for(i in 1 .. numCategorias){
+										
+										def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+										if(temCategoria){
+								
+											if(cts.size()>0){
+												
+												cts.each{
+													
+														if(temCategoria.tipo.id ==it.tipo.id){
+															it.categorias.add(temCategoria);
+															System.out.println("valor :"+ temCategoria.id);
+														}
+													
+												}
+												
+												
+											}
+											
+										}
+								}
+				
+								int tamY =cts.size()
+								int tamX =1;
+								
+								cts.each{
+								
+										tamX= tamX *it.categorias.size()
+									
+								}
+								long[][] mat=new long[tamX][tamY];
+								
+								int y=0
+								cts.each{
+									c ->
+												int veces=	tamX/c.categorias.size()
+												System.out.println("Numero de veces "+veces );
+												int x=0;
+												for(int xy=0; xy<veces;xy++){
+													
+														c.categorias.each {
+															
+															mat[x][y]= it.id
+															System.out.println("Matriz :"+ it.id);
+															x++;
+														}
+													
+												}
+										y++;
+								}
+
+
+			
+			
+			
+			
+						
+							def municipios=  Municipio.list(sort: "id", order: "asc")
+			
+							municipios.each {
+								
+								for(int x=0; x<tamX;x++){
+									
+									Row renglon = new Row()
+									renglon.clave=clave
+									renglon.descripcion=descripcion
+									renglon.idRegion=it.region.id
+									renglon.region=it.region.descripcion
+									
+									renglon.idMunicipio=it.id
+									renglon.municipio=it.descripcion
+									
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Long>();
+									for(int v=0; v<tamY;v++){
+										
+										 renglon.categorias.add(Categoria.get(mat[x][v]));
+									
+									}
+									
+									renglones.add(renglon)
+								}
+							
+								
+								
+			
+								
+							}
+			
+			break;
+
+			case 4:
+			
+							def localidades=  Localidad.list()
+			
+							localidades.each {
+			
+									Row renglon = new Row()
+									renglon.clave=clave
+									renglon.descripcion=descripcion
+									renglon.anio=anio;
+									renglon.categorias = new ArrayList<Integer>();
+							
+									
+									renglon.idRegion=it.municipio.region.id
+									renglon.region=it.municipio.region.descripcion
+									renglon.idMunicipio=it.municipio.id
+									renglon.municipio=it.municipio.descripcion
+									
+									renglon.idLocalidad=it.id
+									renglon.localidad=it.descripcion
+						
+									for(i in 1 .. numCategorias){
+										
+											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+											if(temCategoria){
+												cats.add(temCategoria.descripcion)
+												
+												renglon.categorias.add(new Long(temCategoria.id))
+											}
+											
+											
+									}
+									
+									renglones.add(renglon)
+							}
+			
+							break;
+		
+		}
+		
+		
+			
+			
+			
+		
+		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cts,opcion)
+		try {
+			def archivo = new File (archivodown.getRuta())
+			response.setContentType("application/octet-stream")
+			response.setHeader("Content-disposition", "attachment;filename=${archivo.getName()}")
+			response.outputStream << archivo.newInputStream()
+		} catch(Exception ex){
+			response.sendError(500)
+		}
+			
+			
+		
+	}
+	
+	
+	
 	def archivo(){
 		
 		
@@ -594,29 +1013,35 @@ class VariableController {
 				try{
 					for(Row row : renglones){
 					
+						
+						
+						
+						
 						println("Van: " + (++contador) + " renglones")
 						
 						def variableInstance= new Variable();
-						def temRegion=null
-						def temLocalidad=null
-						def temMunicipio=null
+//						def temRegion=null
+//						def temLocalidad=null
+//						def temMunicipio=null
+//						
+//						if(row.getIdRegion()){
+//							temRegion=Region.get(row.getIdRegion())
+//							
+//						}
+//						if(row.getIdRegion()){
+//							temLocalidad=Localidad.get(row.getIdLocalidad())
+//							
+//						}
+//						if(row.getIdRegion()){
+//							temMunicipio=Municipio.get(row.getIdMunicipio())
+//							
+//						}
+//						
+//						variableInstance.region=temRegion
+//						variableInstance.municipio=temMunicipio
+//						variableInstance.localidad=temLocalidad
+						variableInstance.estado=Estado.get(20)
 						
-						if(row.getIdRegion()){
-							temRegion=Region.get(row.getIdRegion())
-							
-						}
-						if(row.getIdRegion()){
-							temLocalidad=Localidad.get(row.getIdLocalidad())
-							
-						}
-						if(row.getIdRegion()){
-							temMunicipio=Municipio.get(row.getIdMunicipio())
-							
-						}
-						
-						variableInstance.region=temRegion
-						variableInstance.municipio=temMunicipio
-						variableInstance.localidad=temLocalidad
 						
 						variableInstance.hombres=row.getHombres();
 						variableInstance.mujeres=row.getMujeres();
@@ -633,6 +1058,9 @@ class VariableController {
 						}
 			
 			
+						
+						
+						
 					}
 				
 				}catch (Exception e) {
@@ -718,7 +1146,9 @@ class VariableController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'variable.label', default: 'Variable'), variableInstance.id])
         redirect(action: "show", id: variableInstance.id)
     }
-
+	
+	
+	@Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         def variableInstance = Variable.get(id)
         if (!variableInstance) {

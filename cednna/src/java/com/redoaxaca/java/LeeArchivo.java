@@ -18,6 +18,8 @@ public class LeeArchivo {
 
 	ArrayList<Row> renglones = new ArrayList<Row>();
 	int claveDependencia ;
+	int opcion;
+	int numCategorias;
 
 	public LeeArchivo(File fileName) throws ParseException {
 
@@ -45,67 +47,78 @@ public class LeeArchivo {
 							XSSFCell hssfCell = (XSSFCell) iterator.next();
 	
 							
-							if(hssfCell.getRowIndex() == 2 && hssfCell.getColumnIndex() == 0){
+							if(hssfCell.getRowIndex() == 1 && hssfCell.getColumnIndex()==1){
 								
-								claveDependencia=(int)hssfCell.getNumericCellValue();
-								System.out.println(claveDependencia);
+								numCategorias=Integer.parseInt(hssfCell.getStringCellValue());
 							}
-							
+							if(hssfCell.getRowIndex() == 2 && hssfCell.getColumnIndex()==1){
+								opcion=Integer.parseInt(hssfCell.getStringCellValue());
+								
+							}
+						
 							if(hssfCell.getRowIndex() >= 4 && hssfCell.getColumnIndex() >= 0){
 							
-											switch (hssfCell.getCellType()) {
-											case HSSFCell.CELL_TYPE_NUMERIC:
+								switch (opcion) {
+								case 1:
 												switch (hssfCell.getColumnIndex()) {
-													case 0:
-														tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
-													
-														break;
-													case 2:
-														tempRow.setIdMunicipio(new Double(hssfCell.getNumericCellValue()).intValue());
 														
-														break;
-													case 4:
-														tempRow.setIdLocalidad(new Double(hssfCell.getNumericCellValue()).intValue());
-														break;
-													
-													case 8:
-														tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
-													
-													case 9:
-														tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
-														break;
-													
-													case 7:
-														tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
-														break;
-												}
-												break;
-											case HSSFCell.CELL_TYPE_STRING:
-												switch (hssfCell.getColumnIndex()) {
-													case 1:
-													
-														tempRow.setRegion(hssfCell.getStringCellValue());
+												
+														case 0:
+															tempRow.setClave(hssfCell.getStringCellValue());
 														
-														break;
-													case 3:
-														tempRow.setMunicipio(hssfCell.getStringCellValue());
-													
-														break;
-													case 5:
-														tempRow.setLocalidad(hssfCell.getStringCellValue());
+														case 1:
+															tempRow.setDescripcion(hssfCell.getStringCellValue());
+															break;
 														
-														break;
-													
-													case 6:
-														tempRow.setDescripcion(hssfCell.getStringCellValue());
-														renglones.add(tempRow);
-														break;
-												}
-												break;
-											default:
-												//System.out.println(hssfCell.getColumnIndex());
-												break;
-										}
+														case 2:
+															tempRow.setMujeres(Integer.parseInt(hssfCell.getStringCellValue()));
+														
+														case 3:
+															tempRow.setHombres(Integer.parseInt(hssfCell.getStringCellValue()));
+															break;
+														
+														case 4:
+															tempRow.setAnio(Integer.parseInt(hssfCell.getStringCellValue()));
+														
+														case 5:
+															tempRow.setHombres(Integer.parseInt(hssfCell.getStringCellValue()));
+														
+															renglones.add(tempRow);
+															break;
+														
+															
+															
+															
+//														case 6:
+//															tempRow.setDescripcion(hssfCell.getStringCellValue());
+//															renglones.add(tempRow);
+//															break;
+											}
+											break;
+									
+									
+											
+								case 2:
+									
+									
+									
+									break;
+									
+									
+								case 3:
+									
+									
+									
+									
+									break;
+								
+								default:
+									break;
+								}
+										
+											
+										
+								
 											
 							}
 							

@@ -47,7 +47,7 @@
 					<br>
 					<br>
 				  <div class="body">
-				  <g:datatablehelper ctrlid="variableTable"  cols="['ID_REGION','ID_MUNICIPIO','ID_LOCALIDAD','Clave','Descripcion','Region','Municipio','Localidad','Hombres','Mujeres','Poblacion Total','Detalle']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="variableTable"  cols="['ID_REGION','ID_MUNICIPIO','ID_LOCALIDAD','Clave','Descripci&oacute;n','Regi&oacute;n','Municipio','Localidad','Hombres','Mujeres','Poblaci&oacute;n Total','Detalle']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 </body>
   

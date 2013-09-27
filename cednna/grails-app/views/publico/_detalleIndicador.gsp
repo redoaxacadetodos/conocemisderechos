@@ -5,14 +5,7 @@
 		  $( "#tabs" ).tabs();
 	        $('#container').highcharts(
 	            ${tablaJSON});
-	        $("#tabs").tabs({
-	            show: function(e, ui) {
-	                
-		                alert('prueba');
-	                    google.maps.event.trigger(map, "resize");
-	                
-	            }
-	        });
+            	        
 	        $('#myTab a').click(function (e) {
 	      	  e.preventDefault();
 	      	  $(this).tab('show');
@@ -21,57 +14,6 @@
 
 	
 	  </script>
-	  
-	  <!-- Google Maps -->
-	  
-	  	<script>
-	  	var geocoder;
-	  	var map;
-function initialize() {
-	geocoder = new google.maps.Geocoder();
-	var latlng = new google.maps.LatLng(17.05, -96.72);
-  var mapOptions = {
-    zoom: 7,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-    
-	var ubicaciones = ${ubicaciones};
-	
-	for(i=0; i<ubicaciones.length; i++){
-	var address = ubicaciones[i] + " oaxaca";
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } 
-    });
-	}
-
-	${pintarUbicaciones}	
-}
-
-function loadScript() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDGVv816kgzORqTzz8IQjaBS0GW-QTr4hI&sensor=false&' +
-      'callback=initialize';
-  document.body.appendChild(script);
-}
-
-//window.onload = loadScript;
-
-
-
-    </script>
-	  <!-- Termina Google Maps -->
-
 
 <h3>${indicadorInstance?.nombre }</h3>
 	<ul class="nav nav-tabs" id="myTab">
@@ -95,8 +37,7 @@ function loadScript() {
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
-	  			<option value="3">Municipal</option>
-	  			<option value="4">Local</option>
+	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  		<div id="tablaIndicador">
 	  			<g:render template="tablaIndicador"></g:render>	  		
@@ -128,7 +69,7 @@ function loadScript() {
 			  			<td>${indicadorInstance?.nombre}</td>
 				  		<g:each var="resultado" in="${resultados}">
 					  		<g:if test="${imprimirDatos=='true'}">
-			  					<td>${Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos</td>
+			  					<td>${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos</td>
 			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>			  					
 			  				</g:if>
 			  				<g:else>
@@ -166,23 +107,52 @@ function loadScript() {
 	  	</tbody>
 	  	</table>
 	  </div>
-	  <div class="tab-pane" id="serie"></div>
-	  <div class="tab-pane" id="calculo"></div>
-	  <div class="tab-pane" id="mapa">
-	  		<label for="opcionesMapa">Tipo:</label>
-	  		<select id="opcionesMapa" name="opcionesMapa" 
+	  <div class="tab-pane" id="serie">
+	  	<label for="opcionSerie">Tipo:</label>
+	  		<select id="opcionSerie" name="opcionSerie" 
 	  			onchange="${remoteFunction(
 					  controller:'publico',
 					  action: 'actualizarTablaIndicador',
 					  params: '\'idTipo=\' + this.value',
-					  update: 'tablaIndicador',
+					  update: 'tablaIndicadorSerie',
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
-	  			<option value="3">Municipal</option>
-	  			<option value="4">Local</option>
+	  			<option value="3">Municipal</option>	  			
 	  		</select>
-	  <div id="map-canvas" style="width: 100%; height: 480px;"></div></div>
+	  		<div id="tablaIndicadorSerie">
+	  			<g:render template="tablaIndicador"></g:render>	  		
+			</div>	  	
+	  </div>
+	  
+	  <div class="tab-pane" id="calculo">
+	  	<g:each var="datos" in="${datosCalculo }">
+	  		${datos.letra }: ${datos.descripcion }
+	  	</g:each>
+	  </div>
+	  
+	  <div class="tab-pane" id="mapa">
+	  	<label for="opcionesMapa">Tipo:</label>
+	  		<select id="opcionesMapa" name="opcionesMapa" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarMapa',
+					  params: '\'idTipo=\' + this.value',
+					  update: 'mapaIndicador',
+					  onLoaded: "loadScript()",
+					  id: indicadorInstance?.id  )}">
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>	  			
+	  		</select>	  		
+<div>	
+	  <div id="map-canvas" style="width: 100%; height: 480px;"></div>
+
+</div>	  		
+	  	<div id="mapaIndicador">	  		
+	  		<g:render template="mapa"></g:render>
+	  	</div>
+	  </div>
 	</div>	 	
 	
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>

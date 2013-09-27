@@ -6,7 +6,9 @@ class Municipio {
 	String descripcion
 	Distrito distrito
 	Region region
-	List<Coordenada> coordenadas
+	List coordenadas
+	
+	static hasMany = [coordenadas: Coordenada]	
 
     static constraints = {
 		

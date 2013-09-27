@@ -23,6 +23,14 @@ class Indicador {
 	UnidadMedida    uMedida
 	PNDesarrollo    pnDesarrollo
 	
+    String 	        tema
+	String 			objetivoPND
+	String          estrategia;
+	String 		    nombrePrograma;
+	ObjetivoMilenio objetivosMilenio;
+	
+	
+	
 	Division       division
 	
 	boolean        publico
@@ -50,6 +58,11 @@ class Indicador {
 				division(blank:true, nullable:true)
 				pnDesarrollo(blank:true, nullable:true)
 				uMedida(blank:true, nullable:true)
+				tema(blank:true, nullable:true)
+				objetivoPND(blank:true, nullable:true)
+				estrategia(blank:true, nullable:true)
+				nombrePrograma(blank:true, nullable:true)
+				objetivosMilenio(blank:true, nullable:true)
 				
 
     }
@@ -78,7 +91,12 @@ class Indicador {
 	mailResponsable(column:'idn_mail_responsable')
 	areaResponsable(column:'idn_area_responsable')
 	ejecutora(column:'idn_cue_id')
-		
+	
+	tema(column:'idn_tema')
+	objetivoPND(column:'idn_obj_pdn')
+	estrategia(column:'idn_estrategia')
+	nombrePrograma(column:'idn_nom_programa')
+	objetivosMilenio(column:'idn_obj_milenio')
 
 	version(false)
   }    

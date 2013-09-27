@@ -27,4 +27,11 @@ class Categoria {
 		
 		version(false)
 	}
+	
+	
+	long getValorID(){
+		
+		return this.id
+		
+	}
 }

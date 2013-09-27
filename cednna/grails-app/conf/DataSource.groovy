@@ -1,9 +1,3 @@
-dataSource {
-    pooled = true
-    driverClassName = "org.h2.Driver"
-    username = "sa"
-    password = ""
-}
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
@@ -35,7 +29,7 @@ environments {
       driverClassName = "org.postgresql.Driver"
       username = "postgres"
       password = "t3mp0r4l"
-      url = "jdbc:postgresql://localhost:5432/cednna"
+	    url = "jdbc:postgresql://localhost:5432/cednna"
       dbCreate = "update"
       }       
     }
