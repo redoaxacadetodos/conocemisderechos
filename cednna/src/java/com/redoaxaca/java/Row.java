@@ -2,6 +2,8 @@ package com.redoaxaca.java;
 
 import java.util.List;
 
+import mx.gob.redoaxaca.cednna.domino.Categoria;
+
 public class Row {
 
 	int     idRegion;
@@ -18,7 +20,7 @@ public class Row {
 	
 	String clave;
 	
-	List<Long> categorias;
+	List<Categoria> categorias;
 	
 	
 
@@ -133,14 +135,14 @@ public class Row {
 		this.total = total;
 	}
 
-	public List<Long> getCategorias() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 	
 	
 	
 
-	public void setCategorias(List<Long> categorias) {
+	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
 	

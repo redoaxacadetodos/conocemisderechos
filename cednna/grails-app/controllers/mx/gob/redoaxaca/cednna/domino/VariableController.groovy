@@ -277,7 +277,7 @@ class VariableController {
 							renglon.categorias = new ArrayList<Long>();
 							for(int v=0; v<tamY;v++){
 								
-								 renglon.categorias.add(mat[x][v]);
+								 renglon.categorias.add(Categoria.get(mat[x][v]));
 							
 							}
 							
@@ -394,7 +394,7 @@ class VariableController {
 									renglon.categorias = new ArrayList<Long>();
 									for(int v=0; v<tamY;v++){
 										
-										 renglon.categorias.add(mat[x][v]);
+										 renglon.categorias.add(Categoria.get(mat[x][v]));
 									
 									}
 									
@@ -509,7 +509,7 @@ class VariableController {
 									renglon.categorias = new ArrayList<Long>();
 									for(int v=0; v<tamY;v++){
 										
-										 renglon.categorias.add(mat[x][v]);
+										 renglon.categorias.add(Categoria.get(mat[x][v]));
 									
 									}
 									
@@ -569,7 +569,7 @@ class VariableController {
 			
 			
 		
-		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cts)
+		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cts,opcion)
 		try {
 			def archivo = new File (archivodown.getRuta())
 			response.setContentType("application/octet-stream")
@@ -1013,29 +1013,35 @@ class VariableController {
 				try{
 					for(Row row : renglones){
 					
+						
+						
+						
+						
 						println("Van: " + (++contador) + " renglones")
 						
 						def variableInstance= new Variable();
-						def temRegion=null
-						def temLocalidad=null
-						def temMunicipio=null
+//						def temRegion=null
+//						def temLocalidad=null
+//						def temMunicipio=null
+//						
+//						if(row.getIdRegion()){
+//							temRegion=Region.get(row.getIdRegion())
+//							
+//						}
+//						if(row.getIdRegion()){
+//							temLocalidad=Localidad.get(row.getIdLocalidad())
+//							
+//						}
+//						if(row.getIdRegion()){
+//							temMunicipio=Municipio.get(row.getIdMunicipio())
+//							
+//						}
+//						
+//						variableInstance.region=temRegion
+//						variableInstance.municipio=temMunicipio
+//						variableInstance.localidad=temLocalidad
+						variableInstance.estado=Estado.get(20)
 						
-						if(row.getIdRegion()){
-							temRegion=Region.get(row.getIdRegion())
-							
-						}
-						if(row.getIdRegion()){
-							temLocalidad=Localidad.get(row.getIdLocalidad())
-							
-						}
-						if(row.getIdRegion()){
-							temMunicipio=Municipio.get(row.getIdMunicipio())
-							
-						}
-						
-						variableInstance.region=temRegion
-						variableInstance.municipio=temMunicipio
-						variableInstance.localidad=temLocalidad
 						
 						variableInstance.hombres=row.getHombres();
 						variableInstance.mujeres=row.getMujeres();
@@ -1052,6 +1058,9 @@ class VariableController {
 						}
 			
 			
+						
+						
+						
 					}
 				
 				}catch (Exception e) {
