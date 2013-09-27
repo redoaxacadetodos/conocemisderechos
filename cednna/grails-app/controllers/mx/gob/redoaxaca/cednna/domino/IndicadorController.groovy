@@ -1359,9 +1359,14 @@ class IndicadorController {
 		
 		}
 		
-		
-		indicadorInstance.variables.removeAll()
+
+
+		indicadorInstance.variables.each{
+			it.delete()
+		}
+		indicadorInstance.variables.clear()
 			
+		
 		def resultado
 		for(v in variables){
 			
