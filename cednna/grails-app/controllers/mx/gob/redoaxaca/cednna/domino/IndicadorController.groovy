@@ -1358,11 +1358,14 @@ class IndicadorController {
 			indicadorInstance.fechaActualizacion=finicial
 		
 		}
+		
+		
+		indicadorInstance.variables.removeAll()
+			
 		def resultado
 		for(v in variables){
 			
 							def numCategorias= params.getAt("numCategorias_"+v)
-							
 								
 							def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
 						
@@ -1373,26 +1376,22 @@ class IndicadorController {
 							
 							dVariable.poblacion=poblacion
 							
-							indicadorInstance.variables.removeAll{ id!=null }
-//							if (!indicadorInstance.save(flush: true)) {
-//								render(view: "edit", model: [indicadorInstance: indicadorInstance])
-//								return
-//							}
 							
 							
-//							for(i in 1 .. numCategorias){
-//								
-//								
-//									 def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
-//									if(categoria)
-//									{
-//										dVariable.addToCategorias(categoria)
-//									}
-//							}
-//							
-//							indicadorInstance.addToVariables(dVariable)
+						
+							for(i in 1 .. numCategorias){
+								
+								
+									 def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
+									if(categoria)
+									{
+										dVariable.addToCategorias(categoria)
+									}
+							}
 							
-					}
+							indicadorInstance.addToVariables(dVariable)
+							
+		}
 		
 		
         if (!indicadorInstance.save(flush: true)) {
@@ -1430,9 +1429,13 @@ class IndicadorController {
 			if(params.idIndicador!="undefined"){
 				def indicador =  Indicador.get(params.idIndicador);
 				if(indicador){
-					
+				
 					if(indicador.formula.id==formula.id){
+						
+						
 						var= indicador.variables
+						
+						System.out.println("Indicador variables : "+ var);
 					[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
 					
 					}
@@ -1464,8 +1467,6 @@ class IndicadorController {
 				[variable:vare,sentencia:formula.sentencia,descripcion:formula.descripcion]
 			}
 		}		
-		
-		
 		
 	
 	}

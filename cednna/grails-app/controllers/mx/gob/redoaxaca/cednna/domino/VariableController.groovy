@@ -182,61 +182,113 @@ class VariableController {
 		ArrayList<String> cats= new   ArrayList<String>();
 		ArrayList<Row> renglones = new ArrayList<Row>();
 		
+		ArrayList<ArrayList<Long>> arryCat = new ArrayList<ArrayList<Long>>();
+		
+		
+		
 		System.out.println("Numero de categoiras :"+opcion);
 		switch (opcion) {
 			
 			case 1:
-						Row renglon = new Row()	
-						renglon.clave=clave
-						renglon.descripcion=descripcion
-						renglon.anio=anio;
-						renglon.categorias = new ArrayList<Integer>();
-						
+
 			
-//						for(i in 1 .. numCategorias){
+						for(i in 1 .. numCategorias){
+								
+								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+								if(temCategoria){
+						
+									if(cts.size()>0){
+										
+										cts.each{
+											
+												if(temCategoria.tipo.id ==it.tipo.id){
+													it.categorias.add(temCategoria);
+													System.out.println("valor :"+ temCategoria.id);
+												}
+										}
+										
+										
+									}else{
+										
+										ResultCategorias temRC = new ResultCategorias()
+										temRC.tipo=temCategoria.tipo
+										temRC.categorias.add(temCategoria)
+										cts.add(temRC)
+										System.out.println("valor :"+ temCategoria.id);
+									}
+									
+								}
+						}
+						
+						System.out.println("Tama–o con tipos :"+ cts.size());
+						
+													cts.each{
+							
+																System.out.println("Tam–o categorias del tipo  "+it.tipo.descripcion+" -- > "+it.categorias.size())
+							
+													}
+						
+						
+						
+//						cts.each{
+//							tipo->
+//									ArrayList<Long> tamAC = new ArrayList<Long>();
+//									
+//									tipo.categorias.each {
+//										
+//											tamAC.add(it.id)
+//											System.out.println("valor :"+ it.id);
+//									}
+//									
+//									arryCat.add(tamAC)
+//						}
+//						int tamY =cts.size()
+//						int tamX =1;
+//						
+//						cts.each{
+//						
+//								tamY= tamY *it.categorias.size()
+//							
+//						}
+//							
+//						int[][] mat=new int[tamX][tamY];
+//						
+//							for(int x=0;x<tamX;x++){
 //								
+//								for(int y=0;y<tamY;y++){
+//									
+//									//mat[x][y]=cts.get(y).categorias.get(x);
+//									System.out.println("valor :"+ arryCat.get(y).get(x));								
+//								}
+//							}
+//						
+//						
+//						
+//						Row renglon = new Row()
+//						renglon.clave=clave
+//						renglon.descripcion=descripcion
+//						renglon.anio=anio;
+//						renglon.categorias = new ArrayList<Integer>();
+//						
+//						
+//						
+//						renglones.add(renglon)
+//						
+//						
+//						
+//						
+//						for(i in 1 .. numCategorias){
+//							
 //								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
 //								if(temCategoria){
 //									
-//									
-//									if(cts.size()>0){
-//										
-//										cts.each{
-//											
-//												if(temCategoria.tipo.id ==it.tipo.id){
-//													
-//													it.categorias.add(temCategoria);
-//												}
-//											
-//										}
-//										
-//									}else{
-//									ResultCategorias temRC = new ResultCategorias()
-//											
-//										temRC.tipo=it.tipo
-//										temRC.categorias.add(temCategoria)
-//									}
-//									
-//									
-//									
+//									cats.add(temCategoria.descripcion)
+//									renglon.categorias.add(new Long(temCategoria.id))
 //								}
-//								
-//							}
-						
-						
-						for(i in 1 .. numCategorias){
-							
-								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-								if(temCategoria){
-									cats.add(temCategoria.descripcion)
-									
-									renglon.categorias.add(new Long(temCategoria.id))
-								}
-								
-						}
-						
-					
-						renglones.add(renglon)
+//						}
+//						
+//					
+//						renglones.add(renglon)
 							
 			break;
 			
