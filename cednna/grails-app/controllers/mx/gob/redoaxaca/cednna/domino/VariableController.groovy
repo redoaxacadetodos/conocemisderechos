@@ -377,7 +377,7 @@ class VariableController {
 							System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
 			
 							
-							def regiones=  Region.list( sort: "clave")
+							def regiones=  Region.list( sort: "clave", order: "asc")
 			
 							regiones.each {
 								
@@ -490,7 +490,7 @@ class VariableController {
 			
 			
 						
-							def municipios=  Municipio.list(sort: "clave")
+							def municipios=  Municipio.list(sort: "id", order: "asc")
 			
 							municipios.each {
 								
