@@ -9,11 +9,12 @@
 	</head>
 	<body>
 		<a href="#list-tipo" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
+<nav class="uk-navbar">
+		<ul class="uk-navbar-nav">
+		<li class="uk-active"><g:link class="list" action="list"><g:message code="tipo.list"  /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="tipo.new" /></g:link></li>
 			</ul>
-		</div>
+</nav>
 		<div id="list-tipo" class="content scaffold-list" role="main">
 			<h1><g:message code="tipo.list"/></h1>
 			<g:if test="${flash.message}">
