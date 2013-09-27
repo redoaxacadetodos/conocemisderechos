@@ -44,7 +44,7 @@
 						  			<td>${resultadoIndicador?.localidad }</td>
 						  		</g:if>
 						  		<g:each var="result" in="${resultadoIndicador?.resultados }">
-						  			<td>${result?.indicador }</td>
+						  			<td>${result?.indicador}</td>						  			
 						  		</g:each>					  			
 					  		</g:each>
 					  	</tr>

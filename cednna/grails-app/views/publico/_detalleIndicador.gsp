@@ -124,7 +124,13 @@
 	  			<g:render template="tablaIndicador"></g:render>	  		
 			</div>	  	
 	  </div>
-	  <div class="tab-pane" id="calculo"></div>
+	  
+	  <div class="tab-pane" id="calculo">
+	  	<g:each var="datos" in="${datosCalculo }">
+	  		${datos.letra }: ${datos.descripcion }
+	  	</g:each>
+	  </div>
+	  
 	  <div class="tab-pane" id="mapa">
 	  	<label for="opcionesMapa">Tipo:</label>
 	  		<select id="opcionesMapa" name="opcionesMapa" 
@@ -138,8 +144,12 @@
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
-	  		</select>
-	  	<div id="mapaIndicador">
+	  		</select>	  		
+<div>	
+	  <div id="map-canvas" style="width: 100%; height: 480px;"></div>
+
+</div>	  		
+	  	<div id="mapaIndicador">	  		
 	  		<g:render template="mapa"></g:render>
 	  	</div>
 	  </div>

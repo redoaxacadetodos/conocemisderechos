@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.publico
 
+import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
@@ -10,6 +11,7 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
+import java.text.DecimalFormat
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 
@@ -60,20 +62,23 @@ class PublicoController {
 	
 	def ayuda = {
 		
-	}
+	}	
 	
 	def actualizarMapa(Long id) {
 		int tipo = params.idTipo.toInteger()
 		
-		def resultadosIndicador = visorIndicador(id,tipo)
+		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		def resultadosIndicador = detalleIndicador.resultados
 		
 		def ubicaciones = []
+		def prueba = []
 		def coordenadas = []
 		def nombreCoordenadas = []
+		def aux = [:]
 		def coordenadasList = []
 		def sql = ""
-		def sqlNombre=""
-				
+		def sqlNombre=""		
+						
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
@@ -100,13 +105,34 @@ class PublicoController {
 			
 			def db2 = new Sql(dataSource)			
 			def nombre  = db2.rows(sqlNombre)
+			def datos = []
+			def anios = []
+			resultado.resultados.each { r ->				
+				anios.add(r?.anio)
+				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )
+				Double indi = new Double(r?.indicador)				
+				System.out.println("resultado: "+indi);				
+			}
+			System.out.println("anio: "+anios)
 			nombre.each {
 				nombreCoordenadas.add("'"+it.descripcion+"'")
+				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
+				//aux.put("ubicacion",["descripcion": it.descripcion, "anios":anios, "datos": datos])
 			}
+			
 						
-		}				
+		}		
+		aux.put("lugar",["ubicaciones":ubicaciones])
+		//System.out.println("tam: "+aux.size())
+		def jsodata = aux as JSON
+		/*
+		aux.each {
+			System.out.println(it)
+		}
 		
-		render(template:"mapa", model:[ubicaciones:ubicaciones, nombreCoordenadas: nombreCoordenadas, coordenadasList:coordenadasList])
+		*/						
+		
+		render(template:"mapa", model:[ubicaciones:prueba, nombreCoordenadas: nombreCoordenadas, coordenadasList:coordenadasList, resultadosIndicador:resultadosIndicador, aux:jsodata])
 	}
 	
 	def actualizarTablaIndicador(Long id){
@@ -153,7 +179,9 @@ class PublicoController {
 		resultadosIndicador.add(resultadoIndicador)
 		resultadosIndicador.add(resultadoIndicador)
 		*/
-		def resultadosIndicador = visorIndicador(id,tipo)
+		
+		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		def resultadosIndicador = detalleIndicador.resultados
 		
 		resultadosIndicador.each{ re ->
 			System.out.println("tam: "+re.resultados.size() + " region: "+ re.region)
@@ -186,7 +214,9 @@ class PublicoController {
 	def infoIndicador (Long id) {
 		def eje = Eje.get(id)
 		if(eje){
-			def divisiones = eje.division			
+			def sql = "select * from division where eje_id = " + eje.id
+			def db = new Sql(dataSource)
+			def divisiones  = db.rows(sql)			
 			render(template:"division", model: [divisiones: divisiones])
 		}else{
 		redirect(action:"indicadores")
@@ -196,8 +226,10 @@ class PublicoController {
 	def detalleIndicador (Long id){		
 		if(params.infoIndicador=='true'){			
 			def eje = Eje.get(id)
-			if(eje){				
-				def divisiones = eje.division				
+			if(eje){								
+				def sql = "select * from division where eje_id = " + eje.id
+				def db = new Sql(dataSource)
+				def divisiones  = db.rows(sql)				
 				[divisiones: divisiones]
 			}else{
 				redirect(action:"indicadores")
@@ -206,8 +238,9 @@ class PublicoController {
 		}else{
 			def indicador = Indicador.get(id)
 			if(indicador){
-			
-			def resultadosIndicador = visorIndicador(id,1)
+						
+			DetalleIndicador detalleIndicador = visorIndicador(id,1)
+			def resultadosIndicador = detalleIndicador.resultados
 			def resultados = []
 			def coordenadasList = []
 			
@@ -218,8 +251,8 @@ class PublicoController {
 			//Creación de arreglo para Highcharts
 			def series = []
 			def categorias = []
-			def datos = []
-			def a = [title: [text: indicador?.nombre?.toString(), x: -20]]		
+			def datos = []			
+			def a = [title: [text: indicador?.nombre?.toString(), x: -20]]					
 			a.put("yAxis", [title: [text: '%']])	
 			a.put("tooltip", [valueSuffix: '%'])
 			a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
@@ -237,6 +270,7 @@ class PublicoController {
 			
 			//Buscar datos para Google Maps
 			def ubicaciones = []
+			def aux = [:]
 			def ubicacioneString = []
 			def coordenadas = []	
 			def nombreCoordenadas = []
@@ -249,19 +283,31 @@ class PublicoController {
 				def result  = db.rows(sql)						
 				
 				result.each {
-					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")					
 				}
-				coordenadasList.add(coordenadas)
+				coordenadasList.add(coordenadas)				
 				
 				def db2 = new Sql(dataSource)
 				def nombre  = db2.rows(sqlNombre)
+				def datosIndicador = []
+				def anios = []
+				resultado.resultados.each { r ->
+					anios.add(r?.anio)
+					datosIndicador.add(r?.indicador)
+				}
+				
 				nombre.each {
 					nombreCoordenadas.add("'"+it.descripcion+"'")
+					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador, "coordenadas": coordenadas])
 				}
 			}
 			
+			aux.put("lugar",["ubicaciones":ubicaciones])
+			
+			def jsondata = aux as JSON
+			
 					
-			[indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas]
+			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: detalleIndicador.rVariables]
 			}
 			else{
 				redirect(action:"indicadores")
@@ -269,7 +315,7 @@ class PublicoController {
 		}
 	}
 	
-	def List visorIndicador(Long id, int idTipo){
+	def DetalleIndicador visorIndicador(Long id, int idTipo){
 		
 		def indicadorInstance = Indicador.get(id);
 		def opcion= idTipo;
@@ -1348,9 +1394,12 @@ class PublicoController {
 		
 			
 		
-			
-						
-		return resultados
+		DetalleIndicador detalleIndicador = new DetalleIndicador()		
+		detalleIndicador.resultados = resultados
+		detalleIndicador.rVariables = rVariables 
+		
+		
+		return detalleIndicador
 						
 		//[indicadorInstance:indicadorInstance,resultados:resultados]
 		
