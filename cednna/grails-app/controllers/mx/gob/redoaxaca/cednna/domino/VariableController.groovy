@@ -996,7 +996,7 @@ class VariableController {
 		
 		try{
 			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads
-			System.out.println("Ruta del excell"+path);
+			
 			def fBase = request.getFile('fileBase')
 			if(!fBase.empty) {
 				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
@@ -1005,6 +1005,9 @@ class VariableController {
 			 archivo_ = new File(path + fBase.originalFilename.toString())
 			 archivo = new LeeArchivo(archivo_);
 			 renglones = archivo.getDatos();
+			 
+			 println("Numero de renglones : "+ renglones.size())
+			 
 		     renglonesMalos = new ArrayList<Row>();
 
 			 if(usuario)
@@ -1014,10 +1017,7 @@ class VariableController {
 					for(Row row : renglones){
 					
 						
-						
-						
-						
-						println("Van: " + (++contador) + " renglones")
+					
 						
 						def variableInstance= new Variable();
 //						def temRegion=null
@@ -1047,8 +1047,8 @@ class VariableController {
 						variableInstance.mujeres=row.getMujeres();
 						variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
 						variableInstance.descripcion=row.getDescripcion();
-						variableInstance.dependencia= dependencia
-						
+						variableInstance.dependencia= dependencia;
+						variableInstance.clave=row.getClave();
 						variableInstance.anio=row.getAnio();
 						System.out.println(row);
 						//System.out.println(variableInstance);
