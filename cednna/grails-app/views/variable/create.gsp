@@ -41,6 +41,8 @@
 				
 					
 					<input type="button" id="newVariable" name="newVariable"  value="${message(code: 'default.button.create.label', default: 'Create')}" class="uk-button"/>
+					<br/>
+
 				</fieldset>
 			</g:form>
 		</div>

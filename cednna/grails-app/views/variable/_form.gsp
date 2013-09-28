@@ -165,18 +165,18 @@
 				
 			</li>	
 				
+<h3>Categor&iacute;as</h3>
+
+
+
+
+
+	<input id="addCat" name="addCat"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
 
 	<div id="divCate">
 	
 	
 	</div>
-
-
-
-	<br>
-
-	<input id="addCat" name="addCat"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
-
 
 
 

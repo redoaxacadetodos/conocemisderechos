@@ -42,11 +42,13 @@
 		<g:message code="indicador.localidad.label" default="Poblaci&oacute;n" />
 
 	</label>
+
+
 	<g:select id="poblacion" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list()}" optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}"  class="many-to-one"/>
 	
 </div>
+<h3>Categor&iacute;as</h3>
 
-	<br>
 
 	<div id="divCate_${var.clave}">
 
@@ -105,6 +107,8 @@
 			</g:else>
 	<br>
 	</div>
+
+
 
 	<input id="addCat_${var.clave}" name="addCat_${var.clave}"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
 	
