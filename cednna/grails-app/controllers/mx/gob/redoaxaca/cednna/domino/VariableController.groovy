@@ -1014,10 +1014,25 @@ class VariableController {
 			 	dependencia = usuario.dependencia
 		
 				try{
+				
 					for(Row row : renglones){
-					
+				
 						
+						switch (archivo.getOpcion() ) {
+						case 1:
+							
+							break;
+
+						case 2:
+							
+							break;
+						
+						case 3:
+							
+							break;
 					
+						}
+						
 						
 						def variableInstance= new Variable();
 //						def temRegion=null

@@ -34,4 +34,13 @@ class Categoria {
 		return this.id
 		
 	}
+	
+	void setValorID(long id){
+		
+		
+		this.id=id;
+	}
+	
+	
+	
 }
