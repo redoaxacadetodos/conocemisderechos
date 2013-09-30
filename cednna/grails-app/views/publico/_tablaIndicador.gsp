@@ -1,5 +1,6 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <div>				
+
 		<!-- Tabla indicador general -->
 			  <table>
 				  	<caption>${indicadorInstance?.nombre }</caption>
@@ -51,6 +52,5 @@
 					  	</g:each>
 				  	</tbody>
 			  	</table>
-		<!-- Termina tabla indicador general -->
-	
+		<!-- Termina tabla indicador general -->	
 </div>

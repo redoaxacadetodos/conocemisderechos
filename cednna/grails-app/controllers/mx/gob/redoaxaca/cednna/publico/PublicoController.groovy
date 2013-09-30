@@ -131,7 +131,9 @@ class PublicoController {
 		}
 		
 		*/						
-		
+		Double p = 2.1231239034953409534345345345345345223423423432423534353453453454
+		 
+		System.out.println(p)
 		render(template:"mapa", model:[ubicaciones:prueba, nombreCoordenadas: nombreCoordenadas, coordenadasList:coordenadasList, resultadosIndicador:resultadosIndicador, aux:jsodata])
 	}
 	
@@ -306,6 +308,8 @@ class PublicoController {
 			
 			def jsondata = aux as JSON
 			
+			System.out.println("variables: "+detalleIndicador.rVariables)
+			
 					
 			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: detalleIndicador.rVariables]
 			}
@@ -325,6 +329,7 @@ class PublicoController {
 		def variables= sentencia.split("\\|")
 		def List<ResultadoIndicador> resultados= new ArrayList<ResultadoIndicador>()
 		
+		def List<RVariable> resutaldoVariables = new ArrayList<RVariable>()
 		def List<RVariable> rVariables = new ArrayList<RVariable>()
 		def List<ResultadoTemporal> listTemp = new ArrayList<ResultadoTemporal>()
 		RVariable temVar
@@ -463,6 +468,7 @@ class PublicoController {
 																		}
 														
 																	rVariables.add(temVar)
+																	resutaldoVariables.add(temVar)
 																}
 																
 												}
@@ -674,6 +680,7 @@ class PublicoController {
 																		}
 														
 																	rVariables.add(temVar)
+																	resutaldoVariables.add(temVar)
 																}
 																
 												}
@@ -942,6 +949,7 @@ class PublicoController {
 																		}
 														
 																	rVariables.add(temVar)
+																	resutaldoVariables.add(temVar)
 																}
 																
 												}
@@ -1229,6 +1237,7 @@ class PublicoController {
 																		}
 														
 																	rVariables.add(temVar)
+																	resutaldoVariables.add(temVar)
 																}
 																
 												}
@@ -1392,11 +1401,11 @@ class PublicoController {
 			
 		}
 		
-			
+		System.out.println("rVariable tam: "+resutaldoVariables.size())
 		
 		DetalleIndicador detalleIndicador = new DetalleIndicador()		
 		detalleIndicador.resultados = resultados
-		detalleIndicador.rVariables = rVariables 
+		detalleIndicador.rVariables = resutaldoVariables 
 		
 		
 		return detalleIndicador

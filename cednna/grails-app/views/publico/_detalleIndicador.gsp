@@ -126,9 +126,29 @@
 	  </div>
 	  
 	  <div class="tab-pane" id="calculo">
-	  	<g:each var="datos" in="${datosCalculo }">
-	  		${datos.letra }: ${datos.descripcion }
-	  	</g:each>
+	  	Fórmula de cálculo: <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br>
+	  	<g:if test="${datosCalculo}">
+		  	<table>
+		  		<thead>
+		  		<tr>
+		  		<th>Variable</th>
+		  		<g:each var="valor" in="${datosCalculo?.valores ? datosCalculo?.valores?.get(0) : null}">
+		  			<th>${valor.anio}</th>
+		  		</g:each>
+		  		</tr>
+		  		</thead>
+		  		<tbody>
+		  			<g:each var="datos" status="i" in="${datosCalculo }">
+			  			<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+			  				<td>${datos.letra}</td>
+			  				<g:each var="valor" in="${datos?.valores}">
+			  					<td>${valor.indicador}</td>
+			  				</g:each>
+			  			</tr>
+		  			</g:each>
+		  		</tbody>
+		  	</table>
+	  	</g:if>	  	
 	  </div>
 	  
 	  <div class="tab-pane" id="mapa">
@@ -145,10 +165,7 @@
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>	  		
-<div>	
-	  <div id="map-canvas" style="width: 100%; height: 480px;"></div>
-
-</div>	  		
+	  		
 	  	<div id="mapaIndicador">	  		
 	  		<g:render template="mapa"></g:render>
 	  	</div>

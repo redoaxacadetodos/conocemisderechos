@@ -13,6 +13,7 @@ function initialize() {
   var mapOptions = {
     zoom: 7,
     center: latlng,
+    disableDefaultUI: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
@@ -118,7 +119,6 @@ function loadScript() {
 
     </script>
 	  <!-- Termina Google Maps -->
-<div>	
-	  <div id="map-canvas" style="width: 100%; height: 480px;"></div>
-
+<div>		
+	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>	  	  
 </div>
