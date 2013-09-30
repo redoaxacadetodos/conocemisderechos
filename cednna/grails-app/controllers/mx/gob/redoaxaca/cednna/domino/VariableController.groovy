@@ -1021,6 +1021,44 @@ class VariableController {
 						switch (archivo.getOpcion() ) {
 						case 1:
 							
+						
+						def variableInstance= new Variable();
+						//						def temRegion=null
+						//						def temLocalidad=null
+						//						def temMunicipio=null
+						//
+						//						if(row.getIdRegion()){
+						//							temRegion=Region.get(row.getIdRegion())
+						//
+						//						}
+						//						if(row.getIdRegion()){
+						//							temLocalidad=Localidad.get(row.getIdLocalidad())
+						//
+						//						}
+						//						if(row.getIdRegion()){
+						//							temMunicipio=Municipio.get(row.getIdMunicipio())
+						//
+						//						}
+						//
+						//						variableInstance.region=temRegion
+						//						variableInstance.municipio=temMunicipio
+						//						variableInstance.localidad=temLocalidad
+												variableInstance.estado=Estado.get(20)
+												
+												
+												variableInstance.hombres=row.getHombres();
+												variableInstance.mujeres=row.getMujeres();
+												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
+												variableInstance.descripcion=row.getDescripcion();
+												variableInstance.dependencia= dependencia;
+												variableInstance.clave=row.getClave();
+												variableInstance.anio=row.getAnio();
+												System.out.println(row);
+												//System.out.println(variableInstance);
+												
+												if(variableInstance.save(flush : true, failOnError : true)){
+													contadorBuenos++
+												}
 							break;
 
 						case 2:
