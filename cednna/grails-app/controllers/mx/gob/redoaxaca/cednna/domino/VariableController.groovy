@@ -177,6 +177,10 @@ class VariableController {
 		
 		
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		
+		if(cod){
+		
+		
 		def clave =cod.clave
 		def descripcion=cod.descripcion
 		
@@ -574,7 +578,7 @@ class VariableController {
 		}
 		
 		
-			
+	
 			
 			
 		
@@ -588,7 +592,11 @@ class VariableController {
 			response.sendError(500)
 		}
 			
-			
+		}else{
+		
+		 redirect(action: "archivo")
+		 
+		 }
 		
 	}
 	
