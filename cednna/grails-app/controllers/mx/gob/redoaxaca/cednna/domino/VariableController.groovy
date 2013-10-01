@@ -1046,7 +1046,11 @@ class VariableController {
 												System.out.println(row);
 											
 												
-												variableInstance.categorias=row.categorias
+												row.categorias.each {
+													
+													def temCAT = Categoria.get(it.id)
+													variableInstance.addToCategorias(temCAT)
+												}
 												
 												if(variableInstance.save(flush : true, failOnError : true)){
 													contadorBuenos++
@@ -1068,7 +1072,18 @@ class VariableController {
 				
 												variableInstance.estado=Estado.get(20)
 												
-												variableInstance.categorias=row.categorias
+												
+												System.out.println("Variable: "+row.clave +" -- "+variableInstance.region.descripcion);
+												
+												System.out.println("Numero de categorias : "+row.categorias.size());
+												
+												row.categorias.each {
+													
+													def temCAT = Categoria.get(it.id)
+													variableInstance.addToCategorias(temCAT)
+												}
+												
+											
 												
 												variableInstance.hombres=row.getHombres();
 												variableInstance.mujeres=row.getMujeres();
@@ -1077,7 +1092,7 @@ class VariableController {
 												variableInstance.dependencia= dependencia;
 												variableInstance.clave=row.getClave();
 												variableInstance.anio=row.getAnio();
-												System.out.println(row);
+//												System.out.println(row);
 											
 												if(variableInstance.save(flush : true, failOnError : true)){
 													contadorBuenos++
@@ -1088,37 +1103,41 @@ class VariableController {
 						case 3:
 						
 						
-									def variableInstance= new Variable();
-									def temRegion=null
-									
-									if(row.getIdRegion()){
-										variableInstance.region=Region.get(row.getIdRegion())
-			
-									}
-			
-									if(row.getIdMunicipio()){
-										variableInstance.municipio=Municipio.get(row.getIdMunicipio())
-			
-									}
-			
-									variableInstance.estado=Estado.get(20)
-									
-									variableInstance.categorias=row.categorias
-									
-									variableInstance.hombres=row.getHombres();
-									variableInstance.mujeres=row.getMujeres();
-									variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
-									variableInstance.descripcion=row.getDescripcion();
-									variableInstance.dependencia= dependencia;
-									variableInstance.clave=row.getClave();
-									variableInstance.anio=row.getAnio();
-									System.out.println(row);
-									//System.out.println(variableInstance);
-									
-									if(variableInstance.save(flush : true, failOnError : true)){
-										contadorBuenos++
-									}
-										
+												def variableInstance= new Variable();
+												def temRegion=null
+												
+												if(row.getIdRegion()){
+													variableInstance.region=Region.get(row.getIdRegion())
+						
+												}
+						
+												if(row.getIdMunicipio()){
+													variableInstance.municipio=Municipio.get(row.getIdMunicipio())
+						
+												}
+						
+												variableInstance.estado=Estado.get(20)
+												
+													row.categorias.each {
+													
+													def temCAT = Categoria.get(it.id)
+													variableInstance.addToCategorias(temCAT)
+												}
+												
+												variableInstance.hombres=row.getHombres();
+												variableInstance.mujeres=row.getMujeres();
+												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
+												variableInstance.descripcion=row.getDescripcion();
+												variableInstance.dependencia= dependencia;
+												variableInstance.clave=row.getClave();
+												variableInstance.anio=row.getAnio();
+												
+												//System.out.println(variableInstance);
+												
+												if(variableInstance.save(flush : true, failOnError : true)){
+													contadorBuenos++
+												}
+													
 							break;
 					
 						}
