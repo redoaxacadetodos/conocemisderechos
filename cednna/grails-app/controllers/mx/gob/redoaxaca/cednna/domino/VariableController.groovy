@@ -1037,6 +1037,9 @@ class VariableController {
 												System.out.println(row);
 												//System.out.println(variableInstance);
 												
+												
+												variableInstance.categorias=row.categorias
+												
 												if(variableInstance.save(flush : true, failOnError : true)){
 													contadorBuenos++
 												}

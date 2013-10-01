@@ -189,7 +189,22 @@
 
 $(function(){
 
+	$(document).ready(function() {
 
+		llenaCombo({
+			url : CONTEXT_ROOT+'/json/anos.json',
+			htmlOptions : {
+				name : "anio",
+				id : "anio",
+				clase : ""
+			},
+			index : ${variableInstance.anio},
+			chained : false,
+			anchor : "#anio",
+			combo : true
+		});  
+	    
+	});
 	
 
 	var config = {
@@ -204,18 +219,7 @@ $(function(){
 		    }
 
 
-	llenaCombo({
-		url : CONTEXT_ROOT+'/json/anos.json',
-		htmlOptions : {
-			name : "anio",
-			id : "anio",
-			clase : ""
-		},
-		index : 0,
-		chained : false,
-		anchor : "#anio",
-		combo : true
-	});  
+	
 
 
 	    asignaEventorRegion();

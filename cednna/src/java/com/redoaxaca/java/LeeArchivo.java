@@ -60,11 +60,12 @@ public class LeeArchivo {
 							
 							tempRow.categorias = new ArrayList<Categoria>();
 							
-							
-							for(int x=1;x==(numCategorias*2); x++){
+						
+							for(int x=1;x<=(numCategorias*2); x++){
 								
 								Categoria c = new Categoria();
 								c.setValorID(new Double(hssfRow.getCell(x+4).getNumericCellValue()).longValue());
+							
 								x++;
 								tempRow.categorias.add(c);
 							}
@@ -86,7 +87,7 @@ public class LeeArchivo {
 							
 							tempRow.categorias = new ArrayList<Categoria>();
 							
-							for(int x=1;x==(numCategorias*2); x++){
+							for(int x=1;x<=(numCategorias*2); x++){
 								
 								Categoria c = new Categoria();
 								c.setValorID(new Double(hssfRow.getCell(x+6).getNumericCellValue()).longValue());
@@ -112,7 +113,7 @@ public class LeeArchivo {
 							
 							tempRow.categorias = new ArrayList<Categoria>();
 							
-							for(int x=1;x==(numCategorias*2); x++){
+							for(int x=1;x<=(numCategorias*2); x++){
 								
 								Categoria c = new Categoria();
 								c.setValorID(new Double(hssfRow.getCell(x+8).getNumericCellValue()).longValue());
