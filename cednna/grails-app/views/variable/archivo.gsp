@@ -18,26 +18,28 @@ $(function(){
 
 		
 		
-		document.location.href=CONTEXT_ROOT+"/variable/generaXLS/"+id+"&clave="++;
+		document.location.href=CONTEXT_ROOT+"/variable/generaXLS/"+id;
 
 	}
 	
 
-	llenaCombo({
-		url : CONTEXT_ROOT+'/json/anos.json',
-		htmlOptions : {
-			name : "anio",
-			id : "anio",
-			clase : ""
-		},
-		index : 0,
-		chained : false,
-		anchor : "#anio",
-		combo : true
-	});  
-
-
+		$(document).ready(function() {
 	
+			llenaCombo({
+				url : CONTEXT_ROOT+'/json/anos.json',
+				htmlOptions : {	
+					name : "anio",
+					id : "anio",
+					clase : ""
+				},
+				index : 0,
+				chained : false,
+				anchor : "#anio",
+				combo : true
+			});  
+		    
+		});
+		
 		$("#addCat").click(function(){
 
 			var cont=	parseInt($("#numCategorias").val());

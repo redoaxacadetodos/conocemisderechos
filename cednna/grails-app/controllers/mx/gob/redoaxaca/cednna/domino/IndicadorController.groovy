@@ -93,8 +93,8 @@ class IndicadorController {
 	def visor(){
 		
 		
-		def indicadorInstance = Indicador.get(15778);
-		def opcion= 2;
+		def indicadorInstance = Indicador.get(15901);
+		def opcion= 1;
 	
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
@@ -214,6 +214,7 @@ class IndicadorController {
 																			ResultadoTemporal valorTem = new ResultadoTemporal()
 																			switch (vari.poblacion.clave) {
 																			case "H":
+																			
 																							
 																							valorTem.indicador=it.hombres
 																							valorTem.anio=anio
@@ -271,7 +272,7 @@ class IndicadorController {
 													
 																	} catch (ScriptException e) {
 																		// TODO Auto-generated catch block
-																		e.printStackTrace();
+																		//e.printStackTrace();
 																	}
 													
 													
@@ -407,7 +408,7 @@ class IndicadorController {
 																"region"
 													
 													
-																//System.out.println("LA CONSULTA ES : "+query);
+																System.out.println("LA CONSULTA ES : "+query);
 																def resultTotal = sql.rows(query.toString())
 																
 																if(resultTotal.size()>0){
