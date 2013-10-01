@@ -13,6 +13,9 @@
 				division{
 					eq("id", divi.id)					
 				}
+				and{
+					eq("publico", true)
+				}
 			}}">				
 			<span class="nombre_indicador">${indicador.nombre }</span>
 			

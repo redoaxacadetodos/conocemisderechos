@@ -139,48 +139,7 @@ class PublicoController {
 	
 	def actualizarTablaIndicador(Long id){
 		int tipo = params.idTipo.toInteger()
-		def indicador = Indicador.get(id)
-		/*		
-		def resultados = []
-		
-		switch(tipo){
-			case '1':
-				resultados = visor(id)
-				break
-			case '2':
-				break
-			case '3':
-				break
-			case '4':
-				break
-		}	
-		//Prueba
-		Resultado resultado = new Resultado()
-		Resultado resultado2 = new Resultado()
-		Resultado resultado3 = new Resultado()
-		Resultado resultado4 = new Resultado()
-		resultado.setAnio(2013)
-		resultado.setIndicador(15)
-		resultado2.setAnio(2014)
-		resultado2.setIndicador(17)
-		resultado3.setAnio(2015)
-		resultado3.setIndicador(100)
-		resultado4.setAnio(2016)
-		resultado4.setIndicador(17)
-		resultados.add(resultado)
-		resultados.add(resultado2)
-		resultados.add(resultado3)
-		resultados.add(resultado4)
-		
-				
-		ResultadoIndicador resultadoIndicador = new ResultadoIndicador() 
-		resultadoIndicador.resultados = resultados
-		resultadoIndicador.region = "Valles Centrales"
-		List <ResultadoIndicador> resultadosIndicador = [] 
-		resultadosIndicador.add(resultadoIndicador)
-		resultadosIndicador.add(resultadoIndicador)
-		resultadosIndicador.add(resultadoIndicador)
-		*/
+		def indicador = Indicador.get(id)		
 		
 		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
 		def resultadosIndicador = detalleIndicador.resultados
@@ -193,6 +152,23 @@ class PublicoController {
 		}
 		
 		render (template:"tablaIndicador", model:[tipo:params.idTipo, resultadosIndicador:resultadosIndicador])	
+	}
+	
+	def actualizarDatosCalculo(Long id){
+		int tipo = params.idTipo.toInteger()
+		def indicador = Indicador.get(id)
+		
+		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		def resultadosIndicador = detalleIndicador.resultados
+		
+		resultadosIndicador.each{ re ->
+			System.out.println("tam: "+re.resultados.size() + " region: "+ re.region)
+			re.resultados.each { r ->
+				System.out.println("indi anio: "+r.anio + " "+ r.indicador)
+			}
+		}
+		
+		render (template:"datosCalculo", model:[indicadorInstance: indicador, datosCalculo: detalleIndicador.rVariables])
 	}
 	
 	def enviarCorreo(Long id) {

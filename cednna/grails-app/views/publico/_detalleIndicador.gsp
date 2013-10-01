@@ -126,29 +126,23 @@
 	  </div>
 	  
 	  <div class="tab-pane" id="calculo">
-	  	Fórmula de cálculo: <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br>
-	  	<g:if test="${datosCalculo}">
-		  	<table>
-		  		<thead>
-		  		<tr>
-		  		<th>Variable</th>
-		  		<g:each var="valor" in="${datosCalculo?.valores ? datosCalculo?.valores?.get(0) : null}">
-		  			<th>${valor.anio}</th>
-		  		</g:each>
-		  		</tr>
-		  		</thead>
-		  		<tbody>
-		  			<g:each var="datos" status="i" in="${datosCalculo }">
-			  			<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-			  				<td>${datos.letra}</td>
-			  				<g:each var="valor" in="${datos?.valores}">
-			  					<td>${valor.indicador}</td>
-			  				</g:each>
-			  			</tr>
-		  			</g:each>
-		  		</tbody>
-		  	</table>
-	  	</g:if>	  	
+	  	<label for="opcionDatosCalculo">Tipo:</label>
+	  		<select id="opcionDatosCalculo" name="opcionDatosCalculo" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarDatosCalculo',
+					  params: '\'idTipo=\' + this.value',
+					  update: 'datosCalculo',
+					  id: indicadorInstance?.id  )}">
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>	  			
+	  		</select>
+	  	<br><br>
+	  	<p>Fórmula de cálculo: <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p>
+	  	<div id="datosCalculo">
+	  		<g:render template="datosCalculo"></g:render>  
+	  	</div>	
 	  </div>
 	  
 	  <div class="tab-pane" id="mapa">
