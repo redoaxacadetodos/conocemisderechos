@@ -168,7 +168,7 @@ class PublicoController {
 			}
 		}
 		
-		render (template:"datosCalculo", model:[indicadorInstance: indicador, datosCalculo: detalleIndicador.rVariables])
+		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo: detalleIndicador.rVariables])
 	}
 	
 	def enviarCorreo(Long id) {
@@ -560,7 +560,7 @@ class PublicoController {
 																				"	cat_variable.cvv_poblacion_total AS total "+
 																" FROM cat_variable "+
 																"where "+
-																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+" and   cvv_municipio is not null  "
+																" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+"  "
 																
 																if(vari.categorias){
 																	
@@ -1378,6 +1378,13 @@ class PublicoController {
 		}
 		
 		System.out.println("rVariable tam: "+resutaldoVariables.size())
+		resutaldoVariables.each{
+			System.out.println("valores tam: "+it.valores.size())
+			it.valores.each {
+				System.out.println("Region: "+it.region)
+			}
+			
+		}
 		
 		DetalleIndicador detalleIndicador = new DetalleIndicador()		
 		detalleIndicador.resultados = resultados

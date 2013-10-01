@@ -119,6 +119,13 @@ function loadScript() {
 
     </script>
 	  <!-- Termina Google Maps -->
+	  
 <div>		
-	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>	  	  
+	<g:if test="${coordenadasList}">
+	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>
+	</g:if>
+	<g:else>
+		No se puede mostrar la ubicación 
+		<div id="map-canvas" style="width: 100%; height: 480px; display:none;"></div>
+	</g:else>	  	  
 </div>
