@@ -1044,8 +1044,7 @@ class VariableController {
 												variableInstance.clave=row.getClave();
 												variableInstance.anio=row.getAnio();
 												System.out.println(row);
-												//System.out.println(variableInstance);
-												
+											
 												
 												variableInstance.categorias=row.categorias
 												
@@ -1079,8 +1078,7 @@ class VariableController {
 												variableInstance.clave=row.getClave();
 												variableInstance.anio=row.getAnio();
 												System.out.println(row);
-												//System.out.println(variableInstance);
-												
+											
 												if(variableInstance.save(flush : true, failOnError : true)){
 													contadorBuenos++
 												}

@@ -82,7 +82,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:field name="mujeres" id="mujeres" type="number" value="${variableInstance.mujeres}" required=""/>
+	<g:field name="mujeres" id="mujeres" type="text" value="${variableInstance.mujeres}" required=""/>
 	</div>
 </div>
 
@@ -92,7 +92,8 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:field name="hombres"  id="hombres" type="number" value="${variableInstance.hombres}" required="" class="uk-button"/>
+	
+	<g:field name="hombres"  id="hombres" type="text" value="${variableInstance.hombres}" required="" class="uk-button"/>
 	</div>
 </div>
 
