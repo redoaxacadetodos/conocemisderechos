@@ -259,7 +259,7 @@ class IndicadorController {
 																	ScriptEngine js = script.getEngineByName("JavaScript");
 																	try {
 													
-																		rTemp.indicador =js.eval("eval('"+formula+"')")
+																		rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
 																		rTemp.anio=anio
 																		listTemp.add(rTemp)
 													
@@ -286,14 +286,14 @@ class IndicadorController {
 																
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																resultados.get(0).resultados.add(res)
 //																System.out.println("Veces que entro al sistema 1 ");
 																
 															}else{
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																ResultadoIndicador ri =  new  ResultadoIndicador()
 																
 																ri.resultados.add(res)
@@ -1051,7 +1051,7 @@ class IndicadorController {
 																	ScriptEngine js = script.getEngineByName("JavaScript");
 																	try {
 													
-																		rTemp.indicador =js.eval("eval('"+formula+"')")
+																		rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
 																		rTemp.region= base.region
 																		rTemp.idRegion= base.idRegion
 																		rTemp.municipio= base.municipio
@@ -1087,7 +1087,7 @@ class IndicadorController {
 																			if(it.idLocalidad==actual.idLocalidad){
 																				Resultado res= new Resultado()
 																				res.anio=actual.anio
-																				res.indicador=actual.indicador
+																				res.indicador=actual.resultadoIndicador
 																				it.resultados.add(res)
 																				ban=1
 																			}
@@ -1097,7 +1097,7 @@ class IndicadorController {
 																if(ban==1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
-																	res.indicador=actual.indicador
+																	res.indicador=actual.resultadoIndicador
 																	ResultadoIndicador ri =  new  ResultadoIndicador()
 																	ri.region=actual.region
 																	ri.idRegion=actual.idRegion
@@ -1113,7 +1113,7 @@ class IndicadorController {
 															}else{
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																ResultadoIndicador ri =  new  ResultadoIndicador()
 																ri.municipio= actual.municipio
 																ri.idMunicipio= actual.idMunicipio
