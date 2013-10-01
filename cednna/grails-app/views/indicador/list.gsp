@@ -22,7 +22,7 @@
 </nav>		
 		<br>
 
-	
+	 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
 		<div class="${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
 			<label for="dependencia">
 				<g:message code="indicador.dependencia.label" default="Dependencia" />
@@ -32,7 +32,13 @@
 		</div>
 	
 		<br>
+ 		</sec:ifAnyGranted>
  		
+ 		 <sec:ifAnyGranted roles="ROLE_DEP">
+ 		 
+ 		 	<g:hiddenField name="dependencia" value="${dependencia}"/>
+ 		 	
+ 		 </sec:ifAnyGranted>
 		<div id="divTabla">
 		
 				

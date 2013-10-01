@@ -12,6 +12,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+import mx.gob.redoaxaca.cednna.seguridad.Usuario;
+
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
@@ -22,6 +24,7 @@ class IndicadorController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def sessionFactory
 	def dataTablesService
+	def springSecurityService
 	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def index() {
@@ -30,7 +33,10 @@ class IndicadorController {
 	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [indicadorInstanceList: Indicador.list(params), indicadorInstanceTotal: Indicador.count()]
+		def usuario = springSecurityService.currentUser
+		def dependencia =  usuario.dependencia
+		
+        [indicadorInstanceList: Indicador.list(params), indicadorInstanceTotal: Indicador.count(),dependencia:dependencia?.id]
     }
 
     def create() {
