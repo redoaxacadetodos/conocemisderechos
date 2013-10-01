@@ -1,10 +1,13 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import sun.tools.tree.ThisExpression;
+
 class CatOrigenDatos {
 
 	String clave
 	String descripcion
 	
+	static transients = ['datalleCombo']
 	
 	static mapping = {
 		table('cat_origen_datos')
@@ -18,6 +21,11 @@ class CatOrigenDatos {
 	}
 	
 	
+	
+	String getDetalleCombo(){
+	 
+		return "${clave}"+"-"+"${descripcion}"	
+		 }
 	
     static constraints = {
     }

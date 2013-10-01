@@ -139,8 +139,10 @@ class VariableController {
     def save() {
         def variableInstance = new Variable(params)
 		
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		variableInstance.clave=cod.clave
+		variableInstance.descripcion=cod.descripcion
 		
-	
 		
 		def numCategorias= params.numCategorias
 
@@ -173,8 +175,15 @@ class VariableController {
 	
 	def generaXLS() {
 		
-		def clave = params.clave
-		def descripcion= params.descripcion
+		
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		def clave =cod.clave
+		def descripcion=cod.descripcion
+		
+		
+		
+		
+		
 		int anio= params.anio.toInteger()
 		int opcion= params.opcionSerie.toInteger()
 		def numCategorias= params.numCategorias
@@ -1182,6 +1191,11 @@ class VariableController {
 
     def update(Long id, Long version) {
         def variableInstance = Variable.get(id)
+		
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		variableInstance.clave=cod.clave
+		variableInstance.descripcion=cod.descripcion
+		
         if (!variableInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'variable.label', default: 'Variable'), id])
             redirect(action: "list")
