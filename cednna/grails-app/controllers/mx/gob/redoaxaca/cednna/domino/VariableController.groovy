@@ -1147,7 +1147,7 @@ class VariableController {
 		}
 			
 			
-			[dependencia : dependencia, total :0, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
+			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
 			
 	
 			
