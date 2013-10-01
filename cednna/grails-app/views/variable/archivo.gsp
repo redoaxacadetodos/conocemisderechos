@@ -153,25 +153,16 @@ function asignaEventorTipo(num){
 
 
 
-							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'clave', 'error')} required">
-								<label class="uk-form-label" for="clave">
-									<g:message code="variable.clave.label" default="Clave" />
-									<span class="required-indicator">*</span>
+							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
+								<label class="uk-form-label" for="region">
+									<g:message code="variable.region.label" default="Descripción" />
+									
 								</label>
 								<div class="uk-form-controls">
-								<g:textField name="clave" required="" value="${variableInstance?.clave}"/>
+								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.list()}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna descripcion-']"/>
 								</div>
 							</div>
 							
-							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'descripcion', 'error')} required">
-								<label class="uk-form-label" for="descripcion">
-									<g:message code="variable.descripcion.label" default="Descripción" />
-									<span class="required-indicator">*</span>
-								</label>
-								<div class="uk-form-controls">
-								<g:textArea name="descripcion" cols="40" rows="5" maxlength="500" required="" value="${variableInstance?.descripcion}"/>
-								</div>
-							</div>
 
 							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
 								<label class="uk-form-label" for="anio">

@@ -12,6 +12,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+import mx.gob.redoaxaca.cednna.seguridad.Usuario;
+
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
@@ -22,6 +24,7 @@ class IndicadorController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def sessionFactory
 	def dataTablesService
+	def springSecurityService
 	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def index() {
@@ -30,7 +33,10 @@ class IndicadorController {
 	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [indicadorInstanceList: Indicador.list(params), indicadorInstanceTotal: Indicador.count()]
+		def usuario = springSecurityService.currentUser
+		def dependencia =  usuario.dependencia
+		
+        [indicadorInstanceList: Indicador.list(params), indicadorInstanceTotal: Indicador.count(),dependencia:dependencia?.id]
     }
 
     def create() {
@@ -259,7 +265,7 @@ class IndicadorController {
 																	ScriptEngine js = script.getEngineByName("JavaScript");
 																	try {
 													
-																		rTemp.indicador =js.eval("eval('"+formula+"')")
+																		rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
 																		rTemp.anio=anio
 																		listTemp.add(rTemp)
 													
@@ -286,14 +292,14 @@ class IndicadorController {
 																
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																resultados.get(0).resultados.add(res)
 //																System.out.println("Veces que entro al sistema 1 ");
 																
 															}else{
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																ResultadoIndicador ri =  new  ResultadoIndicador()
 																
 																ri.resultados.add(res)
@@ -1051,7 +1057,7 @@ class IndicadorController {
 																	ScriptEngine js = script.getEngineByName("JavaScript");
 																	try {
 													
-																		rTemp.indicador =js.eval("eval('"+formula+"')")
+																		rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
 																		rTemp.region= base.region
 																		rTemp.idRegion= base.idRegion
 																		rTemp.municipio= base.municipio
@@ -1087,7 +1093,7 @@ class IndicadorController {
 																			if(it.idLocalidad==actual.idLocalidad){
 																				Resultado res= new Resultado()
 																				res.anio=actual.anio
-																				res.indicador=actual.indicador
+																				res.indicador=actual.resultadoIndicador
 																				it.resultados.add(res)
 																				ban=1
 																			}
@@ -1097,7 +1103,7 @@ class IndicadorController {
 																if(ban==1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
-																	res.indicador=actual.indicador
+																	res.indicador=actual.resultadoIndicador
 																	ResultadoIndicador ri =  new  ResultadoIndicador()
 																	ri.region=actual.region
 																	ri.idRegion=actual.idRegion
@@ -1113,7 +1119,7 @@ class IndicadorController {
 															}else{
 																Resultado res= new Resultado()
 																res.anio=actual.anio
-																res.indicador=actual.indicador
+																res.indicador=actual.resultadoIndicador
 																ResultadoIndicador ri =  new  ResultadoIndicador()
 																ri.municipio= actual.municipio
 																ri.idMunicipio= actual.idMunicipio

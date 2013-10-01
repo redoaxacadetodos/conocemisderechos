@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
+import mx.gob.redoaxaca.cednna.domino.Categoria;
+
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -30,144 +32,162 @@ public class LeeArchivo {
 			XSSFWorkbook workBook = new XSSFWorkbook(fileInputStream);
 			int numeroHojas = workBook.getNumberOfSheets();
 
-			
-			for (int i = 0; i < numeroHojas; i++) {
 
-					XSSFSheet hssfSheet = workBook.getSheetAt(i);    
+					XSSFSheet hssfSheet = workBook.getSheetAt(0);    
 					Iterator rowIterator = hssfSheet.rowIterator();
 					int contadorFilas=0;
+					
+					numCategorias=new Double(hssfSheet.getRow(1).getCell(1).getNumericCellValue()).intValue();
+					opcion=new Double(hssfSheet.getRow(2).getCell(1).getNumericCellValue()).intValue();
+
+					
 					while (rowIterator.hasNext()) {
 						System.out.println("ENTRO A VES "+(++contadorFilas));
 						XSSFRow hssfRow = (XSSFRow) rowIterator.next();
 						Iterator iterator = hssfRow.cellIterator();
 						Row tempRow = new Row();
-	
-						while (iterator.hasNext()) {
+					
+						if(hssfRow.getRowNum()>4){
+						
+						switch (opcion) {
+						case 1:
 							
-							XSSFCell hssfCell = (XSSFCell) iterator.next();
-	
+							tempRow.setClave(hssfRow.getCell(0).getStringCellValue());
+							tempRow.setDescripcion(hssfRow.getCell(1).getStringCellValue());
+							tempRow.setAnio(new Double(hssfRow.getCell(2).getNumericCellValue()).intValue());
+							tempRow.setMujeres(new Double(hssfRow.getCell(3).getNumericCellValue()).intValue());
+							tempRow.setHombres(new Double(hssfRow.getCell(4).getNumericCellValue()).intValue());
 							
-							if(hssfCell.getRowIndex() == 1 && hssfCell.getColumnIndex()==1){
-									numCategorias=new Double(hssfCell.getNumericCellValue()).intValue();
-							}else if(hssfCell.getRowIndex() == 2 && hssfCell.getColumnIndex()==1){
+							tempRow.categorias = new ArrayList<Categoria>();
 							
-										opcion=new Double(hssfCell.getNumericCellValue()).intValue();
+						
+							for(int x=1;x<=(numCategorias*2); x++){
 								
-										 }else  if(hssfCell.getRowIndex() > 4 && hssfCell.getColumnIndex() >= 0){
-											
-													switch (opcion) {
-													case 1:
-																	switch (hssfCell.getColumnIndex()) {
-																			
-																	
-																			case 0:
-																				tempRow.setClave(hssfCell.getStringCellValue());
-																			
-																			case 1:
-																				tempRow.setDescripcion(hssfCell.getStringCellValue());
-																				break;
-																			
-																			
-																			
-																			case 2:
-																				tempRow.setAnio(new Double(hssfCell.getNumericCellValue()).intValue());
-																				break;
-																		
-																			case 3:
-																				tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
-																			
-																			case 4:
-																				tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
-																				renglones.add(tempRow);
-																				break;
-																	
-																	}
-													break;
-														
-														
-																
-													case 2:
-														
-														
-																			switch (hssfCell.getColumnIndex()) {
-																			
-																			
-																			case 0:
-																				tempRow.setClave(hssfCell.getStringCellValue());
-																			
-																			case 1:
-																				tempRow.setDescripcion(hssfCell.getStringCellValue());
-																				break;
-																			
-																			
-																			
-																			case 2:
-																				tempRow.setAnio(new Double(hssfCell.getNumericCellValue()).intValue());
-																				break;
-																		
-																			case 3:
-																				tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
-																			
-																			case 4:
-																				tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
-																				
-																				break;
-																	
-																	}
-														
-														
-														break;
-														
-														
-													case 3:
-																	
-														
-																		switch (hssfCell.getColumnIndex()) {
-																		
-																		
-																		case 0:
-																			tempRow.setClave(hssfCell.getStringCellValue());
-																		
-																		case 1:
-																			tempRow.setDescripcion(hssfCell.getStringCellValue());
-																			break;
-																		
-																		
-																		
-																		case 2:
-																			tempRow.setAnio(new Double(hssfCell.getNumericCellValue()).intValue());
-																			break;
-																	
-																		case 3:
-																			tempRow.setMujeres(new Double(hssfCell.getNumericCellValue()).intValue());
-																		
-																		case 4:
-																			tempRow.setHombres(new Double(hssfCell.getNumericCellValue()).intValue());
-																			renglones.add(tempRow);
-																			break;
-																
-																}
-														
-														
-														
-														break;
-													
-													
-													}//FIN DEL SWICH PRINCIPAL DE VSEPARACION DE ARCHIVOS
-													
-													
-													
-										 	}//CIERRE DE CICLO IF DE VALIDACION DE CELDAS
+								Categoria c = new Categoria();
+								c.setValorID(new Double(hssfRow.getCell(x+4).getNumericCellValue()).longValue());
 							
-						}//FIN DEL RECORRIODO POR COLUMNAS
+								x++;
+								tempRow.categorias.add(c);
+							}
+							
+							
+							
+							break;
+							
+							
+						case 2:
+							
+							tempRow.setIdRegion((new Double(hssfRow.getCell(0).getNumericCellValue()).intValue()));
+							tempRow.setRegion(hssfRow.getCell(1).getStringCellValue());
+							tempRow.setClave(hssfRow.getCell(2).getStringCellValue());
+							tempRow.setDescripcion(hssfRow.getCell(3).getStringCellValue());
+							tempRow.setAnio(new Double(hssfRow.getCell(4).getNumericCellValue()).intValue());
+							tempRow.setMujeres(new Double(hssfRow.getCell(5).getNumericCellValue()).intValue());
+							tempRow.setHombres(new Double(hssfRow.getCell(6).getNumericCellValue()).intValue());
+							
+							tempRow.categorias = new ArrayList<Categoria>();
+							
+							for(int x=1;x<=(numCategorias*2); x++){
+								
+								Categoria c = new Categoria();
+								c.setValorID(new Double(hssfRow.getCell(x+6).getNumericCellValue()).longValue());
+								x++;
+								tempRow.categorias.add(c);
+							}
+							
+							
+							
+							break;
+
+						case 3:
+							
+							tempRow.setIdRegion((new Double(hssfRow.getCell(0).getNumericCellValue()).intValue()));
+							tempRow.setRegion(hssfRow.getCell(1).getStringCellValue());
+							tempRow.setIdMunicipio((new Double(hssfRow.getCell(2).getNumericCellValue()).intValue()));
+							tempRow.setMunicipio(hssfRow.getCell(3).getStringCellValue());
+							tempRow.setClave(hssfRow.getCell(4).getStringCellValue());
+							tempRow.setDescripcion(hssfRow.getCell(5).getStringCellValue());
+							tempRow.setAnio(new Double(hssfRow.getCell(6).getNumericCellValue()).intValue());
+							tempRow.setMujeres(new Double(hssfRow.getCell(7).getNumericCellValue()).intValue());
+							tempRow.setHombres(new Double(hssfRow.getCell(8).getNumericCellValue()).intValue());
+							
+							tempRow.categorias = new ArrayList<Categoria>();
+							
+							for(int x=1;x<=(numCategorias*2); x++){
+								
+								Categoria c = new Categoria();
+								c.setValorID(new Double(hssfRow.getCell(x+8).getNumericCellValue()).longValue());
+								x++;
+								tempRow.categorias.add(c);
+							}
+							
+								
+							break;
+						}
+					
+					
+						
+						
+						
+						
+						renglones.add(tempRow);
+					
+											
+						}						
+				
+				
 					}//FIN DEL RECORRIDO POR FILAS
-			}//FIN DEL RECORRIDO POR HOJAS 
+	
 		} catch (Exception e) {
 			e.getMessage();
 			e.printStackTrace();
 		}
 
 	}
+	
+	
+
+	public ArrayList<Row> getRenglones() {
+		return renglones;
+	}
+
+
+
+	public void setRenglones(ArrayList<Row> renglones) {
+		this.renglones = renglones;
+	}
+
+
+
+	public int getOpcion() {
+		return opcion;
+	}
+
+
+
+	public void setOpcion(int opcion) {
+		this.opcion = opcion;
+	}
+
+
+
+	public int getNumCategorias() {
+		return numCategorias;
+	}
+
+
+
+	public void setNumCategorias(int numCategorias) {
+		this.numCategorias = numCategorias;
+	}
+
+
+
+	public void setClaveDependencia(int claveDependencia) {
+		this.claveDependencia = claveDependencia;
+	}
+
+
 
 	public int getClaveDependencia(){
 		return claveDependencia;

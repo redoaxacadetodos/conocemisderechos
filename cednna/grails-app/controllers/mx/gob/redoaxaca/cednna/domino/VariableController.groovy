@@ -139,8 +139,10 @@ class VariableController {
     def save() {
         def variableInstance = new Variable(params)
 		
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		variableInstance.clave=cod.clave
+		variableInstance.descripcion=cod.descripcion
 		
-	
 		
 		def numCategorias= params.numCategorias
 
@@ -173,8 +175,15 @@ class VariableController {
 	
 	def generaXLS() {
 		
-		def clave = params.clave
-		def descripcion= params.descripcion
+		
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		def clave =cod.clave
+		def descripcion=cod.descripcion
+		
+		
+		
+		
+		
 		int anio= params.anio.toInteger()
 		int opcion= params.opcionSerie.toInteger()
 		def numCategorias= params.numCategorias
@@ -1014,48 +1023,127 @@ class VariableController {
 			 	dependencia = usuario.dependencia
 		
 				try{
+				
 					for(Row row : renglones){
-					
+				
 						
-					
+						switch (archivo.getOpcion() ) {
+						case 1:
+							
 						
 						def variableInstance= new Variable();
-//						def temRegion=null
-//						def temLocalidad=null
-//						def temMunicipio=null
-//						
-//						if(row.getIdRegion()){
-//							temRegion=Region.get(row.getIdRegion())
-//							
-//						}
-//						if(row.getIdRegion()){
-//							temLocalidad=Localidad.get(row.getIdLocalidad())
-//							
-//						}
-//						if(row.getIdRegion()){
-//							temMunicipio=Municipio.get(row.getIdMunicipio())
-//							
-//						}
-//						
-//						variableInstance.region=temRegion
-//						variableInstance.municipio=temMunicipio
-//						variableInstance.localidad=temLocalidad
-						variableInstance.estado=Estado.get(20)
+					
+												variableInstance.estado=Estado.get(20)
+												
+												
+												variableInstance.hombres=row.getHombres();
+												variableInstance.mujeres=row.getMujeres();
+												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
+												variableInstance.descripcion=row.getDescripcion();
+												variableInstance.dependencia= dependencia;
+												variableInstance.clave=row.getClave();
+												variableInstance.anio=row.getAnio();
+												System.out.println(row);
+											
+												
+												row.categorias.each {
+													
+													def temCAT = Categoria.get(it.id)
+													variableInstance.addToCategorias(temCAT)
+												}
+												
+												if(variableInstance.save(flush : true, failOnError : true)){
+													contadorBuenos++
+												}
+							break;
+
+							
+							
+						case 2:
+							
+						def variableInstance= new Variable();
+												def temRegion=null
+												
+												if(row.getIdRegion()){
+													variableInstance.region=Region.get(row.getIdRegion())
+						
+												}
+					
+				
+												variableInstance.estado=Estado.get(20)
+												
+												
+												System.out.println("Variable: "+row.clave +" -- "+variableInstance.region.descripcion);
+												
+												System.out.println("Numero de categorias : "+row.categorias.size());
+												
+												row.categorias.each {
+													
+													def temCAT = Categoria.get(it.id)
+													variableInstance.addToCategorias(temCAT)
+												}
+												
+											
+												
+												variableInstance.hombres=row.getHombres();
+												variableInstance.mujeres=row.getMujeres();
+												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
+												variableInstance.descripcion=row.getDescripcion();
+												variableInstance.dependencia= dependencia;
+												variableInstance.clave=row.getClave();
+												variableInstance.anio=row.getAnio();
+//												System.out.println(row);
+											
+												if(variableInstance.save(flush : true, failOnError : true)){
+													contadorBuenos++
+												}
+						
+							break;
+						
+						case 3:
 						
 						
-						variableInstance.hombres=row.getHombres();
-						variableInstance.mujeres=row.getMujeres();
-						variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
-						variableInstance.descripcion=row.getDescripcion();
-						variableInstance.dependencia= dependencia;
-						variableInstance.clave=row.getClave();
-						variableInstance.anio=row.getAnio();
-						System.out.println(row);
-						//System.out.println(variableInstance);
+												def variableInstance= new Variable();
+												def temRegion=null
+												
+												if(row.getIdRegion()){
+													variableInstance.region=Region.get(row.getIdRegion())
 						
-						if(variableInstance.save(flush : true, failOnError : true)){
-							contadorBuenos++
+												}
+						
+												if(row.getIdMunicipio()){
+													variableInstance.municipio=Municipio.get(row.getIdMunicipio())
+						
+												}
+						
+												variableInstance.estado=Estado.get(20)
+												
+													row.categorias.each {
+													
+													def temCAT = Categoria.get(it.id)
+													variableInstance.addToCategorias(temCAT)
+												}
+												
+												variableInstance.hombres=row.getHombres();
+												variableInstance.mujeres=row.getMujeres();
+												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
+												variableInstance.descripcion=row.getDescripcion();
+												variableInstance.dependencia= dependencia;
+												variableInstance.clave=row.getClave();
+												variableInstance.anio=row.getAnio();
+												
+												//System.out.println(variableInstance);
+												
+												if(variableInstance.save(flush : true, failOnError : true)){
+													contadorBuenos++
+												}
+													
+							break;
+					
 						}
+						
+						
+					
 			
 			
 						
@@ -1078,7 +1166,7 @@ class VariableController {
 		}
 			
 			
-			[dependencia : dependencia, total :0, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
+			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
 			
 	
 			
@@ -1120,6 +1208,11 @@ class VariableController {
 
     def update(Long id, Long version) {
         def variableInstance = Variable.get(id)
+		
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		variableInstance.clave=cod.clave
+		variableInstance.descripcion=cod.descripcion
+		
         if (!variableInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'variable.label', default: 'Variable'), id])
             redirect(action: "list")

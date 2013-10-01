@@ -14,6 +14,10 @@ class Categoria {
 		clave(nullable:true,blank:true)
     }
 
+	
+	static transients = ['valorID']
+	
+	
     static mapping = {
 		table('cat_categoria')
 		id(column: 'cct_id')
@@ -34,4 +38,13 @@ class Categoria {
 		return this.id
 		
 	}
+	
+	void setValorID(long id){
+		
+		
+		this.id=id;
+	}
+	
+	
+	
 }

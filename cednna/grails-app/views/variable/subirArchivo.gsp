@@ -11,9 +11,9 @@
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 
-			<li><g:link class="list" action="list">Listado variables</g:link></li>
+			<li><g:link class="list" action="list">Origen de datos </g:link></li>
 			
-			<li class="uk-active"><g:link class="create" action="create">Nueva variable</g:link></li>
+			<li class="uk-active"><g:link class="create" action="create">Nuevo origen de datos</g:link></li>
 			
 
 <br>
@@ -22,14 +22,14 @@
 	<br>
 	<br>
 	
-	<h4>Total de procesados:</h4> ${ total }
+	<h4>Total de registros procesados:</h4> ${ total }
 	<br>
 	<h4>Registros cargados exitosamente: </h4> ${ buenos }
 
 	<br>
 	<br>
 	
-	<h4>Variables que no fueron cargados debido a un problema: </h4>
+	<h4>Registros que no fueron cargados debido a un problema: </h4>${ malos }
 	
 	
 	<br>
@@ -40,7 +40,7 @@
 	<br>
 	<br>
 	</g:if>
-	<h4>Variables que no fueron cargados debido a un problema: </h4>
+	<h4>Detalle de registros no procesados : </h4>
 	
 	<table  cellspacing="3" cellpadding="6">  
 	<tbody>
