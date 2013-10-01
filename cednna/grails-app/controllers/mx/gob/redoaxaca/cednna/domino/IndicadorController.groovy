@@ -94,7 +94,7 @@ class IndicadorController {
 		
 		
 		def indicadorInstance = Indicador.get(15901);
-		def opcion= 1;
+		def opcion= 3;
 	
 		def formula =  indicadorInstance?.formula?.sentencia
 		def sentencia= indicadorInstance?.formula?.variables
@@ -270,7 +270,7 @@ class IndicadorController {
 																		rTemp.anio=anio
 																		listTemp.add(rTemp)
 													
-																	} catch (ScriptException e) {
+																	} catch (Exception e) {
 																		// TODO Auto-generated catch block
 																		//e.printStackTrace();
 																	}
@@ -408,7 +408,7 @@ class IndicadorController {
 																"region"
 													
 													
-																System.out.println("LA CONSULTA ES : "+query);
+															//	System.out.println("LA CONSULTA ES : "+query);
 																def resultTotal = sql.rows(query.toString())
 																
 																if(resultTotal.size()>0){
@@ -419,7 +419,7 @@ class IndicadorController {
 																		resultTotal?.each
 																		{
 																			
-																			System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																			//System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 																			ResultadoTemporal valorTem = new ResultadoTemporal()
 																			switch (vari.poblacion.clave) {
 																			case "H":
@@ -506,12 +506,12 @@ class IndicadorController {
 																		rTemp.idRegion= base.idRegion
 																		rTemp.anio=base.anio
 																		
-																		System.out.println("Region: "+base.idRegion+"-- "+base.region+"  Resultado indicador : "+ rTemp.resultadoIndicador);
+																		//System.out.println("Region: "+base.idRegion+"-- "+base.region+"  Resultado indicador : "+ rTemp.resultadoIndicador);
 																		listTemp.add(rTemp)
 													
-																	} catch (ScriptException e) {
+																	} catch (Exception e) {
 																		// TODO Auto-generated catch block
-																		e.printStackTrace();
+																		//e.printStackTrace();
 																	}
 													
 													
@@ -524,6 +524,8 @@ class IndicadorController {
 												/***
 												 * Comienza el proceso de ordenamiento para salida
 												 * */
+												
+												
 												
 												listTemp.each {
 												actual->
@@ -542,7 +544,7 @@ class IndicadorController {
 																}
 																
 																
-																if(ban==1){
+																if(ban!=1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
 																	res.indicador=actual.resultadoIndicador
@@ -676,14 +678,14 @@ class IndicadorController {
 																def resultTotal = sql.rows(query.toString())
 																
 																if(resultTotal.size()>0){
-																	System.out.println("LA CONSULTA ES : "+query);
+																	//System.out.println("LA CONSULTA ES : "+query);
 																	temVar= new RVariable()
 																	temVar.letra=vari.clave
 																
 																		resultTotal?.each
 																		{
 																			
-																		//	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+																			//System.out.println("Variable "+vari.clave+" Municipio-ID : "+it.municipio_id + " Municipio : "+it.municipio + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 																			ResultadoTemporal valorTem = new ResultadoTemporal()
 																			switch (vari.poblacion.clave) {
 																			case "H":
@@ -741,6 +743,8 @@ class IndicadorController {
 														num=it.valores.size()
 														letra=it.letra
 														valorBase=it.valores
+														
+														
 													}
 												}
 											
@@ -779,9 +783,11 @@ class IndicadorController {
 																		rTemp.anio=base.anio
 																		listTemp.add(rTemp)
 													
-																	} catch (ScriptException e) {
+																		System.out.println("Region: "+base.idMunicipio+"-- "+base.municipio+"  Resultado indicador : "+ rTemp.resultadoIndicador);
+																		
+																	} catch (Exception e) {
 																		// TODO Auto-generated catch block
-																		e.printStackTrace();
+																	//	e.printStackTrace();
 																	}
 													
 													
@@ -812,7 +818,7 @@ class IndicadorController {
 																}
 																
 																
-																if(ban==1){
+																if(ban!=1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
 																	res.indicador=actual.resultadoIndicador
@@ -1155,22 +1161,22 @@ class IndicadorController {
 		
 		
 					 
-//		resultados.each {
-//			
-//			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
-//			System.out.println("Tama–o  "+it.resultados.size());
-//			it.resultados.each {
-//				an->
-//					
-//					an.each {
-//							
-//						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
-//						
-//					}
-//			}
-//			
-//		}
-//		
+		resultados.each {
+			
+			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
+			System.out.println("Tama–o  "+it.resultados.size());
+			it.resultados.each {
+				an->
+					
+					an.each {
+							
+						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
+						
+					}
+			}
+			
+		}
+		
 			
 		
 			
