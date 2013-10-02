@@ -730,16 +730,16 @@ class IndicadorController {
 											/***
 											 * Comienza el calculo del indicador en base a las variables
 											 * */
-											
+											//System.out.println("Numero de resultados por a–o : "+rVariables.size());
 											if(rVariables.size()>0){
 												
-												num=rVariables.get(0).letra
-												letra=rVariables.get(0).valores.size()
+												letra=rVariables.get(0).letra
+												num=rVariables.get(0).valores.size()
 												
 											
 							
 												rVariables.each {
-													if( it.valores.size()<num){
+													if( it.valores.size()!=0){
 														num=it.valores.size()
 														letra=it.letra
 														valorBase=it.valores
@@ -783,7 +783,7 @@ class IndicadorController {
 																		rTemp.anio=base.anio
 																		listTemp.add(rTemp)
 													
-																		System.out.println("Region: "+base.idMunicipio+"-- "+base.municipio+"  Resultado indicador : "+ rTemp.resultadoIndicador);
+																		//System.out.println("Region: "+base.idMunicipio+"-- "+base.municipio+"  Resultado indicador : "+ rTemp.resultadoIndicador);
 																		
 																	} catch (Exception e) {
 																		// TODO Auto-generated catch block

@@ -746,7 +746,7 @@ class PublicoController {
 																}
 																
 																
-																if(ban==1){
+																if(ban!=1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
 																	res.indicador=actual.resultadoIndicador
@@ -936,16 +936,18 @@ class PublicoController {
 											
 											if(rVariables.size()>0){
 												
-												num=rVariables.get(0).letra
-												letra=rVariables.get(0).valores.size()
+												letra=rVariables.get(0).letra
+												num=rVariables.get(0).valores.size()
 												
 											
 							
 												rVariables.each {
-													if( it.valores.size()<num){
+													if( it.valores.size()!=0){
 														num=it.valores.size()
 														letra=it.letra
 														valorBase=it.valores
+														
+														
 													}
 												}
 											
@@ -1017,7 +1019,7 @@ class PublicoController {
 																}
 																
 																
-																if(ban==1){
+																if(ban!=1){
 																	Resultado res= new Resultado()
 																	res.anio=actual.anio
 																	res.indicador=actual.resultadoIndicador
@@ -1361,30 +1363,30 @@ class PublicoController {
 		
 		
 					 
-		resultados.each {
-			
-			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
-			System.out.println("Tama–o  "+it.resultados.size());
-			it.resultados.each {
-				an->
-					
-					an.each {
-							
-						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
-						
-					}
-			}
-			
-		}
-		
-		System.out.println("rVariable tam: "+resutaldoVariables.size())
-		resutaldoVariables.each{
-			System.out.println("valores tam: "+it.valores.size())
-			it.valores.each {
-				System.out.println("Region: "+it.region)
-			}
-			
-		}
+//		resultados.each {
+//			
+//			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
+//			System.out.println("Tama–o  "+it.resultados.size());
+//			it.resultados.each {
+//				an->
+//					
+//					an.each {
+//							
+//						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
+//						
+//					}
+//			}
+//			
+//		}
+//		
+//		System.out.println("rVariable tam: "+resutaldoVariables.size())
+//		resutaldoVariables.each{
+//			System.out.println("valores tam: "+it.valores.size())
+//			it.valores.each {
+//				System.out.println("Region: "+it.region)
+//			}
+//			
+//		}
 		
 		DetalleIndicador detalleIndicador = new DetalleIndicador()		
 		detalleIndicador.resultados = resultados
