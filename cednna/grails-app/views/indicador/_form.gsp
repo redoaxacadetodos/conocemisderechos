@@ -23,7 +23,20 @@
 	
 </div>
 
+<g:if test="${dep}">
 
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
+	<label class="uk-form-label"for="dependencia">
+		<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:hiddenField name="dependencia.id" value="${dep?.id}"/>
+	<input  name="dep"  value="${dep?.descripcion}" style="width:600px;" type="text" readonly="readonly"/>
+</div>
+
+
+</g:if>
+<g:else>
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
 	<label class="uk-form-label"for="dependencia">
 		<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
@@ -31,6 +44,9 @@
 	</label>
 	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
 </div>
+</g:else>
+
+
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'ejecutora', 'error')} required">
 	<label class="uk-form-label"for="ejecutora">

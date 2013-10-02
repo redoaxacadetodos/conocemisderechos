@@ -49,8 +49,8 @@ class VariableController {
 		"coalesce(m.mun_descripcion , '') as municipio " ,
 		"coalesce(l.ctl_descripcion , '') as localidad " ,
 		"cvv_poblacion_total as total ",
-		"cvv_hombres as hombres ",
-		"cvv_mujeres as mujeres"
+		"cvv_mujeres as mujeres",
+		"cvv_hombres as hombres "
 		],
 		[
 		"cvv_clave " , 
@@ -59,8 +59,8 @@ class VariableController {
 		"coalesce(m.mun_descripcion , '') " ,
 		"coalesce(l.ctl_descripcion , '') " ,
 		"cvv_poblacion_total ",
-		"cvv_hombres ",
-		"cvv_mujeres "
+		"cvv_mujeres ",
+		"cvv_hombres "
 		],[
 		"id", 
 		"clave" , 
@@ -69,8 +69,8 @@ class VariableController {
 		"municipio" ,
 		"localidad" ,
 		"total",
-		"hombres",
-		"mujeres"
+		"mujeres",
+		"hombres"
 		],1,"text") as JSON
 }
 

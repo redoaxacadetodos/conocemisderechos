@@ -40,9 +40,11 @@ class IndicadorController {
     }
 
     def create() {
+		def user =springSecurityService.currentUser
 		
+		def dep = user.dependencia
 	
-        [indicadorInstance: new Indicador(params)]
+        [indicadorInstance: new Indicador(params),dep:dep]
     }
 
 	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
@@ -1338,7 +1340,12 @@ class IndicadorController {
             return
         }
 
-        [indicadorInstance: indicadorInstance]
+		def user =springSecurityService.currentUser
+		
+		def dep = user.dependencia
+		
+		
+        [indicadorInstance: indicadorInstance,dep:dep]
     }
 
     def update(Long id, Long version) {
