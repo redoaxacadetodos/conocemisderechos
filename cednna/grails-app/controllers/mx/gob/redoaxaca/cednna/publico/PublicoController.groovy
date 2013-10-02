@@ -12,6 +12,8 @@ import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
 import java.text.DecimalFormat
+import java.util.List;
+
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
 
@@ -161,6 +163,92 @@ class PublicoController {
 		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
 		def resultadosIndicador = detalleIndicador.resultados
 		
+		def tamVariables = indicador.variables.size()
+		def datosCalculo = detalleIndicador.rVariables
+		
+		//Datos de prueba
+		/*
+		def rVariablesAux = []
+		def valorasArr1 = []
+		def valorasArr2 = []
+		def valorasArr3 = []
+		def valorasArr4 = []
+		def valorasArr5 = []
+		def valorasArr6 = []		
+		
+		def valor1 = new ResultadoTemporal()
+		valor1.region = "Reg1"
+		valor1.indicador = 1
+		valor1.anio = 2010
+		
+		def valor2 = new ResultadoTemporal()
+		valor2.region = "Reg1"
+		valor2.indicador = 10
+		valor2.anio = 2010
+		
+		def valor3 = new ResultadoTemporal()
+		valor3.region = "Reg1"
+		valor3.indicador = 100
+		valor3.anio = 2011
+		
+		def valor4 = new ResultadoTemporal()
+		valor4.region = "Reg1"
+		valor4.indicador = 1000
+		valor4.anio = 2011
+		
+		def valor5 = new ResultadoTemporal()
+		valor5.region = "Reg1"
+		valor5.indicador = 10000
+		valor5.anio = 2012
+		
+		def valor6 = new ResultadoTemporal()
+		valor6.region = "Reg1"
+		valor6.indicador = 100000
+		valor6.anio = 2012
+		
+		valorasArr1.add(valor1)
+		valorasArr2.add(valor2)
+		valorasArr3.add(valor3)
+		valorasArr4.add(valor4)
+		valorasArr5.add(valor5)
+		valorasArr6.add(valor6)
+		
+		def rVariable1 = new RVariable()
+		def rVariable2 = new RVariable()
+		def rVariable3 = new RVariable()
+		def rVariable4 = new RVariable()
+		def rVariable5 = new RVariable()
+		def rVariable6 = new RVariable()
+		
+		rVariable1.letra = "A"
+		rVariable1.valores = valorasArr1
+		
+		rVariable2.letra = "B"
+		rVariable2.valores = valorasArr2
+		
+		rVariable3.letra = "A"
+		rVariable3.valores = valorasArr3
+		
+		rVariable4.letra = "B"
+		rVariable4.valores = valorasArr4
+		
+		rVariable5.letra = "A"
+		rVariable5.valores = valorasArr5
+		
+		rVariable6.letra = "B"
+		rVariable6.valores = valorasArr6
+		
+		rVariablesAux.add(rVariable1)
+		rVariablesAux.add(rVariable2)
+		rVariablesAux.add(rVariable3)
+		rVariablesAux.add(rVariable4)
+		rVariablesAux.add(rVariable5)
+		rVariablesAux.add(rVariable6)
+		
+		datosCalculo = rVariablesAux
+		tamVariables=2
+		*/
+		
 		resultadosIndicador.each{ re ->
 			System.out.println("tam: "+re.resultados.size() + " region: "+ re.region)
 			re.resultados.each { r ->
@@ -168,7 +256,17 @@ class PublicoController {
 			}
 		}
 		
-		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo: detalleIndicador.rVariables])
+		System.out.println("tamaño variables: "+tamVariables)
+		
+		
+		detalleIndicador.rVariables.each{
+			System.out.println("valores tam: "+it.valores.size())
+						it.valores.each {
+							System.out.println("Region: "+it.region)
+						}
+		}
+		
+		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo:datosCalculo, tamVariables:tamVariables])
 	}
 	
 	def enviarCorreo(Long id) {
@@ -285,9 +383,11 @@ class PublicoController {
 			def jsondata = aux as JSON
 			
 			System.out.println("variables: "+detalleIndicador.rVariables)
-			
+						
+			def tamVariables = indicador.variables.size()
+			def datosCalculo = detalleIndicador.rVariables			
 					
-			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: detalleIndicador.rVariables]
+			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables]
 			}
 			else{
 				redirect(action:"indicadores")
