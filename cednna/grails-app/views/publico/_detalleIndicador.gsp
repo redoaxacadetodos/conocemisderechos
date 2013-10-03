@@ -12,6 +12,17 @@
 	      	})
 	    });
 
+	  	function mostrarCargando(){
+	  		$( "#datosCalculo" ).hide( "fast", function(){
+	  			$( "#cargando" ).show( "fast");
+		  	});												
+		}
+		
+		function ocultarCargando(){
+			$( "#cargando" ).hide( "fast", function() {
+				$( "#datosCalculo" ).show( "slow" );    
+			  } );					
+		}
 	
 	  </script>
 
@@ -133,6 +144,8 @@
 					  action: 'actualizarDatosCalculo',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'datosCalculo',
+					  onLoading: "mostrarCargando()",
+					  onLoaded: "ocultarCargando()",
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
@@ -140,6 +153,7 @@
 	  		</select>
 	  	<br><br>
 	  	<p>Fórmula de cálculo: <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p>
+	  	<div id="cargando" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
 	  	<div id="datosCalculo">
 	  		<g:render template="datosCalculo"></g:render>  
 	  	</div>	
@@ -153,7 +167,7 @@
 					  action: 'actualizarMapa',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'mapaIndicador',
-					  onLoaded: "loadScript()",
+					  onLoaded: "loadScript()",					 
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
