@@ -42,7 +42,7 @@ public class LeeArchivo {
 
 					
 					while (rowIterator.hasNext()) {
-						System.out.println("ENTRO A VES "+(++contadorFilas));
+//						System.out.println("ENTRO A VES "+(++contadorFilas));
 						XSSFRow hssfRow = (XSSFRow) rowIterator.next();
 						Iterator iterator = hssfRow.cellIterator();
 						Row tempRow = new Row();

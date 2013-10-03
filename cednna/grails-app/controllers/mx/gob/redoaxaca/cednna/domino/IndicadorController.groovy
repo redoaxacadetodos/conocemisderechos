@@ -1549,6 +1549,9 @@ class IndicadorController {
 	
 	def semaforo(){
 		
+		def usuario = springSecurityService.currentUser
+		def dependencia =  usuario.dependencia
+		[dependencia:dependencia]
 		
 	}
 	
@@ -1556,6 +1559,6 @@ class IndicadorController {
 	def actualizarSemaforo(){
 		def dependencia = Dependencia.get(params.id)
 		def indicadores = Indicador.findAllByDependencia(dependencia)
-		render(template:"indicadorSemaforo", model:[indicadores:indicadores])
+		render(template:"indicadorSemaforo", model:[indicadores:indicadores,rol:params.rol])
 	}
 }

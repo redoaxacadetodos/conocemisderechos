@@ -238,7 +238,7 @@ class VariableController {
 											
 												if(temCategoria.tipo.id ==it.tipo.id){
 													it.categorias.add(temCategoria);
-													System.out.println("valor :"+ temCategoria.id);
+													//System.out.println("valor :"+ temCategoria.id);
 												}
 											
 										}
@@ -270,7 +270,7 @@ class VariableController {
 												c.categorias.each {
 													
 													mat[x][y]= it.id
-													System.out.println("Matriz :"+ it.id);
+													//System.out.println("Matriz :"+ it.id);
 													x++;
 												}
 											
@@ -343,7 +343,7 @@ class VariableController {
 															
 																if(temCategoria.tipo.id ==it.tipo.id){
 																	it.categorias.add(temCategoria);
-																	System.out.println("valor :"+ temCategoria.id);
+																//	System.out.println("valor :"+ temCategoria.id);
 																}
 															
 														}
@@ -368,14 +368,14 @@ class VariableController {
 										cts.each{
 											c ->
 														int veces=	tamX/c.categorias.size()
-														System.out.println("Numero de veces "+veces );
+														//System.out.println("Numero de veces "+veces );
 														int x=0;
 														for(int xy=0; xy<veces;xy++){
 															
 																c.categorias.each {
 																	
 																	mat[x][y]= it.id
-																	System.out.println("Matriz :"+ it.id);
+																	//System.out.println("Matriz :"+ it.id);
 																	x++;
 																}
 															
@@ -387,7 +387,7 @@ class VariableController {
 			
 			
 			
-							System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
+							//System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
 			
 							
 							def regiones=  Region.list( sort: "clave", order: "asc")
@@ -457,7 +457,7 @@ class VariableController {
 													
 														if(temCategoria.tipo.id ==it.tipo.id){
 															it.categorias.add(temCategoria);
-															System.out.println("valor :"+ temCategoria.id);
+															//System.out.println("valor :"+ temCategoria.id);
 														}
 													
 												}
@@ -482,14 +482,14 @@ class VariableController {
 								cts.each{
 									c ->
 												int veces=	tamX/c.categorias.size()
-												System.out.println("Numero de veces "+veces );
+												//System.out.println("Numero de veces "+veces );
 												int x=0;
 												for(int xy=0; xy<veces;xy++){
 													
 														c.categorias.each {
 															
 															mat[x][y]= it.id
-															System.out.println("Matriz :"+ it.id);
+															//System.out.println("Matriz :"+ it.id);
 															x++;
 														}
 													
@@ -1023,8 +1023,8 @@ class VariableController {
 			 archivo = new LeeArchivo(archivo_);
 			 renglones = archivo.getDatos();
 			 
-			 println("Numero de renglones : "+ renglones.size())
-			 
+//			 println("Numero de renglones : "+ renglones.size())
+//			 
 		     renglonesMalos = new ArrayList<Row>();
 
 			 if(usuario)
@@ -1081,9 +1081,9 @@ class VariableController {
 												variableInstance.estado=Estado.get(20)
 												
 												
-												System.out.println("Variable: "+row.clave +" -- "+variableInstance.region.descripcion);
-												
-												System.out.println("Numero de categorias : "+row.categorias.size());
+//												System.out.println("Variable: "+row.clave +" -- "+variableInstance.region.descripcion);
+//												
+//												System.out.println("Numero de categorias : "+row.categorias.size());
 												
 												row.categorias.each {
 													

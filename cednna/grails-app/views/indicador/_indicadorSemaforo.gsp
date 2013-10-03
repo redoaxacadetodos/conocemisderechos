@@ -4,7 +4,14 @@
 <div>
 	<table>
 		<thead>
-			<tr><th>INDICADOR</th><th>MEDICI&Oacute;N</th><th>&Uacute;LTIMA ACTUALIZACI&Oacute;N</th><th>ESTATUS</th><th>ENVIAR</th></tr>
+			<tr><th>INDICADOR</th><th>MEDICI&Oacute;N</th><th>&Uacute;LTIMA ACTUALIZACI&Oacute;N</th>
+			<th>ESTATUS</th>
+			<g:if test="${rol=='1'}">
+			<th>ENVIAR</th>
+			</g:if>
+			
+			
+			</tr>
 		</thead>
 		<tbody>
 			<g:each var="indicador" in="${indicadores}">				
@@ -22,7 +29,8 @@
 				Estatus 2
 				</g:else>
 				</td>
-				<td><g:remoteLink action="enviarCorreo" id="${indicador.id}" after="alert('Correo Enviado');">Enviar</g:remoteLink></td>
+					<g:if test="${rol=='1'}">
+				<td><g:remoteLink action="enviarCorreo" id="${indicador.id}" after="alert('Correo Enviado');">Enviar</g:remoteLink></td></g:if>
 				</tr>
 			</g:each>
 		</tbody>

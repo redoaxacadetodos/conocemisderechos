@@ -23,7 +23,7 @@
 	
 </div>
 
-<g:if test="${dep}">
+<g:if test="${dep}">	
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
 	<label class="uk-form-label"for="dependencia">
