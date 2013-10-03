@@ -25,6 +25,8 @@ class PublicoController {
 	
 	def sessionFactory
 	def dataSource
+	def dataTablesService
+
 
     def index() { 
 		
@@ -39,6 +41,43 @@ class PublicoController {
 	}
 	
 	def directorio = {
+	}
+
+	def datosdirectorio = {
+		def query="  from cat_directorio as i "
+		
+		
+		
+		render dataTablesService.datosParaTablaQuery(query,params,
+	    [
+		'i.dir_id as id',
+		'i.dir_nombre as nombre',
+		'i.dir_cargo  as cargo',
+		'i.dir_dependencia as dependencia',
+		'i.dir_correo as correo',
+		'i.dir_telefono as telefono',
+		'i.dir_website as website',
+		],  
+		[
+		'i.dir_id',
+		'i.dir_nombre',
+		'i.dir_cargo',
+		'i.dir_dependencia',
+		'i.dir_correo',
+		'i.dir_telefono',
+		'i.dir_website',
+		],
+	
+		[
+		'id',
+		'nombre',
+		'cargo',
+		'dependencia',
+		'correo',
+		'telefono',
+		'website',
+		],1,"text") as JSON
+
 	}
 	
 	def indicadores = {
