@@ -23,6 +23,30 @@
 				$( "#datosCalculo" ).show( "slow" );    
 			  } );					
 		}
+
+		function mostrarCargandoSerie(){
+	  		$( "#tablaIndicadorSerie" ).hide( "fast", function(){
+	  			$( "#cargandoSerie" ).show( "fast");
+		  	});												
+		}
+		
+		function ocultarCargandoSerie(){
+			$( "#cargandoSerie" ).hide( "fast", function() {
+				$( "#tablaIndicadorSerie" ).show( "slow" );    
+			  } );					
+		}
+
+		function mostrarCargandoIndicador(){
+	  		$( "#tablaIndicador" ).hide( "fast", function(){
+	  			$( "#cargandoIndicador" ).show( "fast");
+		  	});												
+		}
+		
+		function ocultarCargandoIndicador(){
+			$( "#cargandoIndicador" ).hide( "fast", function() {
+				$( "#tablaIndicador" ).show( "slow" );    
+			  } );					
+		}
 	
 	  </script>
 
@@ -45,11 +69,14 @@
 					  action: 'actualizarTablaIndicador',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'tablaIndicador',
+					  onLoading: "mostrarCargandoIndicador()",
+					  onLoaded: "ocultarCargandoIndicador()",
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
+	  		<div id="cargandoIndicador" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
 	  		<div id="tablaIndicador">
 	  			<g:render template="tablaIndicador"></g:render>	  		
 			</div>	  				  
@@ -126,11 +153,16 @@
 					  action: 'actualizarTablaIndicador',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'tablaIndicadorSerie',
+					  onLoading: "mostrarCargandoSerie()",
+					  onLoaded: "ocultarCargandoSerie()",
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
+	  		
+	  		<div id="cargandoSerie" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
+	  		
 	  		<div id="tablaIndicadorSerie">
 	  			<g:render template="tablaIndicador"></g:render>	  		
 			</div>	  	
@@ -153,7 +185,9 @@
 	  		</select>
 	  	<br><br>
 	  	<p>Fórmula de cálculo: <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p>
+	  	
 	  	<div id="cargando" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
+	  	
 	  	<div id="datosCalculo">
 	  		<g:render template="datosCalculo"></g:render>  
 	  	</div>	

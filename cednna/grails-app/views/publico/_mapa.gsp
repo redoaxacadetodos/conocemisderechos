@@ -125,7 +125,7 @@ function loadScript() {
 	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>
 	</g:if>
 	<g:else>
-		No se puede mostrar la ubicación 
+		No se pueden mostrar los indicadores a este nivel 
 		<div id="map-canvas" style="width: 100%; height: 480px; display:none;"></div>
 	</g:else>	  	  
 </div>
