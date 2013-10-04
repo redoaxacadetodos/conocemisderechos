@@ -139,7 +139,7 @@
 		
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
 			<label class="uk-form-label" for="nombre">
-				<g:message code="indicador.nombre.label" default="Objetivo plan nacional de desarrollo" />
+				<g:message code="indicador.nombre.label" default="Objetivo PED"/>
 		
 			</label>
 			<g:textField name="objetivoPND"  value="${indicadorInstance?.objetivoPND}" style="width:600px;"/>

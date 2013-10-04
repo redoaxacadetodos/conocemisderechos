@@ -88,8 +88,9 @@
 							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
 							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
-							<li><g:link controller="eje">Grupo de Derecho</g:link></li>
+							<li><g:link controller="eje">Modulo</g:link></li>
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
+							<li><g:link controller="objetivoMilenio">Objetivos del milenio</g:link></li>
 							</sec:ifAnyGranted>
 							<li class="uk-nav-header">Seguimiento</li>
 							<li><g:link controller="Indicador" action="semaforo">Sem&aacute;foro</g:link></li>
