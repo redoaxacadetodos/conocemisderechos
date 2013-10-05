@@ -8,8 +8,9 @@
 		
 	</head>
 	<body>
-		<div id="division">		
-		</div>
+		<p>
+			En la sección directorio de la página econtrará la información de contacto.
+		</p>
 	</body>
 </html>
 

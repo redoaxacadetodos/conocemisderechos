@@ -68,8 +68,9 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-		grails.serverURL = "http://development.redoaxaca.gob.mx:8080/${appName}"
+		//grails.serverURL = "http://development.redoaxaca.gob.mx:8080/${appName}"
     //grails.serverURL = "http://172.31.0.101:8080/${appName}"
+    grails.serverURL = "http://indicadoresnna.redoaxaca.gob.mx"
         // TODO: grails.serverURL = "http://www.changeme.com"		
     }
 }
