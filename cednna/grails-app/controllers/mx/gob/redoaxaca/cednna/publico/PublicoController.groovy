@@ -1,7 +1,7 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import java.text.Normalizer
-//import org.jggug.kobo.commons.lang.CollectionUtils
+import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
@@ -193,14 +193,13 @@ class PublicoController {
 //				System.out.println("indi anio: "+r.anio + " "+ r.indicador)
 //			}
 //		}
-		//CollectionUtils.extendMetaClass()
+		
 		if(tipo==2){
 			resultadosIndicador.sort{it.region}
 		}else if(tipo==3){
-			resultadosIndicador.sort{remplazarAcentos(it.region)}			
+			CollectionUtils.extendMetaClass()
+			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}			
 		}
-		
-		//resultadosIndicador.sort{it.letra}
 		
 		render (template:"tablaIndicador", model:[tipo:params.idTipo, resultadosIndicador:resultadosIndicador])	
 	}
