@@ -47,6 +47,20 @@
 				$( "#tablaIndicador" ).show( "slow" );    
 			  } );					
 		}
+
+		function mostrarCargandoMapa(){
+	  		$( "#mapaIndicador" ).hide( "fast", function(){
+	  			$( "#cargandoMapa" ).show( "fast");
+		  	});												
+		}
+		
+		function ocultarCargandoMapa(){
+			$( "#cargandoMapa" ).hide( "fast", function() {
+				$( "#mapaIndicador" ).show( "fast",function(){
+					loadScript();
+					});  				  
+			  } );					
+		}
 	
 	  </script>
 
@@ -201,13 +215,15 @@
 					  action: 'actualizarMapa',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'mapaIndicador',
-					  onLoaded: "loadScript()",					 
+					  onLoading: "mostrarCargandoMapa()",
+					  onLoaded: "ocultarCargandoMapa()",					  					  					
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>	  		
-	  		
+	  	
+	  	<div id="cargandoMapa" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
 	  	<div id="mapaIndicador">	  		
 	  		<g:render template="mapa"></g:render>
 	  	</div>

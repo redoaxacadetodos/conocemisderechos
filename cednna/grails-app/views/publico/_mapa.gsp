@@ -6,7 +6,7 @@
 	  	var map;
 	  	var coordendasList;
 	  	var infoWindow;
-	  	var nombreCoordenadas;
+
 function initialize() {
 	geocoder = new google.maps.Geocoder();
 	var latlng = new google.maps.LatLng(17.05, -96.72);
@@ -20,22 +20,7 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
     
-	var ubicaciones = ${ubicaciones ? ubicaciones:'[]'};
-	
-	for(i=0; i<ubicaciones.length; i++){
-	var address = ubicaciones[i] + " oaxaca";
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } 
-    });
-	}
-	coordendasList = ${coordenadasList ? coordenadasList:'[]' };
-	nombreCoordenadas = ${nombreCoordenadas ? nombreCoordenadas:'[]'};
+	coordendasList = ${coordenadasList ? coordenadasList:'[]' };	
 
 	var aux = ${aux ? aux:'[]'};
 	$.each(aux['lugar']['ubicaciones'], function(k, v){
@@ -74,35 +59,7 @@ function initialize() {
 			infoWindow.setPosition(event.latLng);
 			infoWindow.open(map);
 		});
-	});	
-	/*
-	$.each(coordendasList, function(index, value){
-		
-		var coordenadas = value;	
-		coordenadas.nombre = nombreCoordenadas[index];
-		
-		//coordenadas.nombre = aux['ubicacion']['descripcion'];
-		ubicacion = new google.maps.Polygon({
-			paths: coordenadas,
-			strokeColor: '#FF0000',
-			strokeOpacity: 0.8,
-			strokeWeight: 2,
-			fillColor: '#FF0000',
-			fillOpacity: 0.35
-			});
-
-		ubicacion.setMap(map);
-		infoWindow = new google.maps.InfoWindow();
-		
-		google.maps.event.addListener(ubicacion, 'click', function(event) {
-			var contentString = '<b>'+coordenadas.nombre+'</b><br>';	  			  
-			// Replace our Info Window's content and position
-			infoWindow.setContent(contentString);
-			infoWindow.setPosition(event.latLng);
-			infoWindow.open(map);
-		});
-		
-	});	*/	
+	});			
 }
 
 function loadScript() {

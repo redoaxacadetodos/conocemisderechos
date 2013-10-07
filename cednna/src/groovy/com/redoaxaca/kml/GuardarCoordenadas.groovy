@@ -62,7 +62,7 @@ class GuardarCoordenadas {
 								System.out.println(placemark.getName()+"="+objeto?.descripcion)
 								coordenadas = new ArrayList<Coordenada>();
 								MultiGeometry multiGeometry = (MultiGeometry) placemark.getGeometry();
-								//parseGeometry(multiGeometry);
+								parseGeometry(multiGeometry);
 							}								
 							objetoSeleccionado=false;
 						}
