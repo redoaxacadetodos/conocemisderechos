@@ -144,7 +144,7 @@ class VariableController {
 		variableInstance.descripcion=cod.descripcion
 		
 		
-		def numCategorias= params.numCategorias
+		def numCategorias= params.numCategorias.toInteger()
 
 			for(i in 1 .. numCategorias){
 			
@@ -190,7 +190,7 @@ class VariableController {
 		
 		int anio= params.anio.toInteger()
 		int opcion= params.opcionSerie.toInteger()
-		def numCategorias= params.numCategorias
+		def numCategorias= params.numCategorias.toInteger()
 		ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
 		ArrayList<String> cats= new   ArrayList<String>();
 		ArrayList<Row> renglones = new ArrayList<Row>();
@@ -375,9 +375,6 @@ class VariableController {
 			case 3:
 							
 
-			
-			
-			
 			
 						
 							def municipios=  Municipio.list(sort: "id", order: "asc")

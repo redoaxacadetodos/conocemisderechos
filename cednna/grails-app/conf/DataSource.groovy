@@ -27,11 +27,11 @@ environments {
       loggingSql = false
       pooled = false
       driverClassName = "org.postgresql.Driver"
-      username = "postgres"
-      password = "t3mp0r4l"
-	    url = "jdbc:postgresql://localhost:5432/cednna"
+      username = "cednna"
+      password = "c3dnn44cc3ss"
+	    //url = "jdbc:postgresql://localhost:5432/cednna"
       //url = "jdbc:postgresql://172.31.0.101:5432/cednna_curso"
-      
+      url = "jdbc:postgresql://172.30.0.14:5432/prod_cednna"
       dbCreate = "update"
       }       
     }

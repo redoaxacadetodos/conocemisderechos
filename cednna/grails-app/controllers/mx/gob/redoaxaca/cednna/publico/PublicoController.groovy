@@ -1,7 +1,7 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import java.text.Normalizer
-//import org.jggug.kobo.commons.lang.CollectionUtils
+import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
@@ -121,8 +121,24 @@ class PublicoController {
 		def aux = [:]
 		def coordenadasList = []
 		def sql = ""
-		def sqlNombre=""		
-						
+		def sqlNombre=""	
+		def sqlMunicipioArr=[]
+		def sqlMunicipio=""
+		def db = new Sql(dataSource)
+			/*
+		switch(tipo){			
+			case 3:				
+				sql = "select mn.municipio_coordenadas_id, co.latitud, co.longitud from coordenada co join cat_municipio_coordenada mn on (co.id = mn.coordenada_id) where "
+				break
+		}
+		resultadosIndicador.each {
+			sqlMunicipio+="mn.municipio_coordenadas_id ="+it.idMunicipio+" or "					
+		}		
+		sql += sqlMunicipio		
+		def resulta  = db.rows(sql)
+		//System.out.println("tam: "+resultadosIndicador.size()+" "+sqlMunicipio)
+		*/
+		System.out.println("inicia Consultas")
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
@@ -140,12 +156,14 @@ class PublicoController {
 					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_municipio_coordenada muni on (coor.id = muni.coordenada_id) where muni.municipio_coordenadas_id = "+resultado.idMunicipio									
 					break				
 			}
-			def db = new Sql(dataSource)
+			
 			def result  = db.rows(sql)
+			def cooorAux = []
 			result.each {
-				coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+				//coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+				cooorAux.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 			}
-			coordenadasList.add(coordenadas)
+			coordenadasList.add(cooorAux)
 			
 			def db2 = new Sql(dataSource)			
 			def nombre  = db2.rows(sqlNombre)
@@ -155,19 +173,19 @@ class PublicoController {
 				anios.add(r?.anio)
 				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )
 				Double indi = new Double(r?.indicador)				
-				System.out.println("resultado: "+indi);				
+				//System.out.println("resultado: "+indi);				
 			}
-			System.out.println("anio: "+anios)
+			//System.out.println("anio: "+anios)
 			nombre.each {
 				nombreCoordenadas.add("'"+it.descripcion+"'")
 				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
-			}
-			
-						
-		}		
+			}				
+		}	
+		System.out.println("Crear JSON")
 		aux.put("lugar",["ubicaciones":ubicaciones])
 		//System.out.println("tam: "+aux.size())
 		def jsodata = aux as JSON
+		System.out.println("Termina metodo")
 		/*
 		aux.each {
 			System.out.println(it)
@@ -177,7 +195,7 @@ class PublicoController {
 		Double p = 2.1231239034953409534345345345345345223423423432423534353453453454
 		 
 		System.out.println(p)
-		render(template:"mapa", model:[ubicaciones:prueba, nombreCoordenadas: nombreCoordenadas, coordenadasList:coordenadasList, resultadosIndicador:resultadosIndicador, aux:jsodata])
+		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata])
 	}
 	
 	def actualizarTablaIndicador(Long id){
@@ -193,14 +211,13 @@ class PublicoController {
 //				System.out.println("indi anio: "+r.anio + " "+ r.indicador)
 //			}
 //		}
-		//CollectionUtils.extendMetaClass()
+		
 		if(tipo==2){
 			resultadosIndicador.sort{it.region}
 		}else if(tipo==3){
-			resultadosIndicador.sort{remplazarAcentos(it.region)}			
+			CollectionUtils.extendMetaClass()
+			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}			
 		}
-		
-		//resultadosIndicador.sort{it.letra}
 		
 		render (template:"tablaIndicador", model:[tipo:params.idTipo, resultadosIndicador:resultadosIndicador])	
 	}
