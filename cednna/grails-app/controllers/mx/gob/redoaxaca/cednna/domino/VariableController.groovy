@@ -199,85 +199,110 @@ class VariableController {
 		
 		
 		
+		def  ArrayList<Long> tipos =   new ArrayList<Long>()
+		
+			for(i in 1 .. numCategorias){
+				
+				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+					if(temCategoria){
+						
+						if(!tipos.contains(temCategoria.tipo.id)){
+							tipos.add(temCategoria.tipo.id);
+							
+							}
+						
+					}
+			}
+				tipos.each {
+					
+					ResultCategorias rc= new ResultCategorias()
+					rc.tipo=Tipo.get(it)
+					
+					cts.add( rc)
+				}
+
+
+			for(i in 1 .. numCategorias){
+					
+					def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+					if(temCategoria){
+			
+						if(cts.size()>0){
+							
+							cts.each{
+								
+									if(temCategoria.tipo.id ==it.tipo.id){
+										it.categorias.add(temCategoria);
+										//System.out.println("valor :"+ temCategoria.id);
+									}
+								
+							}
+							
+							
+						}
+						
+					}
+			}
+
+			int tamY =cts.size()
+			int tamX =1;
+			
+			cts.each{
+			
+					tamX= tamX *it.categorias.size()
+				
+			}
+			long[][] mat=new long[tamX][tamY];
+			int ban=0
+			int y=0
+			cts.each{
+				c ->
+							int veces=	tamX/c.categorias.size()
+							System.out.println("Numero de veces "+veces );
+							int x=0;
+						
+							if(ban==0){
+								for(int xy=0; xy<veces;xy++){
+									
+										c.categorias.each {
+											
+											mat[x][y]= it.id
+										//	System.out.println("Matriz :"+ it.id);
+											x++;
+										}
+									
+								}
+								ban=1
+							}
+							else{
+								
+								c.categorias.each {
+									System.out.println("paso "+veces);
+									for(int xy=0; xy<veces;xy++){
+									
+											
+											
+											mat[x][y]= it.id
+										//	System.out.println("Matriz :"+ it.id);
+											x++;
+									}
+									
+								}
+								
+							}
+							
+							
+							
+					y++;
+			}
+			
+		
 
 		switch (opcion) {
 			
 			case 1:
 									
-						def  ArrayList<Long> tipos =   new ArrayList<Long>()
 					
-						for(i in 1 .. numCategorias){
-							
-							def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-								if(temCategoria){
-									
-									if(!tipos.contains(temCategoria.tipo.id)){
-										tipos.add(temCategoria.tipo.id);
-										
-										}
-									
-								}
-						}
-							tipos.each {
-								
-								ResultCategorias rc= new ResultCategorias()
-								rc.tipo=Tipo.get(it)
-								
-								cts.add( rc)
-							}
-
-			
-						for(i in 1 .. numCategorias){
-								
-								def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-								if(temCategoria){
-						
-									if(cts.size()>0){
-										
-										cts.each{
-											
-												if(temCategoria.tipo.id ==it.tipo.id){
-													it.categorias.add(temCategoria);
-													//System.out.println("valor :"+ temCategoria.id);
-												}
-											
-										}
-										
-										
-									}
-									
-								}
-						}
-		
-						int tamY =cts.size()
-						int tamX =1;
-						
-						cts.each{
-						
-								tamX= tamX *it.categorias.size()
-							
-						}
-						long[][] mat=new long[tamX][tamY];
-						
-						int y=0
-						cts.each{
-							c ->
-										int veces=	tamX/c.categorias.size()
-										System.out.println("Numero de veces "+veces );
-										int x=0;
-										for(int xy=0; xy<veces;xy++){
-											
-												c.categorias.each {
-													
-													mat[x][y]= it.id
-													//System.out.println("Matriz :"+ it.id);
-													x++;
-												}
-											
-										}
-								y++;
-						}
-						
 						
 						
 						
@@ -308,81 +333,6 @@ class VariableController {
 			
 			
 			case 2:
-			
-									def  ArrayList<Long> tipos =   new ArrayList<Long>()
-									
-										for(i in 1 .. numCategorias){
-											
-											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-												if(temCategoria){
-													
-													if(!tipos.contains(temCategoria.tipo.id)){
-														tipos.add(temCategoria.tipo.id);
-														
-														}
-													
-												}
-										}
-											tipos.each {
-												
-												ResultCategorias rc= new ResultCategorias()
-												rc.tipo=Tipo.get(it)
-												
-												cts.add( rc)
-											}
-						
-							
-										for(i in 1 .. numCategorias){
-												
-												def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-												if(temCategoria){
-										
-													if(cts.size()>0){
-														
-														cts.each{
-															
-																if(temCategoria.tipo.id ==it.tipo.id){
-																	it.categorias.add(temCategoria);
-																//	System.out.println("valor :"+ temCategoria.id);
-																}
-															
-														}
-														
-														
-													}
-													
-												}
-										}
-						
-										int tamY =cts.size()
-										int tamX =1;
-										
-										cts.each{
-										
-												tamX= tamX *it.categorias.size()
-											
-										}
-										long[][] mat=new long[tamX][tamY];
-										
-										int y=0
-										cts.each{
-											c ->
-														int veces=	tamX/c.categorias.size()
-														//System.out.println("Numero de veces "+veces );
-														int x=0;
-														for(int xy=0; xy<veces;xy++){
-															
-																c.categorias.each {
-																	
-																	mat[x][y]= it.id
-																	//System.out.println("Matriz :"+ it.id);
-																	x++;
-																}
-															
-														}
-												y++;
-										}
-			
 			
 			
 			
@@ -423,80 +373,7 @@ class VariableController {
 			
 			
 			case 3:
-							def  ArrayList<Long> tipos =   new ArrayList<Long>()
 							
-								for(i in 1 .. numCategorias){
-									
-									def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-										if(temCategoria){
-											
-											if(!tipos.contains(temCategoria.tipo.id)){
-												tipos.add(temCategoria.tipo.id);
-												
-												}
-											
-										}
-								}
-									tipos.each {
-										
-										ResultCategorias rc= new ResultCategorias()
-										rc.tipo=Tipo.get(it)
-										
-										cts.add( rc)
-									}
-				
-					
-								for(i in 1 .. numCategorias){
-										
-										def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-										if(temCategoria){
-								
-											if(cts.size()>0){
-												
-												cts.each{
-													
-														if(temCategoria.tipo.id ==it.tipo.id){
-															it.categorias.add(temCategoria);
-															//System.out.println("valor :"+ temCategoria.id);
-														}
-													
-												}
-												
-												
-											}
-											
-										}
-								}
-				
-								int tamY =cts.size()
-								int tamX =1;
-								
-								cts.each{
-								
-										tamX= tamX *it.categorias.size()
-									
-								}
-								long[][] mat=new long[tamX][tamY];
-								
-								int y=0
-								cts.each{
-									c ->
-												int veces=	tamX/c.categorias.size()
-												//System.out.println("Numero de veces "+veces );
-												int x=0;
-												for(int xy=0; xy<veces;xy++){
-													
-														c.categorias.each {
-															
-															mat[x][y]= it.id
-															//System.out.println("Matriz :"+ it.id);
-															x++;
-														}
-													
-												}
-										y++;
-								}
-
 
 			
 			
