@@ -1,6 +1,7 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <div>				
 	<g:if test="${resultadosIndicador }">
+		<br>
 		<!-- Tabla indicador general -->
 			  <table>
 				  	<caption>${indicadorInstance?.nombre }</caption>
