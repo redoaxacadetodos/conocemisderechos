@@ -462,7 +462,6 @@ class PublicoController {
 			def jsondata = aux as JSON
 			
 			System.out.println("variables: "+indicador?.variables)
-			
 			System.out.println("formula: "+indicador?.formula?.sentencia)
 			
 						
