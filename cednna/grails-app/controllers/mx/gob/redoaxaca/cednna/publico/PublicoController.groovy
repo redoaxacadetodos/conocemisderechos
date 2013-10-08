@@ -584,7 +584,7 @@ class PublicoController {
 
 						}
 
-						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave"
+						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
 
 
 
@@ -798,7 +798,7 @@ class PublicoController {
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "+
 								"GROUP BY "+
 								"o.region_id,  "+
-								"region"
+								"region,descripcion"
 
 
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1065,7 +1065,7 @@ class PublicoController {
 								"o.region_id,  "+
 								"region,"+
 								"o.municipio_id, " +
-								"municipio"
+								"municipio,descripcion"
 
 
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1353,7 +1353,7 @@ class PublicoController {
 								"o.municipio_id, " +
 								"municipio,"+
 								"o.localidad_id,"+
-								"localidad"
+								"localidad,descripcion"
 
 
 						//System.out.println("LA CONSULTA ES : "+query);
