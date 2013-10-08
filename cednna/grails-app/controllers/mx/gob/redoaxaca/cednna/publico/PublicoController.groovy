@@ -522,6 +522,7 @@ class PublicoController {
 
 						def query = "SELECT "+
 								"clave, "+
+								"descripcion,"+
 								"sum(o.mujeres) as mujeres, "+
 								"sum(o.hombres) as hombres , "+
 								"sum(o.total) as total "+
@@ -605,6 +606,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -612,6 +614,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -619,6 +622,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
@@ -728,6 +732,7 @@ class PublicoController {
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT o.region_id,"+
+								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 								"sum(o.mujeres) as mujeres, "+
 								"sum(o.hombres) as hombres , "+
@@ -815,6 +820,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -823,6 +829,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -831,6 +838,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
@@ -987,6 +995,7 @@ class PublicoController {
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT o.region_id,"+
+								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 								"o.municipio_id,"+
 								"COALESCE(cm.mun_descripcion, ''::character varying) AS municipio,"+
@@ -1080,6 +1089,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -1090,6 +1100,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -1100,6 +1111,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
@@ -1267,6 +1279,7 @@ class PublicoController {
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT o.region_id,"+
+								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 								"o.municipio_id,"+
 								"COALESCE(cm.mun_descripcion, ''::character varying) AS municipio,"+
@@ -1366,6 +1379,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -1378,6 +1392,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -1390,6 +1405,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
