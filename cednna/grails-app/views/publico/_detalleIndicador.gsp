@@ -12,42 +12,14 @@
 	      	})
 	    });
 
-	  	function mostrarCargando(){
-	  		$( "#datosCalculo" ).hide( "fast", function(){
-	  			$( "#cargando" ).show( "fast");
-		  	});												
-		}
-		
-		function ocultarCargando(){
-			$( "#cargando" ).hide( "fast", function() {
-				$( "#datosCalculo" ).show( "slow" );    
-			  } );					
+		function mostrarCargandoImg(div){
+	  		$( "#"+div ).html("<div align='center'><img height='80px' width='80px' alt='cargando' src='${resource(dir:'images',file:'loading.gif') }'></div>")											
 		}
 
-		function mostrarCargandoSerie(){
-	  		$( "#tablaIndicadorSerie" ).hide( "fast", function(){
-	  			$( "#cargandoSerie" ).show( "fast");
-		  	});												
+		function ocultarCargandoImg(div){
+			$( "#"+div ).html("")			
 		}
 		
-		function ocultarCargandoSerie(){
-			$( "#cargandoSerie" ).hide( "fast", function() {
-				$( "#tablaIndicadorSerie" ).show( "slow" );    
-			  } );					
-		}
-
-		function mostrarCargandoIndicador(){
-	  		$( "#tablaIndicador" ).hide( "fast", function(){
-	  			$( "#cargandoIndicador" ).show( "fast");
-		  	});												
-		}
-		
-		function ocultarCargandoIndicador(){
-			$( "#cargandoIndicador" ).hide( "fast", function() {
-				$( "#tablaIndicador" ).show( "slow" );    
-			  } );					
-		}
-
 		function mostrarCargandoMapa(){
 	  		$( "#mapaIndicador" ).hide( "fast", function(){
 	  			$( "#cargandoMapa" ).show( "fast");
@@ -61,7 +33,16 @@
 					});  				  
 			  } );					
 		}
-	
+
+		function goToByScroll(id){
+			loadScript();		      
+		    id = id.replace("link", "");
+		      
+		    $('html,body').animate({
+		        scrollTop: $("#"+id).offset().top},
+		        'slow');
+		}
+		
 	  </script>
 
 <h3>${indicadorInstance?.nombre }</h3>
@@ -76,21 +57,21 @@
 	<div class="tab-content">
 	  <div class="tab-pane active" id="indicador">
 	  	<div>
-	  		<label for="opciones">Tipo:</label>
+	  		<label for="opciones">Área geográfica:</label>
 	  		<select id="opciones" name="opciones" 
 	  			onchange="${remoteFunction(
 					  controller:'publico',
 					  action: 'actualizarTablaIndicador',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'tablaIndicador',
-					  onLoading: "mostrarCargandoIndicador()",
-					  onLoaded: "ocultarCargandoIndicador()",
+					  onLoading: "mostrarCargandoImg('tablaIndicador')",
+					  onLoaded: "ocultarCargandoImg('tablaIndicador')",					  
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
-	  		<div id="cargandoIndicador" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
+	  		
 	  		<div id="tablaIndicador">
 	  			<g:render template="tablaIndicador"></g:render>	  		
 			</div>	  				  
@@ -149,8 +130,7 @@
 	  		<p lang="latex">$${indicadorInstance?.formula?.sentencia}$</p>
 	  		<g:each var="variable" in="${ indicadorInstance?.variables}">
 	  			<p>${variable?.clave} = ${variable?.descripcion} </p>
-	  		</g:each>	  			  		
-	  		<p>${indicadorInstance?.formula?.descripcion}</p>
+	  		</g:each>	  			  			  		
 	  		</td></tr>
 	  		
 	  		<tr class="even"><td class="marked">Medios de verificación:</td><td>${indicadorInstance?.mediosVerificacion }</td></tr>
@@ -160,22 +140,20 @@
 	  	</table>
 	  </div>
 	  <div class="tab-pane" id="serie">
-	  	<label for="opcionSerie">Tipo:</label>
+	  	<label for="opcionSerie">Área geográfica:</label>
 	  		<select id="opcionSerie" name="opcionSerie" 
 	  			onchange="${remoteFunction(
 					  controller:'publico',
 					  action: 'actualizarTablaIndicador',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'tablaIndicadorSerie',
-					  onLoading: "mostrarCargandoSerie()",
-					  onLoaded: "ocultarCargandoSerie()",
+					  onLoading: "mostrarCargandoImg('tablaIndicadorSerie')",
+					  onLoaded: "ocultarCargandoImg('tablaIndicadorSerie')",
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
-	  		
-	  		<div id="cargandoSerie" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
 	  		
 	  		<div id="tablaIndicadorSerie">
 	  			<g:render template="tablaIndicador"></g:render>	  		
@@ -183,40 +161,39 @@
 	  </div>
 	  
 	  <div class="tab-pane" id="calculo">
-	  	<label for="opcionDatosCalculo">Tipo:</label>
+	  	<label for="opcionDatosCalculo">Área geográfica:</label>
 	  		<select id="opcionDatosCalculo" name="opcionDatosCalculo" 
 	  			onchange="${remoteFunction(
 					  controller:'publico',
 					  action: 'actualizarDatosCalculo',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'datosCalculo',
-					  onLoading: "mostrarCargando()",
-					  onLoaded: "ocultarCargando()",
+					  onLoading: "mostrarCargandoImg('datosCalculo')",
+					  onLoaded: "ocultarCargandoImg('datosCalculo')",					  
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  	<br><br>
-	  	<p>Fórmula de cálculo: <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p>
-	  	
-	  	<div id="cargando" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
-	  	
+	  	<p><b>Fórmula de cálculo:</b> <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p>
+	  		  	
 	  	<div id="datosCalculo">
 	  		<g:render template="datosCalculo"></g:render>  
 	  	</div>	
 	  </div>
 	  
 	  <div class="tab-pane" id="mapa">
-	  	<label for="opcionesMapa">Tipo:</label>
+	  	<label for="opcionesMapa">Área geográfica:</label>
 	  		<select id="opcionesMapa" name="opcionesMapa" 
 	  			onchange="${remoteFunction(
 					  controller:'publico',
 					  action: 'actualizarMapa',
 					  params: '\'idTipo=\' + this.value',
 					  update: 'mapaIndicador',
-					  onLoading: "mostrarCargandoMapa()",
-					  onLoaded: "ocultarCargandoMapa()",					  					  					
+					  onLoading: "mostrarCargandoImg('mapaIndicador')",
+					  onLoaded: "ocultarCargandoImg('mapaIndicador')",						  
+					  onComplete: "goToByScroll('opcionesMapa')",					  					  					
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>

@@ -137,8 +137,7 @@ class PublicoController {
 		sql += sqlMunicipio		
 		def resulta  = db.rows(sql)
 		//System.out.println("tam: "+resultadosIndicador.size()+" "+sqlMunicipio)
-		*/
-		System.out.println("inicia Consultas")
+		*/		
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
@@ -181,11 +180,10 @@ class PublicoController {
 				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
 			}				
 		}	
-		System.out.println("Crear JSON")
 		aux.put("lugar",["ubicaciones":ubicaciones])
 		//System.out.println("tam: "+aux.size())
 		def jsodata = aux as JSON
-		System.out.println("Termina metodo")
+		
 		/*
 		aux.each {
 			System.out.println(it)
@@ -204,13 +202,6 @@ class PublicoController {
 		
 		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
 		def resultadosIndicador = detalleIndicador.resultados
-		
-//		resultadosIndicador.each{ re ->
-//			System.out.println("tam: "+re.resultados.size() + " region: "+ re.region)
-//			re.resultados.each { r ->
-//				System.out.println("indi anio: "+r.anio + " "+ r.indicador)
-//			}
-//		}
 		
 		if(tipo==2){
 			resultadosIndicador.sort{it.region}
@@ -470,7 +461,10 @@ class PublicoController {
 			
 			def jsondata = aux as JSON
 			
-			System.out.println("variables: "+detalleIndicador.rVariables)
+			System.out.println("variables: "+indicador?.variables)
+			
+			System.out.println("formula: "+indicador?.formula?.sentencia)
+			
 						
 			def tamVariables = indicador.variables.size()
 			def datosCalculo = detalleIndicador.rVariables			
