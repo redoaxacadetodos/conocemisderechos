@@ -347,9 +347,7 @@ class PublicoController {
 	def infoIndicador (Long id) {
 		def eje = Eje.get(id)
 		if(eje){
-			def sql = "select * from division where eje_id = " + eje.id
-			def db = new Sql(dataSource)
-			def divisiones  = db.rows(sql)			
+			def divisiones=Division.findAllByEje(eje)
 			render(template:"division", model: [divisiones: divisiones])
 		}else{
 		redirect(action:"indicadores")
@@ -360,9 +358,7 @@ class PublicoController {
 		if(params.infoIndicador=='true'){			
 			def eje = Eje.get(id)
 			if(eje){								
-				def sql = "select * from division where eje_id = " + eje.id
-				def db = new Sql(dataSource)
-				def divisiones  = db.rows(sql)				
+				def divisiones=Division.findAllByEje(eje)		
 				[divisiones: divisiones]
 			}else{
 				redirect(action:"indicadores")

@@ -3,10 +3,9 @@ package mx.gob.redoaxaca.cednna.domino
 class Division {
 
 	
-		
+		Eje    eje
 		String descripcion
 		
-		static belongsTo = [eje:Eje]
 
 	
 	
@@ -15,4 +14,7 @@ class Division {
 		
 		eje(blank:true,nullable:true)
     }
+	
+	
+	
 }

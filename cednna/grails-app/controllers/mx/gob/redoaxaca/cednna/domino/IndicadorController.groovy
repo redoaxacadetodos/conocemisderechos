@@ -1267,14 +1267,14 @@ class IndicadorController {
 	
 	
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_ADMIN'])
 	def categoriasByModulo(){
 		
 		def modulo = Eje.get(params.id)
 		def divisiones
 		if(modulo){
 			
-		divisiones=modulo.division
+		divisiones=Division.findAllByEje(modulo)
 			
 		}else{
 		divisiones =Division.list()

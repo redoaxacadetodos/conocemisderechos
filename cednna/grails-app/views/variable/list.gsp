@@ -10,7 +10,7 @@
 				<g:javascript src="jquery.dataTables.js"  />
 			<g:datatablehelperjs ctrlid="variableTable" context="${request.getContextPath()}" 
 				controller="variable" action="dataTablesListadoVariables" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
-				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}','{mData:muestraBoton}']"   
+				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}','{mData:9}','{mData:muestraBoton}']"   
 				/>
 		<script type="text/javascript" >
 
@@ -64,7 +64,7 @@
 					<br>
 				  <div class="body">
 				  
-				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripci&oacute;n','Regi&oacute;n','Municipio','Localidad','Poblaci&oacute;n Total','Mujeres','Hombres','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripci&oacute;n','Regi&oacute;n','Municipio','Localidad','Categoria','Poblaci&oacute;n Total','Mujeres','Hombres','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 </body>
 

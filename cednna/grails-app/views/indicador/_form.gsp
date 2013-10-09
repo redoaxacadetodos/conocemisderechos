@@ -327,7 +327,7 @@ $(function(){
 					id : "division"
 					
 				},
-				index : "${indicadorInstance?.division?.id}",
+		
 				chained : false,
 				anchor : "#division",
 				combo : true,

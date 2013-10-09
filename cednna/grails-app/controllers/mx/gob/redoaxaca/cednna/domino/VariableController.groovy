@@ -36,8 +36,9 @@ class VariableController {
 	def query=" from cat_variable	 as v  "+
 			  "	left join  cat_region as r on r.crg_id=v.cvv_region   "+
 			  " left join  cat_municipio as m on m.mun_id=v.cvv_municipio   "+
-			  " left join  cat_localidad as l on l.ctl_id=v.cvv_localidad   "
-		
+			  " left join  cat_localidad as l on l.ctl_id=v.cvv_localidad   "+
+			  " left join cat_variable_categoria as cvc on cvc.cvc_cvv_id= v.cvv_id  "+
+			  " left join cat_categoria as ct on  ct.cct_id= cvc.cvc_cct_id  "
 		
 		
 		render dataTablesService.datosParaTablaQuery(query,params,
@@ -48,6 +49,7 @@ class VariableController {
 		"coalesce(r.crg_descripcion , '') as region " ,
 		"coalesce(m.mun_descripcion , '') as municipio " ,
 		"coalesce(l.ctl_descripcion , '') as localidad " ,
+		"coalesce(ct.cct_descripcion , '') as categoria " ,
 		"cvv_poblacion_total as total ",
 		"cvv_mujeres as mujeres",
 		"cvv_hombres as hombres "
@@ -58,6 +60,7 @@ class VariableController {
 		"coalesce(r.crg_descripcion , '') " ,
 		"coalesce(m.mun_descripcion , '') " ,
 		"coalesce(l.ctl_descripcion , '') " ,
+		"coalesce(ct.cct_descripcion , '')  " ,
 		"cvv_poblacion_total ",
 		"cvv_mujeres ",
 		"cvv_hombres "
@@ -68,6 +71,7 @@ class VariableController {
 		"region" ,
 		"municipio" ,
 		"localidad" ,
+		"categoria",
 		"total",
 		"mujeres",
 		"hombres"
@@ -1078,14 +1082,31 @@ class VariableController {
     }
 
     def edit(Long id) {
+		def ban=1;
+		def usuario = springSecurityService.currentUser
         def variableInstance = Variable.get(id)
         if (!variableInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'variable.label', default: 'Variable'), id])
             redirect(action: "list")
             return
         }
+		
+		if(variableInstance.dependencia){
+			
+				if(usuario.dependencia.id!=variableInstance.dependencia.id){
+					ban=0
+					System.out.println("Dependencia usurio :"+usuario.dependencia.id+" Variable dependencia "+variableInstance.dependencia.id);
+				}
+		}else{
+		
+				if(usuario.dependencia){
+					ban=0
+				}
+		
+		}
+		//System.out.println("Valor de la bandera de variable "+ban);
 
-        [variableInstance: variableInstance]
+        [variableInstance: variableInstance,ban:ban]
     }
 
     def update(Long id, Long version) {
