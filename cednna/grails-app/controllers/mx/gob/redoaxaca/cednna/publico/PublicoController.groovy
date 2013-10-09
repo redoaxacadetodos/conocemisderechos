@@ -1,7 +1,6 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import java.text.Normalizer
-import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
