@@ -124,19 +124,7 @@ class PublicoController {
 		def sqlMunicipioArr=[]
 		def sqlMunicipio=""
 		def db = new Sql(dataSource)
-			/*
-		switch(tipo){			
-			case 3:				
-				sql = "select mn.municipio_coordenadas_id, co.latitud, co.longitud from coordenada co join cat_municipio_coordenada mn on (co.id = mn.coordenada_id) where "
-				break
-		}
-		resultadosIndicador.each {
-			sqlMunicipio+="mn.municipio_coordenadas_id ="+it.idMunicipio+" or "					
-		}		
-		sql += sqlMunicipio		
-		def resulta  = db.rows(sql)
-		//System.out.println("tam: "+resultadosIndicador.size()+" "+sqlMunicipio)
-		*/		
+				
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
@@ -182,16 +170,7 @@ class PublicoController {
 		aux.put("lugar",["ubicaciones":ubicaciones])
 		//System.out.println("tam: "+aux.size())
 		def jsodata = aux as JSON
-		
-		/*
-		aux.each {
-			System.out.println(it)
-		}
-		
-		*/						
-		Double p = 2.1231239034953409534345345345345345223423423432423534353453453454
-		 
-		System.out.println(p)
+
 		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata])
 	}
 	
@@ -426,7 +405,7 @@ class PublicoController {
 			def ubicaciones = []
 			def aux = [:]
 			def ubicacioneString = []
-			def coordenadas = []	
+				
 			def nombreCoordenadas = []
 						
 			resultadosIndicador.each { resultado ->		
@@ -435,7 +414,7 @@ class PublicoController {
 				def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
 				def db = new Sql(dataSource)
 				def result  = db.rows(sql)						
-				
+				def coordenadas = []
 				result.each {
 					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")					
 				}
@@ -460,15 +439,32 @@ class PublicoController {
 			
 			def jsondata = aux as JSON
 			
-			System.out.println("variables: "+indicador?.variables)
+			//Cambiar valores de la formula por la descripción
+			def formula = ""
+			def formulaOriginal = indicador?.formula?.sentencia					
+			def var = [:]			
+			def fin = false
+			indicador?.variables.each {									
+				var.put(it.clave , CatOrigenDatos.findByClave(it.claveVar)?.descripcion)
+			}		
 			
-			System.out.println("formula: "+indicador?.formula?.sentencia)
-			
+			for (int i=0; i<formulaOriginal.length(); i++) {				
+				for(int j=0; j<var.size(); j++){			
+					if(!fin && var.get(formulaOriginal.charAt(i).toString())!=null){
+						formula += var.get(formulaOriginal.charAt(i).toString())
+						fin = true
+					}										
+				}
+				if(!fin){
+					formula += formulaOriginal.charAt(i).toString()
+				}	
+				fin = false			 
+			}
 						
 			def tamVariables = indicador.variables.size()
 			def datosCalculo = detalleIndicador.rVariables			
 					
-			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables]
+			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables, formula:formula]
 			}
 			else{
 				redirect(action:"indicadores")

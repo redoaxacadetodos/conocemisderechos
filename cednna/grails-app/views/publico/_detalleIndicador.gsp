@@ -1,4 +1,5 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.CatOrigenDatos" %>
 
 <script>
 	  $(function () {
@@ -19,21 +20,7 @@
 		function ocultarCargandoImg(div){
 			$( "#"+div ).html("")			
 		}
-		
-		function mostrarCargandoMapa(){
-	  		$( "#mapaIndicador" ).hide( "fast", function(){
-	  			$( "#cargandoMapa" ).show( "fast");
-		  	});												
-		}
-		
-		function ocultarCargandoMapa(){
-			$( "#cargandoMapa" ).hide( "fast", function() {
-				$( "#mapaIndicador" ).show( "fast",function(){
-					loadScript();
-					});  				  
-			  } );					
-		}
-
+				
 		function goToByScroll(id){
 			loadScript();		      
 		    id = id.replace("link", "");
@@ -129,7 +116,7 @@
 	  		<td>
 	  		<p lang="latex">$${indicadorInstance?.formula?.sentencia}$</p>
 	  		<g:each var="variable" in="${ indicadorInstance?.variables}">
-	  			<p>${variable?.clave} = ${variable?.descripcion} </p>
+	  			<p>${variable?.clave} = ${CatOrigenDatos.findByClave(variable?.claveVar)?.descripcion} </p>
 	  		</g:each>	  			  			  		
 	  		</td></tr>
 	  		
@@ -176,8 +163,8 @@
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  	<br><br>
-	  	<p><b>Fórmula de cálculo:</b> <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p>
-	  		  	
+	  	<!-- <p><b>Fórmula de cálculo:</b> <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p> -->
+	  		 <p><b>Fórmula de cálculo:</b> <span>${formula}</span><br><br></p>  	
 	  	<div id="datosCalculo">
 	  		<g:render template="datosCalculo"></g:render>  
 	  	</div>	
