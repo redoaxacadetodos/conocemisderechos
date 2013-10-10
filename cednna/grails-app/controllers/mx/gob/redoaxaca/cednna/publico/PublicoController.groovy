@@ -1,7 +1,6 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import java.text.Normalizer
-import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
@@ -125,20 +124,7 @@ class PublicoController {
 		def sqlMunicipioArr=[]
 		def sqlMunicipio=""
 		def db = new Sql(dataSource)
-			/*
-		switch(tipo){			
-			case 3:				
-				sql = "select mn.municipio_coordenadas_id, co.latitud, co.longitud from coordenada co join cat_municipio_coordenada mn on (co.id = mn.coordenada_id) where "
-				break
-		}
-		resultadosIndicador.each {
-			sqlMunicipio+="mn.municipio_coordenadas_id ="+it.idMunicipio+" or "					
-		}		
-		sql += sqlMunicipio		
-		def resulta  = db.rows(sql)
-		//System.out.println("tam: "+resultadosIndicador.size()+" "+sqlMunicipio)
-		*/
-		System.out.println("inicia Consultas")
+				
 		resultadosIndicador.each { resultado ->
 			
 			switch(tipo){
@@ -181,20 +167,10 @@ class PublicoController {
 				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
 			}				
 		}	
-		System.out.println("Crear JSON")
 		aux.put("lugar",["ubicaciones":ubicaciones])
 		//System.out.println("tam: "+aux.size())
 		def jsodata = aux as JSON
-		System.out.println("Termina metodo")
-		/*
-		aux.each {
-			System.out.println(it)
-		}
-		
-		*/						
-		Double p = 2.1231239034953409534345345345345345223423423432423534353453453454
-		 
-		System.out.println(p)
+
 		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata])
 	}
 	
@@ -204,13 +180,6 @@ class PublicoController {
 		
 		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
 		def resultadosIndicador = detalleIndicador.resultados
-		
-//		resultadosIndicador.each{ re ->
-//			System.out.println("tam: "+re.resultados.size() + " region: "+ re.region)
-//			re.resultados.each { r ->
-//				System.out.println("indi anio: "+r.anio + " "+ r.indicador)
-//			}
-//		}
 		
 		if(tipo==2){
 			resultadosIndicador.sort{it.region}
@@ -378,9 +347,7 @@ class PublicoController {
 	def infoIndicador (Long id) {
 		def eje = Eje.get(id)
 		if(eje){
-			def sql = "select * from division where eje_id = " + eje.id
-			def db = new Sql(dataSource)
-			def divisiones  = db.rows(sql)			
+			def divisiones=Division.findAllByEje(eje)
 			render(template:"division", model: [divisiones: divisiones])
 		}else{
 		redirect(action:"indicadores")
@@ -391,9 +358,7 @@ class PublicoController {
 		if(params.infoIndicador=='true'){			
 			def eje = Eje.get(id)
 			if(eje){								
-				def sql = "select * from division where eje_id = " + eje.id
-				def db = new Sql(dataSource)
-				def divisiones  = db.rows(sql)				
+				def divisiones=Division.findAllByEje(eje)		
 				[divisiones: divisiones]
 			}else{
 				redirect(action:"indicadores")
@@ -436,7 +401,7 @@ class PublicoController {
 			def ubicaciones = []
 			def aux = [:]
 			def ubicacioneString = []
-			def coordenadas = []	
+				
 			def nombreCoordenadas = []
 						
 			resultadosIndicador.each { resultado ->		
@@ -445,7 +410,7 @@ class PublicoController {
 				def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
 				def db = new Sql(dataSource)
 				def result  = db.rows(sql)						
-				
+				def coordenadas = []
 				result.each {
 					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")					
 				}
@@ -470,12 +435,32 @@ class PublicoController {
 			
 			def jsondata = aux as JSON
 			
-			System.out.println("variables: "+detalleIndicador.rVariables)
+			//Cambiar valores de la formula por la descripción
+			def formula = ""
+			def formulaOriginal = indicador?.formula?.sentencia					
+			def var = [:]			
+			def fin = false
+			indicador?.variables.each {									
+				var.put(it.clave , CatOrigenDatos.findByClave(it.claveVar)?.descripcion)
+			}		
+			
+			for (int i=0; i<formulaOriginal.length(); i++) {				
+				for(int j=0; j<var.size(); j++){			
+					if(!fin && var.get(formulaOriginal.charAt(i).toString())!=null){
+						formula += var.get(formulaOriginal.charAt(i).toString())
+						fin = true
+					}										
+				}
+				if(!fin){
+					formula += formulaOriginal.charAt(i).toString()
+				}	
+				fin = false			 
+			}
 						
 			def tamVariables = indicador.variables.size()
 			def datosCalculo = detalleIndicador.rVariables			
 					
-			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables]
+			[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables, formula:formula]
 			}
 			else{
 				redirect(action:"indicadores")
@@ -529,6 +514,7 @@ class PublicoController {
 
 						def query = "SELECT "+
 								"clave, "+
+								"descripcion,"+
 								"sum(o.mujeres) as mujeres, "+
 								"sum(o.hombres) as hombres , "+
 								"sum(o.total) as total "+
@@ -589,7 +575,7 @@ class PublicoController {
 
 						}
 
-						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave"
+						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
 
 
 
@@ -612,6 +598,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -619,6 +606,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -626,6 +614,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
@@ -735,6 +724,7 @@ class PublicoController {
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT o.region_id,"+
+								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 								"sum(o.mujeres) as mujeres, "+
 								"sum(o.hombres) as hombres , "+
@@ -799,7 +789,7 @@ class PublicoController {
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "+
 								"GROUP BY "+
 								"o.region_id,  "+
-								"region"
+								"region,descripcion"
 
 
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -822,6 +812,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -830,6 +821,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -838,6 +830,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
@@ -994,6 +987,7 @@ class PublicoController {
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT o.region_id,"+
+								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 								"o.municipio_id,"+
 								"COALESCE(cm.mun_descripcion, ''::character varying) AS municipio,"+
@@ -1062,7 +1056,7 @@ class PublicoController {
 								"o.region_id,  "+
 								"region,"+
 								"o.municipio_id, " +
-								"municipio"
+								"municipio,descripcion"
 
 
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1087,6 +1081,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -1097,6 +1092,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -1107,6 +1103,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
@@ -1274,6 +1271,7 @@ class PublicoController {
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT o.region_id,"+
+								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
 								"o.municipio_id,"+
 								"COALESCE(cm.mun_descripcion, ''::character varying) AS municipio,"+
@@ -1346,7 +1344,7 @@ class PublicoController {
 								"o.municipio_id, " +
 								"municipio,"+
 								"o.localidad_id,"+
-								"localidad"
+								"localidad,descripcion"
 
 
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1373,6 +1371,7 @@ class PublicoController {
 										valorTem.indicador=it.hombres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "M":
@@ -1385,6 +1384,7 @@ class PublicoController {
 										valorTem.indicador=it.mujeres
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 
 									case "T":
@@ -1397,6 +1397,7 @@ class PublicoController {
 										valorTem.indicador=it.total
 										valorTem.anio=anio
 										temVar.valores.add(valorTem)
+										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;

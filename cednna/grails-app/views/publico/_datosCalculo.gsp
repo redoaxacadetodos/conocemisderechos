@@ -20,7 +20,7 @@
 		  			<g:each var="datos" status="i" in="${datosCalculo}">
 		  				<g:if test="${i<tamVariables }">
 				  			<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">			  			
-				  				<td>${datos.letra}</td>
+				  				<td>${datos.descripcion}</td>
 				  				<td>			  				
 				  				<g:each var="valor" in="${datos?.valores}">
 				  					<g:if test="${tipo.equals('1')}">Oaxaca</g:if>
