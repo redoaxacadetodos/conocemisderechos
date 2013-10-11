@@ -30,12 +30,16 @@ $(function(){
 				htmlOptions : {	
 					name : "anio",
 					id : "anio",
-					clase : ""
+					clase : "chosen-select"
 				},
 				index : 0,
 				chained : false,
 				anchor : "#anio",
-				combo : true
+				combo : true,
+				valorDefault:false,
+				valorDefaultText:" Seleccione la año ",
+				delTag: false,
+				load:false
 			});  
 		    
 		});
@@ -103,7 +107,8 @@ function asignaEventorTipo(num){
 		valorDefault:false,
 		valorDefaultText:" Seleccione la categoria ",
 		delTag: true,
-		tag:"#divTipo_"+num
+		tag:"#divTipo_"+num,
+		load:true
 	});  
 
 	
@@ -124,7 +129,8 @@ function asignaEventorTipo(num){
 			valorDefault:false,
 			valorDefaultText:" Seleccione la categoria ",
 			delTag: true,
-			tag:"#divTipo_"+num
+			tag:"#divTipo_"+num,
+			load:true
 		});  
 
 

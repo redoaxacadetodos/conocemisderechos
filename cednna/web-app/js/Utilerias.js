@@ -303,7 +303,12 @@ function llenaComboVar(opciones){
 
 
 function llenaCombo(opciones){
-	   var options = '';
+	
+	if(opciones.load)
+		$(opciones.anchor).replaceWith("<label>Cargando datos ....</label>");
+	
+	
+	var options = '';
 	   $.getJSON(opciones.valor==null? opciones.url:opciones.url+"/"+opciones.valor, function(data) {
 			
 		   if(opciones.combo){
@@ -335,7 +340,7 @@ function llenaCombo(opciones){
 				}
 			  
 			  
-			  $(opciones.anchor).replaceWith(options);
+			
 			  
 			  
 			  
@@ -376,15 +381,20 @@ function llenaCombo(opciones){
 
 			   $(opciones.anchor).replaceWith(options);
 		   }
-			 // alert(options);
-	       	}).success(function() {})
+	
+	       	}).success(function() {
+	       	// $(opciones.anchor).html(options);
+	       	})
 			       	.error(function() {   })
 			       	.complete(function() { // alert("complete");
 			       		if(!isEmpty(opciones.htmlOptions.valor))
 			       			$("select#"+opciones.htmlOptions.id).val(opciones.htmlOptions.valor); 		    
 			       		
+			       	//alert(options);
 
-			       		
+			      	  $(opciones.anchor).html(options);
+			       	  
+			       	  
 			       		if(opciones.onComplete){
 			       			onComplete();
 			       			
