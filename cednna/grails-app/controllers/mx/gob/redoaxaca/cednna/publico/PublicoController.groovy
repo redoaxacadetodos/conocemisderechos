@@ -1,6 +1,7 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import java.text.Normalizer
+import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
@@ -87,16 +88,16 @@ class PublicoController {
 	}
 		
 	def insertarCoordenadas = {		
-		/*
+		
 		GuardarCoordenadas gc = new GuardarCoordenadas(Municipio) 				
 		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())
-		
+		/*
 		GuardarCoordenadas gc = new GuardarCoordenadas(Estado)
 		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/entidad.kml").getFile())
 		 */		
-		
+		/*
 		GuardarCoordenadas gcr = new GuardarCoordenadas(Region)
-		gcr.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/regiones.kml").getFile())
+		gcr.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/regiones.kml").getFile())*/
 	}
 	
 	def contacto = {
