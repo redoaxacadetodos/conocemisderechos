@@ -55,6 +55,13 @@
 			  	</table>
 		<!-- Termina tabla indicador general -->	
 	</g:if>
+	<g:elseif test="${resultadosIndicador==null }">
+		<div>
+		<br>
+		No se puede realizar la operación debido a la división con 0
+		<br><br>
+		</div>
+	</g:elseif>
 	<g:else>		
 		<div>
 		<br>

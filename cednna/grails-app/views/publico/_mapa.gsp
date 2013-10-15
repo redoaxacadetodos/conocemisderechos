@@ -81,6 +81,13 @@ function loadScript() {
 	<g:if test="${coordenadasList}">
 	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>
 	</g:if>
+	<g:elseif test="${resultadosIndicador==null }">
+		<div>
+		<br>
+		No se puede realizar la operación debido a la división con 0
+		<br><br>
+		</div>
+	</g:elseif>
 	<g:else>
 		No se pueden mostrar los indicadores a este nivel 
 		<div id="map-canvas" style="width: 100%; height: 480px; display:none;"></div>

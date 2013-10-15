@@ -172,7 +172,7 @@ class PublicoController {
 		//System.out.println("tam: "+aux.size())
 		def jsodata = aux as JSON
 
-		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata])
+		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata, resultadosIndicador:resultadosIndicador])
 	}
 	
 	def actualizarTablaIndicador(Long id){
@@ -318,7 +318,7 @@ class PublicoController {
 			}
 		}		
 				
-		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo:datosCalculo, tamVariables:tamVariables])
+		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo:datosCalculo, tamVariables:tamVariables, resultadosIndicador:resultadosIndicador])
 	}
 	
 	def String remplazarAcentos(String s){
@@ -370,7 +370,7 @@ class PublicoController {
 			if(indicador){
 						
 			DetalleIndicador detalleIndicador = visorIndicador(id,1)
-			def resultadosIndicador = detalleIndicador.resultados
+			def resultadosIndicador = detalleIndicador.resultados			
 			def resultados = []
 			def coordenadasList = []
 			
