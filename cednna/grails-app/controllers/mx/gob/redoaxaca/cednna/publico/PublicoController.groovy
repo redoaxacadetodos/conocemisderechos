@@ -424,17 +424,21 @@ class PublicoController {
 				resultado.resultados.each { r ->
 					anios.add(r?.anio)
 					datosIndicador.add(r?.indicador)
+					System.out.println("dato:"+r?.indicador)
 				}
 				
 				nombre.each {
 					nombreCoordenadas.add("'"+it.descripcion+"'")
+					//System.out.println("datos:"+datosIndicador)
 					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador, "coordenadas": coordenadas])
 				}
 			}
 			
-			aux.put("lugar",["ubicaciones":ubicaciones])
-			
+			//aux.put("lugar",["ubicaciones":datosIndicador])
+			System.out.println("JSON: "+ubicaciones)
 			def jsondata = aux as JSON
+			
+			
 			
 			//Cambiar valores de la formula por la descripción
 			def formula = ""

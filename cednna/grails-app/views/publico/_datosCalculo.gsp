@@ -1,4 +1,4 @@
-<%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>	
 	  	<g:if test="${datosCalculo}">	  		
 		  		<table>
 			  		<thead>
