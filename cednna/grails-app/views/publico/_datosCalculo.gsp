@@ -45,6 +45,13 @@
 		  		</tbody>
 		  		</table>		  	
 	  	</g:if>
+	  	<g:elseif test="${resultadosIndicador==null }">
+		<div>
+		<br>
+		No se puede realizar la operación debido a la división con 0
+		<br><br>
+		</div>
+	</g:elseif>
 	  	<g:else>
 	  		No se puede mostrar información de las variables para el indicador
 	  	</g:else>	
