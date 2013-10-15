@@ -681,14 +681,23 @@ class PublicoController {
 
 							Resultado res= new Resultado()
 							res.anio=actual.anio
-							res.indicador=actual.resultadoIndicador
+							
+							if(!Double.isNaN(actual.resultadoIndicador)){
+								res.indicador=actual.resultadoIndicador
+							}else{
+								res=null;
+							}
 							resultados.get(0).resultados.add(res)
 							//																System.out.println("Veces que entro al sistema 1 ");
 
 						}else{
 							Resultado res= new Resultado()
 							res.anio=actual.anio
-							res.indicador=actual.resultadoIndicador
+							if(!Double.isNaN(actual.resultadoIndicador)){
+								res.indicador=actual.resultadoIndicador
+							}else{
+								res=null;
+							}
 							ResultadoIndicador ri =  new  ResultadoIndicador()
 
 							ri.resultados.add(res)
@@ -926,7 +935,11 @@ class PublicoController {
 									if(it.idRegion==actual.idRegion){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										res.indicador=actual.resultadoIndicador
+										if(!Double.isNaN(actual.resultadoIndicador)){
+											res.indicador=actual.resultadoIndicador
+										}else{
+											res=null;
+										}
 										it.resultados.add(res)
 										ban=1
 									}
@@ -936,7 +949,11 @@ class PublicoController {
 								if(ban!=1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									res.indicador=actual.resultadoIndicador
+									if(!Double.isNaN(actual.resultadoIndicador)){
+										res.indicador=actual.resultadoIndicador
+									}else{
+										res=null;
+									}
 									ResultadoIndicador ri =  new  ResultadoIndicador()
 									ri.region=actual.region
 									ri.idRegion=actual.idRegion
@@ -947,7 +964,11 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								res.indicador=actual.resultadoIndicador
+								if(!Double.isNaN(actual.resultadoIndicador)){
+									res.indicador=actual.resultadoIndicador
+								}else{
+									res=null;
+								}
 								ResultadoIndicador ri =  new  ResultadoIndicador()
 								ri.region=actual.region
 								ri.idRegion=actual.idRegion
@@ -1203,7 +1224,11 @@ class PublicoController {
 									if(it.idMunicipio==actual.idMunicipio){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										res.indicador=actual.resultadoIndicador
+										if(!Double.isNaN(actual.resultadoIndicador)){
+											res.indicador=actual.resultadoIndicador
+										}else{
+											res=null;
+										}
 										it.resultados.add(res)
 										ban=1
 									}
@@ -1213,7 +1238,11 @@ class PublicoController {
 								if(ban!=1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									res.indicador=actual.resultadoIndicador
+									if(!Double.isNaN(actual.resultadoIndicador)){
+										res.indicador=actual.resultadoIndicador
+									}else{
+										res=null;
+									}
 									ResultadoIndicador ri =  new  ResultadoIndicador()
 									ri.region=actual.region
 									ri.idRegion=actual.idRegion
@@ -1226,7 +1255,11 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								res.indicador=actual.resultadoIndicador
+								if(!Double.isNaN(actual.resultadoIndicador)){
+									res.indicador=actual.resultadoIndicador
+								}else{
+									res=null;
+								}
 								ResultadoIndicador ri =  new  ResultadoIndicador()
 								ri.region=actual.region
 								ri.idRegion=actual.idRegion
@@ -1497,7 +1530,11 @@ class PublicoController {
 									if(it.idLocalidad==actual.idLocalidad){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										res.indicador=actual.resultadoIndicador
+										if(!Double.isNaN(actual.resultadoIndicador)){
+											res.indicador=actual.resultadoIndicador
+										}else{
+											res=null;
+										}
 										it.resultados.add(res)
 										ban=1
 									}
@@ -1507,7 +1544,11 @@ class PublicoController {
 								if(ban==1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									res.indicador=actual.resultadoIndicador
+									if(!Double.isNaN(actual.resultadoIndicador)){
+										res.indicador=actual.resultadoIndicador
+									}else{
+										res=null;
+									}
 									ResultadoIndicador ri =  new  ResultadoIndicador()
 									ri.region=actual.region
 									ri.idRegion=actual.idRegion
@@ -1523,7 +1564,11 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								res.indicador=actual.resultadoIndicador
+								if(!Double.isNaN(actual.resultadoIndicador)){
+									res.indicador=actual.resultadoIndicador
+								}else{
+									res=null;
+								}
 								ResultadoIndicador ri =  new  ResultadoIndicador()
 								ri.municipio= actual.municipio
 								ri.idMunicipio= actual.idMunicipio
