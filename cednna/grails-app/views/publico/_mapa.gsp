@@ -84,12 +84,12 @@ function loadScript() {
 	<g:elseif test="${resultadosIndicador==null }">
 		<div>
 		<br>
-		No se puede realizar la operación debido a la división con 0
+		No se puede realizar la operación debido a la división entre 0
 		<br><br>
 		</div>
 	</g:elseif>
 	<g:else>
-		No se pueden mostrar los indicadores a este nivel 
+		No se pueden mostrar los indicadores a este nivel de área geográfica. 
 		<div id="map-canvas" style="width: 100%; height: 480px; display:none;"></div>
 	</g:else>	  	  
 </div>

@@ -85,18 +85,36 @@
 					  	</g:each>				  		
 			  		</tr>
 			  		<tr>
+			  			
 			  			<g:set value="false" var="imprimirDatos"></g:set>
 			  			<td>${indicadorInstance?.nombre}</td>
 				  		<g:each var="resultado" in="${resultados}">
 					  		<g:if test="${imprimirDatos=='true'}">
-			  					<td>${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos</td>
-			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>			  					
+					  			<g:if test="${resultado?.indicador!=null && anio!=null}">
+			  					<td>			  					
+			  					${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos					
+			  					</td>
+			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>
+			  					</g:if>
+			  					<g:else>
+			  						<td>			  					
+				  					-			  					
+				  					</td>
+				  					<g:set value="${resultado?.indicador}" var="anio"></g:set>
+			  					</g:else>			  					
 			  				</g:if>
 			  				<g:else>
-			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>
-			  					<g:set value="true" var="imprimirDatos"></g:set>
+			  					<g:if test="${resultado?.indicador!=null }">
+				  					<g:set value="${resultado?.indicador}" var="anio"></g:set>
+				  					<g:set value="true" var="imprimirDatos"></g:set>
+			  					</g:if>
+			  					<g:else>
+			  						<g:set value="null" var="anio"></g:set>
+				  					<g:set value="true" var="imprimirDatos"></g:set>
+			  					</g:else>			  				
 			  				</g:else>
-					  	</g:each>	
+					  	</g:each>
+					  	
 			  		</tr>
 			  	</table>
 			  	<!-- termina tabla de variación -->
