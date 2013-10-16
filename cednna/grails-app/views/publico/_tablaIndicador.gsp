@@ -22,8 +22,8 @@
 				  		<g:if test="${resultadosIndicador }">
 				  			<g:set var="resultadoaux" value="${resultadosIndicador?.get(0) }"></g:set>
 				  		
-				  		<g:each var="resultado" in="${resultadoaux?.resultados }">
-				  		<th>${resultado?.anio }</th>
+				  		<g:each var="resultado" in="${resultadoaux?.resultados }">				  		
+				  			<th>${resultado?.anio }</th>				  		
 				  		</g:each>
 				  		</g:if>
 				  		</tr>
@@ -45,8 +45,8 @@
 						  		<g:if test="${tipo.equals('4') }">
 						  			<td>${resultadoIndicador?.localidad }</td>
 						  		</g:if>
-						  		<g:each var="result" in="${resultadoIndicador?.resultados }">
-						  			<td>${result?.indicador}</td>						  			
+						  		<g:each var="result" in="${resultadoIndicador?.resultados }">						  									  		
+						  			<td>${result?.indicador==null ? '-':result?.indicador}</td>						  			
 						  		</g:each>					  			
 					  		</g:each>
 					  	</tr>
@@ -58,7 +58,7 @@
 	<g:elseif test="${resultadosIndicador==null }">
 		<div>
 		<br>
-		No se puede realizar la operación debido a la división con 0
+		No se puede realizar la operación debido a la división entre 0
 		<br><br>
 		</div>
 	</g:elseif>

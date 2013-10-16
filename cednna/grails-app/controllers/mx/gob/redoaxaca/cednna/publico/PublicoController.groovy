@@ -373,10 +373,44 @@ class PublicoController {
 			def resultadosIndicador = detalleIndicador.resultados			
 			def resultados = []
 			def coordenadasList = []
+			/*
+			List <Resultado> resultados1 = []
+			List <Resultado> resultados2 = []
+			
+			Resultado rs1 = new Resultado()
+			rs1.anio = 2010
+			rs1.indicador = 10.02
+			
+			Resultado rs2 = new Resultado()
+			rs2.anio = 2012
+			rs2.indicador = 9.02
+			
+			Resultado rs3 = new Resultado()
+			rs3.anio = 2013
+			
+			
+			Resultado rs4 = new Resultado()
+			rs4.anio = 2014
+			rs4.indicador = 11.02
+			
+			resultados1.add(rs1)
+			resultados1.add(rs2)
+			resultados1.add(rs3)
+			resultados1.add(rs4)
+			
+			ResultadoIndicador r1 = new ResultadoIndicador()
+			r1.resultados = resultados1
+			
+			List<ResultadoIndicador> prueba = []
+			
+			prueba.add(r1)
+			resultadosIndicador = prueba
+			*/
+			def nulo = true
 			
 			resultadosIndicador.each { r ->
-				resultados = r.resultados
-			}
+				resultados = r.resultados				
+			}			
 			
 			//Creación de arreglo para Highcharts
 			def series = []
@@ -424,6 +458,9 @@ class PublicoController {
 				resultado.resultados.each { r ->
 					anios.add(r?.anio)
 					datosIndicador.add(r?.indicador)
+					if(r?.indicador!=null){
+						nulo=false
+					}
 					System.out.println("dato:"+r?.indicador)
 				}
 				
@@ -439,6 +476,9 @@ class PublicoController {
 			def jsondata = aux as JSON
 			
 			
+			if(nulo){
+				resultadosIndicador = null
+			}
 			
 			//Cambiar valores de la formula por la descripción
 			def formula = ""
