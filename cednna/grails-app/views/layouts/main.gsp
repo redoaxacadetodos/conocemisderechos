@@ -83,13 +83,14 @@
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
  							 <sec:ifAnyGranted roles="ROLE_ADMIN">	
 							<li class="uk-nav-header">Cat&aacute;logos</li>
-							<li><g:link controller="tipo">Categor&iacute;as</g:link></li>
+							<li><g:link controller="tipo">Categor&iacute;as </g:link></li>
 							<li><g:link controller="sentido">Sentido</g:link></li>
 							<li><g:link controller="dependencia">Dependencia</g:link></li>
 							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
 							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
 							<li><g:link controller="eje">Modulo</g:link></li>
+							<li><g:link controller="division">SubModulo</g:link></li>
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
 							<li><g:link controller="objetivoMilenio">Objetivos del milenio</g:link></li>
 							</sec:ifAnyGranted>

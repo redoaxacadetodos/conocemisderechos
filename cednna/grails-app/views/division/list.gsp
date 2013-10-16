@@ -23,8 +23,11 @@
 			<table>
 				<thead>
 					<tr>
-					
 						<g:sortableColumn property="descripcion" title="${message(code: 'division.descripcion.label', default: 'Descripcion')}" />
+					
+						<th><g:message code="division.eje.label" default="Eje" /></th>
+					
+						
 					
 					</tr>
 				</thead>
@@ -32,7 +35,10 @@
 				<g:each in="${divisionInstanceList}" status="i" var="divisionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
+						
+					
 						<td><g:link action="show" id="${divisionInstance.id}">${fieldValue(bean: divisionInstance, field: "descripcion")}</g:link></td>
+						<td>${fieldValue(bean: divisionInstance, field: "eje.descripcion")}</td>
 					
 					</tr>
 				</g:each>
