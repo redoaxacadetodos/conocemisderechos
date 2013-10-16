@@ -27,8 +27,8 @@
 <%-- 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/prism.css')}" type="text/css">--%>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'chosen.css')}" type="text/css">
  				
- 						
- 						<g:javascript src="jquery-1.10.2.js" />
+ 					
+ 						<g:javascript src="jquery-1.8.3.js" />
  				 		<g:javascript src="uikit.min.js" />
  						<g:javascript src="jquery-ui-1.8.20.custom.min.js" />
  						<g:javascript src="jquery.dataTables.js" />
@@ -38,6 +38,7 @@
 						<g:javascript src="es_ES.js" />
 					 	<g:javascript src="chosen.jquery.js" />
 					  	<g:javascript src="docsupport/prism.js"  />
+					  	<g:javascript src="jquery.blockUI.js" />
   						<g:javascript src="Utilerias.js" />	
 
 		

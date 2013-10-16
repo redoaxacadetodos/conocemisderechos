@@ -1,4 +1,37 @@
 
+     function spinerLoad(mensaje){
+             // Now loading
+             $.blockUI({
+                 message: '<h1>'+mensaje+'</h1>',
+                 css: {
+                     border: 'none',
+                     padding: '15px',
+                     backgroundColor: '#000',
+                     '-webkit-border-radius': '10px',
+                     '-moz-border-radius': '10px',
+                     opacity: .5,
+                     color: '#fff'
+                 },
+                 overlayCSS:  {
+                     backgroundColor: '#fff',
+                     opacity:         0.6
+                 }
+             });
+
+
+             //target = document.getElementById('spin');
+             //spinner = new Spinner(opts).spin(target);
+             //$("#spin").show();
+
+         }
+
+         function spinerStop(){
+             //reloadSocialThings();
+             $.unblockUI();
+             //spinner.stop();
+         }
+		
+
 
 function alertCarga(){	
 	$("#message-drawer").html('<div id="vic-err" class="message error"><div class="message-inside"><img src="images/loader.gif"> <span class="mes_txt">Cargando ...</span></div></div></div>');			
@@ -301,14 +334,9 @@ function llenaComboVar(opciones){
 	}
 
 
-
 function llenaCombo(opciones){
-	
-	if(opciones.load)
-		$(opciones.anchor).replaceWith("<label>Cargando datos ....</label>");
-	
-	
-	var options = '';
+	spinerLoad('Buscando informaci&oacute;n...');
+	   var options = '';
 	   $.getJSON(opciones.valor==null? opciones.url:opciones.url+"/"+opciones.valor, function(data) {
 			
 		   if(opciones.combo){
@@ -340,7 +368,7 @@ function llenaCombo(opciones){
 				}
 			  
 			  
-			
+			  $(opciones.anchor).replaceWith(options);
 			  
 			  
 			  
@@ -381,33 +409,27 @@ function llenaCombo(opciones){
 
 			   $(opciones.anchor).replaceWith(options);
 		   }
-	
-	       	}).success(function() {
-	       	// $(opciones.anchor).html(options);
-	       	})
+			 // alert(options);
+	       	}).success(function() {})
 			       	.error(function() {   })
 			       	.complete(function() { // alert("complete");
 			       		if(!isEmpty(opciones.htmlOptions.valor))
 			       			$("select#"+opciones.htmlOptions.id).val(opciones.htmlOptions.valor); 		    
 			       		
-			       	//alert(options);
 
-			      	  $(opciones.anchor).html(options);
-			       	  
-			       	  
+			       		
 			       		if(opciones.onComplete){
 			       			onComplete();
 			       			
 			       			
 			       		}
 			       		
+			       		spinerStop();
 			       		
 			       	});
 	       		
 	  
 	}
-
-
 //function llenaComboF(opciones){
 //	   var options = '';
 //	   $.getJSON(opciones.valor==null? opciones.url:opciones.url+"/"+opciones.valor, function(data) {

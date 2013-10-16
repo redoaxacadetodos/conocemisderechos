@@ -229,7 +229,7 @@ function asignaEventorTipo(num){
 		<div class="fieldcontain">
  		   <input type="file" name="fileBase" multiple="multiple" class="uk-form"></input>
 		</div><br />
-		<input type="submit" name="Procesar"  class="uk-button" value="Procesar archivo">
+		<input type="submit" name="Procesar"  class="uk-button" value="Procesar archivo"  onclick="spinerLoad('Procesando datos...');">
 	</fieldset>
 	</g:form>
 </body>
