@@ -150,8 +150,8 @@ class VariableController {
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
 		variableInstance.clave=cod.clave
 		variableInstance.descripcion=cod.descripcion
-		
-		
+		def usuario = springSecurityService.currentUser
+		variableInstance.dependencia=usuario.dependencia
 		def numCategorias= params.numCategorias.toInteger()
 
 			for(i in 1 .. numCategorias){
@@ -939,7 +939,7 @@ class VariableController {
 												"(cvv_anio, cvv_clave, cvv_dependencia, cvv_descripcion, cvv_estado, cvv_hombres, cvv_localidad, cvv_mujeres, cvv_municipio, cvv_poblacion_total, cvv_region,cvv_id) "+
 												"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"	
 												
-												sql.execute(consulta, [row.getAnio(),row.getClave(),dependencia,row.getDescripcion(),estOaxaca.id,row.getHombres(),localidad,row.getMujeres(),municipio,row.getHombres()+row.getMujeres(),region,sec])
+												sql.execute(consulta, [row.getAnio(),row.getClave(),dep,row.getDescripcion(),estOaxaca.id,row.getHombres(),localidad,row.getMujeres(),municipio,row.getHombres()+row.getMujeres(),region,sec])
 												
 												consulta="insert into cat_variable_categoria (cvc_cvv_id, cvc_cct_id) values (?, ?)"
 

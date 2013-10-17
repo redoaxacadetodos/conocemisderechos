@@ -340,7 +340,7 @@ function llenaCombo(opciones){
 	   $.getJSON(opciones.valor==null? opciones.url:opciones.url+"/"+opciones.valor, function(data) {
 			
 		   if(opciones.combo){
-			options = options + "<select id='"+opciones.htmlOptions.id+"' name='"+opciones.htmlOptions.name+"' class='"+opciones.htmlOptions.clase;
+			options = options + "<select id='"+opciones.htmlOptions.id+"' name='"+opciones.htmlOptions.name+"' class='"+opciones.htmlOptions.clase +"' style='"+opciones.htmlOptions.style ;
 		  
 			options += "'>";
 			
@@ -388,7 +388,7 @@ function llenaCombo(opciones){
 				      '.chosen-select-deselect'  : {allow_single_deselect:true},
 				      '.chosen-select-no-single' : {disable_search_threshold:10},
 				      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-				      '.chosen-select-width'     : {width:"95%"}
+				      '.chosen-select-width'     : {width:"99%"}
 				    }
 				    for (var selector in config) {
 				      $(selector).chosen(config[selector]);
