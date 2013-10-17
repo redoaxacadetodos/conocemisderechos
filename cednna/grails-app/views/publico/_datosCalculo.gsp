@@ -1,4 +1,4 @@
-<%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>	
 	  	<g:if test="${datosCalculo}">	  		
 		  		<table>
 			  		<thead>
@@ -45,6 +45,7 @@
 		  		</tbody>
 		  		</table>		  	
 	  	</g:if>
+	  	
 	  	<g:else>
 	  		No se puede mostrar información de las variables para el indicador
 	  	</g:else>	

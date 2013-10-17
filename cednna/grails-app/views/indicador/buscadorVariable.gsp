@@ -167,8 +167,8 @@
 												});
 						});
 					
-				
-					asignaEventorTipo(1,"${var.clave}");
+<%--				--%>
+<%--					asignaEventorTipo(1,"${var.clave}");--%>
 
 					$("#addCat_${var.clave}").click(function(){
 
@@ -183,7 +183,7 @@
 								              {
 								              
 								              		$('#divCate_${var.clave}').append(data);
-								              		asignaEventorTipo(cont,"${var.clave}");
+<%--								              		asignaEventorTipo(cont,"${var.clave}");--%>
 								             
 								              },
 								           			   error:function(XMLHttpRequest,textStatus,errorThrown)
@@ -201,7 +201,7 @@
 													    for (var selector in config) {
 													      $(selector).chosen(config[selector]);
 													    }
-																				
+							                		asignaEventorTipo(cont,"${var.clave}");				
 								              }
 												});
 						});
@@ -310,7 +310,24 @@
 
 				function asignaEventorTipo(num,vari){
 
-			
+					llenaCombo({
+						url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num+"_"+vari).val(),
+						htmlOptions : {
+							name : "categoria_"+num+"_"+vari,
+							id : "categoria_"+num+"_"+vari,
+							clase : "chosen-select",
+							
+						},
+						index : 0,
+						chained : false,
+						anchor : "#categoria_"+num+"_"+vari,
+						combo : true,
+						valorDefault:false,
+						valorDefaultText:" Seleccione la categoria ",
+						delTag: true,
+						tag:"#divTipo_"+num+"_"+vari
+					});  
+				
 
 						$("#tipo_"+num+"_"+vari).change(function(){
 

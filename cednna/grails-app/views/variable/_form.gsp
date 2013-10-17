@@ -238,7 +238,7 @@ $(function(){
 
 	    asignaEventorRegion();
 		asignaEventorMunicipio();
-		asignaEventorTipo(1);
+<%--		asignaEventorTipo(1);--%>
 
 		 $("#newVariable").click(function(){
 
@@ -317,7 +317,7 @@ $(function(){
 						              {
 						              
 						              		$('#divCate').append(data);
-						              		asignaEventorTipo(cont);
+						              	
 						             
 						              },
 						           			   error:function(XMLHttpRequest,textStatus,errorThrown)
@@ -336,7 +336,7 @@ $(function(){
 											      $(selector).chosen(config[selector]);
 											    }
 
-						                	
+					                	  asignaEventorTipo(cont);
 						              }
 										});
 				});
@@ -412,7 +412,24 @@ function asignaEventorMunicipio(){
 
 function asignaEventorTipo(num){
 
-	
+	llenaCombo({
+		url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num).val(),
+		htmlOptions : {
+			name : "categoria_"+num,
+			id : "categoria_"+num,
+			clase : "chosen-select",
+			
+		},
+		index : 0,
+		chained : false,
+		anchor : "#categoria_"+num,
+		combo : true,
+		valorDefault:false,
+		valorDefaultText:" Seleccione la categoria ",
+		delTag: true,
+		tag:"#divTipo_"+num
+	});  
+
 
 	$("#tipo_"+num).change(function(){
 
@@ -436,7 +453,7 @@ function asignaEventorTipo(num){
 			delTag: true,
 			tag:"#divTipo_"+num
 		});  
-
+	
 
 		});
 	

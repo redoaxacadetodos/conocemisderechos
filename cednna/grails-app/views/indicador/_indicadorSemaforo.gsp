@@ -16,13 +16,17 @@
 		<tbody>
 			<g:each var="indicador" in="${indicadores}">				
 				<g:set var="fechaLimite" value="${use(TimeCategory) {
-					    indicador?.fechaActualizacion + indicador?.frecuencia?.nmeses?.month 
+						if(indicador?.frecuencia?.mes){
+							indicador?.fechaActualizacion + indicador?.frecuencia?.nmeses?.month
+						}else{
+							indicador?.fechaActualizacion + indicador?.frecuencia?.nmeses?.days
+						}					     
 					}}"></g:set>
 				
 				<tr><td>${indicador?.nombre}</td><td>${indicador?.frecuencia?.descripcion }</td>
 				<td><g:formatDate type="date" style="LONG" date="${indicador?.fechaActualizacion }"/></td>
 				<td>
-				<g:if test="${fechaLimite>new Date() }">
+				<g:if test="${fechaLimite>=new Date() }">
 				Estatus 1
 				</g:if>
 				<g:else>

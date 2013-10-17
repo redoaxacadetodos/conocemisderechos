@@ -30,7 +30,9 @@ $(function(){
 				htmlOptions : {	
 					name : "anio",
 					id : "anio",
-					clase : "chosen-select"
+					clase : "chosen-select",
+					style: "width:150px"
+						
 				},
 				index : 0,
 				chained : false,
@@ -178,7 +180,7 @@ function asignaEventorTipo(num){
 									<span class="required-indicator">*</span>
 								</label>
 								<div class="uk-form-controls">
-								<select id="anio" name="anio" ></select>
+								<select id="anio" name="anio" style="width:150px" ></select>
 								</div>
 							</div>
 
@@ -229,7 +231,7 @@ function asignaEventorTipo(num){
 		<div class="fieldcontain">
  		   <input type="file" name="fileBase" multiple="multiple" class="uk-form"></input>
 		</div><br />
-		<input type="submit" name="Procesar"  class="uk-button" value="Procesar archivo">
+		<input type="submit" name="Procesar"  class="uk-button" value="Procesar archivo"  onclick="spinerLoad('Procesando datos...');">
 	</fieldset>
 	</g:form>
 </body>

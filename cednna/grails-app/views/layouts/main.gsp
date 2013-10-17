@@ -27,8 +27,8 @@
 <%-- 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'docsupport/prism.css')}" type="text/css">--%>
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'chosen.css')}" type="text/css">
  				
- 						
- 						<g:javascript src="jquery-1.10.2.js" />
+ 					
+ 						<g:javascript src="jquery-1.8.3.js" />
  				 		<g:javascript src="uikit.min.js" />
  						<g:javascript src="jquery-ui-1.8.20.custom.min.js" />
  						<g:javascript src="jquery.dataTables.js" />
@@ -38,6 +38,7 @@
 						<g:javascript src="es_ES.js" />
 					 	<g:javascript src="chosen.jquery.js" />
 					  	<g:javascript src="docsupport/prism.js"  />
+					  	<g:javascript src="jquery.blockUI.js" />
   						<g:javascript src="Utilerias.js" />	
 
 		
@@ -82,13 +83,14 @@
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
  							 <sec:ifAnyGranted roles="ROLE_ADMIN">	
 							<li class="uk-nav-header">Cat&aacute;logos</li>
-							<li><g:link controller="tipo">Categor&iacute;as</g:link></li>
+							<li><g:link controller="tipo">Categor&iacute;as </g:link></li>
 							<li><g:link controller="sentido">Sentido</g:link></li>
 							<li><g:link controller="dependencia">Dependencia</g:link></li>
 							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
 							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
 							<li><g:link controller="eje">Modulo</g:link></li>
+							<li><g:link controller="division">SubModulo</g:link></li>
 							<li><g:link controller="PNDesarrollo">Plan de desarrollo</g:link></li>
 							<li><g:link controller="objetivoMilenio">Objetivos del milenio</g:link></li>
 							</sec:ifAnyGranted>

@@ -6,11 +6,11 @@ import mx.gob.redoaxaca.cednna.domino.Categoria;
 
 public class Row {
 
-	int     idRegion;
+	Integer     idRegion= null;
 	String  region;
-	int     idMunicipio;
+	Integer     idMunicipio = null;
 	String  municipio;
-	int     idLocalidad;
+	Integer     idLocalidad = null;
 	String  localidad;
 	int		hombres;
 	int		mujeres;
@@ -63,11 +63,11 @@ public class Row {
 		this.anio = anio;
 	}
 
-	public int getIdRegion() {
+	public Integer getIdRegion() {
 		return idRegion;
 	}
 
-	public void setIdRegion(int idRegion) {
+	public void setIdRegion(Integer idRegion) {
 		this.idRegion = idRegion;
 	}
 
@@ -79,11 +79,11 @@ public class Row {
 		this.region = region;
 	}
 
-	public int getIdMunicipio() {
+	public Integer getIdMunicipio() {
 		return idMunicipio;
 	}
 
-	public void setIdMunicipio(int idMunicipio) {
+	public void setIdMunicipio(Integer idMunicipio) {
 		this.idMunicipio = idMunicipio;
 	}
 
@@ -95,11 +95,11 @@ public class Row {
 		this.municipio = municipio;
 	}
 
-	public int getIdLocalidad() {
+	public Integer getIdLocalidad() {
 		return idLocalidad;
 	}
 
-	public void setIdLocalidad(int idLocalidad) {
+	public void setIdLocalidad(Integer idLocalidad) {
 		this.idLocalidad = idLocalidad;
 	}
 

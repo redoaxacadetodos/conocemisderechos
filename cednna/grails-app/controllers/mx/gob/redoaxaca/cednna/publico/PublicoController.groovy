@@ -1,6 +1,7 @@
 package mx.gob.redoaxaca.cednna.publico
 
 import java.text.Normalizer
+import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
 import com.redoaxaca.java.RVariable
@@ -87,16 +88,16 @@ class PublicoController {
 	}
 		
 	def insertarCoordenadas = {		
-		/*
+		
 		GuardarCoordenadas gc = new GuardarCoordenadas(Municipio) 				
 		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())
-		
+		/*
 		GuardarCoordenadas gc = new GuardarCoordenadas(Estado)
 		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/entidad.kml").getFile())
 		 */		
-		
+		/*
 		GuardarCoordenadas gcr = new GuardarCoordenadas(Region)
-		gcr.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/regiones.kml").getFile())
+		gcr.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/regiones.kml").getFile())*/
 	}
 	
 	def contacto = {
@@ -171,7 +172,7 @@ class PublicoController {
 		//System.out.println("tam: "+aux.size())
 		def jsodata = aux as JSON
 
-		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata])
+		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata, resultadosIndicador:resultadosIndicador])
 	}
 	
 	def actualizarTablaIndicador(Long id){
@@ -317,7 +318,7 @@ class PublicoController {
 			}
 		}		
 				
-		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo:datosCalculo, tamVariables:tamVariables])
+		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo:datosCalculo, tamVariables:tamVariables, resultadosIndicador:resultadosIndicador])
 	}
 	
 	def String remplazarAcentos(String s){
@@ -369,13 +370,47 @@ class PublicoController {
 			if(indicador){
 						
 			DetalleIndicador detalleIndicador = visorIndicador(id,1)
-			def resultadosIndicador = detalleIndicador.resultados
+			def resultadosIndicador = detalleIndicador.resultados			
 			def resultados = []
 			def coordenadasList = []
+			/*
+			List <Resultado> resultados1 = []
+			List <Resultado> resultados2 = []
+			
+			Resultado rs1 = new Resultado()
+			rs1.anio = 2010
+			rs1.indicador = 10.02
+			
+			Resultado rs2 = new Resultado()
+			rs2.anio = 2012
+			rs2.indicador = 9.02
+			
+			Resultado rs3 = new Resultado()
+			rs3.anio = 2013
+			
+			
+			Resultado rs4 = new Resultado()
+			rs4.anio = 2014
+			rs4.indicador = 11.02
+			
+			resultados1.add(rs1)
+			resultados1.add(rs2)
+			resultados1.add(rs3)
+			resultados1.add(rs4)
+			
+			ResultadoIndicador r1 = new ResultadoIndicador()
+			r1.resultados = resultados1
+			
+			List<ResultadoIndicador> prueba = []
+			
+			prueba.add(r1)
+			resultadosIndicador = prueba
+			*/
+			def nulo = true
 			
 			resultadosIndicador.each { r ->
-				resultados = r.resultados
-			}
+				resultados = r.resultados				
+			}			
 			
 			//Creación de arreglo para Highcharts
 			def series = []
@@ -423,17 +458,27 @@ class PublicoController {
 				resultado.resultados.each { r ->
 					anios.add(r?.anio)
 					datosIndicador.add(r?.indicador)
+					if(r?.indicador!=null){
+						nulo=false
+					}
+					System.out.println("dato:"+r?.indicador)
 				}
 				
 				nombre.each {
 					nombreCoordenadas.add("'"+it.descripcion+"'")
+					//System.out.println("datos:"+datosIndicador)
 					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador, "coordenadas": coordenadas])
 				}
 			}
 			
-			aux.put("lugar",["ubicaciones":ubicaciones])
-			
+			//aux.put("lugar",["ubicaciones":datosIndicador])
+			System.out.println("JSON: "+ubicaciones)
 			def jsondata = aux as JSON
+			
+			
+			if(nulo){
+				resultadosIndicador = null
+			}
 			
 			//Cambiar valores de la formula por la descripción
 			def formula = ""
@@ -676,14 +721,23 @@ class PublicoController {
 
 							Resultado res= new Resultado()
 							res.anio=actual.anio
-							res.indicador=actual.resultadoIndicador
+							
+							if(!Double.isNaN(actual.resultadoIndicador)){
+								res.indicador=actual.resultadoIndicador
+							}else{
+								res.indicador=null;
+							}
 							resultados.get(0).resultados.add(res)
 							//																System.out.println("Veces que entro al sistema 1 ");
 
 						}else{
 							Resultado res= new Resultado()
 							res.anio=actual.anio
-							res.indicador=actual.resultadoIndicador
+							if(!Double.isNaN(actual.resultadoIndicador)){
+								res.indicador=actual.resultadoIndicador
+							}else{
+								res.indicador=null;
+							}
 							ResultadoIndicador ri =  new  ResultadoIndicador()
 
 							ri.resultados.add(res)
@@ -921,7 +975,11 @@ class PublicoController {
 									if(it.idRegion==actual.idRegion){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										res.indicador=actual.resultadoIndicador
+										if(!Double.isNaN(actual.resultadoIndicador)){
+											res.indicador=actual.resultadoIndicador
+										}else{
+											res.indicador=null;
+										}
 										it.resultados.add(res)
 										ban=1
 									}
@@ -931,7 +989,11 @@ class PublicoController {
 								if(ban!=1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									res.indicador=actual.resultadoIndicador
+									if(!Double.isNaN(actual.resultadoIndicador)){
+										res.indicador=actual.resultadoIndicador
+									}else{
+										res.indicador=null;
+									}
 									ResultadoIndicador ri =  new  ResultadoIndicador()
 									ri.region=actual.region
 									ri.idRegion=actual.idRegion
@@ -942,7 +1004,11 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								res.indicador=actual.resultadoIndicador
+								if(!Double.isNaN(actual.resultadoIndicador)){
+									res.indicador=actual.resultadoIndicador
+								}else{
+									res.indicador=null;
+								}
 								ResultadoIndicador ri =  new  ResultadoIndicador()
 								ri.region=actual.region
 								ri.idRegion=actual.idRegion
@@ -1198,7 +1264,11 @@ class PublicoController {
 									if(it.idMunicipio==actual.idMunicipio){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										res.indicador=actual.resultadoIndicador
+										if(!Double.isNaN(actual.resultadoIndicador)){
+											res.indicador=actual.resultadoIndicador
+										}else{
+											res.indicador=null;
+										}
 										it.resultados.add(res)
 										ban=1
 									}
@@ -1208,7 +1278,11 @@ class PublicoController {
 								if(ban!=1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									res.indicador=actual.resultadoIndicador
+									if(!Double.isNaN(actual.resultadoIndicador)){
+										res.indicador=actual.resultadoIndicador
+									}else{
+										res.indicador=null;
+									}
 									ResultadoIndicador ri =  new  ResultadoIndicador()
 									ri.region=actual.region
 									ri.idRegion=actual.idRegion
@@ -1221,7 +1295,11 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								res.indicador=actual.resultadoIndicador
+								if(!Double.isNaN(actual.resultadoIndicador)){
+									res.indicador=actual.resultadoIndicador
+								}else{
+									res.indicador=null;
+								}
 								ResultadoIndicador ri =  new  ResultadoIndicador()
 								ri.region=actual.region
 								ri.idRegion=actual.idRegion
@@ -1492,7 +1570,11 @@ class PublicoController {
 									if(it.idLocalidad==actual.idLocalidad){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										res.indicador=actual.resultadoIndicador
+										if(!Double.isNaN(actual.resultadoIndicador)){
+											res.indicador=actual.resultadoIndicador
+										}else{
+											res.indicador=null;
+										}
 										it.resultados.add(res)
 										ban=1
 									}
@@ -1502,7 +1584,11 @@ class PublicoController {
 								if(ban==1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									res.indicador=actual.resultadoIndicador
+									if(!Double.isNaN(actual.resultadoIndicador)){
+										res.indicador=actual.resultadoIndicador
+									}else{
+										res.indicador=null;
+									}
 									ResultadoIndicador ri =  new  ResultadoIndicador()
 									ri.region=actual.region
 									ri.idRegion=actual.idRegion
@@ -1518,7 +1604,11 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								res.indicador=actual.resultadoIndicador
+								if(!Double.isNaN(actual.resultadoIndicador)){
+									res.indicador=actual.resultadoIndicador
+								}else{
+									res.indicador=null;
+								}
 								ResultadoIndicador ri =  new  ResultadoIndicador()
 								ri.municipio= actual.municipio
 								ri.idMunicipio= actual.idMunicipio

@@ -23,6 +23,15 @@
 			</g:if>
 			<ol class="property-list division">
 			
+				<g:if test="${divisionInstance?.eje}">
+				<li class="fieldcontain">
+					<span id="eje-label" class="property-label"><g:message code="division.eje.label" default="Eje" /></span>
+					
+						<span class="property-value" aria-labelledby="eje-label"><g:link controller="eje" action="show" id="${divisionInstance?.eje?.id}">${divisionInstance?.eje?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${divisionInstance?.descripcion}">
 				<li class="fieldcontain">
 					<span id="descripcion-label" class="property-label"><g:message code="division.descripcion.label" default="Descripcion" /></span>

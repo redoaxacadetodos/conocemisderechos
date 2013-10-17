@@ -24,6 +24,7 @@ import groovy.sql.Sql
 @Secured(['ROLE_DEP'])
 class VariableController {
 	def dataTablesService
+	def sessionFactory
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
     def index() {
@@ -50,6 +51,7 @@ class VariableController {
 		"coalesce(m.mun_descripcion , '') as municipio " ,
 		"coalesce(l.ctl_descripcion , '') as localidad " ,
 		"coalesce(ct.cct_descripcion , '') as categoria " ,
+		"cvv_anio as anio " ,
 		"cvv_poblacion_total as total ",
 		"cvv_mujeres as mujeres",
 		"cvv_hombres as hombres "
@@ -61,6 +63,7 @@ class VariableController {
 		"coalesce(m.mun_descripcion , '') " ,
 		"coalesce(l.ctl_descripcion , '') " ,
 		"coalesce(ct.cct_descripcion , '')  " ,
+		"cvv_anio " ,
 		"cvv_poblacion_total ",
 		"cvv_mujeres ",
 		"cvv_hombres "
@@ -72,6 +75,7 @@ class VariableController {
 		"municipio" ,
 		"localidad" ,
 		"categoria",
+		"anio" ,
 		"total",
 		"mujeres",
 		"hombres"
@@ -146,8 +150,8 @@ class VariableController {
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
 		variableInstance.clave=cod.clave
 		variableInstance.descripcion=cod.descripcion
-		
-		
+		def usuario = springSecurityService.currentUser
+		variableInstance.dependencia=usuario.dependencia
 		def numCategorias= params.numCategorias.toInteger()
 
 			for(i in 1 .. numCategorias){
@@ -195,6 +199,8 @@ class VariableController {
 		int anio= params.anio.toInteger()
 		int opcion= params.opcionSerie.toInteger()
 		def numCategorias= params.numCategorias.toInteger()
+		System.out.println("El numero de categoria es : "+numCategorias);
+		
 		ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
 		ArrayList<String> cats= new   ArrayList<String>();
 		ArrayList<Row> renglones = new ArrayList<Row>();
@@ -885,7 +891,7 @@ class VariableController {
 		def contadorMalos = 0
 		def contador = 0
 		def mensaje=""
-	
+		def estOaxaca=Estado.get(20)
 		def  ArrayList<Row>	renglones
 		ArrayList<Row> renglonesMalos
 		
@@ -901,8 +907,7 @@ class VariableController {
 			 archivo = new LeeArchivo(archivo_);
 			 renglones = archivo.getDatos();
 			 
-//			 println("Numero de renglones : "+ renglones.size())
-//			 
+		 
 		     renglonesMalos = new ArrayList<Row>();
 
 			 if(usuario)
@@ -910,132 +915,43 @@ class VariableController {
 		
 				try{
 				
-					for(Row row : renglones){
-				
-						
-						switch (archivo.getOpcion() ) {
-						case 1:
+						for(Row row : renglones){
 							
-						
-						def variableInstance= new Variable();
-					
-												variableInstance.estado=Estado.get(20)
+												Integer dep =dependencia?.id
 												
-												
-												variableInstance.hombres=row.getHombres();
-												variableInstance.mujeres=row.getMujeres();
-												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
-												variableInstance.descripcion=row.getDescripcion();
-												variableInstance.dependencia= dependencia;
-												variableInstance.clave=row.getClave();
-												variableInstance.anio=row.getAnio();
-												System.out.println(row);
+												Integer municipio=row.getIdMunicipio()
+												Integer localidad=row.getIdLocalidad()
+												Integer region=row.getIdRegion()
 											
+												def sql = new Sql(sessionFactory.currentSession.connection())
+												def sec
+												def secuencia= "select nextval ('hibernate_sequence')"
+												def resulSec = sql.rows(secuencia)
 												
-												row.categorias.each {
+												
+												resulSec?.each {
 													
-													def temCAT = Categoria.get(it.id)
-													variableInstance.addToCategorias(temCAT)
+													sec=it.nextval
 												}
 												
-												if(variableInstance.save(flush : true, failOnError : true)){
-													contadorBuenos++
-												}
-							break;
+												
+												def consulta ="insert into cat_variable "+
+												"(cvv_anio, cvv_clave, cvv_dependencia, cvv_descripcion, cvv_estado, cvv_hombres, cvv_localidad, cvv_mujeres, cvv_municipio, cvv_poblacion_total, cvv_region,cvv_id) "+
+												"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"	
+												
+												sql.execute(consulta, [row.getAnio(),row.getClave(),dep,row.getDescripcion(),estOaxaca.id,row.getHombres(),localidad,row.getMujeres(),municipio,row.getHombres()+row.getMujeres(),region,sec])
+												
+												consulta="insert into cat_variable_categoria (cvc_cvv_id, cvc_cct_id) values (?, ?)"
 
-							
-							
-						case 2:
-							
-						def variableInstance= new Variable();
-												def temRegion=null
-												
-												if(row.getIdRegion()){
-													variableInstance.region=Region.get(row.getIdRegion())
-						
-												}
-					
-				
-												variableInstance.estado=Estado.get(20)
-												
-												
-//												System.out.println("Variable: "+row.clave +" -- "+variableInstance.region.descripcion);
-//												
-//												System.out.println("Numero de categorias : "+row.categorias.size());
 												
 												row.categorias.each {
 													
-													def temCAT = Categoria.get(it.id)
-													variableInstance.addToCategorias(temCAT)
-												}
-												
-											
-												
-												variableInstance.hombres=row.getHombres();
-												variableInstance.mujeres=row.getMujeres();
-												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
-												variableInstance.descripcion=row.getDescripcion();
-												variableInstance.dependencia= dependencia;
-												variableInstance.clave=row.getClave();
-												variableInstance.anio=row.getAnio();
-//												System.out.println(row);
-											
-												if(variableInstance.save(flush : true, failOnError : true)){
-													contadorBuenos++
-												}
-						
-							break;
-						
-						case 3:
-						
-						
-												def variableInstance= new Variable();
-												def temRegion=null
-												
-												if(row.getIdRegion()){
-													variableInstance.region=Region.get(row.getIdRegion())
-						
-												}
-						
-												if(row.getIdMunicipio()){
-													variableInstance.municipio=Municipio.get(row.getIdMunicipio())
-						
-												}
-						
-												variableInstance.estado=Estado.get(20)
-												
-													row.categorias.each {
+													sql.execute(consulta, [sec,it.id])
 													
-													def temCAT = Categoria.get(it.id)
-													variableInstance.addToCategorias(temCAT)
 												}
+												contadorBuenos++
 												
-												variableInstance.hombres=row.getHombres();
-												variableInstance.mujeres=row.getMujeres();
-												variableInstance.poblacionTotal=row.getHombres()+row.getMujeres()
-												variableInstance.descripcion=row.getDescripcion();
-												variableInstance.dependencia= dependencia;
-												variableInstance.clave=row.getClave();
-												variableInstance.anio=row.getAnio();
-												
-												//System.out.println(variableInstance);
-												
-												if(variableInstance.save(flush : true, failOnError : true)){
-													contadorBuenos++
-												}
-													
-							break;
-					
 						}
-						
-						
-					
-			
-			
-						
-						
-						
-					}
 				
 				}catch (Exception e) {
 					println(e.getMessage())
