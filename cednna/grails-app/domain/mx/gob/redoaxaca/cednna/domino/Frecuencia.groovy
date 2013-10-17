@@ -4,6 +4,7 @@ class Frecuencia {
 
 		String descripcion
 		int    nmeses
+		boolean mes
 	
     static constraints = {
 		
