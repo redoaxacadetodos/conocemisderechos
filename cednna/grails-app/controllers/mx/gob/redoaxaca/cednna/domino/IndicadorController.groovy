@@ -95,7 +95,7 @@ class IndicadorController {
 	def visor(){
 		
 		
-		def indicadorInstance = Indicador.get(301013);
+		def indicadorInstance = Indicador.get(params.id);
 		def opcion= 1;
 	
 		def formula =  indicadorInstance?.formula?.sentencia
