@@ -27,10 +27,10 @@
 				<td><g:formatDate type="date" style="LONG" date="${indicador?.fechaActualizacion }"/></td>
 				<td>
 				<g:if test="${fechaLimite>=new Date() }">
-				Estatus 1
+				<i class="icon-ok"></i>
 				</g:if>
 				<g:else>
-				Estatus 2
+				<i class="icon-remove"></i>
 				</g:else>
 				</td>
 					<g:if test="${rol=='1'}">
