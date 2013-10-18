@@ -11,12 +11,13 @@
 
 	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	    <link href="${resource(dir: 'bootstrap', file: 'css/bootstrap.min.css')}" rel="stylesheet">	
+
+	  <script src="${resource(dir: 'bootstrap', file: 'js/bootstrap.min.js')}"></script>
+	  
 	  <script type="text/javascript">
 
-
-
-
-	  
+	
 	  	function actualizar(){	  	
 	
 
@@ -62,8 +63,8 @@
  		 	
  		 </sec:ifAnyGranted>
 			<div>
-			1.- La informaci&oacute;n se encuentra actualizada<br>
-			2.- La informaci&oacute;n necesita ser revalidada y/o actualizada<br><br>
+			<i class="icon-ok"></i> La información se encuentra actualizada<br>
+			<i class="icon-remove"></i> La información necesita ser revalidada y/o actualizada<br><br>
 			</div>
 			<div id="semaforo"></div>
 		</div>
