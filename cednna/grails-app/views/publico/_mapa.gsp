@@ -27,13 +27,7 @@ function initialize() {
 	
 		var coordenadas = coordendasList[k];
 
-		var p = [new google.maps.LatLng(17.248596,-97.41013800000002),new google.maps.LatLng(17.238701,-97.476759),new google.maps.LatLng(17.235694,-97.483396)];		
-		
 		coordenadas.nombre = v['descripcion'];
-
-		for(var i in v['datos']){
-			//alert(v['datos'][i]);
-		}
 		
 		ubicacion = new google.maps.Polygon({
 			paths: coordenadas,
@@ -69,10 +63,6 @@ function loadScript() {
       'callback=initialize';
   document.body.appendChild(script);
 }
-
-//window.onload = loadScript;
-
-
 
     </script>
 	  <!-- Termina Google Maps -->

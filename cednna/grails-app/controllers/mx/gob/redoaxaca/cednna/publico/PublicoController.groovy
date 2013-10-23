@@ -147,7 +147,6 @@ class PublicoController {
 			def result  = db.rows(sql)
 			def cooorAux = []
 			result.each {
-				//coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 				cooorAux.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 			}
 			coordenadasList.add(cooorAux)
@@ -158,18 +157,14 @@ class PublicoController {
 			def anios = []
 			resultado.resultados.each { r ->				
 				anios.add(r?.anio)
-				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )
-				Double indi = new Double(r?.indicador)				
-				//System.out.println("resultado: "+indi);				
-			}
-			//System.out.println("anio: "+anios)
+				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )							
+			}			
 			nombre.each {
 				nombreCoordenadas.add("'"+it.descripcion+"'")
 				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
 			}				
 		}	
-		aux.put("lugar",["ubicaciones":ubicaciones])
-		//System.out.println("tam: "+aux.size())
+		aux.put("lugar",["ubicaciones":ubicaciones])		
 		def jsodata = aux as JSON
 
 		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata, resultadosIndicador:resultadosIndicador])
@@ -465,14 +460,11 @@ class PublicoController {
 				}
 				
 				nombre.each {
-					nombreCoordenadas.add("'"+it.descripcion+"'")
-					//System.out.println("datos:"+datosIndicador)
-					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador, "coordenadas": coordenadas])
+					nombreCoordenadas.add("'"+it.descripcion+"'")					
+					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador])
 				}
-			}
-			
-			//aux.put("lugar",["ubicaciones":datosIndicador])
-			System.out.println("JSON: "+ubicaciones)
+			}			
+			aux.put("lugar",["ubicaciones":ubicaciones])			
 			def jsondata = aux as JSON
 			
 			
