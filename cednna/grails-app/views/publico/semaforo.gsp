@@ -21,7 +21,8 @@
 					update:'semaforo')}
 			}
 	  	window.onload = actualizar;
-	  </script>	  		
+	  </script>	  	
+	  <link href="${resource(dir: 'bootstrap', file: 'css/bootstrap.min.css')}" rel="stylesheet">	
 	</head>
 	<body>		
 		<div id="division">
@@ -36,11 +37,12 @@
 				update:'semaforo')}"/>
 				
 			<div>
-			1.- La información se encuentra actualizada<br>
-			2.- La información necesita ser revalidada y/o actualizada<br><br>
+			<i class="icon-ok"></i> La información se encuentra actualizada<br>
+			<i class="icon-remove"></i> La información necesita ser revalidada y/o actualizada<br><br>
 			</div>
 			<div id="semaforo"></div>
 		</div>
+		<script src="${resource(dir: 'bootstrap', file: 'js/bootstrap.min.js')}"></script>
 	</body>
 </html>
 

@@ -1008,11 +1008,13 @@ class VariableController {
         }
 		
 		if(variableInstance.dependencia){
+			if(usuario.dependencia){
 			
 				if(usuario.dependencia.id!=variableInstance.dependencia.id){
 					ban=0
 					System.out.println("Dependencia usurio :"+usuario.dependencia.id+" Variable dependencia "+variableInstance.dependencia.id);
 				}
+			}
 		}else{
 		
 				if(usuario.dependencia){
