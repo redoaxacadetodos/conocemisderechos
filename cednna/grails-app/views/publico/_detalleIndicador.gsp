@@ -4,8 +4,8 @@
 <script>
 	  $(function () {
 		  $( "#tabs" ).tabs();
-	        $('#container').highcharts(
-	            ${tablaJSON});
+<%--	        $('#container').highcharts(--%>
+<%--	            ${tablaJSON});--%>
             	        
 	        $('#myTab a').click(function (e) {
 	      	  e.preventDefault();
@@ -35,7 +35,7 @@
 <h3>${indicadorInstance?.nombre }</h3>
 	<ul class="nav nav-tabs" id="myTab">
 	  <li class="active"><a href="#indicador">Indicador</a></li>
-	  <li><a href="#metadato">Metadato</a></li>
+	  <li><a href="#metadato">Metadatos</a></li>
 	  <li><a href="#serie">Serie histórica</a></li>
 	  <li><a href="#calculo">Datos para el cálculo</a></li>
 	  <li><a onclick="loadScript();" href="#mapa">Mapa</a></li>
@@ -62,7 +62,24 @@
 	  		<div id="tablaIndicador">
 	  			<g:render template="tablaIndicador"></g:render>	  		
 			</div>	  				  
-			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<%--			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>--%>
+			
+			<label for="opcionesGrafica">Área geográfica:</label>
+			<select id="opcionesGrafica" name="opcionesGrafica" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarGrafica',
+					  params: '\'idTipo=\' + this.value',
+					  update: 'grafica',									 
+					  id: indicadorInstance?.id  )}">
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>	  			
+	  		</select>
+			<div id="grafica">
+				<g:render template="graficaIndicador"></g:render>
+			</div>
+			
 		</div>
 	  	
 				<!-- Tabla de variación -->
