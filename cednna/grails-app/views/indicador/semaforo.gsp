@@ -63,8 +63,8 @@
  		 	
  		 </sec:ifAnyGranted>
 			<div>
-			<i class="icon-ok"></i> La información se encuentra actualizada<br>
-			<i class="icon-remove"></i> La información necesita ser revalidada y/o actualizada<br><br>
+			<img src="../img/star.png" width="20px" height="20px"> La información se encuentra actualizada<br>
+			<img src="../img/edit.png" width="20px" height="20px"> La información necesita ser revalidada y/o actualizada<br><br>
 			</div>
 			<div id="semaforo"></div>
 		</div>

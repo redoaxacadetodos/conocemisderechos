@@ -7,19 +7,19 @@
 /* Fonts
  ========================================================================== */
 
-@import url(http://fonts.googleapis.com/css?family=Raleway:400,600,800);
+@import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
 
-.marked {font-weight: 600; width: 25%;}
+.marked {font-weight: 700; width: 25%;}
 
 body, h1, h2, h3, h4, h5, h6,
-.uk-navbar-nav > li > a { font-family: 'Raleway', sans-serif !important; }
+.uk-navbar-nav > li > a { font-family: 'Arimo', sans-serif !important; }
 
 
-h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 600;}
+h1, h2, h3, h4, h5, h6 { color:#00a7ab !important; font-weight: 700;}
 
 h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-left: 22px; margin: 15px 0 20px 0 !important;}
 
-.nombre_indicador {  font-weight: 600; font-size: 17px; text-transform: uppercase; color:#754e17; }
+.nombre_indicador {  font-weight: 700; font-size: 17px; color:#754e17; }
 .ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; margin-top: 1px; margin-left: 25px; color: #907e58;}
 .ver_indicador:hover {color: #00a7ab;}
 /* Base
@@ -131,7 +131,7 @@ html { overflow-y: scroll; }
  * Footer
  */
 
-.tm-footer .uk-subnav-line > li:before { border-color: #ddd; }
+.tm-footer .uk-subnav-line > li:before { border-color: ##00ACAF; }
 
 .tm-footer,
 .tm-footer a { color: #ddd !important; }
@@ -143,7 +143,7 @@ html { overflow-y: scroll; }
    bottom:0px;
    height:20px;
    width:100%;
-   background:#905e0a;
+   background:#aee7e8;
 }
 
 /* IE 6 */
@@ -211,8 +211,9 @@ box-shadow: none !important;
 
 /* Sub-object: `nav-header` */
 .tm-nav .uk-nav-header {
-	color: #222;
-	font-weight: normal;
+	color: #FF9F00;
+	font-weight: bold;
+  font-size: 16px;
 }
 
 /*
@@ -389,7 +390,7 @@ border-radius: 4px;
 
 .table th {
   text-align: center;
-  background-color: #bdc3c7;
+  background-color: #ff9f00;
 }
 .table th,
 .table td {
@@ -682,13 +683,13 @@ margin-top: 20px;
 
 
 .uk-navbar {
-background: #f7f7f7;
-color: #666;
+background: #AEE7E8;
+color: #AEE7E8;
 border: 1px solid rgba(0,0,0,0.1);
 border-bottom-color: rgba(0,0,0,0.3);
 background-origin: border-box;
-background-image: -webkit-linear-gradient(top,#fff,#eee);
-background-image: linear-gradient(to bottom,#fff,#eee);
+background-image: -webkit-linear-gradient(top,#fff,#fff);
+background-image: linear-gradient(to bottom,#fff,#AEE7E8);
 } 
 
 .uk-navbar-nav>li:hover>a, .uk-navbar-nav>li>a:focus, .uk-navbar-nav>li.uk-open>a {
@@ -704,7 +705,7 @@ box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .uk-navbar-nav>li.uk-active>a {
-background-color: #fafafa;
+background-color: #AEE7E8;
 color: #666;
 border-left-color: rgba(0,0,0,0.1);
 border-right-color: rgba(0,0,0,0.1);
@@ -722,7 +723,7 @@ border-radius: 4px !important;
 text-shadow: 0 1px 0 #fff !important;
 }
 
-.property-label {font-weight: bold !important; text-transform: uppercase; margin-right: 8px;}
+.property-label {font-weight: bold !important; margin-right: 8px;}
 
 
 .errors {
@@ -840,12 +841,12 @@ float: left;
 margin: 0 5% 5% 0;
 }
 
-#bot_prog .bot1 { background: url(../img/dashboard/bot1.png) 30px 28px no-repeat #b6d8ce; }
-#bot_prog .bot2 { background: url(../img/dashboard/bot2.png) 66px 28px no-repeat #dcd5b2; }
-#bot_prog .bot3 { background: url(../img/dashboard/bot3.png) 80px 28px no-repeat #ebd5b1; }
-#bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 70px 28px no-repeat #ffdca5; }
-#bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 60px 28px no-repeat #e3c5bb; }
-#bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 40px 28px no-repeat #e6cbb3; }
+#bot_prog .bot1 { background: url(../img/dashboard/bot1.png) 30px 28px no-repeat #00acaf; }
+#bot_prog .bot2 { background: url(../img/dashboard/bot2.png) 66px 28px no-repeat #009dcc; }
+#bot_prog .bot3 { background: url(../img/dashboard/bot3.png) 80px 28px no-repeat #ff0061; }
+#bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 70px 28px no-repeat #ff9f00; }
+#bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 60px 28px no-repeat #3600af; }
+#bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 40px 28px no-repeat #00af04; }
 
 #bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover { 
 -webkit-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
@@ -874,19 +875,19 @@ box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
 @media (min-width: 1215px) {
 #menubloque {width: 100%; text-align: center;display: block; height: 60px; margin-bottom: 10px;}
 #menubloque .botmenubloque { display: block; height: 38px; float: left; margin: 5px 30px 5px 0;}
-#menubloque .men1 { background: url(../img/menu/bot01.png) 0px 0px no-repeat; width: 244px; }
+#menubloque .men1 { background: url(../img/menu/bot01.png) 0px 0px no-repeat; width: 258px; }
 #menubloque .men2 { background: url(../img/menu/bot02.png) 0px 0px no-repeat ; width: 129px; }
 #menubloque .men3 { background: url(../img/menu/bot03.png) 0px 0px no-repeat ; width: 115px; }
 #menubloque .men4 { background: url(../img/menu/bot04.png) 0px 0px no-repeat ; width: 122px; }
 #menubloque .men5 { background: url(../img/menu/bot05.png) 0px 0px no-repeat ; width: 140px; }
 #menubloque .men6 { background: url(../img/menu/bot06.png) 0px 0px no-repeat ; width: 204px; }
 
-#menubloque .men1:hover { border-bottom: #b6d8ce solid 5px; }
-#menubloque .men2:hover { border-bottom: #dcd5b2 solid 5px; }
-#menubloque .men3:hover { border-bottom: #ebd5b1 solid 5px; }
-#menubloque .men4:hover { border-bottom: #ffdca5 solid 5px; }
-#menubloque .men5:hover { border-bottom: #e3c5bb solid 5px; }
-#menubloque .men6:hover { border-bottom: #e6cbb3 solid 5px; }
+#menubloque .men1:hover { border-bottom: #00acaf solid 5px; }
+#menubloque .men2:hover { border-bottom: #009dcc solid 5px; }
+#menubloque .men3:hover { border-bottom: #ff0061 solid 5px; }
+#menubloque .men4:hover { border-bottom: #ff9f00 solid 5px; }
+#menubloque .men5:hover { border-bottom: #3600af solid 5px; }
+#menubloque .men6:hover { border-bottom: #00af04 solid 5px; }
 }
 
 /* Only tablets and desktop */
@@ -916,7 +917,7 @@ margin-bottom: -9px !important;
 
 #menuflotante h3 {
   background: none;
-  color: #754e17 !important;
+  color: #ff9f00 !important;
   margin: -10px 0 -5px -20px !important;
 }
 
@@ -928,7 +929,6 @@ width: 200px;
 height: 35px;
 margin: 20px 0 0px 0;
 color: #754e17;
-text-transform: uppercase;
 }
 
 
