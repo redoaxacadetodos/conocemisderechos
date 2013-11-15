@@ -82,6 +82,7 @@
 							   </sec:ifAnyGranted>
 							<li><g:link controller="Variable">Origen de datos</g:link></li>
  							 <sec:ifAnyGranted roles="ROLE_ADMIN">	
+ 							 <li><g:link controller="Variable" action="dele">Limpieza de origen de datos </g:link></li>
 							<li class="uk-nav-header">Cat&aacute;logos</li>
 							<li><g:link controller="tipo">Categor&iacute;as </g:link></li>
 							<li><g:link controller="sentido">Sentido</g:link></li>

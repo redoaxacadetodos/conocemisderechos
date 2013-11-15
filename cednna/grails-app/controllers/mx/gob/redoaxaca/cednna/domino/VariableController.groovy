@@ -133,8 +133,10 @@ class VariableController {
 	def monitor(){
 		
 	}
-	
+	def dele(){}
 
+	
+	
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [variableInstanceList: Variable.list(params), variableInstanceTotal: Variable.count()]
@@ -490,6 +492,19 @@ class VariableController {
 		
 		
 	}
+	
+	
+	def borrarOrigen(){
+		
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		def consulta ="delete from cat_variable where cvv_anio=? and  cvv_clave=? "
+		
+		sql.execute(consulta, [params.anio.toInteger(),params.origenDatos.toString()])
+		redirect(action: "list")
+		return
+		
+	}
+	
 	
 	
 	

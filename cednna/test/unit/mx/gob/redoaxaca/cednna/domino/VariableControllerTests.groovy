@@ -132,7 +132,7 @@ class VariableControllerTests {
     }
 
     void testDelete() {
-        controller.delete()
+        controller.dele()
         assert flash.message != null
         assert response.redirectedUrl == '/variable/list'
 
@@ -146,7 +146,7 @@ class VariableControllerTests {
 
         params.id = variable.id
 
-        controller.delete()
+        controller.dele()
 
         assert Variable.count() == 0
         assert Variable.get(variable.id) == null
