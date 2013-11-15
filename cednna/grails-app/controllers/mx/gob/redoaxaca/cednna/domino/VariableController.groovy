@@ -143,7 +143,8 @@ class VariableController {
     }
 
     def create() {
-        [variableInstance: new Variable(params)]
+		def usuario = springSecurityService.currentUser
+        [variableInstance: new Variable(params),dependencia:usuario.dependencia]
     }
 
     def save() {
@@ -490,7 +491,8 @@ class VariableController {
 	
 	def archivo(){
 		
-		
+		def usuario = springSecurityService.currentUser
+		[dependencia:usuario.dependencia]
 	}
 	
 	

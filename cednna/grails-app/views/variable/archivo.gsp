@@ -162,7 +162,18 @@ function asignaEventorTipo(num){
 	<h3  class="uk-article-content">Datos de configuracion del archivo</h3>
 
 
-
+ 							<g:if test="${dependencia}">
+							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
+								<label class="uk-form-label" for="region">
+									<g:message code="variable.region.label" default="Descripción" />
+									
+								</label>
+								<div class="uk-form-controls">
+								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna descripcion-']"/>
+								</div>
+							</div>
+						
+							</g:if><g:else>
 							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 								<label class="uk-form-label" for="region">
 									<g:message code="variable.region.label" default="Descripción" />
@@ -173,7 +184,8 @@ function asignaEventorTipo(num){
 								</div>
 							</div>
 							
-
+							</g:else>
+				
 							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
 								<label class="uk-form-label" for="anio">
 									<g:message code="variable.anio.label" default="Año" />

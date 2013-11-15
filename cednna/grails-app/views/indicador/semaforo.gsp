@@ -17,7 +17,7 @@
 	  
 	  <script type="text/javascript">
 
-	
+		
 	  	function actualizar(){	  	
 	
 
@@ -37,8 +37,41 @@
 					});
 		  		  		
 
+
+
+		  	
 			}
 	  	window.onload = actualizar;
+		$(function(){
+
+
+			$("#dependencias").change(function(){
+
+
+	  			$.ajax({type:'POST', 
+		            url:CONTEXT_ROOT+'/indicador/actualizarSemaforo',
+		            data: "id="+$("#dependencias").val()+"&rol="+$("#rol").val(),
+		            success:function(data,textStatus)
+		                {
+		            
+		            	$('#semaforo').html(data);
+		        
+		           
+		                },
+		            error:function(XMLHttpRequest,textStatus,errorThrown)
+		                {$('#diverror').html(XMLHttpRequest.responseText);}
+						});
+			  		  		
+
+
+
+		  });
+
+
+			
+
+		});
+	  		
 	  </script>	  		
 	</head>
 	<body>		
@@ -49,12 +82,8 @@
 			
 			 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
 			
-			<g:select name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}"		 
-			onchange="${ remoteFunction (
-				controller:'indicador', 
-				action:'actualizarSemaforo', 
-				params: '\'id=\' + this.value',
-				update:'semaforo')}"/>
+			<g:select id="dependencias" name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}"		 
+			/>
 				<g:hiddenField name="rol" value="1"/>
 			</sec:ifAnyGranted>
 			 <sec:ifAnyGranted roles="ROLE_DEP">
