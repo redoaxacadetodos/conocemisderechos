@@ -27,14 +27,14 @@
 				<td><g:formatDate type="date" style="LONG" date="${indicador?.fechaActualizacion }"/></td>
 				<td>
 				<g:if test="${fechaLimite>=new Date() }">
-				<i class="icon-ok"></i>
+				<img src="../img/star.png" width="20px" height="20px">
 				</g:if>
 				<g:else>
-				<i class="icon-remove"></i>
+				<img src="../img/edit.png" width="20px" height="20px">
 				</g:else>
 				</td>
 					<g:if test="${rol=='1'}">
-				<td><g:remoteLink action="enviarCorreo" id="${indicador.id}" after="alert('Correo Enviado');">Enviar</g:remoteLink></td></g:if>
+				<td><g:remoteLink action="enviarCorreo" id="${indicador.id}" after="alert('Correo Enviado');"><img src="../img/mail.png" width="20px" height="20px"></g:remoteLink></td></g:if>
 				</tr>
 			</g:each>
 		</tbody>

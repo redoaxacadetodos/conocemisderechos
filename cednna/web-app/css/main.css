@@ -242,14 +242,17 @@ td, th {
 	text-align: left;
 	vertical-align: top;
 		border: 2px solid #FFF;
+	background-color: #fff;
 }
 
 th {
-	background: #e6f7f2;
+	background: #ff9f00;
 	color: #4b3510;
 	font-weight: bold;
 	line-height: 1.7em;
 	padding: 0.2em 0.6em;
+	text-align: center;
+	vertical-align: middle;
 }
 
 

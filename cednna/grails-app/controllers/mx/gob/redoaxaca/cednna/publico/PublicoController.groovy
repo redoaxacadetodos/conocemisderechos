@@ -147,7 +147,6 @@ class PublicoController {
 			def result  = db.rows(sql)
 			def cooorAux = []
 			result.each {
-				//coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 				cooorAux.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
 			}
 			coordenadasList.add(cooorAux)
@@ -158,18 +157,14 @@ class PublicoController {
 			def anios = []
 			resultado.resultados.each { r ->				
 				anios.add(r?.anio)
-				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )
-				Double indi = new Double(r?.indicador)				
-				//System.out.println("resultado: "+indi);				
-			}
-			//System.out.println("anio: "+anios)
+				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )							
+			}			
 			nombre.each {
 				nombreCoordenadas.add("'"+it.descripcion+"'")
 				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
 			}				
 		}	
-		aux.put("lugar",["ubicaciones":ubicaciones])
-		//System.out.println("tam: "+aux.size())
+		aux.put("lugar",["ubicaciones":ubicaciones])		
 		def jsodata = aux as JSON
 
 		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata, resultadosIndicador:resultadosIndicador])
@@ -465,14 +460,11 @@ class PublicoController {
 				}
 				
 				nombre.each {
-					nombreCoordenadas.add("'"+it.descripcion+"'")
-					//System.out.println("datos:"+datosIndicador)
-					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador, "coordenadas": coordenadas])
+					nombreCoordenadas.add("'"+it.descripcion+"'")					
+					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador])
 				}
-			}
-			
-			//aux.put("lugar",["ubicaciones":datosIndicador])
-			System.out.println("JSON: "+ubicaciones)
+			}			
+			aux.put("lugar",["ubicaciones":ubicaciones])			
 			def jsondata = aux as JSON
 			
 			
@@ -511,6 +503,41 @@ class PublicoController {
 				redirect(action:"indicadores")
 			}
 		}
+	}
+	
+	def actualizarGrafica(Long id){
+		def tipo = params.idTipo
+		
+		def indicador = Indicador.get(id)
+		DetalleIndicador detalleIndicador = visorIndicador(id,1)
+		def resultadosIndicador = detalleIndicador.resultados
+		def resultados = []
+		
+		resultadosIndicador.each { r ->
+			resultados = r.resultados
+		}
+		
+		//Creación de arreglo para Highcharts
+		def series = []
+		def categorias = []
+		def datos = []
+		def a = [title: [text: indicador?.nombre?.toString(), x: -20]]
+		a.put("yAxis", [title: [text: '%']])
+		a.put("tooltip", [valueSuffix: '%'])
+		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])
+		resultados.each { result ->
+			categorias.add(result?.anio)
+			datos.add(result?.indicador)
+		}
+		a.put("xAxis", [categories: categorias] )
+		def serie = [name: "Indicador", data: datos]
+		series << serie
+		a.put("series", series)
+		
+		//Convertir el arreglo a JSON
+		def jsondata = a as JSON
+		
+		render(template:"graficaIndicador", model:[tablaJSON:jsondata])
 	}
 	
 	

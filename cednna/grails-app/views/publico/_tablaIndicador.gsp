@@ -4,7 +4,7 @@
 		<br>
 		<!-- Tabla indicador general -->
 			  <table>
-				  	<caption>${indicadorInstance?.nombre }</caption>
+				  	
 				  	<thead>
 				  		<tr>
 				  		<g:if test="${tipo?.equals('1')}">
