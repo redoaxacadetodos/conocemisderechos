@@ -915,6 +915,10 @@ margin-bottom: -9px !important;
 
 .fg-toolbar {margin-bottom: 15px;}
 
+#menuflotante {
+  position: fixed;
+}
+
 #menuflotante h3 {
   background: none;
   color: #ff9f00 !important;
