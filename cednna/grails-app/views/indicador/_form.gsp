@@ -99,7 +99,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
-		<g:message code="indicador.frecuencia.label" default="Modulo" />
+		<g:message code="indicador.frecuencia.label" default="M&oacute;dulo" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="eje" name="eje.id" from="${mx.gob.redoaxaca.cednna.domino.Eje.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.eje?.id}" class="many-to-one"/>
@@ -110,7 +110,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
-		<g:message code="indicador.frecuencia.label" default="Categoria" />
+		<g:message code="indicador.frecuencia.label" default="Categor&iacute;a" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="division" name="division.id" from="${mx.gob.redoaxaca.cednna.domino.Division.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.id}" class="many-to-one"/>
@@ -176,7 +176,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
 	<label class="uk-form-label"for="mediosVerificacion">
-		<g:message code="indicador.mediosVerificacion.label" default="Medios Verificaci&oacute;n" />
+		<g:message code="indicador.mediosVerificacion.label" default="Medios de Verificaci&oacute;n" />
 		
 	</label>
 	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>
@@ -233,7 +233,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">
 	<label class="uk-form-label"for="fechaActualizacion">
-		<g:message code="indicador.fechaActualizacion.label" default="Fecha Actualizaci&oacute;n"  />
+		<g:message code="indicador.fechaActualizacion.label" default="Fecha de actualizaci&oacute;n"  />
 		<span class="required-indicator">*</span>
 	</label>
 	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}" style="width:500px;"  />
@@ -255,7 +255,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'formula', 'error')} required">
 	<label class="uk-form-label"for="formula">
-		<g:message code="indicador.formula.label" default="Formula de cálculo" />
+		<g:message code="indicador.formula.label" default="F&oacute;rmula de cálculo" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="formula" name="formula.id" from="${mx.gob.redoaxaca.cednna.domino.Formula.list()}" optionKey="id" required="" optionValue="nombre" value="${indicadorInstance?.formula?.id}" class="many-to-one"/>

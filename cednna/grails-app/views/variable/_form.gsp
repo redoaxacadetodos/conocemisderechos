@@ -19,22 +19,22 @@
 <g:if test="${dependencia}">
 							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 								<label class="uk-form-label" for="region">
-									<g:message code="variable.region.label" default="Descripción" />
+									<g:message code="variable.region.label" default="Variable" />
 									
 								</label>
 								<div class="uk-form-controls">
-								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna descripcion-']"/>
+								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna variable-']"/>
 								</div>
 							</div>
 						
 							</g:if><g:else>
 							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 								<label class="uk-form-label" for="region">
-									<g:message code="variable.region.label" default="Descripción" />
+									<g:message code="variable.region.label" default="Variable" />
 									
 								</label>
 								<div class="uk-form-controls">
-								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.list()}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna descripcion-']"/>
+								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.list()}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna variable-']"/>
 								</div>
 							</div>
 							
@@ -112,7 +112,7 @@
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'poblacionTotal', 'error')} required">
 	<label class="uk-form-label" for="poblacionTotal">
-		<g:message code="variable.poblacionTotal.label" default="Poblacion Total" />
+		<g:message code="variable.poblacionTotal.label" default="Poblaci&oacute;n total" />
 
 	</label>
 	<div class="uk-form-controls">

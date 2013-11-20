@@ -26,7 +26,7 @@
 					
 						<g:sortableColumn property="clave" title="${message(code: 'sentido.clave.label', default: 'Clave')}" />
 					
-						<g:sortableColumn property="descripcion" title="${message(code: 'sentido.descripcion.label', default: 'Descripcion')}" />
+						<g:sortableColumn property="descripcion" title="Descripci&oacute;n" />
 					
 					</tr>
 				</thead>

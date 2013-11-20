@@ -13,9 +13,9 @@
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 
-			<li><g:link class="list" action="list">Origen de datos</g:link></li>
+			<li><g:link class="list" action="list">Datos estad&iacute;sticos</g:link></li>
 			
-			<li class="uk-active"><g:link class="create" action="create">Agregar origen de datos</g:link></li>
+			<li class="uk-active"><g:link class="create" action="create">Agregar datos</g:link></li>
 
 
 </nav>

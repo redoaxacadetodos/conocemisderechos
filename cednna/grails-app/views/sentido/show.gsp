@@ -34,7 +34,7 @@
 			
 				<g:if test="${sentidoInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="sentido.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="sentido.descripcion.label" default="Descripci&oacute;n" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${sentidoInstance}" field="descripcion"/></span>
 					

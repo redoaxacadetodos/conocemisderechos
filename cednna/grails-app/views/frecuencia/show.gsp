@@ -13,7 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="create">Nueva frecuencia</g:link></li>
 			</ul>
 		</div>
 		<div id="show-frecuencia" class="content scaffold-show" role="main">
@@ -25,7 +25,7 @@
 			
 				<g:if test="${frecuenciaInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="frecuencia.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="frecuencia.descripcion.label" default="Descripci&oacute;n" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${frecuenciaInstance}" field="descripcion"/></span>
 					

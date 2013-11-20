@@ -12,7 +12,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: dependenciaInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
-		<g:message code="dependencia.descripcion.label" default="Descripcion" />
+		<g:message code="dependencia.descripcion.label" default="Descripci&oacute;n" />
 		
 	</label>
 	<g:textField name="descripcion" value="${dependenciaInstance?.descripcion}"/>
