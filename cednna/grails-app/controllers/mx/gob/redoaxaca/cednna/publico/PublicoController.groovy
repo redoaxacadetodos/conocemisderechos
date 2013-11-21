@@ -116,57 +116,96 @@ class PublicoController {
 		def resultadosIndicador = detalleIndicador.resultados
 		
 		def ubicaciones = []
-		def prueba = []
 		def coordenadas = []
-		def nombreCoordenadas = []
 		def aux = [:]
 		def coordenadasList = []
 		def sql = ""
-		def sqlNombre=""	
-		def sqlMunicipioArr=[]
-		def sqlMunicipio=""
+		def sqlNombre=""
 		def db = new Sql(dataSource)
+		def db2 = new Sql(dataSource)
 				
+		def sqlNombreId = ""
+		def sqlQuery = ""
+		
 		resultadosIndicador.each { resultado ->
-			
 			switch(tipo){
-				case 1:					
+				case 1:
 					def idEstado = 20
-					sqlNombre = "select ent_descripcion descripcion from cat_entidad where ent_id = "+idEstado					
-					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado									
+					sqlNombreId+="ent_id = "+idEstado+" or "
+					sqlQuery+="ccoo.estado_coordenadas_id = "+idEstado+" or "
 					break
 				case 2:
-					sqlNombre = "select crg_descripcion descripcion from cat_region where crg_id ="+resultado.idRegion
-					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_region_coordenada regi on (coor.id = regi.coordenada_id) where regi.region_coordenadas_id = "+resultado.idRegion										
+					sqlNombreId+="crg_id = "+resultado.idRegion+" or "
+					sqlQuery+="regi.region_coordenadas_id = "+resultado.idRegion+" or "
 					break
-				case 3:					
-					sqlNombre = "select mun_descripcion descripcion from cat_municipio where mun_id = "+resultado.idMunicipio
-					sql = "select coor.latitud, coor.longitud from coordenada coor join cat_municipio_coordenada muni on (coor.id = muni.coordenada_id) where muni.municipio_coordenadas_id = "+resultado.idMunicipio									
-					break				
+				case 3:
+					sqlNombreId+="mun_id = "+resultado.idMunicipio+" or "
+					sqlQuery+="muni.municipio_coordenadas_id = "+resultado.idMunicipio+" or "
+					break
 			}
-			
-			def result  = db.rows(sql)
-			def cooorAux = []
-			result.each {
-				cooorAux.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
-			}
-			coordenadasList.add(cooorAux)
-			
-			def db2 = new Sql(dataSource)			
-			def nombre  = db2.rows(sqlNombre)
+		}
+		
+		switch(tipo){
+			case 1:
+				sqlNombre = "select ent_descripcion descripcion from cat_entidad where " + sqlNombreId.substring(0,sqlNombreId.length()-3) + " ORDER BY ent_id;"
+				sql = "select ccoo.estado_coordenadas_id as id, coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where "+sqlQuery.substring(0,sqlQuery.length()-3) + " ORDER BY ccoo.estado_coordenadas_id,coordenadas_idx;"
+				break
+			case 2:
+				sqlNombre = "select crg_descripcion descripcion from cat_region where " + sqlNombreId.substring(0,sqlNombreId.length()-3) + " ORDER BY crg_id;"
+				sql = "select regi.region_coordenadas_id as id, coor.latitud, coor.longitud from coordenada coor join cat_region_coordenada regi on (coor.id = regi.coordenada_id) where "+sqlQuery.substring(0,sqlQuery.length()-3) + " ORDER BY regi.region_coordenadas_id,coordenadas_idx;"
+				break
+			case 3:
+				sqlNombre = "select mun_descripcion descripcion from cat_municipio where " + sqlNombreId.substring(0,sqlNombreId.length()-3) + " ORDER BY mun_id;"
+				sql = "select muni.municipio_coordenadas_id as id, coor.latitud, coor.longitud from coordenada coor join cat_municipio_coordenada muni on (coor.id = muni.coordenada_id) where "+sqlQuery.substring(0,sqlQuery.length()-3) + " ORDER BY muni.municipio_coordenadas_id,coordenadas_idx;"
+				break
+		}
+		
+		def nombre  = db2.rows(sqlNombre)
+		def result  = db.rows(sql)
+		
+		System.out.println(sqlNombre)
+		System.out.println(sql)
+		
+		def index = 0
+		resultadosIndicador.each { resultado ->
+			def ubicacionNombre = nombre.get(index)
 			def datos = []
 			def anios = []
-			resultado.resultados.each { r ->				
+			resultado.resultados.each { r ->
 				anios.add(r?.anio)
-				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )							
-			}			
-			nombre.each {
-				nombreCoordenadas.add("'"+it.descripcion+"'")
-				ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datos])
-			}				
-		}	
-		aux.put("lugar",["ubicaciones":ubicaciones])		
+				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )
+			}
+			
+			ubicaciones.add(["descripcion": ubicacionNombre.get("descripcion"), "anios":anios, "datos": datos])
+			index++
+		}
+		
+		def idAux
+		if(result.size()>0){
+			idAux = result?.id?.get(0)
+		}
+		
+		def cooorAux = []
+		
+		result.each {
+			if(it?.id != idAux){
+				coordenadasList.add(cooorAux)
+				cooorAux = new ArrayList()
+				idAux = it?.id
+			}
+			cooorAux.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+		}
+		if(result.size()>0){
+			coordenadasList.add(cooorAux)
+		}
+						
+		aux.put("lugar",["ubicaciones":ubicaciones])
 		def jsodata = aux as JSON
+		
+		System.out.println("fin:"+jsodata)
+		System.out.println("fin2:"+coordenadasList.size())
+
+		//[coordenadasList:coordenadasList, aux:jsodata, resultadosIndicador:resultadosIndicador]
 
 		render(template:"mapa", model:[coordenadasList:coordenadasList, aux:jsodata, resultadosIndicador:resultadosIndicador])
 	}
@@ -197,112 +236,6 @@ class PublicoController {
 		
 		def tamVariables = indicador.variables.size()
 		def datosCalculo = detalleIndicador.rVariables
-		
-		//Datos de prueba
-		/*
-		def rVariablesAux = []
-		def valorasArr1 = []
-		def valorasArr2 = []
-		def valorasArr3 = []
-		def valorasArr4 = []
-		def valorasArr5 = []
-		def valorasArr6 = []		
-		
-		def valor1 = new ResultadoTemporal()
-		valor1.region = "Sierra Norte"
-		valor1.indicador = 1
-		valor1.anio = 2010
-		
-		def valor11 = new ResultadoTemporal()
-		valor11.region = "Costa"
-		valor11.indicador = 100
-		valor11.anio = 2010
-		
-		def valor2 = new ResultadoTemporal()
-		valor2.region = "Reg1"
-		valor2.indicador = 10
-		valor2.anio = 2010
-		
-		def valor3 = new ResultadoTemporal()
-		valor3.region = "Reg1"
-		valor3.indicador = 100
-		valor3.anio = 2011
-		
-		def valor4 = new ResultadoTemporal()
-		valor4.region = "Reg1"
-		valor4.indicador = 1000
-		valor4.anio = 2011
-		
-		def valor5 = new ResultadoTemporal()
-		valor5.region = "Reg1"
-		valor5.indicador = 10000
-		valor5.anio = 2012
-		
-		def valor6 = new ResultadoTemporal()
-		valor6.region = "Reg1"
-		valor6.indicador = 100000
-		valor6.anio = 2012
-		
-		valorasArr1.add(valor1)
-		valorasArr1.add(valor11)
-		valorasArr2.add(valor2)
-		valorasArr3.add(valor3)
-		valorasArr4.add(valor4)
-		valorasArr5.add(valor5)
-		valorasArr6.add(valor6)
-		
-		def rVariable1 = new RVariable()
-		def rVariable2 = new RVariable()
-		def rVariable3 = new RVariable()
-		def rVariable4 = new RVariable()
-		def rVariable5 = new RVariable()
-		def rVariable6 = new RVariable()
-		
-		rVariable1.letra = "A"
-		rVariable1.valores = valorasArr1
-		
-		rVariable2.letra = "B"
-		rVariable2.valores = valorasArr2
-		
-		rVariable3.letra = "A"
-		rVariable3.valores = valorasArr3
-		
-		rVariable4.letra = "B"
-		rVariable4.valores = valorasArr4
-		
-		rVariable5.letra = "A"
-		rVariable5.valores = valorasArr5
-		
-		rVariable6.letra = "B"
-		rVariable6.valores = valorasArr6
-		
-		rVariablesAux.add(rVariable1)
-		rVariablesAux.add(rVariable2)
-		rVariablesAux.add(rVariable3)
-		rVariablesAux.add(rVariable4)
-		rVariablesAux.add(rVariable5)
-		rVariablesAux.add(rVariable6)
-		
-		datosCalculo = rVariablesAux
-		tamVariables=2
-		*/
-		
-//		resultadosIndicador.each{ re ->
-//			System.out.println("tam: "+re.resultados.size() + " region: "+ re.region)
-//			re.resultados.each { r ->
-//				System.out.println("indi anio: "+r.anio + " "+ r.indicador)
-//			}
-//		}
-//		
-//		System.out.println("tamaño variables: "+tamVariables)
-//		
-//		
-//		detalleIndicador.rVariables.each{
-//			System.out.println("valores tam: "+it.valores.size())
-//						it.valores.each {
-//							System.out.println("Region: "+it.region)
-//						}
-//		}
 		
 		if(tipo==2){
 			datosCalculo.each {
@@ -369,39 +302,7 @@ class PublicoController {
 			def resultadosIndicador = detalleIndicador.resultados			
 			def resultados = []
 			def coordenadasList = []
-			/*
-			List <Resultado> resultados1 = []
-			List <Resultado> resultados2 = []
 			
-			Resultado rs1 = new Resultado()
-			rs1.anio = 2010
-			rs1.indicador = 10.02
-			
-			Resultado rs2 = new Resultado()
-			rs2.anio = 2012
-			rs2.indicador = 9.02
-			
-			Resultado rs3 = new Resultado()
-			rs3.anio = 2013
-			
-			
-			Resultado rs4 = new Resultado()
-			rs4.anio = 2014
-			rs4.indicador = 11.02
-			
-			resultados1.add(rs1)
-			resultados1.add(rs2)
-			resultados1.add(rs3)
-			resultados1.add(rs4)
-			
-			ResultadoIndicador r1 = new ResultadoIndicador()
-			r1.resultados = resultados1
-			
-			List<ResultadoIndicador> prueba = []
-			
-			prueba.add(r1)
-			resultadosIndicador = prueba
-			*/
 			def nulo = true
 			
 			resultadosIndicador.each { r ->
@@ -508,47 +409,56 @@ class PublicoController {
 	
 	def actualizarGrafica(Long id){
 		def tipo = params.idTipo.toInteger()
+		def jsondata = null
 		
 		def indicador = Indicador.get(id)
 		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
-		def resultadosIndicador = detalleIndicador.resultados.get(0)
-		def resultados = []
-		def titulo = "Oaxaca"
-
-		resultados = resultadosIndicador?.resultados
-		switch(tipo){
-			case 2:
-				titulo = resultadosIndicador?.region
-				break
-			case 3:
-				titulo = resultadosIndicador?.municipio
-				break
+	
+		if(detalleIndicador.resultados.size()>0){			
+			if(tipo==2){
+				detalleIndicador.resultados.sort{it.region}
+			}else if(tipo==3){
+				CollectionUtils.extendMetaClass()
+				detalleIndicador.resultados.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}
+			}
+			
+			def resultadosIndicador = detalleIndicador.resultados.get(0)
+			def resultados = []
+			def titulo = "Oaxaca"
+	
+			resultados = resultadosIndicador?.resultados
+			switch(tipo){
+				case 2:
+					titulo = resultadosIndicador?.region
+					break
+				case 3:
+					titulo = resultadosIndicador?.municipio
+					break
+			}
+			
+			//Creación de arreglo para Highcharts
+			def series = []
+			def categorias = []
+			def datos = []
+						
+			//def a = [title: [text: indicador?.nombre?.toString(), x: -20]]
+			def a = [title: [text: "Grafica a nivel: "+titulo, x: -20]]
+			a.put("yAxis", [title: [text: '%']])
+			a.put("tooltip", [valueSuffix: '%'])
+			a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])
+			resultados.each { result ->
+				categorias.add(result?.anio)
+				datos.add(result?.indicador)
+			}
+			
+			a.put("xAxis", [categories: categorias] )
+			def serie = [name: "Indicador", data: datos]
+			series << serie
+			a.put("series", series)
+			
+			//Convertir el arreglo a JSON
+			jsondata = a as JSON
 		}
-		
-		//Creación de arreglo para Highcharts
-		def series = []
-		def categorias = []
-		def datos = []
-		
-		
-		//def a = [title: [text: indicador?.nombre?.toString(), x: -20]]
-		def a = [title: [text: "Grafica a nivel: "+titulo, x: -20]]
-		a.put("yAxis", [title: [text: '%']])
-		a.put("tooltip", [valueSuffix: '%'])
-		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])
-		resultados.each { result ->
-			categorias.add(result?.anio)
-			datos.add(result?.indicador)
-		}
-		
-		a.put("xAxis", [categories: categorias] )
-		def serie = [name: "Indicador", data: datos]
-		series << serie
-		a.put("series", series)
-		
-		//Convertir el arreglo a JSON
-		def jsondata = a as JSON
-		
 		render(template:"graficaIndicador", model:[tablaJSON:jsondata])
 	}
 	

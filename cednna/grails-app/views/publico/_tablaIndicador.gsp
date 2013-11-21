@@ -66,7 +66,7 @@
 		<div>
 		<br>
 		No existen valores para el indicador.
-		<br><br>
+		<br><br><br>
 		</div>
 	</g:else>
 </div>
