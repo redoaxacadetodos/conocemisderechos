@@ -20,14 +20,12 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
     
-	coordendasList = ${coordenadasList ? coordenadasList:'[]' };	
+  coordendasList = ${coordenadasList ? coordenadasList:'[]' };	
 
-	var aux = ${aux ? aux:'[]'};
-	$.each(aux['lugar']['ubicaciones'], function(k, v){
-	
-		var coordenadas = coordendasList[k];
-
-		coordenadas.nombre = v['descripcion'];
+  var aux = ${aux ? aux:'[]'};
+  if(aux.length!=0){
+	$.each(aux['lugar']['ubicaciones'], function(k, v){		
+		var coordenadas = coordendasList[k];		
 		
 		ubicacion = new google.maps.Polygon({
 			paths: coordenadas,
@@ -41,19 +39,22 @@ function initialize() {
 		ubicacion.setMap(map);
 		infoWindow = new google.maps.InfoWindow();
 		
-		google.maps.event.addListener(ubicacion, 'click', function(event) {
-			var contentString = '<b>'+coordenadas.nombre+'</b><br><br>';
+		google.maps.event.addListener(ubicacion, 'click', function(event) {			
+			var contentString = '<b>'+v['descripcion']+'</b><br><br>';
 			contentString += '<table><thead><th>Año</th><th>Indicador</th></thead><tbody>';	
 			for(var i in v['anios']){				
 				contentString +="<tr><td>"+v['anios'][i]+"</td><td>"+v['datos'][i]+"</td></tr>";
 			}  	
-			contentString +="</tbody></table>";		  
-			// Replace our Info Window's content and position
+			contentString +="</tbody></table>";		  					
+			// Remplazar la información de la ventana y la posición
 			infoWindow.setContent(contentString);
 			infoWindow.setPosition(event.latLng);
 			infoWindow.open(map);
 		});
-	});			
+
+		
+	});	
+  }
 }
 
 function loadScript() {
@@ -63,13 +64,13 @@ function loadScript() {
       'callback=initialize';
   document.body.appendChild(script);
 }
-
+window.onload = loadScript;
     </script>
 	  <!-- Termina Google Maps -->
 	  
 <div>		
 	<g:if test="${coordenadasList}">
-	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>
+	  	<div id="map-canvas" style="width: 100%; height: 480px;"></div>	  	
 	</g:if>
 	<g:elseif test="${resultadosIndicador==null }">
 		<div>
@@ -83,3 +84,4 @@ function loadScript() {
 		<div id="map-canvas" style="width: 100%; height: 480px; display:none;"></div>
 	</g:else>	  	  
 </div>
+
