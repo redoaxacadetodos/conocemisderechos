@@ -34,8 +34,9 @@
 				</fieldset>
 				<fieldset class="uk-form uk-form-horizontal">
 				<div >
+					<sec:ifAnyGranted roles="ROLE_DEP">
 					<g:actionSubmit class="save uk-button" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					
+					</sec:ifAnyGranted>
 					<sec:ifAnyGranted roles="ROLE_ADMIN">
 						<g:actionSubmit action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" class="uk-button"/>
 					</sec:ifAnyGranted>

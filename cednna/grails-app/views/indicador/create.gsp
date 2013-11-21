@@ -34,7 +34,9 @@
 			<g:form action="save" name="indicador" >
 				<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
+					 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_DEP">
 					<g:submitButton name="create" class="uk-button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					</sec:ifAnyGranted>
 				</fieldset>
 				
 			</g:form>

@@ -316,15 +316,25 @@ $(function(){
 
 		});
 
+
+
+
+
+
+
+
+		
 	 
 		$("#addCat").click(function(){
 
-			var cont=	parseInt($("#numCategorias").val());
-			cont=cont+1;
-			$("#numCategorias").val(cont);				  
-	
-				var unused = $.ajax({type:'POST', 
-						              url:CONTEXT_ROOT+'/variable/categorias',
+
+				
+									var cont=	parseInt($("#numCategorias").val());
+									cont=cont+1;
+									$("#numCategorias").val(cont);				  
+				
+									var unused = $.ajax({type:'POST', 
+						            url:CONTEXT_ROOT+'/variable/categorias',
 						              data: "con="+cont,
 						              success:function(data,textStatus)
 						              {
@@ -333,7 +343,7 @@ $(function(){
 						              	
 						             
 						              },
-						           			   error:function(XMLHttpRequest,textStatus,errorThrown)
+						           	  error:function(XMLHttpRequest,textStatus,errorThrown)
 						                  {		$('#diverror').html(XMLHttpRequest.responseText);}
 					                  ,
 					                  complete:function(data,textStatus){
@@ -351,9 +361,12 @@ $(function(){
 
 					                	  asignaEventorTipo(cont);
 						              }
-										});
-				});
+									});
+					
 
+			
+		});
+	
 	 
 	
 });
@@ -386,6 +399,55 @@ $("#region").change(function(){
 		
 		asignaEventorMunicipio();
 	
+	
+}
+
+
+
+function allCategorias(){
+
+	if(parseInt($("#numCategorias").val()!=0)){
+		
+		$("#combo option").each(function(){
+			
+					var cont=	parseInt($("#numCategorias").val());
+					cont=cont+1;
+					$("#numCategorias").val(cont);				  
+				
+					var unused = $.ajax({type:'POST', 
+				    url:CONTEXT_ROOT+'/variable/categorias',
+				      data: "con="+cont,
+				      success:function(data,textStatus)
+				      {
+				      
+				      		$('#divCate').append(data);
+				      	
+				     
+				      },
+				   			   error:function(XMLHttpRequest,textStatus,errorThrown)
+				          {		$('#diverror').html(XMLHttpRequest.responseText);}
+				      ,
+				      complete:function(data,textStatus){
+				
+				    	  var config = {
+							      '.chosen-select'           : {},
+							      '.chosen-select-deselect'  : {allow_single_deselect:true},
+							      '.chosen-select-no-single' : {disable_search_threshold:10},
+							      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+							      '.chosen-select-width'     : {width:"95%"}
+							    }
+							    for (var selector in config) {
+							      $(selector).chosen(config[selector]);
+							    }
+				
+				    	  asignaEventorTipo(cont);
+				      }
+					});
+
+					   alert('opcion '+$(this).text()+' valor '+ $(this).attr('value'))
+		});
+
+	}
 	
 }
 

@@ -21,7 +21,7 @@ import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
 
-@Secured(['ROLE_DEP'])
+@Secured(['ROLE_DEP','ROLE_LECTURA'])
 class VariableController {
 	def dataTablesService
 	def sessionFactory
@@ -142,11 +142,13 @@ class VariableController {
         [variableInstanceList: Variable.list(params), variableInstanceTotal: Variable.count()]
     }
 
+	@Secured(['ROLE_DEP','ROLE_ADMIN'])
     def create() {
 		def usuario = springSecurityService.currentUser
         [variableInstance: new Variable(params),dependencia:usuario.dependencia]
     }
 
+	@Secured(['ROLE_DEP','ROLE_ADMIN'])
     def save() {
         def variableInstance = new Variable(params)
 		
@@ -488,7 +490,7 @@ class VariableController {
 	}
 	
 	
-	
+	@Secured(['ROLE_DEP'])
 	def archivo(){
 		
 		def usuario = springSecurityService.currentUser
@@ -1044,6 +1046,7 @@ class VariableController {
         [variableInstance: variableInstance,ban:ban]
     }
 
+	@Secured(['ROLE_DEP','ROLE_ADMIN'])
     def update(Long id, Long version) {
         def variableInstance = Variable.get(id)
 		

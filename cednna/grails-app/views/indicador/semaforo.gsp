@@ -86,7 +86,7 @@
 			/>
 				<g:hiddenField name="rol" value="1"/>
 			</sec:ifAnyGranted>
-			 <sec:ifAnyGranted roles="ROLE_DEP">
+			 <sec:ifAnyGranted roles="ROLE_DEP,ROLE_LECTURA">
  		 
  		 	<g:hiddenField name="dependencias" value="${dependencia?.id}"/>
  		 	
