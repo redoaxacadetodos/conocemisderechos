@@ -70,7 +70,9 @@
 					  controller:'publico',
 					  action: 'actualizarGrafica',
 					  params: '\'idTipo=\' + this.value',
-					  update: 'grafica',									 
+					  update: 'grafica',
+					  onLoading: "mostrarCargandoImg('grafica')",
+					  onLoaded: "ocultarCargandoImg('grafica')",										 
 					  id: indicadorInstance?.id  )}">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>

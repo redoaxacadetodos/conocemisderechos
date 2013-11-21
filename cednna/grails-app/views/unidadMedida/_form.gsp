@@ -12,7 +12,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: unidadMedidaInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
-		<g:message code="unidadMedida.descripcion.label" default="Descripcion" />
+		<g:message code="unidadMedida.descripcion.label" default="Descripci&oacute;n" />
 		
 	</label>
 	<g:textField name="descripcion" value="${unidadMedidaInstance?.descripcion}"/>

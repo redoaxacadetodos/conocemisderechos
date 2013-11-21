@@ -25,7 +25,7 @@
 			
 				<g:if test="${ejeInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="eje.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="eje.descripcion.label" default="Descripci&oacute;n" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${ejeInstance}" field="descripcion"/></span>
 					

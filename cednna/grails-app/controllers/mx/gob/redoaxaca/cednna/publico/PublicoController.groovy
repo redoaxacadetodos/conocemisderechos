@@ -101,7 +101,8 @@ class PublicoController {
 	}
 	
 	def contacto = {
-		
+		def contactos = Contacto.getAll()
+		[contactos: contactos]
 	}
 	
 	def ayuda = {
@@ -411,7 +412,7 @@ class PublicoController {
 			def series = []
 			def categorias = []
 			def datos = []			
-			def a = [title: [text: indicador?.nombre?.toString(), x: -20]]					
+			def a = [title: [text: "Grafica a nivel: Oaxaca", x: -20]]					
 			a.put("yAxis", [title: [text: '%']])	
 			a.put("tooltip", [valueSuffix: '%'])
 			a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])		
@@ -506,22 +507,32 @@ class PublicoController {
 	}
 	
 	def actualizarGrafica(Long id){
-		def tipo = params.idTipo
+		def tipo = params.idTipo.toInteger()
 		
 		def indicador = Indicador.get(id)
-		DetalleIndicador detalleIndicador = visorIndicador(id,1)
-		def resultadosIndicador = detalleIndicador.resultados
+		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		def resultadosIndicador = detalleIndicador.resultados.get(0)
 		def resultados = []
-		
-		resultadosIndicador.each { r ->
-			resultados = r.resultados
+		def titulo = "Oaxaca"
+
+		resultados = resultadosIndicador?.resultados
+		switch(tipo){
+			case 2:
+				titulo = resultadosIndicador?.region
+				break
+			case 3:
+				titulo = resultadosIndicador?.municipio
+				break
 		}
 		
 		//Creación de arreglo para Highcharts
 		def series = []
 		def categorias = []
 		def datos = []
-		def a = [title: [text: indicador?.nombre?.toString(), x: -20]]
+		
+		
+		//def a = [title: [text: indicador?.nombre?.toString(), x: -20]]
+		def a = [title: [text: "Grafica a nivel: "+titulo, x: -20]]
 		a.put("yAxis", [title: [text: '%']])
 		a.put("tooltip", [valueSuffix: '%'])
 		a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])
@@ -529,6 +540,7 @@ class PublicoController {
 			categorias.add(result?.anio)
 			datos.add(result?.indicador)
 		}
+		
 		a.put("xAxis", [categories: categorias] )
 		def serie = [name: "Indicador", data: datos]
 		series << serie

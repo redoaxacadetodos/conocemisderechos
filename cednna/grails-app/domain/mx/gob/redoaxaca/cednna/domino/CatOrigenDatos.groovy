@@ -4,8 +4,9 @@ import sun.tools.tree.ThisExpression;
 
 class CatOrigenDatos {
 
-	String clave
-	String descripcion
+	String      clave
+	String      descripcion
+	Dependencia dependencia
 	
 	static transients = ['datalleCombo']
 	
@@ -14,6 +15,7 @@ class CatOrigenDatos {
 		id(column: 'cod_id')
 		clave(column: 'cod_clave')
 		descripcion(column: 'cod_descripcion')
+		dependencia(column: 'cod_dependencia_id')
 
 	
 		
@@ -28,5 +30,8 @@ class CatOrigenDatos {
 		 }
 	
     static constraints = {
+		
+		dependencia(nullable:true)
+		
     }
 }

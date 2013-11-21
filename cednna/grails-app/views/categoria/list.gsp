@@ -26,7 +26,7 @@
 					
 						<g:sortableColumn property="clave" title="${message(code: 'categoria.clave.label', default: 'Clave')}" />
 					
-						<g:sortableColumn property="descripcion" title="${message(code: 'categoria.descripcion.label', default: 'Descripcion')}" />
+						<g:sortableColumn property="descripcion" title="Descripci&oacute;n" />
 					
 						<th><g:message code="categoria.tipo.label" default="Tipo" /></th>
 					

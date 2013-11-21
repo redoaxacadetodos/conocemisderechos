@@ -7,7 +7,7 @@
 		<g:message code="formula.nombre.label" default="Nombre" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="nombre" required="" value="${formulaInstance?.nombre}"/>
+	<input id="nombre" name="nombre" required="" value="${formulaInstance?.nombre}" style="width:500px"/>
 	
 </div>
 
@@ -17,7 +17,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 
-	<g:textArea name="descripcion"  required="">${formulaInstance?.descripcion}</g:textArea>
+	<g:textArea name="descripcion"  required="" style="width:500px">${formulaInstance?.descripcion}</g:textArea>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: formulaInstance, field: 'sentencia', 'error')} required">

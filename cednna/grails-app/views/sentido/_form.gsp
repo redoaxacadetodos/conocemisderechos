@@ -12,7 +12,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: sentidoInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
-		<g:message code="sentido.descripcion.label" default="Descripcion" />
+		<g:message code="sentido.descripcion.label" default="Descripci&oacute;n" />
 		
 	</label>
 	<g:textField name="descripcion" value="${sentidoInstance?.descripcion}"/>

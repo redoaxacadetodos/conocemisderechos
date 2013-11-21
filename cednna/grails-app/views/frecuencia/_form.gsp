@@ -4,7 +4,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: frecuenciaInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
-		<g:message code="frecuencia.descripcion.label" default="Descripcion" />
+		<g:message code="frecuencia.descripcion.label" default="Descripci&oacute;n" />
 		
 	</label>
 	<g:textField name="descripcion" value="${frecuenciaInstance?.descripcion}"/>
