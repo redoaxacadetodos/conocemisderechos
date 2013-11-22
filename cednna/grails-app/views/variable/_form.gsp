@@ -23,7 +23,7 @@
 									
 								</label>
 								<div class="uk-form-controls">
-								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna variable-']"/>
+								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select  uk-width-1-1" style="width:300px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna variable-']"/>
 								</div>
 							</div>
 						
@@ -383,7 +383,7 @@ $("#region").change(function(){
 			htmlOptions : {
 				name : "municipio.id",
 				id : "municipio",
-				clase : "chosen-select"
+				clase : "chosen-select "
 			},
 			index : 0,
 			chained : false,

@@ -367,7 +367,7 @@ $(function(){
                   {
               
               	$('#divVariables').html(data);
-          
+              
              
                   },
               error:function(XMLHttpRequest,textStatus,errorThrown)
