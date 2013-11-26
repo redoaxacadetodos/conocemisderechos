@@ -16,7 +16,7 @@
 			</ul>
 </nav>
 		<div id="show-variable" class="content scaffold-show" role="main">
-			<h1 class="uk-article-title"><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1 class="uk-article-title">Variable</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -112,11 +112,7 @@
 			<g:form>
 				<fieldset class="uk-form uk-form-horizontal">
 				<div class="uk-form-controls>
-					<g:hiddenField name="id" value="${variableInstance?.id}" />
-					<p>
-					<g:link class="edit uk-button" action="edit" id="${variableInstance?.id}" class="uk-button"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" class="uk-button"/>
-					</p>
+					
 				</div>
 				</fieldset>
 			</g:form>

@@ -34,11 +34,18 @@
 		<br>
  		</sec:ifAnyGranted>
  		
- 		 <sec:ifAnyGranted roles="ROLE_DEP,ROLE_LECTURA">
+ 		 <sec:ifAnyGranted roles="ROLE_DEP">
  		 
  		 	<g:hiddenField name="dependencia" value="${dependencia}"/>
+ 		 		<g:hiddenField name="lectura" value="0"/>
+ 		 </sec:ifAnyGranted>
+ 		  <sec:ifAnyGranted roles="ROLE_LECTURA">
+ 		 
+ 		 	<g:hiddenField name="dependencia" value="${dependencia}"/>
+ 		 	<g:hiddenField name="lectura" value="1"/>
  		 	
  		 </sec:ifAnyGranted>
+ 		 
 		<div id="divTabla">
 		
 				
@@ -51,7 +58,12 @@
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/><a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
+			if($("#lectura").val()==0)
+			return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/><a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
+			else{
+			return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='mostrarRegistro(" + source[0] + "); '\/>"
+			}
+
 		}
 
 		
@@ -66,7 +78,10 @@
 
 		function editaRegistro(id){
 			
+		
 			document.location.href=CONTEXT_ROOT+"/indicador/edit/"+id;
+		
+
 
 		}
 			

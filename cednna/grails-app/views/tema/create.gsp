@@ -1,27 +1,27 @@
-<%@ page import="mx.gob.redoaxaca.cednna.domino.Division" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Tema" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'division.label', default: 'Division')}" />
+		<g:set var="entityName" value="${message(code: 'tema.label', default: 'Tema')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-division" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<a href="#create-tema" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list">Listado de divisiones</g:link></li>
+				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-		<div id="create-division" class="content scaffold-create" role="main">
+		<div id="create-tema" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:hasErrors bean="${divisionInstance}">
+			<g:hasErrors bean="${temaInstance}">
 			<ul class="errors" role="alert">
-				<g:eachError bean="${divisionInstance}" var="error">
+				<g:eachError bean="${temaInstance}" var="error">
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 				</g:eachError>
 			</ul>

@@ -12,11 +12,11 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list">Listado de modulos</g:link></li>
-				<li><g:link class="create" action="create">Nuevo modulo</g:link></li>
+				<li><g:link class="create" action="create">Nuevo m&oacute;dulo</g:link></li>
 			</ul>
 		</div>
 		<div id="edit-eje" class="content scaffold-edit" role="main">
-			<h1>Edicion de modulo</h1>
+			<h1>Edicion de m&oacute;dulo</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

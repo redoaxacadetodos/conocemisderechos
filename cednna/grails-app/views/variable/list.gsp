@@ -12,12 +12,30 @@
 				controller="variable" action="dataTablesListadoVariables" jqueryui="true" lang="${request.getContextPath()}/js/langtabla.json"    
 				aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}','{mData:9}','{mData:10}','{mData:muestraBoton}']"   
 				/>
+				
+				
+				<sec:ifAnyGranted roles="ROLE_DEP">
+ 		 
+
+		 		 		<g:hiddenField name="lectura" value="0"/>
+		 		 </sec:ifAnyGranted>
+		 		  <sec:ifAnyGranted roles="ROLE_LECTURA">
+		 		 
+		 		 
+		 		 	<g:hiddenField name="lectura" value="1"/>
+		 		 	
+		 		 </sec:ifAnyGranted>
 		<script type="text/javascript" >
 
 
 		function muestraBoton(source, type, val) 	
 		{
-		return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/> "
+			if($("#lectura").val()==0)
+			return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/> ";
+			else
+			{
+			return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='monitorRegistro(" + source[0] + "); '\/> ";
+			}
 		}
 
 		
@@ -34,7 +52,7 @@
 
 		function monitorRegistro(id){
 			
-			document.location.href=CONTEXT_ROOT+"/variable/panel/"+id;
+			document.location.href=CONTEXT_ROOT+"/variable/show/"+id;
 
 		}
 			

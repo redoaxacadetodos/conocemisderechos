@@ -87,6 +87,21 @@
 	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
 </div>
 
+	<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
+			<label class="uk-form-label" for="nombre">
+				<g:message code="indicador.nombre.label" default="No. decimales" />
+			
+			</label>
+			<g:textField name="decimales"  value="${indicadorInstance?.decimales}" />
+		</div>
+
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
+	<label class="uk-form-label"for="frecuencia">
+		<g:message code="indicador.frecuencia.label" default="Periodo " />
+
+	</label>
+	<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one"   noSelection="['null': '-No contiene periodos-']"/>
+</div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
@@ -134,7 +149,8 @@
 			<g:message code="indicador.nombre.label" default="Tema" />
 		
 		</label>
-		<g:textField name="tema"  value="${indicadorInstance?.tema}" style="width:600px;"/>
+		<g:select id="tema" name="tema.id" from="${mx.gob.redoaxaca.cednna.domino.Tema.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.tema?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a al tema-']"/>
+
 		</div>
 		
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
@@ -182,6 +198,15 @@
 	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>
 </div>
 
+
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
+	<label class="uk-form-label"for="comentarios">
+		<g:message code="indicador.comentarios.label" default="Fuente de informacion del indicador" />
+		
+	</label>
+	<textarea  name="fuenteInformacion" rows="5" cols="40">${indicadorInstance?.fuenteInformacion}</textarea>
+</div>
+
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
 	<label class="uk-form-label"for="comentarios">
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />
@@ -189,6 +214,9 @@
 	</label>
 	<textarea  name="comentarios" rows="5" cols="40">${indicadorInstance?.comentarios}</textarea>
 </div>
+
+
+
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
 	<label class="uk-form-label"for="publico">

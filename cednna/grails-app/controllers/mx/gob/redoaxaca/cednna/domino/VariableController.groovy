@@ -500,10 +500,16 @@ class VariableController {
 	
 	def borrarOrigen(){
 		
-		def sql = new Sql(sessionFactory.currentSession.connection())
-		def consulta ="delete from cat_variable where cvv_anio=? and  cvv_clave=? "
 		
+		
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		def consulta ="delete  from cat_variable_categoria where cvc_cvv_id in (select cvv_id from cat_variable where cvv_anio=? and  cvv_clave=?)"
 		sql.execute(consulta, [params.anio.toInteger(),params.origenDatos.toString()])
+			
+		consulta ="delete from cat_variable where cvv_anio=? and  cvv_clave=? "
+		sql.execute(consulta, [params.anio.toInteger(),params.origenDatos.toString()])
+		 
+	
 		redirect(action: "list")
 		return
 		

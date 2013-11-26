@@ -23,12 +23,15 @@ class Indicador {
 	UnidadMedida    uMedida
 	PNDesarrollo    pnDesarrollo
 	
-    String 	        tema
+    
 	String 			objetivoPND
 	String          estrategia;
 	String 		    nombrePrograma;
 	ObjetivoMilenio objetivosMilenio;
-	
+	Periodo			periodo;
+	String			fuenteInformacion
+	Tema			tema
+	Integer			decimales
 	
 	
 	Division       division
@@ -64,7 +67,9 @@ class Indicador {
 				nombrePrograma(blank:true, nullable:true)
 				objetivosMilenio(blank:true, nullable:true)
 				
-
+				fuenteInformacion( nullable:true)
+				periodo( nullable:true)
+				decimales( nullable:true)
     }
 
   static mapping = {
@@ -98,6 +103,10 @@ class Indicador {
 	nombrePrograma(column:'idn_nom_programa')
 	objetivosMilenio(column:'idn_obj_milenio')
 
+	fuenteInformacion(column:'idn_fue_info')
+	periodo(column:'idn_periodo')
+	decimales(column:'idn_decimales')
+	
 	version(false)
   }    
 }

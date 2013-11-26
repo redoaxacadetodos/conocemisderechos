@@ -90,10 +90,11 @@
 							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
 							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
-							<li><g:link controller="eje">Modulo</g:link></li>
-							<li><g:link controller="division">SubModulo</g:link></li>
-							<li><g:link controller="PNDesarrollo">PED</g:link></li>
-							<li><g:link controller="objetivoMilenio">Objetivos del milenio</g:link></li>
+							<li><g:link controller="eje">M&oacute;dulo</g:link></li>
+							<li><g:link controller="division">SubM&oacute;dulo</g:link></li>
+						    <li><g:link controller="PNDesarrollo">PED</g:link></li>
+							<li><g:link controller="tema">Tema PED</g:link></li>
+							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
 							</sec:ifAnyGranted>
 							<li class="uk-nav-header">Seguimiento</li>
