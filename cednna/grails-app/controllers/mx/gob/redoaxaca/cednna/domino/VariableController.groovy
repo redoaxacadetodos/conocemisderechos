@@ -1005,9 +1005,26 @@ class VariableController {
 	def categorias(){
 		
 		def var =params.id
+		int con= params.con.toInteger()
+		def valida = params.valida
+	
+		
+		[var:var,con:con,valida:valida]
+	}
+	
+	
+	def categoriasAll(){
+		
+		System.out.println("Entro a buscar todoas las categorias");
+		
+		def var =params.id
+		
+		def tipo =Tipo.get(params.tipoId)
 		def con= params.con
 		
-		[var:var,con:con]
+		def categorias = Categoria.findAllByTipo(tipo);
+		
+		[var:var,con:con,categorias:categorias,tipo:tipo,idn:tipo.id+"_"+con]
 	}
 	
 	
