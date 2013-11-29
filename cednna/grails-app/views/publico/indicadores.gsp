@@ -14,8 +14,8 @@
 	<body>
 
 		<div id="division">		
-		
 	
+	<div class="titulo">Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca.</div>
 <div id="dashboard">
 	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 

@@ -16,14 +16,14 @@
 			</ul>
 		</div>
 		<div id="list-division" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1>Divisi&oacute;n Lista</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<table>
 				<thead>
 					<tr>
-						<g:sortableColumn property="descripcion" title="${message(code: 'division.descripcion.label', default: 'Descripcion')}" />
+						<g:sortableColumn property="descripcion" title="${message(code: 'division.descripcion.label', default: 'Descripci&oacute;n')}" />
 					
 						<th><g:message code="division.eje.label" default="Eje" /></th>
 					

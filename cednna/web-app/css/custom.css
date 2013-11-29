@@ -43,6 +43,34 @@ html { overflow-y: scroll; }
 .tm-footer { padding: 15px 0 30px 0;  }
 
 
+.titulo {
+  color:#00a7ab;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.4em;
+  width: 60%;
+}
+.titulo_der {
+  color:#00a7ab;
+  font-size: 1.4em;
+  font-weight: normal;
+  margin: 0 auto;
+  padding-top: 10px;
+  text-align: right;
+  text-decoration: none;
+  width: 40%;
+  position: relative;
+}
+.resultados_archivo {
+  font-weight: bold;
+  color:#ff9f00;
+  font-size: 1.2em;
+}
 
 
 /* Only tablets and desktop */
@@ -151,6 +179,8 @@ html { overflow-y: scroll; }
    position:absolute;
    top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
 }
+
+
 
 /*
  * Navbar
@@ -270,7 +300,7 @@ background-image: none;
 }
 
 .uk-panel-box {
-border-radius: 4px;
+border-radius: 8px;
 }
 
 
@@ -800,25 +830,25 @@ float: right;
 
 .iconobar { display: block; width: 28px; height: 32px; margin: 7px 0 0 20px !important;}
 
+.icono_home { background: url(../img/icons/home.png) 0 10px no-repeat !important; }
 .icono_calendar { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
 .icono_directorio { background: url(../img/icons/directorio.png) 0 8px no-repeat !important; }
 .icono_contacto { background: url(../img/icons/contacto.png) 0 8px no-repeat !important; }
 .icono_ayuda { background: url(../img/icons/ayuda.png) 0 10px no-repeat !important; }
-
 .icono_catalogos { background: url(../img/icons/catalogos.png) 0 10px no-repeat !important; }
 .icono_invierte { background: url(../img/icons/inversion.png) 0 10px no-repeat !important; }
 
+.icono_home:hover { background: url(../img/icons/home_2.png) 0 10px no-repeat !important; }
 .icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 10px no-repeat !important; }
 .icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
 .icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
 .icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }
-
 .icono_catalogos:hover { background: url(../img/icons/catalogos_2.png) 0 10px no-repeat !important; }
 .icono_invierte:hover { background: url(../img/icons/inversion_2.png) 0 10px no-repeat !important; }
 
 #dashboard { 
 width: 98%;
-margin: 5% 12%;
+margin: 3% 12%;
 text-align: center;
 
 } 

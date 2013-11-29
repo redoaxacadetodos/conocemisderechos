@@ -1856,7 +1856,7 @@ select.uk-form-width-mini {
 }
 @media (min-width: 960px) {
   .uk-form-horizontal .uk-form-label {
-    width: 200px;
+    width: 212px;
     margin-top: 5px;
     float: left;
   }

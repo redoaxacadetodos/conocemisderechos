@@ -17,7 +17,7 @@
 			</ul>
 		</div>
 		<div id="show-unidadMedida" class="content scaffold-show" role="main">
-			<h1>Unidad de medida/h1>
+			<h2>Unidad de medida</h2>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

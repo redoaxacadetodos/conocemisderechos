@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'division.label', default: 'Division')}" />
+		<g:set var="entityName" value="${message(code: 'division.label', default: 'División')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
@@ -25,7 +25,7 @@
 			
 				<g:if test="${divisionInstance?.eje}">
 				<li class="fieldcontain">
-					<span id="eje-label" class="property-label"><g:message code="division.eje.label" default="Eje" /></span>
+					<span id="eje-label" class="property-label"><g:message code="division.eje.label" default="Eje:" /></span>
 					
 						<span class="property-value" aria-labelledby="eje-label"><g:link controller="eje" action="show" id="${divisionInstance?.eje?.id}">${divisionInstance?.eje?.encodeAsHTML()}</g:link></span>
 					
@@ -34,7 +34,7 @@
 			
 				<g:if test="${divisionInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="division.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="division.descripcion.label" default="Descripci&oacute;n:" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${divisionInstance}" field="descripcion"/></span>
 					
