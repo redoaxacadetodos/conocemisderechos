@@ -3,17 +3,7 @@
 
 <div id="mensaje"></div>
 
-
-<%--<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'clave', 'error')} required">--%>
-<%--	<label class="uk-form-label" for="clave">--%>
-<%--		<g:message code="variable.clave.label" default="Clave" />--%>
-<%--		<span class="required-indicator">*</span>--%>
-<%--	</label>--%>
-<%--	<div class="uk-form-controls">--%>
-<%--	<g:textField name="clave" required="" value="${variableInstance?.clave}"/>--%>
-<%--	</div>--%>
-<%--</div>--%>
-
+<g:hiddenField name="valida" value="0"/>
 
 
 <g:if test="${dependencia}">
@@ -335,7 +325,7 @@ $(function(){
 				
 									var unused = $.ajax({type:'POST', 
 						            url:CONTEXT_ROOT+'/variable/categorias',
-						              data: "con="+cont,
+						              data: {con:cont,valida:$("#valida").val()},
 						              success:function(data,textStatus)
 						              {
 						              
@@ -403,53 +393,6 @@ $("#region").change(function(){
 }
 
 
-
-function allCategorias(){
-
-	if(parseInt($("#numCategorias").val()!=0)){
-		
-		$("#combo option").each(function(){
-			
-					var cont=	parseInt($("#numCategorias").val());
-					cont=cont+1;
-					$("#numCategorias").val(cont);				  
-				
-					var unused = $.ajax({type:'POST', 
-				    url:CONTEXT_ROOT+'/variable/categorias',
-				      data: "con="+cont,
-				      success:function(data,textStatus)
-				      {
-				      
-				      		$('#divCate').append(data);
-				      	
-				     
-				      },
-				   			   error:function(XMLHttpRequest,textStatus,errorThrown)
-				          {		$('#diverror').html(XMLHttpRequest.responseText);}
-				      ,
-				      complete:function(data,textStatus){
-				
-				    	  var config = {
-							      '.chosen-select'           : {},
-							      '.chosen-select-deselect'  : {allow_single_deselect:true},
-							      '.chosen-select-no-single' : {disable_search_threshold:10},
-							      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-							      '.chosen-select-width'     : {width:"95%"}
-							    }
-							    for (var selector in config) {
-							      $(selector).chosen(config[selector]);
-							    }
-				
-				    	  asignaEventorTipo(cont);
-				      }
-					});
-
-					   alert('opcion '+$(this).text()+' valor '+ $(this).attr('value'))
-		});
-
-	}
-	
-}
 
 function asignaEventorMunicipio(){
 

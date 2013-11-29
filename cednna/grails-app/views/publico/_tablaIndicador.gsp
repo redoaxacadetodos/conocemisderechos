@@ -46,7 +46,7 @@
 						  			<td>${resultadoIndicador?.localidad }</td>
 						  		</g:if>
 						  		<g:each var="result" in="${resultadoIndicador?.resultados }">						  									  		
-						  			<td>${result?.indicador==null ? '-':result?.indicador}</td>						  			
+						  			<td>${result?.indicador==null ? '-':result?.indicador.round(indicadorInstance?.decimales)}</td>						  			
 						  		</g:each>					  			
 					  		</g:each>
 					  	</tr>

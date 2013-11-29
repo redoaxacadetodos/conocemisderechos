@@ -224,7 +224,7 @@ class PublicoController {
 			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}			
 		}
 		
-		render (template:"tablaIndicador", model:[tipo:params.idTipo, resultadosIndicador:resultadosIndicador])	
+		render (template:"tablaIndicador", model:[tipo:params.idTipo, resultadosIndicador:resultadosIndicador, indicadorInstance:indicador])	
 	}
 	
 	def actualizarDatosCalculo(Long id){

@@ -54,7 +54,7 @@ $(function(){
 	
 				var unused = $.ajax({type:'POST', 
 						              url:CONTEXT_ROOT+'/variable/categorias',
-						              data: "con="+cont,
+						              data: {con:cont,valida:$("#valida").val()},
 						              success:function(data,textStatus)
 						              {
 						              
@@ -143,7 +143,7 @@ function asignaEventorTipo(num){
 </script>
 </head>
 <body>
-<a href="#create-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+
 <g:form action="generaXLS" controller="variable" method="post" >
 
 <nav class="uk-navbar">
@@ -218,6 +218,7 @@ function asignaEventorTipo(num){
 
 
 	<br>
+	<g:hiddenField name="valida" value="1"/>
 	<g:hiddenField name="numCategorias" value="0"/>
 	<input id="addCat" name="addCat"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
 
