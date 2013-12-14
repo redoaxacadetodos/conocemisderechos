@@ -904,8 +904,8 @@ box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
 /* Only large screens */
 @media (min-width: 1215px) {
 #menubloque {width: 100%; text-align: center;display: block; height: 60px; margin-bottom: 10px;}
-#menubloque .botmenubloque { display: block; height: 38px; float: left; margin: 5px 30px 5px 0;}
-#menubloque .men1 { background: url(../img/menu/bot01.png) 0px 0px no-repeat; width: 258px; }
+#menubloque .botmenubloque { display: block; height: 38px; float: left; margin: 5px 20px 5px 0;}
+#menubloque .men1 { background: url(../img/menu/bot01.png) 0px 0px no-repeat; width: 300px; }
 #menubloque .men2 { background: url(../img/menu/bot02.png) 0px 0px no-repeat ; width: 129px; }
 #menubloque .men3 { background: url(../img/menu/bot03.png) 0px 0px no-repeat ; width: 115px; }
 #menubloque .men4 { background: url(../img/menu/bot04.png) 0px 0px no-repeat ; width: 122px; }
