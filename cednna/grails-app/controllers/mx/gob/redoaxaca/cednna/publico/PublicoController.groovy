@@ -173,7 +173,7 @@ class PublicoController {
 			def anios = []
 			resultado.resultados.each { r ->
 				anios.add(r?.anio)
-				datos.add(r?.indicador==0 ? 0 : (Math.round( (r?.indicador) * 100.0 ) / 100.0) )
+				datos.add(r?.indicador)
 			}
 			
 			ubicaciones.add(["descripcion": ubicacionNombre.get("descripcion"), "anios":anios, "datos": datos])

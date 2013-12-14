@@ -22,6 +22,9 @@ public class LeeArchivo {
 	int claveDependencia ;
 	int opcion =0;
 	int numCategorias =0;
+	
+	
+	
 
 	public LeeArchivo(File fileName) throws ParseException {
 
@@ -42,7 +45,7 @@ public class LeeArchivo {
 
 					
 					while (rowIterator.hasNext()) {
-//						System.out.println("ENTRO A VES "+(++contadorFilas));
+
 						XSSFRow hssfRow = (XSSFRow) rowIterator.next();
 						Iterator iterator = hssfRow.cellIterator();
 						Row tempRow = new Row();
@@ -51,6 +54,10 @@ public class LeeArchivo {
 						
 						switch (opcion) {
 						case 1:
+							
+							
+							
+							
 							
 							tempRow.setClave(hssfRow.getCell(0).getStringCellValue());
 							tempRow.setDescripcion(hssfRow.getCell(1).getStringCellValue());

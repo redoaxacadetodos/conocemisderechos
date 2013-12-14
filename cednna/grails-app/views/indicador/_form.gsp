@@ -324,8 +324,8 @@ $(function(){
 		    },
 		    onSet: function(event) {
 		        console.log('Set stuff:', event);
-		    }
-		});
+		    }}
+		);
 		
 
 		

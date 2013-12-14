@@ -1,9 +1,11 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.redoaxaca.java.ArchivoDescarga;
 import com.redoaxaca.java.LeeArchivo
+import com.redoaxaca.java.LeerExcell
 import com.redoaxaca.java.ResultCategorias;
 import com.redoaxaca.java.Row
 import com.redoaxaca.java.TotalVariable
@@ -908,7 +910,7 @@ class VariableController {
 	
 	def subirArchivo(){
 		def usuario = springSecurityService.currentUser
-		def dependencia
+		Dependencia dependencia
 		def archivo
 
 		File archivo_
@@ -916,79 +918,47 @@ class VariableController {
 		def contadorMalos = 0
 		def contador = 0
 		def mensaje=""
-		def estOaxaca=Estado.get(20)
+		def path
 		def  ArrayList<Row>	renglones
 		ArrayList<Row> renglonesMalos
 		
 		try{
-			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads
+			path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads
+			
+			def sec
+			def sql = new Sql(sessionFactory.currentSession.connection())
+			def secuencia= "select max(cvv_id) as ultimo from cat_variable"
+			def resulSec = sql.rows(secuencia)
+			resulSec?.each{
+				
+				sec=it.ultimo
+			}
+			
+			Estado estOaxaca=Estado.get(20)
+	
+		
+
 			
 			def fBase = request.getFile('fileBase')
 			if(!fBase.empty) {
-				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
+			fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
 			}
 	
-			 archivo_ = new File(path + fBase.originalFilename.toString())
-			 archivo = new LeeArchivo(archivo_);
-			 renglones = archivo.getDatos();
+			archivo_ = new File(path + fBase.originalFilename.toString())
+			def arc = new LeerExcell(archivo_, sec,estOaxaca, dependencia,path)
 			 
-		 
-		     renglonesMalos = new ArrayList<Row>();
-
-			 if(usuario)
-			 	dependencia = usuario.dependencia
-		
-				try{
-				
-						for(Row row : renglones){
-							
-												Integer dep =dependencia?.id
-												
-												Integer municipio=row.getIdMunicipio()
-												Integer localidad=row.getIdLocalidad()
-												Integer region=row.getIdRegion()
-											
-												def sql = new Sql(sessionFactory.currentSession.connection())
-												def sec
-												def secuencia= "select nextval ('hibernate_sequence')"
-												def resulSec = sql.rows(secuencia)
-												
-												
-												resulSec?.each {
-													
-													sec=it.nextval
-												}
-												
-												
-												def consulta ="insert into cat_variable "+
-												"(cvv_anio, cvv_clave, cvv_dependencia, cvv_descripcion, cvv_estado, cvv_hombres, cvv_localidad, cvv_mujeres, cvv_municipio, cvv_poblacion_total, cvv_region,cvv_id) "+
-												"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"	
-												
-												sql.execute(consulta, [row.getAnio(),row.getClave(),dep,row.getDescripcion(),estOaxaca.id,row.getHombres(),localidad,row.getMujeres(),municipio,row.getHombres()+row.getMujeres(),region,sec])
-												
-												consulta="insert into cat_variable_categoria (cvc_cvv_id, cvc_cct_id) values (?, ?)"
-
-												
-												row.categorias.each {
-													
-													sql.execute(consulta, [sec,it.id])
-													
-												}
-												contadorBuenos++
-												
-						}
-				
-				}catch (Exception e) {
-					println(e.getMessage())
-					e.printStackTrace()
-					renglonesMalos.add(row);
-					
-					contadorMalos++
-				}
-				
+			contadorBuenos=arc.total
+			 
+			 
+			secuencia= "copy  CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" with delimiter ','  csv header   NULL  'null' ; " 
+			sql.rows(secuencia)
+			
+			secuencia= "copy  CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+" with delimiter ','  csv header ; "
+			sql.rows(secuencia)
+			
 			}catch (Exception e) {
-		//	println(e.getMessage())
-			//e.printStackTrace()
+			println(e.getMessage())
+			e.printStackTrace()
 		
 		}
 			
@@ -1124,4 +1094,7 @@ class VariableController {
             redirect(action: "show", id: id)
         }
     }
+	
+	
+
 }
