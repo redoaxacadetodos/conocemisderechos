@@ -951,16 +951,17 @@ class VariableController {
 			 
 			 
 			secuencia= "copy  CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" with delimiter ','  csv header   NULL  'null' ; " 
-			sql.rows(secuencia)
+			sql.executeQuery(secuencia)
 			
 			secuencia= "copy  CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+" with delimiter ','  csv header ; "
-			sql.rows(secuencia)
+			
+			sql.executeQuery(secuencia)
 			
 			}catch (Exception e) {
 			println(e.getMessage())
 			e.printStackTrace()
 		
-		}
+			}
 			
 			
 			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
