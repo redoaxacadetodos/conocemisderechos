@@ -7,7 +7,7 @@
 		<g:message code="catOrigenDatos.dependencia.label" default="Dependencia" />
 		
 	</label>
-	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" value="${catOrigenDatosInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': 'Elgie una dependencia']"/>
+	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" value="${catOrigenDatosInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': 'Elige una dependencia']"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: catOrigenDatosInstance, field: 'clave', 'error')} ">
@@ -25,4 +25,3 @@
 	</label>
 	<g:textField name="descripcion" value="${catOrigenDatosInstance?.descripcion}"/>
 </div>
-

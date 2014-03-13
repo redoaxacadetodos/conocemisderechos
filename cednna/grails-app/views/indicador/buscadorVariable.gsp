@@ -6,7 +6,7 @@
 
 
 <br><br>
-<g:each var="var"  in="${variable}" >
+<g:each var="var"  in="${variable?.sort{it?.clave}}" >
 
 
 <h3>Ubicación de datos para variable ${var.clave}</h3>

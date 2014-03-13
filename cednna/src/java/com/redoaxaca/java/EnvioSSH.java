@@ -66,7 +66,7 @@ public class EnvioSSH {
 	    	  try {  
 	    	   fichero = new FileWriter(carpetaLocal + nombreLocalArchivo);  
 	    	   pw = new PrintWriter(fichero);  
-	    	   pw.println("Fichero con extensi—n TXT, para ser cargado por SFTP");  
+	    	   pw.println("Fichero con extension TXT, para ser cargado por SFTP");  
 	    	  
 	    	  } catch (Exception e) {  
 	    	   e.printStackTrace();  

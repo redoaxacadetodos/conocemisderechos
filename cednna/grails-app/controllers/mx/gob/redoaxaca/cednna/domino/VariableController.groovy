@@ -1,26 +1,29 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import java.io.File;
-import java.util.ArrayList;
+//import org.apache.http.entity.mime.MultipartEntity
+//import org.apache.http.entity.mime.HttpMultipartMode
+//import org.apache.http.entity.mime.content.InputStreamBody
+//import org.apache.http.entity.mime.content.StringBody
+//import groovyx.net.http.*
+//import org.springframework.web.multipart.commons.CommonsMultipartFile
+//import org.springframework.mock.web.MockHttpServletRequest
+//import org.springframework.mock.web.MockMultipartHttpServletRequest
+//import org.springframework.mock.web.MockMultipartFile
+//import org.apache.commons.fileupload.disk.DiskFileItem
+//import org.apache.commons.fileupload.disk.DiskFileItemFactory
 
-import com.redoaxaca.java.ArchivoDescarga;
-import com.redoaxaca.java.LeeArchivo
-import com.redoaxaca.java.LeerExcell
-import com.redoaxaca.java.ResultCategorias;
-import com.redoaxaca.java.Row
-import com.redoaxaca.java.TotalVariable
 import grails.converters.JSON
-import org.springframework.dao.DataIntegrityViolationException
-import mx.gob.redoaxaca.cednna.seguridad.Usuario;
-
-import org.springframework.dao.DataIntegrityViolationException
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.web.multipart.MultipartHttpServletRequest
-import org.springframework.web.multipart.commons.CommonsMultipartFile
-
-
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
+
+import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+
+import com.redoaxaca.java.ArchivoDescarga
+import com.redoaxaca.java.LeerExcell
+import com.redoaxaca.java.ResultCategorias
+import com.redoaxaca.java.Row
+import com.redoaxaca.java.TotalVariable
 
 
 @Secured(['ROLE_DEP','ROLE_LECTURA'])
@@ -935,9 +938,6 @@ class VariableController {
 			}
 			
 			Estado estOaxaca=Estado.get(20)
-	
-		
-
 			
 			def fBase = request.getFile('fileBase')
 			if(!fBase.empty) {
@@ -949,29 +949,41 @@ class VariableController {
 			 
 			contadorBuenos=arc.total
 			 
-			 
-			secuencia= "copy  CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" with delimiter ','  csv header   NULL  'null' ; " 
-			sql.executeQuery(secuencia)
+			secuencia= "copy CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" csv header   NULL  'null' ; "
+			sql.executeUpdate(secuencia)
 			
-			secuencia= "copy  CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+" with delimiter ','  csv header ; "
-			
-			sql.executeQuery(secuencia)
+			secuencia= "copy CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+"  csv header ; "
+			sql.executeUpdate(secuencia)
 			
 			}catch (Exception e) {
-			println(e.getMessage())
-			e.printStackTrace()
-		
+				println(e.getMessage())
+				e.printStackTrace()
 			}
-			
 			
 			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
 			
-	
-			
 		}
 	
-	
-	
+//	void sendMultiPartFile(CommonsMultipartFile multipartImageFile, String cityName) {
+//		
+//			 def http = new HTTPBuilder("http://0.0.0.0:3000/upload")
+//		
+//			 http.request(Method.POST) { req ->
+//		
+//				 requestContentType: "multipart/form-data"
+//				 MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
+//				 // Adding Multi-part file parameter "imageFile"
+//				 multiPartContent.addPart("archivo", new InputStreamBody(multipartImageFile.inputStream, multipartImageFile.contentType, multipartImageFile.originalFilename))
+//				 // Adding another string parameter "city"
+//				 //multiPartContent.addPart("city", new StringBody(cityName))
+//				 req.setEntity(multiPartContent)
+//				 response.success = { resp ->
+//						if (resp.statusLine.statusCode == 200) {
+//								  // response handling
+//								   }
+//							}
+//				  }
+//			}
 	
 	def categorias(){
 		
