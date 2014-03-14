@@ -30,7 +30,8 @@ class CatOrigenDatos {
 		 }
 	
     static constraints = {
-		
+		clave unique : true
+		descripcion unique : true
 		dependencia(nullable:true)
 		
     }

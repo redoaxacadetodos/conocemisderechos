@@ -1,21 +1,13 @@
 package mx.gob.redoaxaca.cednna.domino
 
-//import org.apache.http.entity.mime.MultipartEntity
-//import org.apache.http.entity.mime.HttpMultipartMode
-//import org.apache.http.entity.mime.content.InputStreamBody
-//import org.apache.http.entity.mime.content.StringBody
-//import groovyx.net.http.*
-//import org.springframework.web.multipart.commons.CommonsMultipartFile
-//import org.springframework.mock.web.MockHttpServletRequest
-//import org.springframework.mock.web.MockMultipartHttpServletRequest
-//import org.springframework.mock.web.MockMultipartFile
-//import org.apache.commons.fileupload.disk.DiskFileItem
-//import org.apache.commons.fileupload.disk.DiskFileItemFactory
-
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
+import groovyx.net.http.*
 
+import org.apache.http.entity.mime.HttpMultipartMode
+import org.apache.http.entity.mime.MultipartEntity
+import org.apache.http.entity.mime.content.InputStreamBody
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
@@ -189,78 +181,74 @@ class VariableController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'variable.label', default: 'Variable'), variableInstance.id])
         redirect(action: "show", id: variableInstance.id)
     }
-
+	
+	def tieneDatosOrigen(){
+		String respuesta = ""
+		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
+		if(cod!=null){
+			if(Variable.findAllByClave(cod.clave).size()!=0){
+				respuesta = """
+					<script>
+					if(confirm('La variable ya contiene datos de origen ÀDesea continuar?')){
+						submit();
+					}
+					</script>
+							"""
+			}else{
+				respuesta ="<script>submit();</script>"
+			}
+		}
+		
+		render(text: respuesta, contentType: "text/html", encoding: "UTF-8")
+		
+	}
 	
 	def generaXLS() {
-		
 		
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
 		
 		if(cod){
+			def clave =cod.clave
+			def descripcion=cod.descripcion
+			int anio= params.anio.toInteger()
+			int opcion= params.opcionSerie.toInteger()
+			def numCategorias= params.numCategorias.toInteger()
+			System.out.println("El numero de categoria es : "+numCategorias);
 		
+			ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
+			ArrayList<String> cats= new   ArrayList<String>();
+			ArrayList<Row> renglones = new ArrayList<Row>();
+			
+			ArrayList<ArrayList<Long>> arryCat = new ArrayList<ArrayList<Long>>();
 		
-		def clave =cod.clave
-		def descripcion=cod.descripcion
-		
-		
-		
-		
-		
-		int anio= params.anio.toInteger()
-		int opcion= params.opcionSerie.toInteger()
-		def numCategorias= params.numCategorias.toInteger()
-		System.out.println("El numero de categoria es : "+numCategorias);
-		
-		ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
-		ArrayList<String> cats= new   ArrayList<String>();
-		ArrayList<Row> renglones = new ArrayList<Row>();
-		
-		ArrayList<ArrayList<Long>> arryCat = new ArrayList<ArrayList<Long>>();
-		
-		
-		
-		def  ArrayList<Long> tipos =   new ArrayList<Long>()
+			def  ArrayList<Long> tipos =   new ArrayList<Long>()
 		
 			for(i in 1 .. numCategorias){
-				
 				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
 					if(temCategoria){
-						
 						if(!tipos.contains(temCategoria.tipo.id)){
 							tipos.add(temCategoria.tipo.id);
-							
-							}
-						
+						}
 					}
 			}
-				tipos.each {
-					
+			
+			tipos.each {
 					ResultCategorias rc= new ResultCategorias()
 					rc.tipo=Tipo.get(it)
-					
 					cts.add( rc)
-				}
-
+			}
 
 			for(i in 1 .. numCategorias){
-					
-					def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-					if(temCategoria){
-			
-						if(cts.size()>0){
-							
+				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+				if(temCategoria){
+					if(cts.size()>0){
 							cts.each{
-								
 									if(temCategoria.tipo.id ==it.tipo.id){
 										it.categorias.add(temCategoria);
 										//System.out.println("valor :"+ temCategoria.id);
 									}
-								
 							}
-							
-							
 						}
-						
 					}
 			}
 
@@ -268,10 +256,9 @@ class VariableController {
 			int tamX =1;
 			
 			cts.each{
-			
 					tamX= tamX *it.categorias.size()
-				
 			}
+			
 			long[][] mat=new long[tamX][tamY];
 			int ban=0
 			int y=0
@@ -315,166 +302,147 @@ class VariableController {
 							
 					y++;
 			}
-			
-		
 
-		switch (opcion) {
-			
-			case 1:
-									
-					
-						
-						
-						
+
+
+			switch (opcion) {
+
+				case 1:
+
+
+
+
+
+					for(int x=0; x<tamX;x++){
+
+						Row renglon = new Row()
+						renglon.clave=clave
+						renglon.descripcion=descripcion
+						renglon.anio=anio;
+						renglon.categorias = new ArrayList<Long>();
+						for(int v=0; v<tamY;v++){
+
+							renglon.categorias.add(Categoria.get(mat[x][v]));
+						}
+
+						renglones.add(renglon)
+					}
+
+
+
+
+
+
+
+					break;
+
+
+
+				case 2:
+
+
+
+
+				//System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
+
+
+					def regiones=  Region.list( sort: "clave", order: "asc")
+
+					regiones.each {
+
+
+
 						for(int x=0; x<tamX;x++){
-							
+
 							Row renglon = new Row()
 							renglon.clave=clave
 							renglon.descripcion=descripcion
+							renglon.idRegion=it.id
+							renglon.region=it.descripcion
 							renglon.anio=anio;
 							renglon.categorias = new ArrayList<Long>();
 							for(int v=0; v<tamY;v++){
-								
-								 renglon.categorias.add(Categoria.get(mat[x][v]));
-							
+
+								renglon.categorias.add(Categoria.get(mat[x][v]));
+
 							}
-							
+
 							renglones.add(renglon)
 						}
-						
-					
-						
-										
-				
-						
-						
-			break;
-			
-			
-			
-			case 2:
-			
-			
-			
-			
-							//System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
-			
-							
-							def regiones=  Region.list( sort: "clave", order: "asc")
-			
-							regiones.each {
-								
-			
-								
-								for(int x=0; x<tamX;x++){
-									
-									Row renglon = new Row()
-									renglon.clave=clave
-									renglon.descripcion=descripcion
-									renglon.idRegion=it.id
-									renglon.region=it.descripcion
-									renglon.anio=anio;
-									renglon.categorias = new ArrayList<Long>();
-									for(int v=0; v<tamY;v++){
-										
-										 renglon.categorias.add(Categoria.get(mat[x][v]));
-									
-									}
-									
-									renglones.add(renglon)
-								}
-							
-								
-							}
-							
-							
-			break;
-			
-			
-			
-			case 3:
-							
 
-			
-						
-							def municipios=  Municipio.list(sort: "id", order: "asc")
-			
-							municipios.each {
-								
-								for(int x=0; x<tamX;x++){
-									
-									Row renglon = new Row()
-									renglon.clave=clave
-									renglon.descripcion=descripcion
-									renglon.idRegion=it.region.id
-									renglon.region=it.region.descripcion
-									
-									renglon.idMunicipio=it.id
-									renglon.municipio=it.descripcion
-									
-									renglon.anio=anio;
-									renglon.categorias = new ArrayList<Long>();
-									for(int v=0; v<tamY;v++){
-										
-										 renglon.categorias.add(Categoria.get(mat[x][v]));
-									
-									}
-									
-									renglones.add(renglon)
-								}
-							
-								
-								
-			
-								
-							}
-			
-			break;
 
-			case 4:
-			
-							def localidades=  Localidad.list()
-			
-							localidades.each {
-			
-									Row renglon = new Row()
-									renglon.clave=clave
-									renglon.descripcion=descripcion
-									renglon.anio=anio;
-									renglon.categorias = new ArrayList<Integer>();
-							
-									
-									renglon.idRegion=it.municipio.region.id
-									renglon.region=it.municipio.region.descripcion
-									renglon.idMunicipio=it.municipio.id
-									renglon.municipio=it.municipio.descripcion
-									
-									renglon.idLocalidad=it.id
-									renglon.localidad=it.descripcion
-						
-									for(i in 1 .. numCategorias){
-										
-											def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-											if(temCategoria){
-												cats.add(temCategoria.descripcion)
-												
-												renglon.categorias.add(new Long(temCategoria.id))
-											}
-											
-											
-									}
-									
-									renglones.add(renglon)
+					}
+
+
+					break;
+
+				case 3:
+					def municipios=  Municipio.list(sort: "id", order: "asc")
+
+					municipios.each {
+
+						for(int x=0; x<tamX;x++){
+
+							Row renglon = new Row()
+							renglon.clave=clave
+							renglon.descripcion=descripcion
+							renglon.idRegion=it.region.id
+							renglon.region=it.region.descripcion
+
+							renglon.idMunicipio=it.id
+							renglon.municipio=it.descripcion
+
+							renglon.anio=anio;
+							renglon.categorias = new ArrayList<Long>();
+							for(int v=0; v<tamY;v++){
+
+								renglon.categorias.add(Categoria.get(mat[x][v]));
+
 							}
-			
-							break;
-		
+
+							renglones.add(renglon)
+						}
+					}
+
+					break;
+
+				case 4:
+
+					def localidades=  Localidad.list()
+
+					localidades.each {
+
+						Row renglon = new Row()
+						renglon.clave=clave
+						renglon.descripcion=descripcion
+						renglon.anio=anio;
+						renglon.categorias = new ArrayList<Integer>();
+
+
+						renglon.idRegion=it.municipio.region.id
+						renglon.region=it.municipio.region.descripcion
+						renglon.idMunicipio=it.municipio.id
+						renglon.municipio=it.municipio.descripcion
+
+						renglon.idLocalidad=it.id
+						renglon.localidad=it.descripcion
+
+						for(i in 1 .. numCategorias){
+
+							def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+							if(temCategoria){
+								cats.add(temCategoria.descripcion)
+
+								renglon.categorias.add(new Long(temCategoria.id))
+							}
+
+
+						}
+
+						renglones.add(renglon)
+					}
+					break;
 		}
-		
-		
-	
-			
-			
 		
 		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cts,opcion)
 		try {

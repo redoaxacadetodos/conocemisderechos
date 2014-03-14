@@ -482,28 +482,22 @@ class PublicoController {
 		def letra
 		def valorBase
 
-
 		for(anio in 2005..2020){
-
 			boolean  b = true
 
 			switch (opcion) {
 
 				case 1:
-
-
 				/***
 				 * PROCESO DE SALIDA POR ESTADO
 				 *
 				 * */
-
 
 				/***
 				 * Comienza la busqueda en el origen de datos en base a las variable
 				 * */
 
 					for(vari in indicadorInstance.variables){
-
 						def sql = new Sql(sessionFactory.currentSession.connection())
 
 						def query = "SELECT "+
@@ -525,7 +519,6 @@ class PublicoController {
 								" cvv_clave='"+vari.claveVar+"'    and   cvv_anio="+anio+" "
 
 						if(vari.categorias){
-
 							query=query+" and "+
 									"("
 
@@ -536,13 +529,10 @@ class PublicoController {
 						def resultTipo
 						def result = sql.rows(queryTipo.toString())
 
-
 						def tamTipo =result.size()
 						def cc=1
 						result?.each
 						{
-
-
 							def queryCat="select cct_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
 									" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+  vari.id+" ) and ctt_id ="+ it.ctt_id
 							resultTipo= sql.rows(queryCat.toString())
@@ -560,24 +550,19 @@ class PublicoController {
 								query=query+" and "
 
 							cc++
-
 						}
 
 						if(vari.categorias){
-
 							query=query+"  ) "
-
 						}
 
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
 
-
-
-						//System.out.println("LA CONSULTA ES : "+query);
+//						System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 
 						if(resultTotal.size()>0){
-							//																	System.out.println("LA CONSULTA ES : "+query);
+																								System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 

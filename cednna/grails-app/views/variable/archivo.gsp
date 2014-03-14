@@ -6,7 +6,9 @@
 
 
 <script type="text/javascript" defer="defer" >
-
+	function submit(){
+		$("#formDescargar").submit();
+	}
 
 
 
@@ -144,7 +146,7 @@ function asignaEventorTipo(num){
 </head>
 <body>
 
-<g:form action="generaXLS" controller="variable" method="post" >
+<g:form action="generaXLS" controller="variable" method="post" name="formDescargar" >
 
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
@@ -210,35 +212,32 @@ function asignaEventorTipo(num){
 
 
 
-	<div id="divCate">
-	
-	
-	</div>
+		<div id="divCate"></div>
+
+		<br>
+		<g:hiddenField name="valida" value="1" />
+		<g:hiddenField name="numCategorias" value="0" />
+		<input id="addCat" name="addCat" value="Agregar Categor&iacute;a"
+			type="button" class="uk-button" />
 
 
-
-	<br>
-	<g:hiddenField name="valida" value="1"/>
-	<g:hiddenField name="numCategorias" value="0"/>
-	<input id="addCat" name="addCat"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
+		<hr class="uk-article-divider" class="uk-button">
 
 
-<hr class="uk-article-divider" class="uk-button">
-	
-	
-	<g:submitButton name="create" class="uk-button uk-icon-download" value="Descarga el formato para carga de datos" />
+		<g:submitToRemote class="uk-button uk-icon-download" 
+			value="Descarga el formato para carga de datos" url="[action: 'tieneDatosOrigen']" 
+			update="respuesta" />
 
-	
-	
+		
 
-	
-<hr class="uk-article-divider">
+
+		<hr class="uk-article-divider">
 
 
 
 
 </g:form>
-
+	<div id="respuesta"></div>
 	<g:form action="subirArchivo" controller="variable" method="post" enctype="multipart/form-data">
 	<fieldset class="uk-form uk-form-horizontal">
 		<div class="fieldcontain">

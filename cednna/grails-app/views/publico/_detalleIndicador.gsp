@@ -200,8 +200,7 @@
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  	<br><br>
-	  	<!-- <p><b>Fórmula de cálculo:</b> <span lang="latex">$${indicadorInstance?.formula?.sentencia}$</span><br><br></p> -->
-	  		 <p><b>Fórmula de cálculo:</b> <span>${formula}</span><br><br></p>  	
+	  	<p><b>Fórmula de cálculo:</b> <span>${formula}</span><br><br></p>  	
 	  	<div id="datosCalculo">
 	  		<g:render template="datosCalculo"></g:render>  
 	  	</div>	
