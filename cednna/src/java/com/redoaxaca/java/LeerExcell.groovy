@@ -136,11 +136,11 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(estado?.id?.toString());
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());
+						writer.append('"'+hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString()+'"');
 						writer.append(',');
 						writer.append(localidad?.toString());
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(3).getNumericCellValue().intValue().toString());
+						writer.append('"'+hssfSheet.getRow(i).getCell(3).getNumericCellValue().intValue().toString()+'"');
 						writer.append(',');
 						writer.append(municipio?.toString());
 						writer.append(',');

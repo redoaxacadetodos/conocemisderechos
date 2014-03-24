@@ -48,6 +48,9 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+		//Envio de archivos sftp
+		compile 'com.jcraft:jsch:0.1.49'
+		
 		compile 'commons-codec:commons-codec:1.6'
          compile 'org.apache.httpcomponents:httpcore:4.1.2' 
         compile 'org.apache.httpcomponents:httpclient:4.1.2' 

@@ -6,6 +6,8 @@ class Sentido {
 	int    clave
 
     static constraints = {
+		clave unique : true
+		descripcion unique : true
     }
 
     static mapping = {

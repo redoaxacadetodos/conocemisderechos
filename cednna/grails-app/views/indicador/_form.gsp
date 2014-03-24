@@ -42,7 +42,7 @@
 		<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
+	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
 </div>
 </g:else>
 
@@ -259,18 +259,13 @@
 		<g:textField name="mailResponsable"  maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"  style="width:500px;"/>
 </div>
 
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">
-	<label class="uk-form-label"for="fechaActualizacion">
-		<g:message code="indicador.fechaActualizacion.label" default="Fecha de actualizaci&oacute;n"  />
-		<span class="required-indicator">*</span>
-	</label>
-	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}" style="width:500px;"  />
-	
-	
-
-	
-</div>
-
+<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">--%>
+<%--	<label class="uk-form-label"for="fechaActualizacion">--%>
+<%--		<g:message code="indicador.fechaActualizacion.label" default="Fecha de actualizaci&oacute;n"  />--%>
+<%--		<span class="required-indicator">*</span>--%>
+<%--	</label>--%>
+<%--	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}" style="width:500px;"  />--%>
+<%--</div>--%>
 
 
 <br>

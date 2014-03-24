@@ -1334,12 +1334,7 @@ class IndicadorController {
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
 		
-		if(params.fechaActua){
-			Date finicial = Date.parse("dd/MM/yyyy", params.fechaActua)
-			
-			indicadorInstance.fechaActualizacion=finicial
-		
-		}
+		indicadorInstance.fechaActualizacion= new Date()
 		def resultado
 		
 		for(v in variables){
@@ -1433,14 +1428,7 @@ class IndicadorController {
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
 		
-		
-		if(params.fechaActua){
-			Date finicial = Date.parse("dd/MM/yyyy", params.fechaActua)
-			
-			indicadorInstance.fechaActualizacion=finicial
-		
-		}
-		
+		indicadorInstance.fechaActualizacion= new Date()
 
 
 		indicadorInstance.variables.each{

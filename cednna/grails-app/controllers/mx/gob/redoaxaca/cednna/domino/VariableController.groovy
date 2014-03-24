@@ -5,12 +5,12 @@ import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 import groovyx.net.http.*
 
-import org.apache.http.entity.mime.HttpMultipartMode
-import org.apache.http.entity.mime.MultipartEntity
-import org.apache.http.entity.mime.content.InputStreamBody
 import org.springframework.dao.DataIntegrityViolationException
-import org.springframework.web.multipart.commons.CommonsMultipartFile
 
+import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelSftp
+import com.jcraft.jsch.JSch
+import com.jcraft.jsch.Session
 import com.redoaxaca.java.ArchivoDescarga
 import com.redoaxaca.java.LeerExcell
 import com.redoaxaca.java.ResultCategorias
@@ -901,7 +901,6 @@ class VariableController {
 			def secuencia= "select max(cvv_id) as ultimo from cat_variable"
 			def resulSec = sql.rows(secuencia)
 			resulSec?.each{
-				
 				sec=it.ultimo
 			}
 			
@@ -909,18 +908,29 @@ class VariableController {
 			
 			def fBase = request.getFile('fileBase')
 			if(!fBase.empty) {
-			fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
+				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
 			}
 	
 			archivo_ = new File(path + fBase.originalFilename.toString())
 			def arc = new LeerExcell(archivo_, sec,estOaxaca, dependencia,path)
 			 
 			contadorBuenos=arc.total
+			
+			secuencia = "PQgetCopyData(PGconn *conn,char **buffer,int async);"
+			
+			Valor servidor = Valor.findByKey("servidor")
+			Valor usuarioSSH = Valor.findByKey("usuario")
+			Valor pem = Valor.findByKey("pem")
+			
+			enviarArchivo(servidor.valor, usuarioSSH.valor, pem.valor, path+"csvCV_"+sec+".csv" )
 			 
-			secuencia= "copy CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" csv header   NULL  'null' ; "
+			secuencia= " copy CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" csv header   NULL  'null' ; "
+			println 'secuencia:'+ secuencia
 			sql.executeUpdate(secuencia)
 			
-			secuencia= "copy CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+"  csv header ; "
+			enviarArchivo(servidor.valor, usuarioSSH.valor, pem.valor, path+"csvCT_"+sec+".csv" )
+			secuencia= " copy CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+"  csv header ; "
+			println 'secuencia:'+ secuencia
 			sql.executeUpdate(secuencia)
 			
 			}catch (Exception e) {
@@ -932,26 +942,26 @@ class VariableController {
 			
 		}
 	
-//	void sendMultiPartFile(CommonsMultipartFile multipartImageFile, String cityName) {
-//		
-//			 def http = new HTTPBuilder("http://0.0.0.0:3000/upload")
-//		
-//			 http.request(Method.POST) { req ->
-//		
-//				 requestContentType: "multipart/form-data"
-//				 MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
-//				 // Adding Multi-part file parameter "imageFile"
-//				 multiPartContent.addPart("archivo", new InputStreamBody(multipartImageFile.inputStream, multipartImageFile.contentType, multipartImageFile.originalFilename))
-//				 // Adding another string parameter "city"
-//				 //multiPartContent.addPart("city", new StringBody(cityName))
-//				 req.setEntity(multiPartContent)
-//				 response.success = { resp ->
-//						if (resp.statusLine.statusCode == 200) {
-//								  // response handling
-//								   }
-//							}
-//				  }
-//			}
+	def enviarArchivo(String url, String usuario, String rutaPEM, String path){
+		java.util.Properties config = new java.util.Properties()
+			
+		config.put "StrictHostKeyChecking", "no"
+		JSch ssh = new JSch()
+		ssh.addIdentity(rutaPEM);
+		Session sess = ssh.getSession usuario, url, 22
+		sess.with {
+			setConfig config
+			connect()
+			Channel chan = openChannel "sftp"
+			chan.connect()
+			 
+			ChannelSftp sftp = (ChannelSftp) chan;
+			def sessionsFile = new File(path)
+			sessionsFile.withInputStream { istream -> sftp.put(istream, path) }
+			chan.disconnect()
+			disconnect()
+		}
+	} 
 	
 	def categorias(){
 		

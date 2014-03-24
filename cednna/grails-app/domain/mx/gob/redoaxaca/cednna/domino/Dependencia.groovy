@@ -7,6 +7,8 @@ class Dependencia {
 
 	
     static constraints = {
+		clave unique : true
+		descripcion unique : true
     }
 
     static mapping = {
