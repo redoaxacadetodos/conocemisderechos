@@ -170,26 +170,26 @@ class LeerExcell {
 
 						writer.append(actual.toString());//ID
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());//ANIO
+						writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//ANIO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue());//CLAVE
+						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//CLAVE
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(3).getStringCellValue());//DESCRIPCION
+						writer.append(hssfSheet.getRow(i).getCell(3).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//DESCRIPCION
 						writer.append(',');
 						writer.append(estado?.id?.toString());//ESTADO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//HOMBRES
+						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//HOMBRES
 						writer.append(',');
 						writer.append(localidad?.toString());//LOCALIDAD
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(5).getNumericCellValue().intValue().toString());//MUJERES
+						writer.append(hssfSheet.getRow(i).getCell(5).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//MUJERES
 						writer.append(',');
 						writer.append(municipio?.toString());//MUNICIPIO
 						writer.append(',');
-						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue()).intValue());
+						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue()).intValue().replaceAll("[^\\x00-\\x7F]",""));
 						writer.append(suma.toString());
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString());//REGION
+						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//REGION
 						writer.append(',');
 						writer.append(dep?.toString());//DEPENDENCIA
 						writer.append('\n');
@@ -210,26 +210,28 @@ class LeerExcell {
 
 						writer.append(actual.toString());//ID
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//ANIO
+						writer.append(hssfSheet.getRow(i).getCell(6).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//ANIO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue());//CLAVE
+						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//CLAVE
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(5).getStringCellValue());//DESCRIPCION
 						writer.append(',');
 						writer.append(estado.id.toString());//ESTADO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(8).getNumericCellValue().intValue().toString());//HOMBRES
+//						writer.append(hssfSheet.getRow(i).getCell(8).getNumericCellValue().intValue().toString());//HOMBRES
+						writer.append(hssfSheet.getRow(i).getCell(8).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//HOMBRES
 						writer.append(',');
 						writer.append(localidad.toString());//LOCALIDAD
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(7).getNumericCellValue().intValue().toString());//MUJERES
+						writer.append(hssfSheet.getRow(i).getCell(7).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//MUJERES
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(2).getNumericCellValue().intValue().toString());//MUNICIPIO
+						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//MUNICIPIO
 						writer.append(',');
-						def suma=(new Double(hssfSheet.getRow(i).getCell(8).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(7).getNumericCellValue()).intValue());
+						
+						def suma=(hssfSheet.getRow(i).getCell(8).getStringCellValue().replaceAll("[^\\x00-\\x7F]","").toInteger()+hssfSheet.getRow(i).getCell(7).getStringCellValue().replaceAll("[^\\x00-\\x7F]","").toInteger());
 						writer.append(suma.toString());
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString());//REGION
+						writer.append(hssfSheet.getRow(i).getCell(0).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//REGION
 						writer.append(',');
 						writer.append(dep.toString());//DEPENDENCIA
 						writer.append('\n');
@@ -237,7 +239,7 @@ class LeerExcell {
 						for(int x=1;x<=(numCategorias*2); x++){
 							writerCT.append(actual.toString());
 							writerCT.append(',');
-							writerCT.append(new Double(hssfSheet.getRow(i).getCell(x+8).getNumericCellValue()).longValue().toString());
+							writerCT.append(hssfSheet.getRow(i).getCell(x+8).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));
 							writerCT.append('\n');
 							x++;
 						}
