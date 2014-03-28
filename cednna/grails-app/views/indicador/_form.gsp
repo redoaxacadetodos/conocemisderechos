@@ -87,14 +87,6 @@
 	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
 </div>
 
-	<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
-			<label class="uk-form-label" for="nombre">
-				<g:message code="indicador.nombre.label" default="No. decimales" />
-			
-			</label>
-			<g:textField name="decimales"  value="${indicadorInstance?.decimales}" />
-		</div>
-
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
 	<label class="uk-form-label"for="frecuencia">
 		<g:message code="indicador.frecuencia.label" default="Periodo " />
@@ -139,7 +131,7 @@
 		<g:message code="indicador.frecuencia.label" default="Eje" />
 
 	</label>
-	<g:select id="pnDesarrollo" name="pnDesarrollo.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.pnDesarrollo?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a plan-']"/>
+	<g:select id="pnDesarrollo" name="pnDesarrollo.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.pnDesarrollo?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
 </div>
 <br>
 <div id="divPND">
@@ -149,7 +141,7 @@
 			<g:message code="indicador.nombre.label" default="Tema" />
 		
 		</label>
-		<g:select id="tema" name="tema.id" from="${mx.gob.redoaxaca.cednna.domino.Tema.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.tema?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a al tema-']"/>
+		<g:select id="tema" name="tema.id" from="${mx.gob.redoaxaca.cednna.domino.Tema.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.tema?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
 
 		</div>
 		
@@ -158,7 +150,7 @@
 				<g:message code="indicador.nombre.label" default="Objetivo PED"/>
 		
 			</label>
-			<g:textField name="objetivoPND"  value="${indicadorInstance?.objetivoPND}" style="width:600px;"/>
+			<textarea  name="objetivoPND" rows="5" cols="40">${indicadorInstance?.objetivoPND}</textarea>
 		</div>
 		
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
@@ -171,7 +163,7 @@
 		
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
 			<label class="uk-form-label" for="nombre">
-				<g:message code="indicador.nombre.label" default="Nombre del Programa" />
+				<g:message code="indicador.nombre.label" default="Nombre del programa" />
 			
 			</label>
 			<g:textField name="nombrePrograma"  value="${indicadorInstance?.nombrePrograma}" style="width:600px;"/>
@@ -192,7 +184,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
 	<label class="uk-form-label"for="mediosVerificacion">
-		<g:message code="indicador.mediosVerificacion.label" default="Medios de Verificaci&oacute;n" />
+		<g:message code="indicador.mediosVerificacion.label" default="Medios de verificaci&oacute;n" />
 		
 	</label>
 	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>
@@ -284,6 +276,13 @@
 	<g:select id="formula" name="formula.id" from="${mx.gob.redoaxaca.cednna.domino.Formula.list()}" optionKey="id" required="" optionValue="nombre" value="${indicadorInstance?.formula?.id}" class="many-to-one"/>
 
 </div>
+
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
+			<label class="uk-form-label" for="nombre">
+				<g:message code="indicador.nombre.label" default="No. decimales" />
+			</label>
+			<g:select name="decimales" from="${decimalesList }" value="${indicadorInstance?.decimales!=null ? indicadorInstance?.decimales: '2'}"/>
+		</div>
 
 <br>
 <br>

@@ -9,12 +9,10 @@
 	</head>
 	<body>
 		<div id="division">		
-			<h3>Manual - Público general</h3>
+			<h3>Manual - Manual del Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca</h3>
+			<h4>Objetivo:</h4>
 			<p>
-				El sistema de indicadores y monitoreo del estado que guardan los derechos de niñas, niños y adolescentes del estado de Oaxaca, tiene como objetivo contar con una herramienta para generar, mostrar y actualizar indicadores de los derechos de niñas, niños y adolescentes en Oaxaca, teniendo en tiempo real y en un solo sitio, la información que en estos momentos se encuentra dispersa o con la que no se cuenta.				
-			</p>
-			<p>
-				La herramienta cuenta con categorías principales, las cuales agrupan a los diversos indicadores que muestran la información relevante.
+				Contar con una herramienta útil que concentre información sobre la situación de los derechos de niñas, niños y adolescentes en Oaxaca, que permita evaluar el grado de cumplimiento de cada derecho y ofrezca a los integrantes del CEDNNA y a la Sociedad en general, un instrumento estratégico que posibilite la evaluación oportuna de la eficiencia y eficacia de las políticas públicas dirigidas a este sector de la población o los rezagos y vacíos a subsanar.
 			</p>
 		</div>
 	</body>

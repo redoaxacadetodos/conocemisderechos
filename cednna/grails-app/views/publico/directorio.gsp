@@ -17,7 +17,7 @@
 		<a href="#list-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 				  <div class="body">
 				  
-				  <g:datatablehelper ctrlid="direcotrioid"  cols="['ID','Nombre','Cargo','Dependencia','Correo','Tel&eacute;fono Oficina','P&aacute;gina WEB']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="direcotrioid"  cols="['ID','Nombre','Cargo','Dependencia','Correo','Tel&eacute;fono de Oficina','P&aacute;gina WEB']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 </body>
 

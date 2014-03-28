@@ -57,14 +57,14 @@ $(function(){
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 
-			<li><g:link class="list" action="list">Origen de datos</g:link></li>
+			<li><g:link class="list" action="list">Datos estadísticos</g:link></li>
 			
-			<li class="uk-active"><g:link class="create" action="create">Nuevo  origen de datos</g:link></li>
+			<li class="uk-active"><g:link class="create" action="create">Agregar datos</g:link></li>
 			
 	
 </nav>
 
-	<h1  class="uk-article-title">Limpieza de origen de datos</h1>
+	<h1  class="uk-article-title">Eliminar datos estadísticos</h1>
 	
 	
 	<h3  class="uk-article-content">Datos para ubicar variable</h3>

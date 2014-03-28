@@ -169,6 +169,9 @@ class PublicoController {
 		def index = 0
 		resultadosIndicador.each { resultado ->
 			def ubicacionNombre = nombre.get(index)
+			if(tipo==1)
+				ubicacionNombre = [descripcion:'Oaxaca']
+			
 			def datos = []
 			def anios = []
 			resultado.resultados.each { r ->
@@ -338,7 +341,7 @@ class PublicoController {
 						
 			resultadosIndicador.each { resultado ->		
 				def idEstado = 20
-				def sqlNombre = "select ent_descripcion descripcion from cat_entidad where ent_id = "+idEstado
+				
 				def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
 				def db = new Sql(dataSource)
 				def result  = db.rows(sql)						
@@ -349,7 +352,7 @@ class PublicoController {
 				coordenadasList.add(coordenadas)				
 				
 				def db2 = new Sql(dataSource)
-				def nombre  = db2.rows(sqlNombre)
+				
 				def datosIndicador = []
 				def anios = []
 				resultado.resultados.each { r ->
@@ -361,10 +364,9 @@ class PublicoController {
 					System.out.println("dato:"+r?.indicador)
 				}
 				
-				nombre.each {
-					nombreCoordenadas.add("'"+it.descripcion+"'")					
-					ubicaciones.add(["descripcion": it.descripcion, "anios":anios, "datos": datosIndicador])
-				}
+				nombreCoordenadas.add("'"+"Oaxaca"+"'")					
+				ubicaciones.add(["descripcion": "Oaxaca", "anios":anios, "datos": datosIndicador])
+			
 			}			
 			aux.put("lugar",["ubicaciones":ubicaciones])			
 			def jsondata = aux as JSON

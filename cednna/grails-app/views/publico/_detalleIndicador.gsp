@@ -64,7 +64,7 @@
 			</div>	  				  
 <%--			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>--%>
 			
-			<label for="opcionesGrafica">Área geográfica:</label>
+			<label for="opcionesGrafica">Nivel de gráfica:</label>
 			<select id="opcionesGrafica" name="opcionesGrafica" 
 	  			onchange="${remoteFunction(
 					  controller:'publico',
@@ -144,15 +144,15 @@
 	  	<tbody>
 	  		<tr class="odd"><td class="marked">Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
 	  		<tr class="even"><td class="marked">Objetivo del indicador:</td><td>${indicadorInstance?.objetivo }</td></tr>
-	  		<tr class="odd"><td class="marked">Dependencia Responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
-	  		<tr class="even"><td class="marked">Unidad Administrativa Ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
+	  		<tr class="odd"><td class="marked">Dependencia responsable:</td><td>${indicadorInstance?.dependencia?.descripcion }</td></tr>
+	  		<tr class="even"><td class="marked">Unidad administrativa ejecutora:</td><td>${indicadorInstance?.ejecutora?.descripcion }</td></tr>
 	  		<tr class="odd"><td class="marked">Sentido esperado:</td><td>${indicadorInstance?.sentido?.descripcion }</td></tr>
 	  		<tr class="even"><td class="marked">Frecuencia de medición:</td><td>${indicadorInstance?.frecuencia?.descripcion }</td></tr>	  			  	
 	  		
 	  		<tr class="odd"><td class="marked">Fórmula de cálculo:</td>
 	  		<td>
 	  		<p lang="latex">$${indicadorInstance?.formula?.sentencia}$</p>
-	  		<g:each var="variable" in="${ indicadorInstance?.variables}">
+	  		<g:each var="variable" in="${ indicadorInstance?.variables?.sort{it.clave}}">
 	  			<p>${variable?.clave} = ${CatOrigenDatos.findByClave(variable?.claveVar)?.descripcion} </p>
 	  		</g:each>	  			  			  		
 	  		</td></tr>

@@ -43,8 +43,10 @@ class IndicadorController {
 		def user =springSecurityService.currentUser
 		
 		def dep = user.dependencia
+		
+		def decimalesList = [0,1,2,3,4]
 	
-        [indicadorInstance: new Indicador(params),dep:dep]
+        [indicadorInstance: new Indicador(params),dep:dep,decimalesList:decimalesList]
     }
 
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
@@ -1329,7 +1331,6 @@ class IndicadorController {
 	
     def save() {
         def indicadorInstance = new Indicador(params)
-        
 		
 		def sentencia= indicadorInstance?.formula?.variables
 		def variables= sentencia.split("\\|")
@@ -1340,8 +1341,6 @@ class IndicadorController {
 		for(v in variables){
 
 				def numCategorias= params.getAt("numCategorias_"+v)
-				
-				
 				
 				def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
 			
@@ -1400,9 +1399,9 @@ class IndicadorController {
 		def user =springSecurityService.currentUser
 		
 		def dep = user.dependencia
+		def decimalesList = [0,1,2,3,4]
 		
-		
-        [indicadorInstance: indicadorInstance,dep:dep]
+        [indicadorInstance: indicadorInstance,dep:dep,decimalesList:decimalesList]
     }
 
     def update(Long id, Long version) {
@@ -1491,13 +1490,10 @@ class IndicadorController {
 	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
 	def buscadorVariable(){
-		
-		
 		def formula = Formula.get(params.id);
 		def var
 		def resultado 
-		if(formula)
-		{
+		if(formula){
 			
 			var= formula.variables.split("\\|")
 

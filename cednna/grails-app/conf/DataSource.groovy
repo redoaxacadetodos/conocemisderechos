@@ -12,7 +12,8 @@ environments {
 			driverClassName = "org.postgresql.Driver"
 			username = "postgres"
 			password = "t3mp0r4l"
-			url = "jdbc:postgresql://172.31.0.101:5432/cednna_t"
+			//url = "jdbc:postgresql://172.31.0.101:5432/cednna_t"
+			url = "jdbc:postgresql://172.31.0.101:5432/cednna_dev_280314"
             dbCreate = "update"
         }
     }
