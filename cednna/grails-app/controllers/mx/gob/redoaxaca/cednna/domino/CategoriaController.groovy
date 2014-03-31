@@ -21,29 +21,29 @@ class CategoriaController {
     def create() {
         def tipoInstance = Tipo.findById(params.idtipo)
         
-        [categoriaInstance: new Categoria(params), tipoInstance: tipoInstance]
+       [categoriaInstance: new Categoria(params), tipoInstance: tipoInstance]
     }
 
     def save() {
         def categoriaInstance = new Categoria(params)
         if (!categoriaInstance.save(flush: true)) {
-            render(view: "create", model: [categoriaInstance: categoriaInstance])
+            render(view: "create", model: [categoriaInstance: categoriaInstance, idTipo:params.idTipo])
             return
         }
-
         flash.message = message(code: 'default.created.message', args: [message(code: 'categoria.label', default: 'Categoria'), categoriaInstance.id])
-        redirect(action: "show", id: categoriaInstance.id)
+        redirect(action: "show", id: categoriaInstance.id, params:params)
     }
 
     def show(Long id) {
         def categoriaInstance = Categoria.get(id)
+		def tipo = params.idTipo
         if (!categoriaInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'categoria.label', default: 'Categoria'), id])
             redirect(action: "list")
             return
         }
 
-        [categoriaInstance: categoriaInstance]
+        [categoriaInstance: categoriaInstance, idTipo: tipo]
     }
 
     def edit(Long id) {
@@ -89,6 +89,7 @@ class CategoriaController {
 
     def delete(Long id) {
         def categoriaInstance = Categoria.get(id)
+		def idTipo = params.idTipo
         if (!categoriaInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'categoria.label', default: 'Categoria'), id])
             redirect(action: "list")
@@ -98,7 +99,7 @@ class CategoriaController {
         try {
             categoriaInstance.delete(flush: true)
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'categoria.label', default: 'Categoria'), id])
-            redirect(action: "list")
+            redirect(action: "show", controller:'tipo', id:idTipo)
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'categoria.label', default: 'Categoria'), id])

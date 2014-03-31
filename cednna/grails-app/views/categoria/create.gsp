@@ -28,6 +28,7 @@
 			<g:form action="save" >
 				<fieldset class="form">
 					<g:render template="form"/>
+					<g:hiddenField name="idTipo" value="${tipoInstance?.id }"/>
 				</fieldset>
 	<fieldset class="uk-form uk-form-horizontal">
 		<div class="fieldcontain">

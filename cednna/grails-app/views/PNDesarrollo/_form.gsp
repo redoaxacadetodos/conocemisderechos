@@ -4,7 +4,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: PNDesarrolloInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
-		<g:message code="PNDesarrollo.descripcion.label" default="Descripci&oacute;n" />
+		<g:message code="PNDesarrollo.descripcion.label" default="Descripción" />
 		
 	</label>
 	<g:textField name="descripcion" value="${PNDesarrolloInstance?.descripcion}"/>

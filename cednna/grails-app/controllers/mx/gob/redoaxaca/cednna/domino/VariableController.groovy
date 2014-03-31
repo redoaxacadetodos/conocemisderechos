@@ -1004,6 +1004,7 @@ class VariableController {
 		def ban=1;
 		def usuario = springSecurityService.currentUser
         def variableInstance = Variable.get(id)
+		
         if (!variableInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'variable.label', default: 'Variable'), id])
             redirect(action: "list")
@@ -1027,7 +1028,7 @@ class VariableController {
 		}
 		//System.out.println("Valor de la bandera de variable "+ban);
 
-        [variableInstance: variableInstance,ban:ban]
+        [variableInstance: variableInstance,ban:ban, dependencia:usuario.dependencia]
     }
 
 	@Secured(['ROLE_DEP','ROLE_ADMIN'])

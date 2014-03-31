@@ -34,7 +34,7 @@
 			
 				<g:if test="${unidadMedidaInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="unidadMedida.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="unidadMedida.descripcion.label" default="Descripción" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${unidadMedidaInstance}" field="descripcion"/></span>
 					

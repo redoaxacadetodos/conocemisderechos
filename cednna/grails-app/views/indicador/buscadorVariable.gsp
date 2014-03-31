@@ -25,7 +25,7 @@
 </div>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
 	<label class="uk-form-label" for="descripcion">
-		<g:message code="indicador.estado.label" default="Descripción de la variable" />
+		<g:message code="indicador.estado.label" default="Fuente de información" />
 
 	</label>
 		
@@ -44,7 +44,8 @@
 	</label>
 
 
-	<g:select id="poblacion" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list()}" optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}"  class="many-to-one"/>
+	<g:select id="poblacion" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list().sort{-it.id}}" 
+		optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}" noSelection="['':'-Seleccione una opción-']"  class="many-to-one" required="required"/>
 	
 </div>
 <h3>Categor&iacute;as</h3>

@@ -14,7 +14,7 @@
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: divisionInstance, field: 'descripcion', 'error')} ">
 	<label class="uk-form-label">
-		<g:message code="division.descripcion.label" default="Descripcion" />
+		<g:message code="division.descripcion.label" default="Descripción" />
 		
 	</label>
 	<div class="uk-form-controls">

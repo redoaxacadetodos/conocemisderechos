@@ -25,7 +25,7 @@
 			
 				<g:if test="${PNDesarrolloInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="PNDesarrollo.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="PNDesarrollo.descripcion.label" default="Descripción" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${PNDesarrolloInstance}" field="descripcion"/></span>
 					

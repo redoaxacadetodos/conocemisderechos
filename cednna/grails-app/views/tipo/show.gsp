@@ -33,14 +33,14 @@
 			
 			</ol>
 			<g:form>
-					<g:link class="create" controller="categoria" action="create" params="[idtipo:tipoInstance.id]" ><g:message code="tipo.categoria.create" default="Nueva categor&iacute;a" /></g:link>
+					<g:link class="create" controller="categoria" action="create" params="[idtipo:tipoInstance?.id]" ><g:message code="tipo.categoria.create" default="Nueva categor&iacute;a" /></g:link>
 			</g:form>
 			Categor&iacute;as asociadas al tipo
 			<table>
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="descripcion" title="${message(code: 'tipo.descripcion.label', default: 'Descripcion')}" />
+						<g:sortableColumn property="descripcion" title="${message(code: 'tipo.descripcion.label', default: 'Descripción')}" />
 					
 					</tr>
 				</thead>
@@ -48,7 +48,7 @@
 				<g:each in="${categoriaList}" status="i" var="categoriaInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link controller="categoria" action="show" id="${categoriaInstance.id}">${fieldValue(bean: categoriaInstance, field: "descripcion")}</g:link></td>
+						<td><g:link params="[idTipo:tipoInstance?.id]" controller="categoria" action="show" id="${categoriaInstance.id}">${fieldValue(bean: categoriaInstance, field: "descripcion")}</g:link></td>
 					
 					</tr>
 				</g:each>
