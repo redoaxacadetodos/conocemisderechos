@@ -43,7 +43,7 @@
 			
 				<g:if test="${catOrigenDatosInstance?.descripcion}">
 				<li class="fieldcontain">
-					<span id="descripcion-label" class="property-label"><g:message code="catOrigenDatos.descripcion.label" default="Descripcion" /></span>
+					<span id="descripcion-label" class="property-label"><g:message code="catOrigenDatos.descripcion.label" default="Descripción" /></span>
 					
 						<span class="property-value" aria-labelledby="descripcion-label"><g:fieldValue bean="${catOrigenDatosInstance}" field="descripcion"/></span>
 					

@@ -24,7 +24,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: catOrigenDatosInstance, field: 'descripcion', 'error')} uk-form-row">
 	<label for="descripcion" class="uk-form-label">
-		<g:message code="catOrigenDatos.descripcion.label" default="Descripcion" />
+		<g:message code="catOrigenDatos.descripcion.label" default="Descripción" />
 		
 	</label>
 	<div class="uk-form-controls">

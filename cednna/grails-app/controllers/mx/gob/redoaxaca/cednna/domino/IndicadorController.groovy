@@ -7,7 +7,9 @@ import com.redoaxaca.java.RVariable;
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
 import com.redoaxaca.java.ResultadoTemporal
+
 import grails.converters.JSON
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -15,6 +17,7 @@ import javax.script.ScriptException;
 import mx.gob.redoaxaca.cednna.seguridad.Usuario;
 
 import org.springframework.dao.DataIntegrityViolationException
+
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
@@ -38,6 +41,18 @@ class IndicadorController {
 		
         [indicadorInstanceList: Indicador.list(params), indicadorInstanceTotal: Indicador.count(),dependencia:dependencia?.id]
     }
+	
+	def enviarCorreo(Long id) {
+		def indicador = Indicador.get(id)
+		
+		 sendMail {
+			 to indicador?.mailResponsable
+			subject "Actualizaci—n"
+			body 'Estimado '+ indicador?.nombreResponsable +
+				' le recordamos que debe actualizar el indicador ' +
+				indicador?.nombre + "."
+		 }
+	}
 
     def create() {
 		def user =springSecurityService.currentUser

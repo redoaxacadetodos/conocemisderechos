@@ -12,11 +12,11 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="create" action="create">Nuevo ODM</g:link></li>
 			</ul>
 		</div>
 		<div id="list-objetivoMilenio" class="content scaffold-list" role="main">
-			<h1>Listado de objetivos del milenio</h1>
+			<h1>Listado de Objetivos de Desarrollo del Milenio</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -26,7 +26,7 @@
 					
 						<g:sortableColumn property="clave" title="${message(code: 'objetivoMilenio.clave.label', default: 'Clave')}" />
 					
-						<g:sortableColumn property="descripcion" title="${message(code: 'objetivoMilenio.descripcion.label', default: 'Descripcion')}" />
+						<g:sortableColumn property="descripcion" title="${message(code: 'objetivoMilenio.descripcion.label', default: 'Descripción')}" />
 					
 					</tr>
 				</thead>

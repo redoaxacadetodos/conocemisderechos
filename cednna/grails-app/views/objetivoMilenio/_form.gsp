@@ -12,7 +12,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: objetivoMilenioInstance, field: 'descripcion', 'error')} ">
 	<label for="descripcion">
-		<g:message code="objetivoMilenio.descripcion.label" default="Descripcion" />
+		<g:message code="objetivoMilenio.descripcion.label" default="Descripción" />
 		
 	</label>
 	<g:textField name="descripcion" value="${objetivoMilenioInstance?.descripcion}"/>
