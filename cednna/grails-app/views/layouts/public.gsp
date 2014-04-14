@@ -95,7 +95,7 @@
 				<hr></hr>
 				<div class="uk-grid">
                      <div class="uk-width-1-3"><div class="uk-panel">
-                     	<p>www.oaxaca.gob.mx</p>
+                     	<a href="http://www.oaxaca.gob.mx" target="_blank"><p>www.oaxaca.gob.mx</p></a>
 						<img src="${request.getContextPath()}/img/logo_cednna_footer.png">
 						<p>Av. San Felipe del Agua #836 Col. San Felipe del Agua, Oaxaca de Juárez, Oax., C.P. 68020
 						(951) 5201146</p></div></div>
@@ -107,7 +107,7 @@
 						<a href="http://www.infopublica.oaxaca.gob.mx/" target="_blank"><p>Ventanilla Única de Acceso a la Información del @GobOax</p></a>
 						<a href="http://www.oaxtransparente.oaxaca.gob.mx/evaluarparamejorar/evaluar.php" target="_blank"><p>Evaluar para Mejorar 2.0</p></a>
 						<a href="http://sapao.herokuapp.com/" target="_blank"><p>Plataforma de reportes ciudadanos de @SAPAOOaxaca</p></a>
-						<a href="http://sapao.herokuapp.com/" target="_blank"><p>Oaxtransparente</p></a>
+						<a href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><p>Oaxtransparente</p></a>
 					</div></div>
                      <div class="uk-width-1-3"><div class="uk-panel">
                      	<h3>Síguenos en las redes</h3>
