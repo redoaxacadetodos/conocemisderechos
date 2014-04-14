@@ -48,6 +48,7 @@ html { overflow-y: scroll; }
   font-size: 1.6em;
   font-weight: bold;
   margin: 0 auto;
+  margin-top: 100px;
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
@@ -166,7 +167,6 @@ html { overflow-y: scroll; }
 .tm-footer a:hover { color: #fff !important; }
 
 .tm-footer {
-   position:fixed;
    left:0px;
    bottom:0px;
    height:20px;
@@ -188,8 +188,11 @@ html { overflow-y: scroll; }
 .uk-logo-edos { float:right;}
 
 .tm-navbar {
+  position:fixed;
 	border: none;
 	background: url(../img/header.png) repeat-x;
+  width: 100%;
+  float: left;
 }
 
 .tm-navbar .uk-navbar-content,
@@ -859,7 +862,7 @@ padding-left: 25px;
 
 .mascara {background: #fff;}
 
-#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6 { 
+#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6, #bot_prog .bot7, #bot_prog .bot8   { 
 width: 270px;
 height: 200px;
 display: block;
@@ -877,8 +880,11 @@ margin: 0 5% 5% 0;
 #bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 70px 28px no-repeat #ff9f00; }
 #bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 60px 28px no-repeat #3600af; }
 #bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 40px 28px no-repeat #00af04; }
+#bot_prog .bot7 { background-image: none 40px 28px;   }
+#bot_prog .bot8 { background: url(../img/dashboard/bot7.png) 40px 28px no-repeat #df852e; }
+#bot_prog .bot9 { background: url(../img/dashboard/bot8.png) 40px 28px no-repeat #8e2edf; }
 
-#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover { 
+#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover, #bot_prog .bot7:hover, #bot_prog .bot8:hover, #bot_prog .bot9:hover{ 
 -webkit-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
 -moz-box-shadow:    inset 0px 0px 10px rgba(255, 255, 255, 1);
 box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);

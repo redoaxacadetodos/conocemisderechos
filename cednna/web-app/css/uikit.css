@@ -187,9 +187,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
-a {
-  color: #905e0a;
-}
+
 a:hover {
   color: #b09342;
 }
@@ -1885,7 +1883,7 @@ a.uk-button {
 }
 .uk-button:hover,
 .uk-button:focus {
-  background-color: #f5f5f5;
+  background-color: #00a7ab;
   color: #444444;
   outline: none;
 }
@@ -1895,7 +1893,7 @@ a.uk-button {
   color: #444444;
 }
 .uk-button-primary {
-  background-color: #6d5123;
+  background-color: #00a8e6;
   color: #ffffff;
 }
 .uk-button-primary:hover,

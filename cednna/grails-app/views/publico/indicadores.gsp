@@ -12,8 +12,6 @@
 		<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 	</head>
 	<body>
-
-		<div id="division">		
 	
 	<div class="titulo">Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca.</div>
 <div id="dashboard">
@@ -26,7 +24,7 @@
 	</g:each>
 
 </div>
-	</div>
+	
 		
 
 
