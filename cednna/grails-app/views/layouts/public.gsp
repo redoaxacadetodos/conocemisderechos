@@ -5,6 +5,7 @@
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.docs.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
 		
@@ -89,8 +90,30 @@
 
 		<div class="tm-footer">
 			<div class="uk-container uk-container-center">
-
-				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank" style="float:right"><img src="${request.getContextPath()}/img/logored.png"></a>
+				<p><strong>Mis derechos,</strong> Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca, es una herramienta del Gorbierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos y su política de Transparencia, participación ciudadana y Gobierno agrieto, desarrollada por:</p>
+				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
+				<hr></hr>
+				<div class="uk-grid">
+                     <div class="uk-width-1-3"><div class="uk-panel uk-panel-box">
+                     	<p>www.oaxaca.gob.mx</p>
+						<img src="${request.getContextPath()}/img/logo_cednna_footer.png">
+						<p>Av. San Felipe del Agua #836 Col. San Felipe del Agua, Oaxaca de Juárez, Oax., C.P. 68020
+						(951) 5201146</p></div></div>
+                     <div class="uk-width-1-3"><div class="uk-panel uk-panel-box">
+                     	<h3>Ligas de interés</h3>
+						<p>CEDNNA @cednna_oaxaca</p>
+						<p>Periódico Oficial del @GobOax</p>
+						<p>Portal de Transparencia presupuestaria del @GobOax</p>
+						<p>Ventanilla Única de Acceso a la Información del @GobOax</p>
+						<p>Evaluar para Mejorar 2.0</p>
+						<p>Plataforma de reportes ciudadanos de @SAPAOOaxaca</p>
+						<p>Oaxtransparente</p>
+					</div></div>
+                     <div class="uk-width-1-3"><div class="uk-panel uk-panel-box">
+                     	<h3>Síguenos en las redes</h3>
+                     	<i class="uk-icon-facebook-square"></i> Face
+                     </div></div>
+                </div>
 			</div>
 		</div>
 

@@ -22,6 +22,9 @@ h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-lef
 .nombre_indicador {  font-weight: 700; font-size: 17px; color:#754e17; }
 .ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; margin-top: 1px; margin-left: 25px; color: #907e58;}
 .ver_indicador:hover {color: #00a7ab;}
+hr {
+  color: #000;
+}
 /* Base
  ========================================================================== */
 
@@ -160,18 +163,22 @@ html { overflow-y: scroll; }
  * Footer
  */
 
-.tm-footer .uk-subnav-line > li:before { border-color: ##00ACAF; }
+.tm-footer .uk-subnav-line > li:before { border-color: #00ACAF; }
 
 .tm-footer,
-.tm-footer a { color: #ddd !important; }
+.tm-footer a { color: #00acaf !important; }
 .tm-footer a:hover { color: #fff !important; }
 
 .tm-footer {
    left:0px;
    bottom:0px;
-   height:20px;
+   font-size: 12px;
    width:100%;
    background:#aee7e8;
+
+}
+.tm-footer p{
+  line-height: 14px;
 }
 
 /* IE 6 */
