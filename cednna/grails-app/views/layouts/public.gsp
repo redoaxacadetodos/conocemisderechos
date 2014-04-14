@@ -94,24 +94,25 @@
 				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
 				<hr></hr>
 				<div class="uk-grid">
-                     <div class="uk-width-1-3"><div class="uk-panel uk-panel-box">
+                     <div class="uk-width-1-3"><div class="uk-panel">
                      	<p>www.oaxaca.gob.mx</p>
 						<img src="${request.getContextPath()}/img/logo_cednna_footer.png">
 						<p>Av. San Felipe del Agua #836 Col. San Felipe del Agua, Oaxaca de Juárez, Oax., C.P. 68020
 						(951) 5201146</p></div></div>
-                     <div class="uk-width-1-3"><div class="uk-panel uk-panel-box">
+                     <div class="uk-width-1-3"><div class="uk-panel">
                      	<h3>Ligas de interés</h3>
-						<p>CEDNNA @cednna_oaxaca</p>
-						<p>Periódico Oficial del @GobOax</p>
-						<p>Portal de Transparencia presupuestaria del @GobOax</p>
-						<p>Ventanilla Única de Acceso a la Información del @GobOax</p>
-						<p>Evaluar para Mejorar 2.0</p>
-						<p>Plataforma de reportes ciudadanos de @SAPAOOaxaca</p>
-						<p>Oaxtransparente</p>
+						<a href="http://www.cednna.oaxaca.gob.mx/" target="_blank"><p>CEDNNA @cednna_oaxaca</p></a>
+						<a href="http://www.periodicooficial.oaxaca.gob.mx/" target="_blank"><p>Periódico Oficial del @GobOax</p></a>
+						<a href="http://www.transparenciapresupuestaria.oaxaca.gob.mx/" target="_blank"><p>Portal de Transparencia presupuestaria del @GobOax</p></a>
+						<a href="http://www.infopublica.oaxaca.gob.mx/" target="_blank"><p>Ventanilla Única de Acceso a la Información del @GobOax</p></a>
+						<a href="http://www.oaxtransparente.oaxaca.gob.mx/evaluarparamejorar/evaluar.php" target="_blank"><p>Evaluar para Mejorar 2.0</p></a>
+						<a href="http://sapao.herokuapp.com/" target="_blank"><p>Plataforma de reportes ciudadanos de @SAPAOOaxaca</p></a>
+						<a href="http://sapao.herokuapp.com/" target="_blank"><p>Oaxtransparente</p></a>
 					</div></div>
-                     <div class="uk-width-1-3"><div class="uk-panel uk-panel-box">
+                     <div class="uk-width-1-3"><div class="uk-panel">
                      	<h3>Síguenos en las redes</h3>
-                     	<i class="uk-icon-facebook-square"></i> Face
+                     	<p><a href="https://www.facebook.com/cednna.oaxaca" target="_blank"><i class="uk-icon-facebook-square uk-icon-large"></i> Facebook</a></p>
+                     	<p><a href="https://twitter.com/cednna_oaxaca" target="_blank"><i class="uk-icon-twitter-square uk-icon-large"></i> Twitter</a></p>
                      </div></div>
                 </div>
 			</div>

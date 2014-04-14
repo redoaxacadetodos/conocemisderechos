@@ -22,9 +22,7 @@ h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-lef
 .nombre_indicador {  font-weight: 700; font-size: 17px; color:#754e17; }
 .ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; margin-top: 1px; margin-left: 25px; color: #907e58;}
 .ver_indicador:hover {color: #00a7ab;}
-hr {
-  color: #000;
-}
+
 /* Base
  ========================================================================== */
 
@@ -51,7 +49,6 @@ html { overflow-y: scroll; }
   font-size: 1.6em;
   font-weight: bold;
   margin: 0 auto;
-  margin-top: 100px;
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
@@ -166,19 +163,26 @@ html { overflow-y: scroll; }
 .tm-footer .uk-subnav-line > li:before { border-color: #00ACAF; }
 
 .tm-footer,
-.tm-footer a { color: #00acaf !important; }
-.tm-footer a:hover { color: #fff !important; }
+.tm-footer a { color: #00acaf !important; text-decoration: none;}
+.tm-footer a:hover { color: #ff9f00 !important; text-decoration: none; font-weight: bold;}
 
 .tm-footer {
    left:0px;
    bottom:0px;
+   border: 1px solid #00a7ab;
    font-size: 12px;
+   line-height: 1.5em;
    width:100%;
    background:#aee7e8;
 
 }
 .tm-footer p{
-  line-height: 14px;
+  line-height: 1.5em;
+}
+.tm-footer hr {
+  color: #00a7ab;
+  background-color: #00a7ab;
+  height: 1px;
 }
 
 /* IE 6 */
@@ -195,11 +199,10 @@ html { overflow-y: scroll; }
 .uk-logo-edos { float:right;}
 
 .tm-navbar {
-  position:fixed;
+
 	border: none;
 	background: url(../img/header.png) repeat-x;
   width: 100%;
-  float: left;
 }
 
 .tm-navbar .uk-navbar-content,
@@ -725,8 +728,7 @@ margin-top: 20px;
 .uk-navbar {
 background: #AEE7E8;
 color: #AEE7E8;
-border: 1px solid rgba(0,0,0,0.1);
-border-bottom-color: rgba(0,0,0,0.3);
+border-bottom: 1px solid #00a7ab;
 background-origin: border-box;
 background-image: -webkit-linear-gradient(top,#fff,#fff);
 background-image: linear-gradient(to bottom,#fff,#AEE7E8);
