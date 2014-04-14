@@ -15,7 +15,7 @@
 			</ul>
 		</div>
 		<div id="create-catOrigenDatos" class="content scaffold-create" role="main">
-			<h1><g:message code="mx.gob.redoaxaca.cednna.Origen.crear" args="[entityName]" /></h1>
+			<h1><g:message code="mx.gob.redoaxaca.catOrigenDatos.crear.label" default="Crear"/></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

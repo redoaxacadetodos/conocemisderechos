@@ -1,6 +1,80 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <%@ page import="mx.gob.redoaxaca.cednna.domino.CatOrigenDatos" %>
 
+<g:javascript src="jquery.dataTables.js"></g:javascript>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			var tabla = "tablaIndicadores";
+			var div = "divIndicadores";
+			var idTipo = 1;
+			var idIndicador = ${indicadorInstance?.id};
+			
+			mostrarCargandoImg(div);
+			$.ajax( {
+			    "url": "<g:createLink controller='publico' action='getTablaIndicador' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
+			    "success": function ( json ) {
+			    	$('#'+'divIndicadorSerie').html( "<table class='table table-striped table-hover table-bordered' id='"+ 'tablaIndicadoresSerie' + "'></table>" );
+			        $('#'+'tablaIndicadoresSerie').dataTable( json );
+			        $('#'+'tablaIndicadoresSerie'+'_filter input').addClass('form-control medium mayus');
+			        
+			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
+			        $('#'+tabla).dataTable( json );
+			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
+			    },
+			    "dataType": "json"
+			} );
+					
+			actualizarSelectGrafica();
+		});
+
+		function actualizarTabla(idTipo, div){
+			var tabla = "";
+			if(div == "divIndicadores"){
+				tabla = "tablaIndicadores";
+			}else{
+				tabla = "tablaIndicadoresSerie";
+			}
+			var idIndicador = ${indicadorInstance?.id};
+			mostrarCargandoImg(div);
+			$.ajax( {
+			    "url": "<g:createLink controller='publico' action='getTablaIndicador' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
+			    "success": function ( json ) {
+			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
+			        $('#'+tabla).dataTable( json );
+			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
+			    },
+			    "dataType": "json"
+			} );
+		}
+	</script>
+<script>
+	function actualizarGrafica(){
+		var selectVal = $( "#opcionesAreaGrafica" ).val();
+		var select = $( "#opcionesGrafica" ).val();
+		${remoteFunction(
+				controller:'publico',
+				action: 'actualizarGrafica',
+				params: '\'idTipo=\' + select +\'&idArea=\' + selectVal',
+				update: 'grafica',
+				onLoading: "mostrarCargandoImg('grafica')",
+				onLoaded: "ocultarCargandoImg('grafica')",										 
+				id: indicadorInstance?.id 
+			 ) }
+	}
+	
+	function actualizarSelectGrafica(){
+		var select = $( "#opcionesGrafica" ).val();
+		${remoteFunction(
+				  controller:'publico',
+				  action: 'actualizarAreaGrafica',
+				  params: '\'idTipo=\' + select',
+				  update: 'selectGrafica',
+				  onLoading: "mostrarCargandoImg('selectGrafica')",
+				  onComplete: "actualizarGrafica()",
+				  id: indicadorInstance?.id  )}
+	}
+</script>
+
 <script>
 	  $(function () {
 		  $( "#tabs" ).tabs();
@@ -46,41 +120,25 @@
 	  	<div>
 	  		<label for="opciones">Área geográfica:</label>
 	  		<select id="opciones" name="opciones" 
-	  			onchange="${remoteFunction(
-					  controller:'publico',
-					  action: 'actualizarTablaIndicador',
-					  params: '\'idTipo=\' + this.value',
-					  update: 'tablaIndicador',
-					  onLoading: "mostrarCargandoImg('tablaIndicador')",
-					  onLoaded: "ocultarCargandoImg('tablaIndicador')",					  
-					  id: indicadorInstance?.id  )}">
+	  			onchange="actualizarTabla(this.value,'divIndicadores')">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  		
-	  		<div id="tablaIndicador">
-	  			<g:render template="tablaIndicador"></g:render>	  		
-			</div>	  				  
-<%--			<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>--%>
+	  		<div id="divIndicadores"></div>
 			
 			<label for="opcionesGrafica">Nivel de gráfica:</label>
 			<select id="opcionesGrafica" name="opcionesGrafica" 
-	  			onchange="${remoteFunction(
-					  controller:'publico',
-					  action: 'actualizarGrafica',
-					  params: '\'idTipo=\' + this.value',
-					  update: 'grafica',
-					  onLoading: "mostrarCargandoImg('grafica')",
-					  onLoaded: "ocultarCargandoImg('grafica')",										 
-					  id: indicadorInstance?.id  )}">
+	  			onchange="actualizarSelectGrafica()">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
-			<div id="grafica">
-				<g:render template="graficaIndicador"></g:render>
-			</div>
+	  		
+	  		<div id="selectGrafica"></div>
+	  		
+			<div id="grafica"></div>
 			
 		</div>
 	  	
@@ -166,22 +224,13 @@
 	  <div class="tab-pane" id="serie">
 	  	<label for="opcionSerie">Área geográfica:</label>
 	  		<select id="opcionSerie" name="opcionSerie" 
-	  			onchange="${remoteFunction(
-					  controller:'publico',
-					  action: 'actualizarTablaIndicador',
-					  params: '\'idTipo=\' + this.value',
-					  update: 'tablaIndicadorSerie',
-					  onLoading: "mostrarCargandoImg('tablaIndicadorSerie')",
-					  onLoaded: "ocultarCargandoImg('tablaIndicadorSerie')",
-					  id: indicadorInstance?.id  )}">
+	  			onchange="actualizarTabla(this.value,'divIndicadorSerie')">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
 	  		
-	  		<div id="tablaIndicadorSerie">
-	  			<g:render template="tablaIndicador"></g:render>	  		
-			</div>	  	
+	  		<div id="divIndicadorSerie"></div>	  	
 	  </div>
 	  
 	  <div class="tab-pane" id="calculo">
