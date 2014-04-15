@@ -7,6 +7,7 @@
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.docs.min.css')}" type="text/css">
 		
 <%--		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
 <%--						--%>

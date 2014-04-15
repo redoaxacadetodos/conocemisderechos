@@ -22,6 +22,7 @@ h1, h2, h3 { background: url(../img/h-ornament.png) no-repeat 0 5px; padding-lef
 .nombre_indicador {  font-weight: 700; font-size: 17px; color:#754e17; }
 .ver_indicador {background: url(../img/flechita.png) no-repeat 103px 2px; padding-left: 0px; display: block; width: 200px; margin-top: 1px; margin-left: 25px; color: #907e58;}
 .ver_indicador:hover {color: #00a7ab;}
+
 /* Base
  ========================================================================== */
 
@@ -159,19 +160,29 @@ html { overflow-y: scroll; }
  * Footer
  */
 
-.tm-footer .uk-subnav-line > li:before { border-color: ##00ACAF; }
+.tm-footer .uk-subnav-line > li:before { border-color: #00ACAF; }
 
 .tm-footer,
-.tm-footer a { color: #ddd !important; }
-.tm-footer a:hover { color: #fff !important; }
+.tm-footer a { color: #00acaf !important; text-decoration: none;}
+.tm-footer a:hover { color: #ff9f00 !important; text-decoration: none; font-weight: bold;}
 
 .tm-footer {
-   position:fixed;
    left:0px;
    bottom:0px;
-   height:20px;
+   border: 1px solid #00a7ab;
+   font-size: 12px;
+   line-height: 1.5em;
    width:100%;
    background:#aee7e8;
+
+}
+.tm-footer p{
+  line-height: 1.5em;
+}
+.tm-footer hr {
+  color: #00a7ab;
+  background-color: #00a7ab;
+  height: 1px;
 }
 
 /* IE 6 */
@@ -188,8 +199,10 @@ html { overflow-y: scroll; }
 .uk-logo-edos { float:right;}
 
 .tm-navbar {
+
 	border: none;
 	background: url(../img/header.png) repeat-x;
+  width: 100%;
 }
 
 .tm-navbar .uk-navbar-content,
@@ -715,8 +728,7 @@ margin-top: 20px;
 .uk-navbar {
 background: #AEE7E8;
 color: #AEE7E8;
-border: 1px solid rgba(0,0,0,0.1);
-border-bottom-color: rgba(0,0,0,0.3);
+border-bottom: 1px solid #00a7ab;
 background-origin: border-box;
 background-image: -webkit-linear-gradient(top,#fff,#fff);
 background-image: linear-gradient(to bottom,#fff,#AEE7E8);
@@ -859,7 +871,7 @@ padding-left: 25px;
 
 .mascara {background: #fff;}
 
-#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6 { 
+#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6, #bot_prog .bot7, #bot_prog .bot8   { 
 width: 270px;
 height: 200px;
 display: block;
@@ -877,8 +889,11 @@ margin: 0 5% 5% 0;
 #bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 70px 28px no-repeat #ff9f00; }
 #bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 60px 28px no-repeat #3600af; }
 #bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 40px 28px no-repeat #00af04; }
+#bot_prog .bot7 { background-image: none 40px 28px;   }
+#bot_prog .bot8 { background: url(../img/dashboard/bot7.png) 40px 28px no-repeat #df852e; }
+#bot_prog .bot9 { background: url(../img/dashboard/bot8.png) 40px 28px no-repeat #8e2edf; }
 
-#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover { 
+#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover, #bot_prog .bot7:hover, #bot_prog .bot8:hover, #bot_prog .bot9:hover{ 
 -webkit-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
 -moz-box-shadow:    inset 0px 0px 10px rgba(255, 255, 255, 1);
 box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);

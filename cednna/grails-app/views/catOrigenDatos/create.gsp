@@ -30,10 +30,9 @@
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-<%--					<a href="#" onclick="form.submit();"><i class="uk-icon-envelope-o"></i> ${message(code: 'default.button.create.label', default: 'Create')} </a>--%>
-				</fieldset>
+				<button  onclick="form.submit();" class="uk-button uk-button-primary">
+				<i class="uk-icon-small uk-icon-edit"></i> ${message(code: 'default.button.create.label', default: 'Create')}
+				</button>
 			</g:form>
 		</div>
 	</body>

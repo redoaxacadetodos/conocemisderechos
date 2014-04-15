@@ -277,14 +277,14 @@ th {
 
 .buttons input,
 .buttons a {
-	background-color: transparent;
+	background-color: #00a7ab;
 	border: 0;
 	color: #666666;
 	cursor: pointer;
 	display: inline-block;
 	margin: 0 0.25em 0;
 	overflow: visible;
-	padding: 0.25em 0.7em;
+	
 	text-decoration: none;
 
 	   -moz-border-radius: 0.3em;
@@ -294,7 +294,7 @@ th {
 
 .buttons input:hover, .buttons input:focus,
 .buttons a:hover, .buttons a:focus {
-	background-color: #999999;
+	
 	color: #ffffff;
 	outline: none;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);

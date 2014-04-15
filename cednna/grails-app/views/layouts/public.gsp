@@ -5,6 +5,7 @@
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.docs.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
 		
@@ -89,8 +90,31 @@
 
 		<div class="tm-footer">
 			<div class="uk-container uk-container-center">
-
-				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank" style="float:right"><img src="${request.getContextPath()}/img/logored.png"></a>
+				<p><strong>Mis derechos,</strong> Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca, es una herramienta del Gorbierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos y su política de Transparencia, participación ciudadana y Gobierno agrieto, desarrollada por:</p>
+				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
+				<hr></hr>
+				<div class="uk-grid">
+                     <div class="uk-width-1-3"><div class="uk-panel">
+                     	<a href="http://www.oaxaca.gob.mx" target="_blank"><p>www.oaxaca.gob.mx</p></a>
+						<img src="${request.getContextPath()}/img/logo_cednna_footer.png">
+						<p>Av. San Felipe del Agua #836 Col. San Felipe del Agua, Oaxaca de Juárez, Oax., C.P. 68020
+						(951) 5201146</p></div></div>
+                     <div class="uk-width-1-3"><div class="uk-panel">
+                     	<h3>Ligas de interés</h3>
+						<a href="http://www.cednna.oaxaca.gob.mx/" target="_blank"><p>CEDNNA @cednna_oaxaca</p></a>
+						<a href="http://www.periodicooficial.oaxaca.gob.mx/" target="_blank"><p>Periódico Oficial del @GobOax</p></a>
+						<a href="http://www.transparenciapresupuestaria.oaxaca.gob.mx/" target="_blank"><p>Portal de Transparencia presupuestaria del @GobOax</p></a>
+						<a href="http://www.infopublica.oaxaca.gob.mx/" target="_blank"><p>Ventanilla Única de Acceso a la Información del @GobOax</p></a>
+						<a href="http://www.oaxtransparente.oaxaca.gob.mx/evaluarparamejorar/evaluar.php" target="_blank"><p>Evaluar para Mejorar 2.0</p></a>
+						<a href="http://sapao.herokuapp.com/" target="_blank"><p>Plataforma de reportes ciudadanos de @SAPAOOaxaca</p></a>
+						<a href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><p>Oaxtransparente</p></a>
+					</div></div>
+                     <div class="uk-width-1-3"><div class="uk-panel">
+                     	<h3>Síguenos en las redes</h3>
+                     	<p><a href="https://www.facebook.com/cednna.oaxaca" target="_blank"><i class="uk-icon-facebook-square uk-icon-large"></i> Facebook</a></p>
+                     	<p><a href="https://twitter.com/cednna_oaxaca" target="_blank"><i class="uk-icon-twitter-square uk-icon-large"></i> Twitter</a></p>
+                     </div></div>
+                </div>
 			</div>
 		</div>
 
