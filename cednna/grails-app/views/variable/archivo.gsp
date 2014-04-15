@@ -10,20 +10,11 @@
 		$("#formDescargar").submit();
 	}
 
-
-
 $(function(){
 
-
-
 	function bajarArchivo(id){
-
-		
-		
 		document.location.href=CONTEXT_ROOT+"/variable/generaXLS/"+id;
-
 	}
-	
 
 		$(document).ready(function() {
 	
@@ -48,100 +39,104 @@ $(function(){
 		    
 		});
 		
-		$("#addCat").click(function(){
-
-			var cont=	parseInt($("#numCategorias").val());
-			cont=cont+1;
-			$("#numCategorias").val(cont);				  
-	
-				var unused = $.ajax({type:'POST', 
-						              url:CONTEXT_ROOT+'/variable/categorias',
-						              data: {con:cont,valida:$("#valida").val()},
-						              success:function(data,textStatus)
-						              {
-						              
-						              		$('#divCate').append(data);
-						              		
-						             
-						              },
-						           			   error:function(XMLHttpRequest,textStatus,errorThrown)
-						                  {		$('#diverror').html(XMLHttpRequest.responseText);}
-					                  ,
-					                  complete:function(data,textStatus){
-
-					                	  var config = {
-											      '.chosen-select'           : {},
-											      '.chosen-select-deselect'  : {allow_single_deselect:true},
-											      '.chosen-select-no-single' : {disable_search_threshold:10},
-											      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-											      '.chosen-select-width'     : {width:"95%"}
-											    }
-											    for (var selector in config) {
-											      $(selector).chosen(config[selector]);
-											    }
-										
-					                	  asignaEventorTipo(cont);
-						              }
-										});
-				});
-
 		
-	
+	$("#addCat").click(function() {
 
-});
+			var cont = parseInt($("#numCategorias").val());
+			cont = cont + 1;
+			$("#numCategorias").val(cont);
 
+			var unused = $.ajax({
+				type : 'POST',
+				url : CONTEXT_ROOT + '/variable/categorias',
+				data : {
+					con : cont,
+					valida : $("#valida").val()
+				},
+				success : function(data, textStatus) {
 
+					$('#divCate').append(data);
 
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					$('#diverror').html(XMLHttpRequest.responseText);
+				},
+				complete : function(data, textStatus) {
 
-function asignaEventorTipo(num){
+					var config = {
+						'.chosen-select' : {},
+						'.chosen-select-deselect' : {
+							allow_single_deselect : true
+						},
+						'.chosen-select-no-single' : {
+							disable_search_threshold : 10
+						},
+						'.chosen-select-no-results' : {
+							no_results_text : 'Oops, nothing found!'
+						},
+						'.chosen-select-width' : {
+							width : "95%"
+						}
+					}
+					for ( var selector in config) {
+						$(selector).chosen(config[selector]);
+					}
 
-	
-	llenaCombo({
-		url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num).val(),
-		htmlOptions : {
-			name : "categoria_"+num,
-			id : "categoria_"+num,
-			clase : "chosen-select",
-			
-		},
-		index : 0,
-		chained : false,
-		anchor : "#categoria_"+num,
-		combo : true,
-		valorDefault:false,
-		valorDefaultText:" Seleccione la categoria ",
-		delTag: true,
-		tag:"#divTipo_"+num,
-		load:true
-	});  
+					asignaEventorTipo(cont);
+				}
+			});
+		});
 
-	
-	$("#tipo_"+num).change(function(){
-		
+	});
+
+	function asignaEventorTipo(num) {
+
 		llenaCombo({
-			url : CONTEXT_ROOT+'/variable/getCategoriaByTipo/'+$("#tipo_"+num).val(),
+			url : CONTEXT_ROOT + '/variable/getCategoriaByTipo/'
+					+ $("#tipo_" + num).val(),
 			htmlOptions : {
-				name : "categoria_"+num,
-				id : "categoria_"+num,
+				name : "categoria_" + num,
+				id : "categoria_" + num,
 				clase : "chosen-select",
-				
+
 			},
 			index : 0,
 			chained : false,
-			anchor : "#categoria_"+num,
+			anchor : "#categoria_" + num,
 			combo : true,
-			valorDefault:false,
-			valorDefaultText:" Seleccione la categoria ",
-			delTag: true,
-			tag:"#divTipo_"+num,
-			load:true
-		});  
-
-
+			valorDefault : false,
+			valorDefaultText : " Seleccione la categoria ",
+			delTag : true,
+			tag : "#divTipo_" + num,
+			load : true
 		});
-	
-}
 
+		$("#tipo_" + num).change(
+				function() {
+
+					llenaCombo({
+						url : CONTEXT_ROOT + '/variable/getCategoriaByTipo/'
+								+ $("#tipo_" + num).val(),
+						htmlOptions : {
+							name : "categoria_" + num,
+							id : "categoria_" + num,
+							clase : "chosen-select",
+
+						},
+						index : 0,
+						chained : false,
+						anchor : "#categoria_" + num,
+						combo : true,
+						valorDefault : false,
+						valorDefaultText : " Seleccione la categoria ",
+						delTag : true,
+						tag : "#divTipo_" + num,
+						load : true
+					});
+
+				});
+
+	}
 </script>
 </head>
 <body>

@@ -186,7 +186,8 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(municipio?.toString());//MUNICIPIO
 						writer.append(',');
-						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue()).intValue().replaceAll("[^\\x00-\\x7F]",""));
+						
+						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue()).intValue());
 						writer.append(suma.toString());
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//REGION
