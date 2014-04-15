@@ -44,48 +44,40 @@
 		<r:layoutResources />
 	</head>							
 <body class="tm-background">
-			<nav class="tm-navbar uk-navbar uk-navbar-attached">
-			<div class="uk-container uk-container-center" >
+			<nav class="tm-navbar uk-navbar">
+				<div class="uk-grid" >
+				<div class="uk-width-5-10">	
+					<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
+				</div>
+				<div class="uk-width-5-10">	
+					<ul class="uk-navbar-nav uk-hidden-small">
 
-				<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
+						<li><g:link class="iconobar icono_home" action="indicadores" data-uk-tooltip="{pos:'bottom'}" title="Inicio"></g:link></li>
+						<li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>
+						<li><g:link class="iconobar icono_directorio" controller="publico" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
+						<li><g:link class="iconobar icono_contacto" controller="publico" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
+						<li><g:link class="iconobar icono_ayuda"  controller="publico" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
+					</ul>
+				</div>
+				<div class="uk-width-1-10">
+					<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+				</div>
 
-				<ul class="uk-navbar-nav uk-hidden-small">
+				<div class="uk-navbar-brand uk-navbar-center uk-visible-small">
+					<img src="${request.getContextPath()}/img/logomini_cednna.png"  title="CEDNNA" alt="CEDNNA" class="fondologomini">
+				</div>
 
-<%-- <li><g:link controller="Indicador" class="iconobar icono_invierte" data-uk-tooltip="{pos:'bottom'}" title="Inversión Social e Infancia"></g:link>	</li> --%>	
-		<li><g:link class="iconobar icono_home" action="indicadores" data-uk-tooltip="{pos:'bottom'}" title="Inicio"></g:link></li>
-		<li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>
-		<li><g:link class="iconobar icono_directorio" controller="publico" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
-		<li><g:link class="iconobar icono_contacto" controller="publico" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
-		<li><g:link class="iconobar icono_ayuda"  controller="publico" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
-				</ul>
-
-				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
-
-				<div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="${request.getContextPath()}/img/logo02.png"  title="CEDNNA" alt="CEDNNA"></div>
-
-			</div>
-		</nav>
+				</div>
+			</nav>
 		
-
-
-		<div class="tm-middle">
 			<div class="uk-container uk-container-center">
-				<div class="uk-grid" data-uk-grid-margin>
-
-           
-				<div class="uk-container-center" style="border-left:none !important;">
-							
-							
-	
-		<g:layoutBody/>
-	
-	
-					</div>
+				<div data-uk-grid-margin>
+				<div class="uk-container-center">
+					<g:layoutBody/>
+				</div>
 				</div>
 
 			</div>
-		</div>
-		
 		
 
 		<div class="tm-footer">

@@ -46,15 +46,15 @@ html { overflow-y: scroll; }
 
 .titulo {
   color:#00a7ab;
-  font-size: 1.6em;
+  font-size: 1.3em;
   font-weight: bold;
   margin: 0 auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 50px;
+  padding-bottom: 30px;
   text-align: center;
   text-decoration: none;
   line-height: 1.4em;
-  width: 60%;
+  width: 90%;
 }
 .titulo_der {
   color:#00a7ab;
@@ -72,7 +72,22 @@ html { overflow-y: scroll; }
   color:#ff9f00;
   font-size: 1.2em;
 }
-
+.fondologomini {
+  width: 90px;
+  height: 75px;
+  padding: 5px;
+  margin-top: -3px;
+  border: 1px solid #00A7AB;
+  background-origin: border-box;
+  background-image: -webkit-linear-gradient(top,#fff,#fff);
+  background-image: linear-gradient(to bottom,#fff,#cbf4f5);
+   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 19px 0px rgba(22,110,112,1);
+  -moz-box-shadow: 0px 0px 19px 0px rgba(22,110,112,1);
+  box-shadow: 0px 0px 19px 0px rgba(22,110,112,1);
+}
 
 /* Only tablets and desktop */
 @media (min-width: 768px) {
@@ -115,7 +130,7 @@ html { overflow-y: scroll; }
 	}
 	
 	.tm-navbar {
-	padding: 6px 0 15px 0;
+	padding: 10px;
 }
 
 }
@@ -169,9 +184,10 @@ html { overflow-y: scroll; }
 .tm-footer {
    left:0px;
    bottom:0px;
-   border: 1px solid #00a7ab;
+   border-top: 1px solid #00a7ab;
    font-size: 12px;
    line-height: 1.5em;
+   margin-top: 30px;
    width:100%;
    background:#aee7e8;
 
@@ -197,13 +213,6 @@ html { overflow-y: scroll; }
  * Navbar
  */
 .uk-logo-edos { float:right;}
-
-.tm-navbar {
-
-	border: none;
-	background: url(../img/header.png) repeat-x;
-  width: 100%;
-}
 
 .tm-navbar .uk-navbar-content,
 .tm-navbar .uk-navbar-brand,
@@ -840,23 +849,23 @@ list-style: none;
 float: right;
 }
 
-.iconobar { display: block; width: 28px; height: 32px; margin: 7px 0 0 20px !important;}
+.iconobar { display: block; width: 28px; height: 32px; margin: 10px 0 0 20px !important;}
 
-.icono_home { background: url(../img/icons/home.png) 0 10px no-repeat !important; }
-.icono_calendar { background: url(../img/icons/calendar.png) 0 10px no-repeat !important; }
-.icono_directorio { background: url(../img/icons/directorio.png) 0 8px no-repeat !important; }
-.icono_contacto { background: url(../img/icons/contacto.png) 0 8px no-repeat !important; }
-.icono_ayuda { background: url(../img/icons/ayuda.png) 0 10px no-repeat !important; }
-.icono_catalogos { background: url(../img/icons/catalogos.png) 0 10px no-repeat !important; }
-.icono_invierte { background: url(../img/icons/inversion.png) 0 10px no-repeat !important; }
+.icono_home { background: url(../img/icons/home.png) 0 0px no-repeat !important; }
+.icono_calendar { background: url(../img/icons/calendar.png) 0 0px no-repeat !important; }
+.icono_directorio { background: url(../img/icons/directorio.png) 0 0px no-repeat !important; }
+.icono_contacto { background: url(../img/icons/contacto.png) 0 0px no-repeat !important; }
+.icono_ayuda { background: url(../img/icons/ayuda.png) 0 0px no-repeat !important; }
+.icono_catalogos { background: url(../img/icons/catalogos.png) 0 0px no-repeat !important; }
+.icono_invierte { background: url(../img/icons/inversion.png) 0 0px no-repeat !important; }
 
-.icono_home:hover { background: url(../img/icons/home_2.png) 0 10px no-repeat !important; }
-.icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 10px no-repeat !important; }
-.icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 8px no-repeat !important; }
-.icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 8px no-repeat !important; }
-.icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 10px no-repeat !important; }
-.icono_catalogos:hover { background: url(../img/icons/catalogos_2.png) 0 10px no-repeat !important; }
-.icono_invierte:hover { background: url(../img/icons/inversion_2.png) 0 10px no-repeat !important; }
+.icono_home:hover { background: url(../img/icons/home_2.png) 0 0px no-repeat !important; }
+.icono_calendar:hover { background: url(../img/icons/calendar_2.png) 0 0px no-repeat !important; }
+.icono_directorio:hover { background: url(../img/icons/directorio_2.png) 0 0px no-repeat !important; }
+.icono_contacto:hover { background: url(../img/icons/contacto_2.png) 0 0px no-repeat !important; }
+.icono_ayuda:hover { background: url(../img/icons/ayuda_2.png) 0 0px no-repeat !important; }
+.icono_catalogos:hover { background: url(../img/icons/catalogos_2.png) 0 0px no-repeat !important; }
+.icono_invierte:hover { background: url(../img/icons/inversion_2.png) 0 0px no-repeat !important; }
 
 #dashboard { 
 width: 98%;
@@ -871,29 +880,28 @@ padding-left: 25px;
 
 .mascara {background: #fff;}
 
-#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6, #bot_prog .bot7, #bot_prog .bot8   { 
-width: 270px;
+#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6, #bot_prog .bot7, #bot_prog .bot8, #bot_prog .bot9, #bot_prog .bot10, #bot_prog .bot11  { 
+
 height: 200px;
 display: block;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
-margin-bottom: 8px;
-float: left;
-margin: 0 5% 5% 0;
 }
 
-#bot_prog .bot1 { background: url(../img/dashboard/bot1.png) 30px 28px no-repeat #00acaf; }
-#bot_prog .bot2 { background: url(../img/dashboard/bot2.png) 66px 28px no-repeat #009dcc; }
-#bot_prog .bot3 { background: url(../img/dashboard/bot3.png) 80px 28px no-repeat #ff0061; }
-#bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 70px 28px no-repeat #ff9f00; }
-#bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 60px 28px no-repeat #3600af; }
-#bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 40px 28px no-repeat #00af04; }
-#bot_prog .bot7 { background-image: none 40px 28px;   }
-#bot_prog .bot8 { background: url(../img/dashboard/bot7.png) 40px 28px no-repeat #df852e; }
-#bot_prog .bot9 { background: url(../img/dashboard/bot8.png) 40px 28px no-repeat #8e2edf; }
+#bot_prog .bot1 { background: url(../img/dashboard/bot1.png) 50% 50% no-repeat #00acaf; }
+#bot_prog .bot2 { background: url(../img/dashboard/bot2.png) 50% 50% no-repeat #009dcc; }
+#bot_prog .bot3 { background: url(../img/dashboard/bot3.png) 50% 50% no-repeat #ff0061; }
+#bot_prog .bot4 { background: url(../img/dashboard/bot4.png) 50% 50% no-repeat #ff9f00; }
+#bot_prog .bot5 { background: url(../img/dashboard/bot5.png) 50% 50% no-repeat #3600af; }
+#bot_prog .bot6 { background: url(../img/dashboard/bot6.png) 50% 50% no-repeat #00af04; }
+#bot_prog .bot7 { background: url(../img/dashboard/bot7.png) 50% 50% no-repeat #df852e; }
+#bot_prog .bot8 { background: url(../img/dashboard/bot8.png) 50% 50% no-repeat #5c2edf; }
+#bot_prog .bot9 { background: url(../img/dashboard/bot9.png) 50% 50% no-repeat #9e2edf; }
+#bot_prog .bot10 { background: url(../img/dashboard/bot10.png) 50% 50% no-repeat #67be27; }
+#bot_prog .bot11 { background: url(../img/dashboard/bot11.png) 50% 50% no-repeat #9e2edf; }
 
-#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover, #bot_prog .bot7:hover, #bot_prog .bot8:hover, #bot_prog .bot9:hover{ 
+#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover, #bot_prog .bot7:hover, #bot_prog .bot8:hover, #bot_prog .bot9:hover, #bot_prog .bot10:hover, #bot_prog .bot11:hover{ 
 -webkit-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
 -moz-box-shadow:    inset 0px 0px 10px rgba(255, 255, 255, 1);
 box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
