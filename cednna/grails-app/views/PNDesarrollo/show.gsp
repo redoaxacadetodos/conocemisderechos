@@ -17,7 +17,7 @@
 			</ul>
 		</div>
 		<div id="show-PNDesarrollo" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1><g:message code="mx.gob.redoaxaca.division.mostrar.label" default="Mostrar" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

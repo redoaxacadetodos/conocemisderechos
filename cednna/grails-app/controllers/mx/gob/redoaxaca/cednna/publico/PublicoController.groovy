@@ -214,46 +214,6 @@ class PublicoController {
 		}
 	}
 	
-	def actualizarTablaIndicador(Long id){
-		int tipo = params.idTipo.toInteger()
-		def indicador = Indicador.get(id)		
-		
-		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
-		def resultadosIndicador = detalleIndicador.resultados
-		
-		if(tipo==2){
-			resultadosIndicador.sort{it.region}
-		}else if(tipo==3){
-			CollectionUtils.extendMetaClass()
-			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}			
-		}
-		
-		render (template:"tablaIndicador", model:[tipo:params.idTipo, resultadosIndicador:resultadosIndicador, indicadorInstance:indicador])	
-	}
-	
-	def actualizarDatosCalculo(Long id){
-		int tipo = params.idTipo.toInteger()
-		def indicador = Indicador.get(id)
-		
-		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
-		def resultadosIndicador = detalleIndicador.resultados
-		
-		def tamVariables = indicador.variables.size()
-		def datosCalculo = detalleIndicador.rVariables
-		
-		if(tipo==2){
-			datosCalculo.each {
-				it.valores.sort{it.region}
-			}
-		}else if(tipo==3){
-			datosCalculo.each {
-				it.valores.sort{it.municipio}
-			}
-		}		
-				
-		render (template:"datosCalculo", model:[tipo:params.idTipo, indicadorInstance: indicador, datosCalculo:datosCalculo, tamVariables:tamVariables, resultadosIndicador:resultadosIndicador])
-	}
-	
 	def String remplazarAcentos(String s){
 		String texto = Normalizer.normalize(s, Normalizer.Form.NFD)
 		texto = texto.replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
@@ -388,6 +348,50 @@ class PublicoController {
 		return formula
 	}
 	
+	def getTablaDatosCalculo(Long id){
+		int tipo = params.idTipo.toInteger()
+		def indicador = Indicador.get(id)
+		
+		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		def resultadosIndicador = detalleIndicador.resultados
+		
+		def tamVariables = indicador.variables.size()
+		def datosCalculo = detalleIndicador.rVariables
+		
+		if(tipo==2){
+			datosCalculo.each {
+				it.valores.sort{it.region}
+			}
+		}else if(tipo==3){
+			datosCalculo.each {
+				it.valores.sort{it.municipio}
+			}
+		}
+		
+		def datos = publicoService.getTablaDatosCalculo(datosCalculo, tamVariables, tipo)
+		def totalRecords = datos.size()
+		def titulos = []
+		
+		titulos.add([sTitle : "Variable"])
+		if(tipo==1){
+			titulos.add([sTitle : "Estado"])
+		}else if(tipo==2){
+			titulos.add([sTitle : "Regiones"])
+		}else{
+			titulos.add([sTitle : "Municipios"])
+		}
+		
+		datosCalculo.eachWithIndex(){ valor,i ->
+			if((i % tamVariables) == 0 ){
+				titulos.add([sTitle : valor.valores.anio.get(0).toString()])
+			}
+		}
+		 	
+		def result = ["bDestroy": true, "bRetrieve": true,'sEcho':1, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'aoColumns':titulos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
+		
+		render result as JSON
+	}
+	
 	def getTablaIndicador(Long id){
 		
 		int tipo = params.idTipo.toInteger()
@@ -402,7 +406,6 @@ class PublicoController {
 			CollectionUtils.extendMetaClass()
 			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}
 		}
-		
 		
 		def datos = publicoService.getTablaIndicador(resultadosIndicador, tipo)
 		def totalRecords = datos.size()

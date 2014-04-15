@@ -44,14 +44,15 @@ class IndicadorController {
 	
 	def enviarCorreo(Long id) {
 		def indicador = Indicador.get(id)
-		
+		println 'indicador?.mailResponsable:'+indicador?.mailResponsable
 		 sendMail {
 			 to indicador?.mailResponsable
-			subject "Actualizaci—n"
+			subject "Recordatorio"
 			body 'Estimado '+ indicador?.nombreResponsable +
 				' le recordamos que debe actualizar el indicador ' +
 				indicador?.nombre + "."
 		 }
+		 render (text: "enviado", contentType: "text/html", encoding: "UTF-8")
 	}
 
     def create() {

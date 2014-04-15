@@ -82,7 +82,7 @@
 					<br>
 				  <div class="body">
 				  
-				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripci&oacute;n','Regi&oacute;n','Municipio','Localidad','Categoria','Año','Poblaci&oacute;n Total','Mujeres','Hombres','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="variableTable"  cols="['ID','Clave','Descripci&oacute;n','Regi&oacute;n','Municipio','Localidad','Categoría','Año','Poblaci&oacute;n Total','Mujeres','Hombres','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
 				  </div>
 </body>
 

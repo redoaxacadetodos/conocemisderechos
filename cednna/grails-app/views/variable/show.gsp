@@ -11,8 +11,8 @@
 		<a href="#show-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
-				<li><g:link class="list" action="list">Origen de datos</g:link></li>
-				<li><g:link class="create" action="create">Nuevo origen de datos</g:link></li>
+				<li><g:link class="list" action="list">Datos estadísticos</g:link></li>
+				<li><g:link class="create" action="create">Nuevo dato</g:link></li>
 			</ul>
 </nav>
 		<div id="show-variable" class="content scaffold-show" role="main">

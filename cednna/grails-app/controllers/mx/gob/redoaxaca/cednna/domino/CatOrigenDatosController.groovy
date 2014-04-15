@@ -1,11 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
-
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 @Secured( ['IS_AUTHENTICATED_FULLY'])
 class CatOrigenDatosController {
+	
+	def tablasService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -13,10 +16,22 @@ class CatOrigenDatosController {
         redirect(action: "list", params: params)
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [catOrigenDatosInstanceList: CatOrigenDatos.list(params), catOrigenDatosInstanceTotal: CatOrigenDatos.count()]
+    def list() {
+       
     }
+	
+	def getTablaVariables(){
+		def datos = tablasService.getTablaVariables()
+		def totalRecords = datos.size()
+		def titulos = []
+		
+		titulos.add([sTitle : "Clave"])
+		titulos.add([sTitle : "Descripci&oacute;n"])
+		
+		def result = ["bDestroy": true, "bRetrieve": true,'sEcho':1, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'aoColumns':titulos, 'oLanguage':["sUrl": "../datatables/language/spanish.txt"]]
+		
+		render result as JSON
+	}
 
     def create() {
         [catOrigenDatosInstance: new CatOrigenDatos(params)]

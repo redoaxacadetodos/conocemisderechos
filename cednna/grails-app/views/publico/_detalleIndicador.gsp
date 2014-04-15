@@ -10,6 +10,7 @@
 			var idIndicador = ${indicadorInstance?.id};
 			
 			mostrarCargandoImg(div);
+			mostrarCargandoImg("divIndicadorSerie");
 			$.ajax( {
 			    "url": "<g:createLink controller='publico' action='getTablaIndicador' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
 			    "success": function ( json ) {
@@ -25,7 +26,25 @@
 			} );
 					
 			actualizarSelectGrafica();
+			actualizarTablaDatosCalculo(1);
 		});
+
+		function actualizarTablaDatosCalculo(idTipo){
+			var div = "divDatosCalculo";
+			var tabla = "tablaDatosCalculo";
+			var idIndicador = ${indicadorInstance?.id};
+			
+			mostrarCargandoImg(div);
+			$.ajax( {
+			    "url": "<g:createLink controller='publico' action='getTablaDatosCalculo' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
+			    "success": function ( json ) {
+			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
+			        $('#'+tabla).dataTable( json );
+			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
+			    },
+			    "dataType": "json"
+			} );
+		}
 
 		function actualizarTabla(idTipo, div){
 			var tabla = "";
@@ -234,25 +253,18 @@
 	  </div>
 	  
 	  <div class="tab-pane" id="calculo">
-	  	<label for="opcionDatosCalculo">Área geográfica:</label>
+	  <label for="opcionDatosCalculo">Área geográfica:</label>
 	  		<select id="opcionDatosCalculo" name="opcionDatosCalculo" 
-	  			onchange="${remoteFunction(
-					  controller:'publico',
-					  action: 'actualizarDatosCalculo',
-					  params: '\'idTipo=\' + this.value',
-					  update: 'datosCalculo',
-					  onLoading: "mostrarCargandoImg('datosCalculo')",
-					  onLoaded: "ocultarCargandoImg('datosCalculo')",					  
-					  id: indicadorInstance?.id  )}">
+	  			onchange="actualizarTablaDatosCalculo(this.value)">
 	  			<option value="1">Estatal</option>
 	  			<option value="2">Regional</option>
 	  			<option value="3">Municipal</option>	  			
 	  		</select>
+	  	
 	  	<br><br>
 	  	<p><b>Fórmula de cálculo:</b> <span>${formula}</span><br><br></p>  	
-	  	<div id="datosCalculo">
-	  		<g:render template="datosCalculo"></g:render>  
-	  	</div>	
+	  		
+	  	<div id="divDatosCalculo"></div>
 	  </div>
 	  
 	  <div class="tab-pane" id="mapa">

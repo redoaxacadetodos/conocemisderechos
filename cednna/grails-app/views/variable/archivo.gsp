@@ -153,7 +153,7 @@ function asignaEventorTipo(num){
 
 			<li><g:link class="list" action="list">Datos estad&iacute;sticos</g:link></li>
 			
-			<li class="uk-active"><g:link class="create" action="create">Nuevo  datos estad&iacute;sticos</g:link></li>
+			<li class="uk-active"><g:link class="create" action="create">Nuevo dato</g:link></li>
 			
 	
 </nav>
