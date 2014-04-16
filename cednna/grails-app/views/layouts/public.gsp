@@ -44,7 +44,9 @@
 		<r:layoutResources />
 	</head>							
 <body class="tm-background">
+	
 			<nav class="tm-navbar uk-navbar">
+				<div class="uk-container uk-container-center">
 				<div class="uk-grid" >
 				<div class="uk-width-5-10">	
 					<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo.png" title="CEDNNA" alt="CEDNNA"></a>
@@ -68,9 +70,11 @@
 				</div>
 
 				</div>
+				</div>
 			</nav>
+	
 		
-			<div class="uk-container uk-container-center">
+			<div class="uk-container uk-container-center altopag">
 				<div data-uk-grid-margin>
 				<div class="uk-container-center">
 					<g:layoutBody/>

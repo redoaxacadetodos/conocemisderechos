@@ -25,7 +25,7 @@
 	</g:each>	
 	</div>
 	<div class="uk-width-3-10">
-	<br /><br /><br /><br />
+	<br /><br />
 	<div class="uk-panel uk-panel-box" id="menuflotante">
 		<h3>Indicadores</h3>
 			<g:each var="divi" in="${divisiones}">

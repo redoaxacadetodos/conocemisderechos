@@ -22,17 +22,17 @@
 	
 <div class="uk-grid">
 <div class="uk-width-1-1">
-<div id="menubloque" style="padding-left:25px;">
-	<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-		<a href="#" onclick="${remoteFunction(
-			controller:'publico',
-			action: 'infoIndicador',
-			update: 'division',
-			id: eje.id)}" value="${eje.descripcion}" id="${eje.id}" class="men${eje.id} botmenubloque"></a>
-		
-					
-	</g:each>
-	</div>	
+
+<div class="tm-middle">
+<div class="uk-panel uk-panel-box">
+<ul class="uk-breadcrumb">
+    <li><a href="">UNO</a></li>
+    <li><a href="">DOS</a></li>
+    <li><span>TRES</span></li>
+    <li class="uk-active"><span>CUATRO</span></li>
+</ul>
+</div>
+</div>	
 	
 </div>
 </div>
