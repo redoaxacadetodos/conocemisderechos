@@ -60,9 +60,14 @@
 		<li><g:link class="iconobar icono_ayuda"  controller="publico" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
 				</ul>
 
-				<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+				
+				<div class="uk-width-1-10">
+					<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+				</div>
 
-				<div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="${request.getContextPath()}/img/logo02.png"  title="CEDNNA" alt="CEDNNA"></div>
+				<div class="uk-navbar-brand uk-navbar-center uk-visible-small">
+					<img src="${request.getContextPath()}/img/logomini_cednna.png"  title="CEDNNA" alt="CEDNNA" class="fondologomini">
+				</div>
 
 			</div>
 		</nav>
