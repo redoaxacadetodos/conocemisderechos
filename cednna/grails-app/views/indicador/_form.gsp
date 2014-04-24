@@ -87,14 +87,6 @@
 	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
-	<label class="uk-form-label"for="frecuencia">
-		<g:message code="indicador.frecuencia.label" default="Periodo " />
-
-	</label>
-	<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one"   noSelection="['null': '-No contiene periodos-']"/>
-</div>
-
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
 		<g:message code="indicador.frecuencia.label" default="Unidad de medida" />
@@ -182,22 +174,22 @@
 </div>
 
 
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
-	<label class="uk-form-label"for="mediosVerificacion">
-		<g:message code="indicador.mediosVerificacion.label" default="Medios de verificaci&oacute;n" />
-		
-	</label>
-	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>
-</div>
-
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
-	<label class="uk-form-label"for="comentarios">
-		<g:message code="indicador.comentarios.label" default="Fuente de informacion del indicador" />
-		
-	</label>
-	<textarea  name="fuenteInformacion" rows="5" cols="40">${indicadorInstance?.fuenteInformacion}</textarea>
-</div>
+<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">--%>
+<%--	<label class="uk-form-label"for="mediosVerificacion">--%>
+<%--		<g:message code="indicador.mediosVerificacion.label" default="Medios de verificaci&oacute;n" />--%>
+<%--		--%>
+<%--	</label>--%>
+<%--	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>--%>
+<%--</div>--%>
+<%----%>
+<%----%>
+<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">--%>
+<%--	<label class="uk-form-label"for="comentarios">--%>
+<%--		<g:message code="indicador.comentarios.label" default="Fuente de informacion del indicador" />--%>
+<%--		--%>
+<%--	</label>--%>
+<%--	<textarea  name="fuenteInformacion" rows="5" cols="40">${indicadorInstance?.fuenteInformacion}</textarea>--%>
+<%--</div>--%>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
 	<label class="uk-form-label"for="comentarios">
@@ -338,6 +330,21 @@ $(function(){
 			
 		});  
 
+		llenaCombo({
+			url : CONTEXT_ROOT+'/indicador/temaByEje/'+$("#pnDesarrollo").val(),
+				htmlOptions : {
+				name : "tema.id",
+				id : "tema"
+			},
+			index : "${indicadorInstance?.tema?.id}",
+			chained : false,
+			anchor : "#tema",
+			combo : true,
+			valorDefault:false,
+			valorDefaultText:" Busca una variable ",
+			
+		});  
+
 
 		$('#eje').change(function() {
 
@@ -360,6 +367,23 @@ $(function(){
 
 
 			});
+
+		$('#pnDesarrollo').change(function() {
+			llenaCombo({
+				url : CONTEXT_ROOT+'/indicador/temaByEje/'+$("#pnDesarrollo").val(),
+					htmlOptions : {
+					name : "tema.id",
+					id : "tema"
+				},
+				index : "${indicadorInstance?.tema?.id}",
+				chained : false,
+				anchor : "#tema",
+				combo : true,
+				valorDefault:false,
+				valorDefaultText:" Busca una variable ",
+				
+			}); 
+		});
 		
 		$(".screen").html($(".outcome").val() );
 

@@ -47,24 +47,4 @@
 			</g:form>
 		</div>
 	</body>
-	
-	<script type="text/javascript">
-
-
-	$(function(){
-
-		
-	//	alert("asdasd");
-		
-
-
-		
-		
-
-	});
-			
-
-
-
-	</script>
 </html>
