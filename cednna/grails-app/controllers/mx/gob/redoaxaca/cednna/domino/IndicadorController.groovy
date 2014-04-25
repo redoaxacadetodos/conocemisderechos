@@ -1629,7 +1629,6 @@ class IndicadorController {
 	
 	@Secured(['ROLE_DEP','ROLE_LECTURA'])
 	def semaforo(){
-		
 		def usuario = springSecurityService.currentUser
 		def dependencia =  usuario.dependencia
 		[dependencia:dependencia]

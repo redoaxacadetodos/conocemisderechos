@@ -1,7 +1,10 @@
 package mx.gob.redoaxaca.cednna.seguridad
 
+import grails.plugins.springsecurity.Secured
+
 import org.springframework.dao.DataIntegrityViolationException
 
+@Secured(['ROLE_ADMIN'])
 class UsuarioController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -21,10 +24,14 @@ class UsuarioController {
 
     def save() {
         def usuarioInstance = new Usuario(params)
-        if (!usuarioInstance.save(flush: true)) {
-            render(view: "create", model: [usuarioInstance: usuarioInstance])
-            return
-        }
+		
+		def rol = Rol.get(params.rol.toLong())
+		def usuarioRolInstance = new UsuarioRol(params)
+		usuarioRolInstance.usuario = usuarioInstance
+		
+		usuarioInstance.save(flush: true)
+		
+		UsuarioRol.create usuarioInstance, rol, true
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuarioInstance.id])
         redirect(action: "show", id: usuarioInstance.id)
@@ -43,6 +50,7 @@ class UsuarioController {
 
     def edit(Long id) {
         def usuarioInstance = Usuario.get(id)
+		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
             redirect(action: "list")
@@ -54,6 +62,20 @@ class UsuarioController {
 
     def update(Long id, Long version) {
         def usuarioInstance = Usuario.get(id)
+		
+//		def usuarioRol = UsuarioRol.get
+//		println 'usuarioRol:'+usuarioRol
+//		println 'usuarioRol.id:'+usuarioRol.id
+//		def usuarioRolInstance = UsuarioRol.get(usuarioRol.id)
+//		def rol = usuarioRolInstance.rol
+//		def rolNuevo = Rol.get(params.rol.toLong())
+//		if (rol!=rolNuevo){
+//			usuarioRolInstance.rol = rolNuevo
+//		}
+//		
+//		usuarioRolInstance.save(flush: true)
+		
+		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
             redirect(action: "list")

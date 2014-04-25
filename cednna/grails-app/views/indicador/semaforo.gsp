@@ -19,9 +19,6 @@
 
 		
 	  	function actualizar(){	  	
-	
-
-
 		  	$.ajax({type:'POST', 
 	            url:CONTEXT_ROOT+'/indicador/actualizarSemaforo',
 	            data: "id="+$("#dependencias").val()+"&rol="+$("#rol").val(),

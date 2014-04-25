@@ -238,88 +238,96 @@ class PublicoController {
 	}
 	
 	def detalleIndicador (Long id){		
-		if(params.infoIndicador=='true'){	
-			//Mostrar vista de ejes		
-			def eje = Eje.get(id)
-			if(eje){								
-				def divisiones=Division.findAllByEje(eje)		
-				[divisiones: divisiones]
-			}else{
-				redirect(action:"indicadores")
-			}
-			
+		//Mostrar vista de indicadores		
+		def eje = Eje.get(id)
+		if(eje){								
+			def divisiones=Division.findAllByEje(eje)		
+			[divisiones: divisiones, ejeInstance: eje]
 		}else{
-			//Crear vista de detalles
-			def indicador = Indicador.get(id)
-			
-			if(indicador){
-				def decimales = indicador?.decimales
-				DetalleIndicador detalleIndicador = visorIndicador(id,1)
-				def resultadosIndicador = detalleIndicador?.resultados
-				def resultados = []
-				def coordenadasList = []
-				def nulo = true
-			
-				//Generar gr‡fica a nivel estatal
-				def jsodata = crearGrafica(id, 1)
-			
-				//Buscar datos para Google Maps
-				def ubicaciones = []
-				def aux = [:]
-				def ubicacioneString = []
-					
-				def nombreCoordenadas = []
-							
-				resultadosIndicador.each { resultado ->		
-					def idEstado = 20
-					
-					def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
-					def db = new Sql(dataSource)
-					def result  = db.rows(sql)						
-					def coordenadas = []
-					result.each {
-						coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")					
+			redirect(action:"indicadores")
+		}
+	}
+	
+	def mostrarIndicador(Long id){
+		//Crear vista de detalles
+		def indicador = Indicador.get(id)
+		
+		if(indicador){
+			def decimales = indicador?.decimales
+			DetalleIndicador detalleIndicador = visorIndicador(id,1)
+			def resultadosIndicador = detalleIndicador?.resultados
+			def resultados = []
+			def coordenadasList = []
+			def nulo = true
+		
+			//Generar gr‡fica a nivel estatal
+			def jsodata = crearGrafica(id, 1)
+		
+			//Buscar datos para Google Maps
+			def ubicaciones = []
+			def aux = [:]
+			def ubicacioneString = []
+				
+			def nombreCoordenadas = []
+						
+			resultadosIndicador.each { resultado ->
+				def idEstado = 20
+				
+				def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
+				def db = new Sql(dataSource)
+				def result  = db.rows(sql)
+				def coordenadas = []
+				result.each {
+					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
+				}
+				coordenadasList.add(coordenadas)
+				
+				def db2 = new Sql(dataSource)
+				
+				def datosIndicador = []
+				def anios = []
+				
+				resultados = resultado.resultados
+				
+				resultado.resultados.each { r ->
+					anios.add(r?.anio)
+					datosIndicador.add(r?.indicador.round(decimales))
+					if(r?.indicador!=null){
+						nulo=false
 					}
-					coordenadasList.add(coordenadas)				
-					
-					def db2 = new Sql(dataSource)
-					
-					def datosIndicador = []
-					def anios = []
-					
-					resultados = resultado.resultados
-					
-					resultado.resultados.each { r ->
-						anios.add(r?.anio)
-						datosIndicador.add(r?.indicador.round(decimales))
-						if(r?.indicador!=null){
-							nulo=false
-						}						
-					}
-					
-					nombreCoordenadas.add("'"+"Oaxaca"+"'")					
-					ubicaciones.add(["descripcion": "Oaxaca", "anios":anios, "datos": datosIndicador])
-				
-				}			
-				aux.put("lugar",["ubicaciones":ubicaciones])			
-				def jsondata = aux as JSON
-				
-				
-				if(nulo){
-					resultadosIndicador = null
 				}
 				
-				//Cambiar f—rmula
-				String formula = crearFormula(indicador)
-							
-				def tamVariables = indicador.variables.size()
-				def datosCalculo = detalleIndicador.rVariables			
+				nombreCoordenadas.add("'"+"Oaxaca"+"'")
+				ubicaciones.add(["descripcion": "Oaxaca", "anios":anios, "datos": datosIndicador])
+			
+			}
+			aux.put("lugar",["ubicaciones":ubicaciones])
+			def jsondata = aux as JSON
+			
+			
+			if(nulo){
+				resultadosIndicador = null
+			}
+			
+			//Cambiar f—rmula
+			String formula = crearFormula(indicador)
 						
-				[aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables, formula:formula]
-			}
-			else{
-				redirect(action:"indicadores")
-			}
+			def tamVariables = indicador.variables.size()
+			def datosCalculo = detalleIndicador.rVariables
+			
+			def eje = Eje.get(params.ejeInstance.toLong())
+			def nombreIndicador = ""
+			int maximaLongitud = 55
+			
+			if (indicador?.nombre.length()>maximaLongitud)
+				nombreIndicador = String.format('%1$2.'+maximaLongitud+'s', indicador?.nombre) + '...'
+			else
+				nombreIndicador =  indicador?.nombre
+					
+			[nombreIndicador: nombreIndicador, ejeInstance:eje, aux: jsondata, indicadorInstance: indicador, resultados:resultados, tablaJSON: jsodata, ubicaciones: ubicacioneString, resultadosIndicador:resultadosIndicador, tipo:'1',coordenadasList:coordenadasList, nombreCoordenadas:nombreCoordenadas, datosCalculo: datosCalculo, tamVariables:tamVariables, formula:formula]
+		}
+		else{
+			redirect(action:"indicadores")
 		}
 	}
 	

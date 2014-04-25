@@ -2,104 +2,83 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'username', 'error')} required">
-	<label for="username">
-		<g:message code="usuario.username.label" default="Username" />
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'username', 'error')} required">
+	<label class="uk-form-label" for="username">
+		<g:message code="mx.gob.redoaxaca.usuario.label" default="Usuario" />
 		<span class="required-indicator">*</span>
 	</label>
+	<div class="uk-form-controls">
 	<g:textField name="username" required="" value="${usuarioInstance?.username}"/>
+	</div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'password', 'error')} required">
-	<label for="password">
-		<g:message code="usuario.password.label" default="Password" />
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'password', 'error')} required">
+	<label class="uk-form-label" for="password">
+		<g:message code="mx.gob.redoaxaca.usuario.contrasena.label" default="Contraseña" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="password" required="" value="${usuarioInstance?.password}"/>
+	<div class="uk-form-controls">
+		<input type="password" name="password" required="required" value="${usuarioInstance?.password}"/>
+	</div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'dependencia', 'error')} ">
-	<label for="dependencia">
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'dependencia', 'error')} ">
+	<label class="uk-form-label" for="dependencia">
 		<g:message code="usuario.dependencia.label" default="Dependencia" />
 		
 	</label>
-	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" value="${usuarioInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<div class="uk-form-controls">
+	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionValue="descripcion" optionKey="id" value="${usuarioInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': 'Seleccione una dependencia']"/>
+</div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'accountExpired', 'error')} ">
-	<label for="accountExpired">
-		<g:message code="usuario.accountExpired.label" default="Account Expired" />
+<div class="fieldcontain uk-form-row required">
+	<label class="uk-form-label" for="rol">
+		<g:message code="usuarioRol.rol.label" default="Rol" />
+		<span class="required-indicator">*</span>
+	</label>
+	<div class="uk-form-controls">
+	<g:select id="rol" name="rol" from="${mx.gob.redoaxaca.cednna.seguridad.Rol.list()}" optionValue="authority" optionKey="id" required="" value="${usuarioRolInstance?.rol?.id}" class="many-to-one"/>
+</div>
+</div>
+
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'accountExpired', 'error')} ">
+	<label class="uk-form-label" for="accountExpired">
+		<g:message code="mx.gob.redoaxaca.usuario.caducada.label" default="Cuenta caducada" />
 		
 	</label>
+	<div class="uk-form-controls">
 	<g:checkBox name="accountExpired" value="${usuarioInstance?.accountExpired}" />
 </div>
+</div>
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'accountLocked', 'error')} ">
-	<label for="accountLocked">
-		<g:message code="usuario.accountLocked.label" default="Account Locked" />
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'accountLocked', 'error')} ">
+	<label class="uk-form-label" for="accountLocked">
+		<g:message code="mx.gob.redoaxaca.usuario.bloqueada.label" default="Cuenta bloqueada" />
 		
 	</label>
+	<div class="uk-form-controls">
 	<g:checkBox name="accountLocked" value="${usuarioInstance?.accountLocked}" />
 </div>
+</div>
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'enabled', 'error')} ">
-	<label for="enabled">
-		<g:message code="usuario.enabled.label" default="Enabled" />
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'enabled', 'error')} ">
+	<label class="uk-form-label" for="enabled">
+		<g:message code="mx.gob.redoaxaca.usuario.habilitado.label" default="Enabled" />
 		
 	</label>
+	<div class="uk-form-controls">
 	<g:checkBox name="enabled" value="${usuarioInstance?.enabled}" />
 </div>
+</div>
 
-<div class="fieldcontain ${hasErrors(bean: usuarioInstance, field: 'passwordExpired', 'error')} ">
-	<label for="passwordExpired">
-		<g:message code="usuario.passwordExpired.label" default="Password Expired" />
+<div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'passwordExpired', 'error')} ">
+	<label class="uk-form-label" for="passwordExpired">
+		<g:message code="mx.gob.redoaxaca.usuario.contrasenaCaducada.label" default="Contraseña caducada" />
 		
 	</label>
+	<div class="uk-form-controls">
 	<g:checkBox name="passwordExpired" value="${usuarioInstance?.passwordExpired}" />
 </div>
-
-<div class="fieldset fieldset--demo js__fieldset" ><div class="fieldset__wrapper">
-	<label for="concesionario">
-		<h3><g:message code="estacion.concesionario.label" default="Roles" /></h3>
-	
-	</label>
-	
-		<g:each in="${com.indesti.ace.security.Rol.list()}" status="i" var="rolInstance">
-						
-										<g:set var="bandera" value="${0}" ></g:set>
-										
-											<g:if test="${usuarioInstance.id}">
-											<g:each in="${com.indesti.ace.security.UsuarioRol.findAllByUsuario(usuarioInstance)}" var="role">
-											
-												<g:if test="${rolInstance.id==role.rol.id}">
-													<g:set var="bandera" value="${1}" ></g:set>
-												</g:if>
-												
-											</g:each>
-											
-											</g:if>
-									
-											<div class="fieldcontain ${hasErrors(bean: estacionInstance, field: 'concesionario', 'error')} required">
-												 	
-													 	<g:if test="${bandera!=1}">
-													 		<g:if test="${rolInstance.authority=='ROLE_USUARIO'}">
-														 	<input type="checkbox"  name="rol_${rolInstance?.id}" checked /> 
-														 	</g:if><g:else>
-														 	<input type="checkbox" name="rol_${rolInstance?.id}"  /> 
-														 	</g:else>
-														 </g:if>	
-														<g:else>
-															
-															<input type="checkbox" name="rol_${rolInstance?.id}"  checked/> 
-															
-														</g:else>	
-												 		
-												 
-													<span>${rolInstance.authority}</span>
-					
-												</div>		
-									
-									
-								</g:each>
 </div>
-</div>	
+
