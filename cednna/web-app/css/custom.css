@@ -91,7 +91,11 @@ html { overflow-y: scroll; }
 .altopag {
   min-height: 700px;
 }
-
+.total_registros {
+  color: #FF9F00;
+  font-weight: bold;
+  font-size: 1.3em;
+}
 /* Only tablets and desktop */
 @media (min-width: 768px) {
 
