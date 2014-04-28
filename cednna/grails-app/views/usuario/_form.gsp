@@ -1,7 +1,13 @@
 <%@ page import="mx.gob.redoaxaca.cednna.seguridad.Usuario" %>
 
 
-
+<script>
+$(function() {
+	$('#rol').selectize({
+		maxItems: 3
+	});
+});
+		</script>
 <div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'username', 'error')} required">
 	<label class="uk-form-label" for="username">
 		<g:message code="mx.gob.redoaxaca.usuario.label" default="Usuario" />
@@ -38,7 +44,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="rol" name="rol" from="${mx.gob.redoaxaca.cednna.seguridad.Rol.list()}" optionValue="authority" optionKey="id" required="" value="${usuarioRolInstance?.rol?.id}" class="many-to-one"/>
+	<g:select id="rol" name="rol" from="${mx.gob.redoaxaca.cednna.seguridad.Rol.list()}" optionValue="authority" optionKey="id" required="" value="${usuarioRolInstance*.rol?.id}" class="many-to-one"/>
 </div>
 </div>
 
