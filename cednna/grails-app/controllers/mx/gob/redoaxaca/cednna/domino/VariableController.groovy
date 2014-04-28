@@ -21,6 +21,7 @@ import com.redoaxaca.java.TotalVariable
 @Secured(['ROLE_DEP','ROLE_LECTURA'])
 class VariableController {
 	def dataTablesService
+	def tablasService
 	def sessionFactory
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
@@ -132,7 +133,20 @@ class VariableController {
 	}
 	def dele(){}
 
-	
+	def getTablaDatosEstadisticos(){
+		int sEcho = 0
+		if(params.sEcho){
+			sEcho = params.sEcho.toInteger()
+			sEcho++
+		}
+		
+		def datos = tablasService.getTablaDatosEstadisticos(params, false)
+		def totalRecords = tablasService.getTablaDatosEstadisticos(params, true)
+		
+		def result = ['sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
+		
+		render result as JSON
+	}
 	
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -149,6 +163,10 @@ class VariableController {
     def save() {
         def variableInstance = new Variable(params)
 		
+		if(params.periodo){
+			variableInstance.anio = variableInstance.periodo.anioInicial
+		}
+		
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
 		variableInstance.clave=cod.clave
 		variableInstance.descripcion=cod.descripcion
@@ -156,22 +174,12 @@ class VariableController {
 		variableInstance.dependencia=usuario.dependencia
 		def numCategorias= params.numCategorias.toInteger()
 
-			for(i in 1 .. numCategorias){
-			
-		
-				
-				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-				if(temCategoria){
-					
-					variableInstance.addToCategorias(temCategoria)
-					
-				}
-				
+		for(i in 1 .. numCategorias){
+			def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
+			if(temCategoria){
+				variableInstance.addToCategorias(temCategoria)
 			}
-			
-			
-		
-		
+		}
 		
         if (!variableInstance.save(flush: true)) {
             render(view: "create", model: [variableInstance: variableInstance])
@@ -488,21 +496,17 @@ class VariableController {
 		
 	}
 	
-	
-	
-	
 	def getCategoriaByTipo() {
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		
 		def pla = new ArrayList<Categoria>()
 		
-
-		
 		def tipoCat = Tipo.get(params.id)
+		def consulta = "select cct_id id, cct_descripcion descripcion from cat_categoria where cct_ctt_id = "+tipoCat.id
+		
 
 		if (tipoCat) {
-
-			pla = Categoria.findAllByTipo(tipoCat)
-
-
+			pla = sql.rows(consulta)
 			render pla as JSON
 		} else {
 			render pla as JSON
@@ -583,12 +587,9 @@ class VariableController {
 	
 	
 	def addCat(){
-		
+		def num= params.contador 
 			
-			def num= params.contador 
-			
-			[num:num+1]	
-		
+		[num:num+1]	
 	}
 	
 	
@@ -612,13 +613,6 @@ class VariableController {
 			
 				region = Region.get(params.region)
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	def resultadoPanel() {
@@ -968,7 +962,6 @@ class VariableController {
 		def var =params.id
 		int con= params.con.toInteger()
 		def valida = params.valida
-	
 		
 		[var:var,con:con,valida:valida]
 	}
@@ -981,7 +974,7 @@ class VariableController {
 		def var =params.id
 		
 		def tipo =Tipo.get(params.tipoId)
-		def con= params.con
+		def con= params.con.toInteger()
 		
 		def categorias = Categoria.findAllByTipo(tipo);
 		

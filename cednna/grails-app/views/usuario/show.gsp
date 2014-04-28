@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list"><g:message code="mx.gob.redoaxaca.usuario.lista.label" default="Listado" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -25,18 +25,9 @@
 			
 				<g:if test="${usuarioInstance?.username}">
 				<li class="fieldcontain">
-					<span id="username-label" class="property-label"><g:message code="usuario.username.label" default="Username" /></span>
+					<span id="username-label" class="property-label"><g:message code="mx.gob.redoaxaca.usuario.label" default="Usuario" /></span>
 					
 						<span class="property-value" aria-labelledby="username-label"><g:fieldValue bean="${usuarioInstance}" field="username"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${usuarioInstance?.password}">
-				<li class="fieldcontain">
-					<span id="password-label" class="property-label"><g:message code="usuario.password.label" default="Password" /></span>
-					
-						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${usuarioInstance}" field="password"/></span>
 					
 				</li>
 				</g:if>
@@ -45,14 +36,14 @@
 				<li class="fieldcontain">
 					<span id="dependencia-label" class="property-label"><g:message code="usuario.dependencia.label" default="Dependencia" /></span>
 					
-						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="dependencia" action="show" id="${usuarioInstance?.dependencia?.id}">${usuarioInstance?.dependencia?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="dependencia" action="show" id="${usuarioInstance?.dependencia?.id}">${usuarioInstance?.dependencia?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>
 			
 				<g:if test="${usuarioInstance?.accountExpired}">
 				<li class="fieldcontain">
-					<span id="accountExpired-label" class="property-label"><g:message code="usuario.accountExpired.label" default="Account Expired" /></span>
+					<span id="accountExpired-label" class="property-label"><g:message code="mx.gob.redoaxaca.usuario.caducada.label" default="Cuenta caducada" /></span>
 					
 						<span class="property-value" aria-labelledby="accountExpired-label"><g:formatBoolean boolean="${usuarioInstance?.accountExpired}" /></span>
 					
@@ -61,7 +52,7 @@
 			
 				<g:if test="${usuarioInstance?.accountLocked}">
 				<li class="fieldcontain">
-					<span id="accountLocked-label" class="property-label"><g:message code="usuario.accountLocked.label" default="Account Locked" /></span>
+					<span id="accountLocked-label" class="property-label"><g:message code="mx.gob.redoaxaca.usuario.bloqueada.label" default="Cuenta bloqueada" /></span>
 					
 						<span class="property-value" aria-labelledby="accountLocked-label"><g:formatBoolean boolean="${usuarioInstance?.accountLocked}" /></span>
 					
@@ -70,7 +61,7 @@
 			
 				<g:if test="${usuarioInstance?.enabled}">
 				<li class="fieldcontain">
-					<span id="enabled-label" class="property-label"><g:message code="usuario.enabled.label" default="Enabled" /></span>
+					<span id="enabled-label" class="property-label"><g:message code="mx.gob.redoaxaca.usuario.habilitado.label" default="Habilitado" /></span>
 					
 						<span class="property-value" aria-labelledby="enabled-label"><g:formatBoolean boolean="${usuarioInstance?.enabled}" /></span>
 					
@@ -79,7 +70,7 @@
 			
 				<g:if test="${usuarioInstance?.passwordExpired}">
 				<li class="fieldcontain">
-					<span id="passwordExpired-label" class="property-label"><g:message code="usuario.passwordExpired.label" default="Password Expired" /></span>
+					<span id="passwordExpired-label" class="property-label"><g:message code="mx.gob.redoaxaca.usuario.contrasenaCaducada.label" default="Contraseña caducada" /></span>
 					
 						<span class="property-value" aria-labelledby="passwordExpired-label"><g:formatBoolean boolean="${usuarioInstance?.passwordExpired}" /></span>
 					

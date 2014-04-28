@@ -1344,6 +1344,25 @@ class IndicadorController {
 		render divisiones as JSON
 	}
 	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_ADMIN','ROLE_LECTURA'])
+	def temaByEje(){
+		if(params.id!='null'){
+			def eje = PNDesarrollo.get(params.id)
+			def temas
+			
+			if(eje){
+				temas = Tema.findAllByEje(eje)
+			}else{
+				temas = Tema.list()
+			}
+			render temas as JSON
+		}else{
+			def temas = [[id:'null', descripcion: '-No pertenece al PED-']]
+			render temas as JSON
+		}
+		
+	}
+	
 	
     def save() {
         def indicadorInstance = new Indicador(params)
@@ -1610,7 +1629,6 @@ class IndicadorController {
 	
 	@Secured(['ROLE_DEP','ROLE_LECTURA'])
 	def semaforo(){
-		
 		def usuario = springSecurityService.currentUser
 		def dependencia =  usuario.dependencia
 		[dependencia:dependencia]

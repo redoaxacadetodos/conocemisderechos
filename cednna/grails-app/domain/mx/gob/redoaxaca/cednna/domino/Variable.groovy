@@ -13,24 +13,25 @@ class Variable {
 	int         hombres
 	int         mujeres
 	int         anio
+	Periodo 	periodo
 	Dependencia dependencia
 	
 	static hasMany = [categorias:Categoria]
 		
     static constraints = {
 		
-		
-		        clave(blank:false, nullable:false)
-		        descripcion(blank:false, nullable:false, size:1..500)
-		        estado(blank:true, nullable:true)
-				localidad(blank:true, nullable:true)
-		        municipio(blank:true, nullable:true)
-		        poblacionTotal(blank:false, nullable:false)
-		        hombres(blank:false, nullable:false)
-		        mujeres(blank:false, nullable:false)
-		        region(blank:true, nullable:true)
-		        anio(blank:false, nullable:false)
-				dependencia(blank:true, nullable:true)
+		periodo nullable:true
+		clave(blank:false, nullable:false)
+		descripcion(blank:false, nullable:false, size:1..500)
+		estado(blank:true, nullable:true)
+		localidad(blank:true, nullable:true)
+		municipio(blank:true, nullable:true)
+		poblacionTotal(blank:false, nullable:false)
+		hombres(blank:false, nullable:false)
+		mujeres(blank:false, nullable:false)
+		region(blank:true, nullable:true)
+		anio(blank:false, nullable:false)
+		dependencia(blank:true, nullable:true)
 		
     }
 
@@ -49,6 +50,8 @@ class Variable {
 	hombres(column:'cvv_hombres')
 	mujeres(column:'cvv_mujeres')
 	anio(column:'cvv_anio')
+	
+	periodo(column:'cvv_ped_id')
 
  	categorias (column: 'cvc_cvv_id', joinTable: 'cat_variable_categoria')
 

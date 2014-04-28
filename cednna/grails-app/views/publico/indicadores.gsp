@@ -20,7 +20,7 @@
 	</head>
 	<body>
 	
-	<div class="titulo">Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca.</div>
+	<div class="titulo">Sistema de Monitoreo de Derechos de la Niñez y la Adolescencia en Oaxaca</div>
 
 
 
@@ -32,7 +32,7 @@
 
 			<div id="bot_prog" class="uk-width-medium-1-4">
 				<div class="uk-panel">
-					<g:link action="detalleIndicador" params="[infoIndicador: 'true']" controller="publico"  value="${eje.descripcion}" id="${eje.id}">
+					<g:link action="detalleIndicador" controller="publico"  value="${eje.descripcion}" id="${eje.id}">
 					<div class="bot${eje.id}"></div>
 					</g:link>			
 				</div>

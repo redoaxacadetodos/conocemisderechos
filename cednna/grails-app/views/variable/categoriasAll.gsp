@@ -1,73 +1,46 @@
 <g:set var="counter" value="${con.toInteger()}" />
-<g:hiddenField name="tam_${idn}" value="${categorias.size}"/>
+<g:hiddenField name="tam_${idn}" value="${categorias.size}" />
 <g:each status="i" var="categoria" in="${categorias}">
-<br>
-<div id="div_${counter}" class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-
+	<div id="div_${counter}" class="fieldcontain uk-form-row cat-div ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+	<br>
 		<div class="uk-grid">
+			<div class="uk-width-1-2">
+				<label for="localidad" class="uk-form-label"> <g:message
+						code="indicador.localidad.label" default="Tipo de categoria" />
+				</label> 
+				<input id="cat_${counter}" name="cat_${counter}"
+					value="${tipo.descripcion}" readonly="readonly" />
+			</div>
 
-				<div class="uk-width-1-2">
-					<label for="localidad" class="uk-form-label">
-						<g:message code="indicador.localidad.label" default="Tipo de categoria" />
-				
-					</label>
-					<input id="cat_${counter}" name="cat_${counter}"  value="${tipo.descripcion}"  readonly="readonly"/>
+			<div class="uk-width-1-2">
+				<label for="localidad" class="uk-form-label"> <g:message
+						code="indicador.localidad.label" default="Categoria" />
+				</label>
+
+				<div id="divTipo_${counter}" class="fieldcontain">
+					<input id="cat_${counter}" name="cat_${counter}"
+						value="${categoria.descripcion}" readonly="readonly" />
+					<g:hiddenField name="categoria_${counter}" value="${categoria.id}" />
 				</div>
-				
-				<div class="uk-width-1-2">
-					<label for="localidad" class="uk-form-label">
-						<g:message code="indicador.localidad.label" default="Categoria" />
-				
-					</label>
-					
-			
-					<div id="divTipo_${counter}" class="fieldcontain">
-							<input id="cat_${counter}" name="cat_${counter}"  value="${categoria.descripcion}" readonly="readonly" />
-							<g:hiddenField name="categoria_${counter}" value="${categoria.id}"/>
-					</div>
-			
-				
-			     </div>
-		
-	     </div>
-	    
-	    <input type="button" value="-"  id="del_${counter}" class="uk-button" />
+			</div>
+		</div>
 
-</div>
-<script type="text/javascript">
+		<button id="del_${counter}" name="del_${counter}" class="uk-button btn btn-info del-cat" type="button">
+			-
+		</button>
 
-
-
-
-$(function(){
-
-
-
-				$("#del_${counter}").click(function(){
-
-					
-				$("#div_${counter}").remove();
-
-				var num = parseInt($("#numCategorias").val()); 
-
-				num=num-1;
-
-				$("#numCategorias").val(num);
-
-			});	
-
-				
-			
-});
-<g:set var="counter" value="${counter+1}" />
-
-
-
-						                		
-</script>					                		
+	</div>
+	
+	<g:set var="counter" value="${counter+1}" />
 </g:each>
 
 <script type="text/javascript">
+
+$('body').on('click', 'button.del-cat', function () {
+	var prnt = $(this).parents(".cat-div");
+	prnt.remove();
+});
+
 
 
 $(function(){
@@ -83,4 +56,4 @@ $(function(){
 });
 
 						                		
-</script>	
+</script>

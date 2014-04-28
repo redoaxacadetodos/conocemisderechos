@@ -19,7 +19,7 @@
 			}}">				
 			<span class="nombre_indicador">${indicador.nombre }</span>
 			
-			<br /><g:link action="detalleIndicador" id="${indicador.id}" class="ver_indicador">Ver indicador</g:link>
+			<br /><g:link action="mostrarIndicador" params="['ejeInstance':ejeInstance?.id]" id="${indicador.id}" class="ver_indicador">Ver indicador</g:link>
 			<hr class="dotted">
 		</g:each>		
 	</g:each>	
