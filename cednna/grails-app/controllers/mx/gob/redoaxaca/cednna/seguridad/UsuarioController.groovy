@@ -51,30 +51,32 @@ class UsuarioController {
     def edit(Long id) {
         def usuarioInstance = Usuario.get(id)
 		
+		def usuarioRol = UsuarioRol.where {
+         usuario == Usuario.load(usuarioInstance.id)
+		}
+		
+		def usuarioRolInstance
+		
+		usuarioRol.each{
+			usuarioRolInstance = it
+		}
+		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
             redirect(action: "list")
             return
         }
 
-        [usuarioInstance: usuarioInstance]
+        [usuarioInstance: usuarioInstance, usuarioRolInstance:usuarioRolInstance]
     }
 
     def update(Long id, Long version) {
         def usuarioInstance = Usuario.get(id)
 		
-//		def usuarioRol = UsuarioRol.get
-//		println 'usuarioRol:'+usuarioRol
-//		println 'usuarioRol.id:'+usuarioRol.id
-//		def usuarioRolInstance = UsuarioRol.get(usuarioRol.id)
-//		def rol = usuarioRolInstance.rol
-//		def rolNuevo = Rol.get(params.rol.toLong())
-//		if (rol!=rolNuevo){
-//			usuarioRolInstance.rol = rolNuevo
-//		}
-//		
-//		usuarioRolInstance.save(flush: true)
+		UsuarioRol.removeAll(usuarioInstance)		
 		
+		def rolNuevo = Rol.get(params.rol.toLong())
+		UsuarioRol.create usuarioInstance, rolNuevo, true
 		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
@@ -105,6 +107,7 @@ class UsuarioController {
 
     def delete(Long id) {
         def usuarioInstance = Usuario.get(id)
+		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
             redirect(action: "list")
@@ -112,7 +115,8 @@ class UsuarioController {
         }
 
         try {
-            usuarioInstance.delete(flush: true)
+			UsuarioRol.removeAll usuarioInstance
+			usuarioInstance.delete(flush: true)
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
             redirect(action: "list")
         }
