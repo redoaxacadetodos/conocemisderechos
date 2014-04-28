@@ -25,13 +25,12 @@ class UsuarioController {
     def save() {
         def usuarioInstance = new Usuario(params)
 		
-		def rol = Rol.get(params.rol.toLong())
-		def usuarioRolInstance = new UsuarioRol(params)
-		usuarioRolInstance.usuario = usuarioInstance
-		
 		usuarioInstance.save(flush: true)
 		
-		UsuarioRol.create usuarioInstance, rol, true
+		params.rol.each{
+			def rol = Rol.get(it.toLong())
+			UsuarioRol.create usuarioInstance, rol, true
+		}
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuarioInstance.id])
         redirect(action: "show", id: usuarioInstance.id)
@@ -55,19 +54,13 @@ class UsuarioController {
          usuario == Usuario.load(usuarioInstance.id)
 		}
 		
-		def usuarioRolInstance
-		
-		usuarioRol.each{
-			usuarioRolInstance = it
-		}
-		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])
             redirect(action: "list")
             return
         }
 
-        [usuarioInstance: usuarioInstance, usuarioRolInstance:usuarioRolInstance]
+        [usuarioInstance: usuarioInstance, usuarioRolInstance:usuarioRol]
     }
 
     def update(Long id, Long version) {

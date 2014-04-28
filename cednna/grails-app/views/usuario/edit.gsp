@@ -5,6 +5,11 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'usuario.label', default: 'Usuario')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		
+		<link href="${resource(dir: 'css', file: 'selectize.css')}" rel="stylesheet" media="screen">
+		<link href="${resource(dir: 'css', file: 'selectize.default.css')}" rel="stylesheet" media="screen">
+		
+		<script src="${resource(dir: 'js', file: 'selectize.js')}"></script>
 	</head>
 	<body>
 		<a href="#edit-usuario" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
