@@ -5,8 +5,8 @@
 
 </head>
 
-<body><br /><br />
-<div class="titulo">Sistema de Indicadores y Monitoreo del estado que guardan los Derechos de Niñas, Niños y Adolescentes en Oaxaca.</div>
+<body>
+<div class="titulo"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div>
 <div class="uk-panel uk-panel-box uk-container-center uk-width-1-3">
 							<form action='${postUrl}' method='POST' id='loginForm' class="uk-form uk-form-stacked" autocomplete='off'>
                             

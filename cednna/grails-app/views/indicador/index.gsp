@@ -6,7 +6,6 @@
 
 	</head>
 	<body>
-		
 <div class="uk-width-1-1">
 		
 			<img src="${request.getContextPath()}/img/portada.png" >
