@@ -131,7 +131,7 @@
 	  <li><a href="#metadato">Metadatos</a></li>
 	  <li><a href="#serie">Serie histórica</a></li>
 	  <li><a href="#calculo">Datos para el cálculo</a></li>
-	  <li><a onclick="loadScript();" href="#mapa">Mapa</a></li>
+<%--	  <li><a onclick="loadScript();" href="#mapa">Mapa</a></li>--%>
 	</ul>
 	 
 	<div class="tab-content">
@@ -270,28 +270,28 @@
 	  	<div id="divDatosCalculo"></div>
 	  </div>
 	  
-	  <div class="tab-pane" id="mapa">
-	  	<label for="opcionesMapa">Área geográfica:</label>
-	  		<select id="opcionesMapa" name="opcionesMapa" 
-	  			onchange="${remoteFunction(
-					  controller:'publico',
-					  action: 'actualizarMapa',
-					  params: '\'idTipo=\' + this.value',
-					  update: 'mapaIndicador',
-					  onLoading: "mostrarCargandoImg('mapaIndicador')",
-					  onLoaded: "ocultarCargandoImg('mapaIndicador')",						  
-					  onComplete: "goToByScroll('opcionesMapa')",					  					  					
-					  id: indicadorInstance?.id  )}">
-	  			<option value="1">Estatal</option>
-	  			<option value="2">Regional</option>
-	  			<option value="3">Municipal</option>	  			
-	  		</select>	  		
-	  	
-	  	<div id="cargandoMapa" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
-	  	<div id="mapaIndicador">	  		
-	  		<g:render template="mapa"></g:render>
-	  	</div>
-	  </div>
+<%--	  <div class="tab-pane" id="mapa">--%>
+<%--	  	<label for="opcionesMapa">Área geográfica:</label>--%>
+<%--	  		<select id="opcionesMapa" name="opcionesMapa" --%>
+<%--	  			onchange="${remoteFunction(--%>
+<%--					  controller:'publico',--%>
+<%--					  action: 'actualizarMapa',--%>
+<%--					  params: '\'idTipo=\' + this.value',--%>
+<%--					  update: 'mapaIndicador',--%>
+<%--					  onLoading: "mostrarCargandoImg('mapaIndicador')",--%>
+<%--					  onLoaded: "ocultarCargandoImg('mapaIndicador')",						  --%>
+<%--					  onComplete: "goToByScroll('opcionesMapa')",					  					  					--%>
+<%--					  id: indicadorInstance?.id  )}">--%>
+<%--	  			<option value="1">Estatal</option>--%>
+<%--	  			<option value="2">Regional</option>--%>
+<%--	  			<option value="3">Municipal</option>	  			--%>
+<%--	  		</select>	  		--%>
+<%--	  	--%>
+<%--	  	<div id="cargandoMapa" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>--%>
+<%--	  	<div id="mapaIndicador">	  		--%>
+<%--	  		<g:render template="mapa"></g:render>--%>
+<%--	  	</div>--%>
+<%--	  </div>--%>
 	</div>	 	
 	
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>

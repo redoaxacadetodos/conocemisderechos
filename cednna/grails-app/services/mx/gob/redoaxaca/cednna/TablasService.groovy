@@ -82,7 +82,7 @@ class TablasService {
             LEFT JOIN periodo p ON (p.id = v.cvv_ped_id)
             """
         
-        if(params?.sSearch!=null){
+        if(params?.sSearch!=null && params?.sSearch!=''){
             sql +=
             """
             WHERE cvv_anio::text LIKE ('%${params?.sSearch}%') 
@@ -96,15 +96,15 @@ class TablasService {
         """
         }
         
-        if(!params?.iSortCol_0){
-            sql+=" ORDER BY clave, anio desc, categoria "
-        }else{
-            sql += " ORDER BY " +orden+ (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
-        }
-        
         if (cuenta){
+            println 'SQL:'+" select count(*) numero from ( "+ sql +" ) consulta" 
             return (executeQuery(" select count(*) numero from ( "+ sql +" ) consulta" ))?.numero
         }else{
+            if(!params?.iSortCol_0){
+                sql+=" ORDER BY clave, anio desc, categoria "
+            }else{
+                sql += " ORDER BY " +orden+ (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
+            }
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
         }
 
@@ -126,6 +126,8 @@ class TablasService {
                 } 
             }
         }
+
+        println 'SQL:'+sql
 
         def list = []
         def variables = executeQuery(sql)

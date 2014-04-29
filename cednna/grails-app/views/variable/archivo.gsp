@@ -5,8 +5,15 @@
 <title>Test</title>
 
 <script type="text/javascript" defer="defer">
-	function submit() {
-		$("#formDescargar").submit();
+	function verificarDescarga(tipo) {
+		if(tipo==1){
+			if(confirm('La variable ya contiene datos de origen ¿Desea continuar?')){
+				submit();
+			}
+		}else if(tipo==2){
+			$("#formDescargar").submit();
+		}
+		
 	}
 
 	$(function() {

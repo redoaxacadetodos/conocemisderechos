@@ -192,19 +192,15 @@ class VariableController {
 	
 	def tieneDatosOrigen(){
 		String respuesta = ""
-		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
-		if(cod!=null){
-			if(Variable.findAllByClave(cod.clave).size()!=0){
-				respuesta = """
-					<script>
-					if(confirm('La variable ya contiene datos de origen ÀDesea continuar?')){
-						submit();
-					}
-					</script>
-							"""
-			}else{
-				respuesta ="<script>submit();</script>"
-			}
+		
+		def variables = Variable.findAll{
+			clave == params.origenDatos && anio==params.anio
+		}
+		
+		if(variables.size()!=0){
+			respuesta = "<script>verificarDescarga(1);</script>"
+		}else{
+			respuesta ="<script>verificarDescarga(2);</script>"
 		}
 		
 		render(text: respuesta, contentType: "text/html", encoding: "UTF-8")
