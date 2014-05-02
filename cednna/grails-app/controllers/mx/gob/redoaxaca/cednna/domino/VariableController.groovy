@@ -214,11 +214,11 @@ class VariableController {
 		if(cod){
 			def clave =cod.clave
 			def descripcion=cod.descripcion
-			String anio = params.anio
-			if(params.periodo){
-				anio = params.periodo
-			}
-//			int anio= params.anio.toInteger()
+			
+//			if(params.periodo){
+//				anio = params.periodo
+//			}
+			int anio= params.anio.toInteger()
 			int opcion= params.opcionSerie.toInteger()
 			def numCategorias= params.numCategorias.toInteger()
 			System.out.println("El numero de categoria es : "+numCategorias);
@@ -404,19 +404,13 @@ class VariableController {
 		
 	}
 	
-	
 	@Secured(['ROLE_DEP'])
 	def archivo(){
-		
 		def usuario = springSecurityService.currentUser
 		[dependencia:usuario.dependencia]
 	}
 	
-	
 	def borrarOrigen(){
-		
-		
-		
 		def sql = new Sql(sessionFactory.currentSession.connection())
 		def consulta ="delete  from cat_variable_categoria where cvc_cvv_id in (select cvv_id from cat_variable where cvv_anio=? and  cvv_clave=?)"
 		sql.execute(consulta, [params.anio.toInteger(),params.origenDatos.toString()])

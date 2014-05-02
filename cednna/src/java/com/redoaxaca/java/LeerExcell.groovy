@@ -138,15 +138,15 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(estado?.id?.toString());
 						writer.append(',');
-						writer.append('"'+hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString()+'"');
+						writer.append('"'+hssfSheet.getRow(i).getCell(4).getNumericCellValue().round(0).intValue().toString()+'"');
 						writer.append(',');
 						writer.append(localidad?.toString());
 						writer.append(',');
-						writer.append('"'+hssfSheet.getRow(i).getCell(3).getNumericCellValue().intValue().toString()+'"');
+						writer.append('"'+hssfSheet.getRow(i).getCell(3).getNumericCellValue().round(0).intValue().toString()+'"');
 						writer.append(',');
 						writer.append(municipio?.toString());
 						writer.append(',');
-						def suma=(new Double(hssfSheet.getRow(i).getCell(3).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(4).getNumericCellValue()).intValue());
+						def suma=(new Double(hssfSheet.getRow(i).getCell(3).getNumericCellValue()).round(0).intValue()+new Double(hssfSheet.getRow(i).getCell(4).getNumericCellValue().round(0).intValue()).intValue());
 						writer.append(suma.toString());
 						writer.append(',');
 						writer.append(region?.toString());
@@ -181,16 +181,16 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(estado?.id?.toString());//ESTADO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//HOMBRES
+						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().round(0).intValue().toString());//HOMBRES
 						writer.append(',');
 						writer.append(localidad?.toString());//LOCALIDAD
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(5).getNumericCellValue().intValue().toString());//MUJERES
+						writer.append(hssfSheet.getRow(i).getCell(5).getNumericCellValue().round(0).intValue().toString());//MUJERES
 						writer.append(',');
 						writer.append(municipio?.toString());//MUNICIPIO
 						writer.append(',');
 						
-						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue()).intValue());
+						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue().round(0)).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue().round(0)).intValue());
 						writer.append(suma.toString());
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString());//REGION
@@ -224,16 +224,16 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(estado.id.toString());//ESTADO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(8).getNumericCellValue().intValue().toString());//HOMBRES
+						writer.append(hssfSheet.getRow(i).getCell(8).getNumericCellValue().round(0).intValue().toString());//HOMBRES
 						writer.append(',');
 						writer.append(localidad.toString());//LOCALIDAD
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(7).getNumericCellValue().intValue().toString());//MUJERES
+						writer.append(hssfSheet.getRow(i).getCell(7).getNumericCellValue().round(0).intValue().toString());//MUJERES
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(2).getNumericCellValue().intValue().toString());//MUNICIPIO
 						writer.append(',');
 						
-						def suma=(new Double(hssfSheet.getRow(i).getCell(8).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(7).getNumericCellValue()).intValue());
+						def suma=(new Double(hssfSheet.getRow(i).getCell(8).getNumericCellValue().round(0)).intValue()+new Double(hssfSheet.getRow(i).getCell(7).getNumericCellValue().round(0)).intValue());
 						writer.append(suma.toString());
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString());//REGION
