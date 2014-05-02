@@ -96,8 +96,7 @@ class TablasService {
         """
         }
         
-        if (cuenta){
-            println 'SQL:'+" select count(*) numero from ( "+ sql +" ) consulta" 
+        if (cuenta){ 
             return (executeQuery(" select count(*) numero from ( "+ sql +" ) consulta" ))?.numero
         }else{
             if(!params?.iSortCol_0){
@@ -125,9 +124,7 @@ class TablasService {
                     metodo = 'monitorRegistro'
                 } 
             }
-        }
-
-        println 'SQL:'+sql
+        }        
 
         def list = []
         def variables = executeQuery(sql)

@@ -173,19 +173,19 @@ class LeerExcell {
 
 						writer.append(actual.toString());//ID
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//ANIO
+						writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());//ANIO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//CLAVE
+						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue());//CLAVE
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(3).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//DESCRIPCION
+						writer.append(hssfSheet.getRow(i).getCell(3).getStringCellValue());//DESCRIPCION
 						writer.append(',');
 						writer.append(estado?.id?.toString());//ESTADO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//HOMBRES
+						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//HOMBRES
 						writer.append(',');
 						writer.append(localidad?.toString());//LOCALIDAD
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(5).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//MUJERES
+						writer.append(hssfSheet.getRow(i).getCell(5).getNumericCellValue().intValue().toString());//MUJERES
 						writer.append(',');
 						writer.append(municipio?.toString());//MUNICIPIO
 						writer.append(',');
@@ -193,7 +193,7 @@ class LeerExcell {
 						def suma=(new Double(hssfSheet.getRow(i).getCell(6).getNumericCellValue()).intValue()+new Double(hssfSheet.getRow(i).getCell(5).getNumericCellValue()).intValue());
 						writer.append(suma.toString());
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString().replaceAll("[^\\x00-\\x7F]",""));//REGION
+						writer.append(hssfSheet.getRow(i).getCell(0).getNumericCellValue().intValue().toString());//REGION
 						writer.append(',');
 						writer.append(dep?.toString());//DEPENDENCIA
 						writer.append(',');
@@ -218,7 +218,7 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//ANIO
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue().replaceAll("[^\\x00-\\x7F]",""));//CLAVE
+						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue());//CLAVE
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(5).getStringCellValue());//DESCRIPCION
 						writer.append(',');

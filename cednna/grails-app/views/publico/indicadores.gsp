@@ -17,21 +17,32 @@
 		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 			<g:javascript src="uikit.min.js"/>
+			
+		<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+		<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>	
+		
+		<script type="text/javascript" charset="utf-8">
+		  $(document).ready(function(){
+		    $("a[rel^='prettyPhoto']").prettyPhoto({
+		    	theme: 'dark_rounded',
+		    	modal: true,
+		    	keyboard_shortcuts: false,
+		    	social_tools:false
+			});
+		    $("#linkyoutube").click();
+		  });
+		</script>
+				
 	</head>
 	<body>
-	
 		<div class="uk-container">
         	<div class="uk-grid">
 				<div class="uk-width-1-2"><div class="uk-panel-space uk-container-center"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div></div>
-                <div class="uk-width-1-2"><div class="uk-panel-space uk-container-center"><iframe width="400" height="215" src="http://www.youtube.com/embed/dzlPdjD_3is?rel=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div></div>
             </div>
 		</div>
-
 <div class="uk-container uk-container-center">	
 	<div class="uk-grid" data-uk-grid-margin="">
-
 		<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
-
 			<div id="bot_prog" class="uk-width-medium-1-4">
 				<div class="uk-panel">
 					<g:link action="detalleIndicador" controller="publico"  value="${eje.descripcion}" id="${eje.id}">
@@ -44,13 +55,13 @@
 	</div>
 </div>
 	
-		
-
+<a id="linkyoutube" href="https://www.youtube.com/watch?v=dzlPdjD_3is&feature=youtu.be" rel="prettyPhoto" title=""></a>
 
 		
 		<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	
+	
 	</body>
 </html>
 

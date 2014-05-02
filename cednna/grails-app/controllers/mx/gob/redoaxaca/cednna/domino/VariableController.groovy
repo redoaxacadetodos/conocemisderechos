@@ -8,6 +8,7 @@ import groovyx.net.http.*
 import org.springframework.dao.DataIntegrityViolationException
 
 import com.jcraft.jsch.Channel
+import com.jcraft.jsch.ChannelExec
 import com.jcraft.jsch.ChannelSftp
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.Session
@@ -28,7 +29,6 @@ class VariableController {
     def index() {
         redirect(action: "list", params: params)
     }
-	
 	
 	def dataTablesListadoVariables = {
 		
@@ -214,7 +214,11 @@ class VariableController {
 		if(cod){
 			def clave =cod.clave
 			def descripcion=cod.descripcion
-			int anio= params.anio.toInteger()
+			String anio = params.anio
+			if(params.periodo){
+				anio = params.periodo
+			}
+//			int anio= params.anio.toInteger()
 			int opcion= params.opcionSerie.toInteger()
 			def numCategorias= params.numCategorias.toInteger()
 			System.out.println("El numero de categoria es : "+numCategorias);
@@ -229,135 +233,91 @@ class VariableController {
 		
 			for(i in 1 .. numCategorias){
 				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
-					if(temCategoria){
-						if(!tipos.contains(temCategoria.tipo.id)){
-							tipos.add(temCategoria.tipo.id);
-						}
+				if(temCategoria){
+					if(!tipos.contains(temCategoria.tipo.id)){
+						tipos.add(temCategoria.tipo.id);
 					}
+				}
 			}
 			
 			tipos.each {
-					ResultCategorias rc= new ResultCategorias()
-					rc.tipo=Tipo.get(it)
-					cts.add( rc)
+				ResultCategorias rc= new ResultCategorias()
+				rc.tipo=Tipo.get(it)
+				cts.add( rc)
 			}
 
 			for(i in 1 .. numCategorias){
 				def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
 				if(temCategoria){
 					if(cts.size()>0){
-							cts.each{
-									if(temCategoria.tipo.id ==it.tipo.id){
-										it.categorias.add(temCategoria);
-										//System.out.println("valor :"+ temCategoria.id);
-									}
+						cts.each{
+							if(temCategoria.tipo.id ==it.tipo.id){
+								it.categorias.add(temCategoria);
+								//System.out.println("valor :"+ temCategoria.id);
 							}
 						}
 					}
+				}
 			}
 
 			int tamY =cts.size()
 			int tamX =1;
 			
 			cts.each{
-					tamX= tamX *it.categorias.size()
+				tamX= tamX *it.categorias.size()
 			}
 			
 			long[][] mat=new long[tamX][tamY];
 			int ban=0
 			int y=0
-			cts.each{
-				c ->
-							int veces=	tamX/c.categorias.size()
-							System.out.println("Numero de veces "+veces );
-							int x=0;
-						
-							if(ban==0){
-								for(int xy=0; xy<veces;xy++){
-									
-										c.categorias.each {
-											
-											mat[x][y]= it.id
-										//	System.out.println("Matriz :"+ it.id);
-											x++;
-										}
-									
-								}
-								ban=1
-							}
-							else{
-								
-								c.categorias.each {
-									System.out.println("paso "+veces);
-									for(int xy=0; xy<veces;xy++){
-									
-											
-											
-											mat[x][y]= it.id
-										//	System.out.println("Matriz :"+ it.id);
-											x++;
-									}
-									
-								}
-								
-							}
-							
-							
-							
-					y++;
+			cts.each{ c ->
+				int veces=	tamX/c.categorias.size()
+				System.out.println("Numero de veces "+veces );
+				int x=0;
+
+				if(ban==0){
+					for(int xy=0; xy<veces;xy++){
+						c.categorias.each {
+							mat[x][y]= it.id
+							//	System.out.println("Matriz :"+ it.id);
+							x++;
+						}
+					}
+					ban=1
+				}
+				else{
+					c.categorias.each {
+						System.out.println("paso "+veces);
+						for(int xy=0; xy<veces;xy++){
+							mat[x][y]= it.id
+							//	System.out.println("Matriz :"+ it.id);
+							x++;
+						}
+					}
+				}
+				y++;
 			}
 
-
-
 			switch (opcion) {
-
 				case 1:
-
-
-
-
-
 					for(int x=0; x<tamX;x++){
-
 						Row renglon = new Row()
 						renglon.clave=clave
 						renglon.descripcion=descripcion
 						renglon.anio=anio;
 						renglon.categorias = new ArrayList<Long>();
 						for(int v=0; v<tamY;v++){
-
 							renglon.categorias.add(Categoria.get(mat[x][v]));
 						}
-
 						renglones.add(renglon)
 					}
-
-
-
-
-
-
-
 					break;
 
-
-
 				case 2:
-
-
-
-
 				//System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
-
-
 					def regiones=  Region.list( sort: "clave", order: "asc")
-
 					regiones.each {
-
-
-
 						for(int x=0; x<tamX;x++){
-
 							Row renglon = new Row()
 							renglon.clave=clave
 							renglon.descripcion=descripcion
@@ -366,27 +326,17 @@ class VariableController {
 							renglon.anio=anio;
 							renglon.categorias = new ArrayList<Long>();
 							for(int v=0; v<tamY;v++){
-
 								renglon.categorias.add(Categoria.get(mat[x][v]));
-
 							}
-
 							renglones.add(renglon)
 						}
-
-
 					}
-
-
 					break;
 
 				case 3:
 					def municipios=  Municipio.list(sort: "id", order: "asc")
-
 					municipios.each {
-
 						for(int x=0; x<tamX;x++){
-
 							Row renglon = new Row()
 							renglon.clave=clave
 							renglon.descripcion=descripcion
@@ -399,29 +349,22 @@ class VariableController {
 							renglon.anio=anio;
 							renglon.categorias = new ArrayList<Long>();
 							for(int v=0; v<tamY;v++){
-
 								renglon.categorias.add(Categoria.get(mat[x][v]));
-
 							}
 
 							renglones.add(renglon)
 						}
 					}
-
 					break;
 
 				case 4:
-
 					def localidades=  Localidad.list()
-
 					localidades.each {
-
 						Row renglon = new Row()
 						renglon.clave=clave
 						renglon.descripcion=descripcion
 						renglon.anio=anio;
 						renglon.categorias = new ArrayList<Integer>();
-
 
 						renglon.idRegion=it.municipio.region.id
 						renglon.region=it.municipio.region.descripcion
@@ -432,17 +375,12 @@ class VariableController {
 						renglon.localidad=it.descripcion
 
 						for(i in 1 .. numCategorias){
-
 							def temCategoria =  Categoria.get(params.getAt("categoria_"+i))
 							if(temCategoria){
 								cats.add(temCategoria.descripcion)
-
 								renglon.categorias.add(new Long(temCategoria.id))
 							}
-
-
 						}
-
 						renglones.add(renglon)
 					}
 					break;
@@ -867,8 +805,6 @@ class VariableController {
 		return result
 	}
 	
-
-	
 	def subirArchivo(){
 		def usuario = springSecurityService.currentUser
 		Dependencia dependencia
@@ -906,35 +842,54 @@ class VariableController {
 			 
 			contadorBuenos=arc.total
 			
-			secuencia = "PQgetCopyData(PGconn *conn,char **buffer,int async);"
-			
 			Valor servidor = Valor.findByKey("servidor")
 			Valor usuarioSSH = Valor.findByKey("usuario")
 			Valor pem = Valor.findByKey("pem")
+			String tabla = "CAT_VARIABLE"
 			
-			enviarArchivo(servidor.valor, usuarioSSH.valor, pem.valor, path+"csvCV_"+sec+".csv" )
-			 
-			secuencia= " copy CAT_VARIABLE from"+" '"+path+"csvCV_"+sec+".csv'"+" csv header   NULL  'null' ; "
-			println 'secuencia:'+ secuencia
-			sql.executeUpdate(secuencia)
+			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv" )
+			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv", tabla)
 			
-			enviarArchivo(servidor.valor, usuarioSSH.valor, pem.valor, path+"csvCT_"+sec+".csv" )
-			secuencia= " copy CAT_VARIABLE_CATEGORIA from"+" '"+path+"csvCT_"+sec+".csv'"+"  csv header ; "
-			println 'secuencia:'+ secuencia
-			sql.executeUpdate(secuencia)
+			tabla = "CAT_VARIABLE_CATEGORIA"
+			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv" )
+			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv", tabla)
 			
 			}catch (Exception e) {
 				println(e.getMessage())
 				e.printStackTrace()
+				contadorMalos = contadorBuenos
+				contadorBuenos = 0
 			}
-			
 			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
-			
 		}
+	
+	def ejecutarCopy(String url, String usuario, String rutaPEM, String path, String tabla){
+		String sshCommand = "\\copy "+tabla+" from"+" '"+path+"'"+" csv header   NULL  'null'"
+		sshCommand = """psql cednna_dev_280314 -c "${sshCommand}" """
+		java.util.Properties config = new java.util.Properties()
+		
+		config.put "StrictHostKeyChecking", "no"
+		
+		JSch jsch=new JSch();
+		Session session=jsch.getSession(usuario, url, 22);
+		  jsch.addIdentity(rutaPEM);
+		  Properties config2 = new Properties();
+		  config2.put("StrictHostKeyChecking", "no");
+		  session.setConfig(config);
+		  session.connect();
+	   
+		  ChannelExec channel=(ChannelExec) session.openChannel("exec");
+		  channel.setCommand(sshCommand);
+		  channel.connect();
+	   
+		  channel.disconnect();
+		  session.disconnect();
+		
+	}
 	
 	def enviarArchivo(String url, String usuario, String rutaPEM, String path){
 		java.util.Properties config = new java.util.Properties()
-			
+		
 		config.put "StrictHostKeyChecking", "no"
 		JSch ssh = new JSch()
 		ssh.addIdentity(rutaPEM);
@@ -948,9 +903,12 @@ class VariableController {
 			ChannelSftp sftp = (ChannelSftp) chan;
 			def sessionsFile = new File(path)
 			sessionsFile.withInputStream { istream -> sftp.put(istream, path) }
+			
 			chan.disconnect()
 			disconnect()
 		}
+		
+		
 	} 
 	
 	def categorias(){

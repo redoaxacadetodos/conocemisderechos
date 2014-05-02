@@ -235,7 +235,7 @@
 	  		</td></tr>
 	  		
 	  		<tr class="even"><td class="marked">Medios de verificación:</td>
-	  		<td><g:each var="variable" in="${ indicadorInstance?.variables?.sort{it.clave}}">
+	  		<td><g:each var="variable" in="${ indicadorInstance?.variables?.sort{it?.clave}}">
 	  			<p>${variable?.clave} = ${variable?.descripcion==null?variable?.descripcion:'No existe información'} </p>
 	  		</g:each></td></tr>
 	  		<tr class="odd"><td class="marked">Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
