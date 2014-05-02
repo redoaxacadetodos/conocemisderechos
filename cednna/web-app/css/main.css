@@ -94,6 +94,9 @@ border-bottom: dotted 2px #ccc !important;
 .nav a.create {
 	background-image: url(../images/skin/database_add.png);
 }
+.margen_center {
+	margin: 0 auto !important;
+}
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */
 
