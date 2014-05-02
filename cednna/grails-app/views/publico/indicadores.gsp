@@ -35,10 +35,8 @@
 				
 	</head>
 	<body>
-		<div class="uk-container">
-        	<div class="uk-grid">
-				<div class="uk-width-1-2"><div class="uk-panel-space uk-container-center"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div></div>
-            </div>
+		<div class="uk-container uk-container-center">
+		<div class="uk-panel-space uk-text-center uk-container-center"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div>
 		</div>
 <div class="uk-container uk-container-center">	
 	<div class="uk-grid" data-uk-grid-margin="">
