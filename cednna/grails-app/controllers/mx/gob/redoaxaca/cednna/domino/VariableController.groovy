@@ -215,6 +215,7 @@ class VariableController {
 			def clave =cod.clave
 			def descripcion=cod.descripcion
 			
+//			String periodo = params.anio
 //			if(params.periodo){
 //				anio = params.periodo
 //			}

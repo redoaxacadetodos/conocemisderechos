@@ -15,8 +15,6 @@
 						
 		<link href="${resource(dir: 'bootstrap', file: 'css/bootstrap.min.css')}" rel="stylesheet">		
 		
-		
-	  
 	</head>
 	<body>
 	

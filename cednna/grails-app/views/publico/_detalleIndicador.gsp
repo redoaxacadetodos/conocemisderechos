@@ -46,6 +46,19 @@
 			} );
 		}
 
+		function actualizarSelect(){
+			var config = {
+				      '.chosen-select'           : {},
+				      '.chosen-select-deselect'  : {allow_single_deselect:true},
+				      '.chosen-select-no-single' : {disable_search_threshold:10},
+				      '.chosen-select-no-results': {no_results_text:'Oops, nada encontrado!'},
+				      '.chosen-select-width'     : {width:"95%"}
+				    }
+				    for (var selector in config) {
+				      $(selector).chosen(config[selector]);
+				    }
+		}
+
 		function actualizarTabla(idTipo, div){
 			var tabla = "";
 			if(div == "divIndicadores"){
@@ -89,7 +102,8 @@
 				  params: '\'idTipo=\' + select',
 				  update: 'selectGrafica',
 				  onLoading: "mostrarCargandoImg('selectGrafica')",
-				  onComplete: "actualizarGrafica()",
+				  onComplete: "actualizarSelect()",
+				  onLoaded: "actualizarGrafica()",
 				  id: indicadorInstance?.id  )}
 	}
 </script>
@@ -124,7 +138,7 @@
 		}
 		
 	  </script>
-
+	  
 <h3>${indicadorInstance?.nombre }</h3>
 	<ul class="nav nav-tabs" id="myTab">
 	  <li class="active"><a href="#indicador">Indicador</a></li>
@@ -146,7 +160,7 @@
 	  		</select>
 	  		
 	  		<div id="divIndicadores"></div>
-			
+	  		
 			<label for="opcionesGrafica">Nivel de gráfica:</label>
 			<select id="opcionesGrafica" name="opcionesGrafica" 
 	  			onchange="actualizarSelectGrafica()">
@@ -292,7 +306,22 @@
 <%--	  		<g:render template="mapa"></g:render>--%>
 <%--	  	</div>--%>
 <%--	  </div>--%>
-	</div>	 	
+	</div>	 
 	
 	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
 	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>
+	  	<g:javascript src="chosen.jquery.js" />
+	  	<script type="text/javascript">
+	  	$(function(){
+	  		var config = {
+			      '.chosen-select'           : {},
+			      '.chosen-select-deselect'  : {allow_single_deselect:true},
+			      '.chosen-select-no-single' : {disable_search_threshold:10},
+			      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+			      '.chosen-select-width'     : {width:"95%"}
+			    }
+			    for (var selector in config) {
+			      $(selector).chosen(config[selector]);
+			    }
+	  	});
+  </script>	

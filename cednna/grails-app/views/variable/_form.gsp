@@ -1,4 +1,5 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.*" %>
+<%@ page import="grails.converters.JSON" %>
 
 <div id="mensaje"></div>
 
@@ -127,7 +128,7 @@
 		<g:message code="indicador.frecuencia.label" default="Ciclo escolar " />
 
 	</label>
-	<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one"/>
+	<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one chosen-select" style="width:350px;"/>
 	<input type="button" id="ocultarPeriodo" onclick="$('#divPeriodo').hide();$('#divAnio').show();$('#periodo').attr('disabled','disabled');$('#anio').removeAttr('disabled');$('#tipoPeriodo').val('false');" value="Ocultar periodos" class="uk-button">
 </div>
 
@@ -216,15 +217,16 @@
 $(function(){
 
 	$(document).ready(function() {
-
-		$('#periodo').attr('disabled','disabled');
+		$('#periodo_chosen').css({"width": "150px"});
+		$('#periodo').attr('disabled','disabled');		 
 
 		llenaCombo({
 			url : CONTEXT_ROOT+'/json/anos.json',
 			htmlOptions : {
 				name : "anio",
 				id : "anio",
-				clase : ""
+				clase : "chosen-select",
+				style : "width:150px"
 			},
 			index : ${variableInstance.anio},
 			chained : false,

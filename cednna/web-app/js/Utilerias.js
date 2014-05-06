@@ -338,7 +338,6 @@ function llenaCombo(opciones){
 	spinerLoad('Buscando informaci&oacute;n...');
 	   var options = '';
 	   $.getJSON(opciones.valor==null? opciones.url:opciones.url+"/"+opciones.valor, function(data) {
-			
 		   if(opciones.combo){
 			options = options + "<select id='"+opciones.htmlOptions.id+"' name='"+opciones.htmlOptions.name+"' class='"+opciones.htmlOptions.clase +"' style='"+opciones.htmlOptions.style ;
 		  
