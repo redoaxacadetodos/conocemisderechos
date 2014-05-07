@@ -436,6 +436,7 @@ class VariableController {
 
 		if (tipoCat) {
 			pla = sql.rows(consulta)
+			sql.close()
 			render pla as JSON
 		} else {
 			render pla as JSON
@@ -821,6 +822,7 @@ class VariableController {
 			def sql = new Sql(sessionFactory.currentSession.connection())
 			def secuencia= "select max(cvv_id) as ultimo from cat_variable"
 			def resulSec = sql.rows(secuencia)
+			sql.close()
 			resulSec?.each{
 				sec=it.ultimo
 			}

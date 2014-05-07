@@ -48,38 +48,26 @@ class PublicoController {
 	}
 
 	def datosdirectorio = {
-		def query="  from cat_directorio as i "
-		
-		
+		def query="  from cat_directorio "
 		
 		render dataTablesService.datosParaTablaQuery(query,params,
 	    [
-		'i.dir_id as id',
-		'i.dir_nombre as nombre',
-		'i.dir_cargo  as cargo',
-		'i.dir_dependencia as dependencia',
-		'i.dir_correo as correo',
-		'i.dir_telefono as telefono',
-		'i.dir_website as website',
+		'dir_id',
+		'dir_nombre',
+		'dir_cargo',
+		'dir_dependencia',
+		'dir_correo',
+		'dir_telefono',
+		'dir_website',
 		],  
 		[
-		'i.dir_id',
-		'i.dir_nombre',
-		'i.dir_cargo',
-		'i.dir_dependencia',
-		'i.dir_correo',
-		'i.dir_telefono',
-		'i.dir_website',
-		],
-	
-		[
-		'id',
-		'nombre',
-		'cargo',
-		'dependencia',
-		'correo',
-		'telefono',
-		'website',
+		'dir_id',
+		'dir_nombre',
+		'dir_cargo',
+		'dir_dependencia',
+		'dir_correo',
+		'dir_telefono',
+		'dir_website',
 		],1,"text") as JSON
 
 	}
@@ -683,7 +671,7 @@ class PublicoController {
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
-
+						sql.close()
 					}
 
 				/***
@@ -908,8 +896,8 @@ class PublicoController {
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
-
-					}
+						sql.close()
+					}	
 
 				/***
 				 * Comienza el calculo del indicador en base a las variables
@@ -1193,7 +1181,7 @@ class PublicoController {
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
-
+						sql.close()
 					}
 
 				/***
@@ -1499,7 +1487,7 @@ class PublicoController {
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
-
+						sql.close()
 					}
 
 				/***

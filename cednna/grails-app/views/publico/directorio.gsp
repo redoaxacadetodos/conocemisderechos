@@ -14,6 +14,7 @@
 	
 	</head>
 	<body>
+		<br><br>
 		<a href="#list-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 				  <div class="body">
 				  

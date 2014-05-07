@@ -154,7 +154,8 @@ class TablasService {
     @Transactional(readOnly = true)
     def executeQuery(String sql){
         def db = new Sql(dataSource)
+        def rows = db.rows(sql)
         db.close()
-        return db.rows(sql)
+        return rows
     }
 }
