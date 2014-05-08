@@ -22,7 +22,7 @@
 			<div class="tm-middle">
 				<div class="uk-panel uk-panel-box">
 					<ul class="uk-breadcrumb">
-						<li><span><a href="/cednna">Inicio</a></span></li>
+						<li><span><a href="${createLink(controller:'publico', action:'indicadores')}">Inicio</a></span></li>
 						<li><span> <g:link action="detalleIndicador"
 									controller="publico" id="${ejeInstance?.id}">
 									${ejeInstance?.descripcion }

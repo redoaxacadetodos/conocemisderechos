@@ -32,11 +32,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${temaInstance?.ped}">
+				<g:if test="${temaInstance?.eje}">
 				<li class="fieldcontain">
-					<span id="ped-label" class="property-label"><g:message code="tema.ped.label" default="Ped" /></span>
+					<span id="ped-label" class="property-label"><g:message code="tema.ped.label" default="Eje" /></span>
 					
-						<span class="property-value" aria-labelledby="ped-label"><g:link controller="PNDesarrollo" action="show" id="${temaInstance?.ped?.id}">${temaInstance?.ped?.descripcion}</g:link></span>
+						<span class="property-value" aria-labelledby="ped-label"><g:link controller="PNDesarrollo" action="show" id="${temaInstance?.eje?.id}">${temaInstance?.eje?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>

@@ -122,10 +122,10 @@
 				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
 					<li class="uk-parent uk-active"><a href="#">Índice</a>
 						<ul class="uk-nav-sub">
-							<li><g:link class="list" action="list">Calendario</g:link></li>
-							<li><g:link class="create" action="create">Directorio</g:link></li>
-							<li><g:link class="create" action="create">Contacto</g:link></li>
-							<li><g:link class="create" action="create">Ayuda</g:link></li>
+						<li><g:link controller="publico" action="indicadores">Inicio</g:link></li>
+						<li><g:link controller="publico" action="directorio">Directorio</g:link></li>
+						<li><g:link controller="publico" action="contacto" >Contacto</g:link></li>
+						<li><g:link controller="publico" action="ayuda">Ayuda</g:link></li>	
 						</ul>
 					</li>
 

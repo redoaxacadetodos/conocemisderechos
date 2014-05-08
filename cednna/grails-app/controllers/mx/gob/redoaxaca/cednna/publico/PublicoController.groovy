@@ -50,7 +50,7 @@ class PublicoController {
 	def datosdirectorio = {
 		def query="  from cat_directorio "
 		
-		render dataTablesService.datosParaTablaQuery(query,params,
+		render dataTablesService.datosParaTablaQuery('from cat_directorio',params,
 	    [
 		'dir_id',
 		'dir_nombre',
@@ -412,14 +412,14 @@ class PublicoController {
 				titulos.add([sTitle : "Estado"])
 				break
 			case 2:
-				titulos.add([sTitle : "Region"])
+				titulos.add([sTitle : "Regi&oacute;n"])
 				break
 			case 3:
-				titulos.add([sTitle : "Region"])
+				titulos.add([sTitle : "Regi&oacute;n"])
 				titulos.add([sTitle : "Municipio"])
 				break
 			case 4:
-				titulos.add([sTitle : "Region"])
+				titulos.add([sTitle : "Regi&oacute;n"])
 				titulos.add([sTitle : "Municipio"])
 				titulos.add([sTitle : "Localidad"])
 				break
@@ -505,7 +505,7 @@ class PublicoController {
 			def datos = []
 						
 			//def a = [title: [text: indicador?.nombre?.toString(), x: -20]]
-			def a = [title: [text: "Grafica a nivel: "+titulo, x: -20]]
+			def a = [title: [text: "Gr‡fica a nivel: "+titulo, x: -20]]
 			a.put("yAxis", [title: [text: '%']])
 			a.put("tooltip", [valueSuffix: '%'])
 			a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])
@@ -518,9 +518,10 @@ class PublicoController {
 			def serie = [name: "Indicador", data: datos]
 			series << serie
 			a.put("series", series)
-			
+			println 'a:'+a
 			//Convertir el arreglo a JSON
 			jsondata = a as JSON
+			println 'jsondata:'+jsondata
 		}
 		return jsondata
 	}
