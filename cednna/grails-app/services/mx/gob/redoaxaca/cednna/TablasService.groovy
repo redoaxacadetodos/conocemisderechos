@@ -146,7 +146,7 @@ class TablasService {
                 } 
             }
         }        
-
+        println 'sql:'+sql
         def list = []
         def variables = executeQuery(sql)
         variables.each{

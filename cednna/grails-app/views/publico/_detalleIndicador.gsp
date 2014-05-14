@@ -78,11 +78,16 @@
 			    "dataType": "json"
 			} );
 		}
+
+		
 	</script>
+
 <script>
 	function actualizarGrafica(){
+		
 		var selectVal = $( "#opcionesAreaGrafica" ).val();
 		var select = $( "#opcionesGrafica" ).val();
+		
 		${remoteFunction(
 				controller:'publico',
 				action: 'actualizarGrafica',
@@ -102,8 +107,7 @@
 				  params: '\'idTipo=\' + select',
 				  update: 'selectGrafica',
 				  onLoading: "mostrarCargandoImg('selectGrafica')",
-				  onComplete: "actualizarSelect()",
-				  onLoaded: "actualizarGrafica()",
+				  onComplete: "actualizarGrafica();actualizarSelect();",
 				  id: indicadorInstance?.id  )}
 	}
 </script>
