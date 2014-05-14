@@ -614,14 +614,15 @@ class PublicoController {
 			cont++
 		}
 		
-//		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves
-//		println  'anios:'+anios
-//		
-//		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
-//		def aniosPorBuscar = sqlAnio.rows(anios)
-//		
-		for(anio in 2005..2020){
-//		aniosPorBuscar.each{
+		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves
+		println  'anios:'+anios
+		
+		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
+		def aniosPorBuscar = sqlAnio.rows(anios)
+		
+//		for(anio in 2005..2020){
+		aniosPorBuscar.each{
+			def anio = it.anio
 			boolean  b = true
 			println 'opcion:'+opcion + ' a–o:'+anio
 			switch (opcion) {
@@ -1155,7 +1156,7 @@ class PublicoController {
 //								}else{
 //									sql += " ORDER BY " +orden+ (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
 //								}
-								query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+//								query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
 
 						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1246,7 +1247,7 @@ class PublicoController {
 									}
 								}
 							}
-							System.out.println(formula);
+//							System.out.println(formula);
 
 							ResultadoTemporal rTemp = new ResultadoTemporal()
 
@@ -1692,7 +1693,6 @@ class PublicoController {
 		detalleIndicador.resultados = resultados
 		detalleIndicador.rVariables = resutaldoVariables
 
-		println 'resultados1:'+resultados
 		return detalleIndicador
 
 		//[indicadorInstance:indicadorInstance,resultados:resultados]
