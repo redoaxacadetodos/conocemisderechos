@@ -16,15 +16,36 @@ class TablasService {
 
     }
 
-    def getTablaVariables(){
-    	def list = []
-    	def variables = CatOrigenDatos.list()
+    def getTablaVariables(params, cuenta){
+    	if (cuenta){ 
+            return CatOrigenDatos.list().size()
+        }
+
+        def list = []
+        def maximo = params.iDisplayLength!=null?params.iDisplayLength:10
+        def inicio = params.iDisplayStart!=null?params.iDisplayStart:0
+        def orden = ""
+        def tipo = params.sSortDir_0 != null ? params.sSortDir_0 : 'asc'
+        if(params?.iSortCol_0){
+            switch (params?.iSortCol_0) {
+                case '0':
+                    orden = 'clave'
+                    break
+                case '1':
+                    orden = 'descripcion'
+                    break  
+            }
+        }
+
+    	def variables = CatOrigenDatos.list(max: maximo, offset: inicio, sort: orden, order: tipo)
+
     	variables.each{
     		list<<[
     			'0':"<a href='/cednna/catOrigenDatos/show/"+it.id+"'>"+it.clave+"</a>",
     			'1':it.descripcion
     		]	
     	}
+
 
     	return list
     }
@@ -125,7 +146,7 @@ class TablasService {
                 } 
             }
         }        
-
+        println 'sql:'+sql
         def list = []
         def variables = executeQuery(sql)
         variables.each{

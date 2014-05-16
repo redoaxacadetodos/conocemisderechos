@@ -8,19 +8,40 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 		<g:javascript src="jquery.dataTables.js"></g:javascript>
 		<script type="text/javascript">
-			//Crear tabla de variables
-			var div = "divVariables";
-			var tabla = "tablaVariables";
-			
-			$.ajax( {
-			    "url": "<g:createLink controller='catOrigenDatos' action='getTablaVariables' />",
-			    "success": function ( json ) {
-			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
-			        $('#'+tabla).dataTable( json );
-			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
-			    },
-			    "dataType": "json"
-			} );
+<%--			//Crear tabla de variables--%>
+<%--			var div = "divVariables";--%>
+<%--			var tabla = "tablaVariables";--%>
+<%--			--%>
+<%--			$.ajax( {--%>
+<%--			    "url": "<g:createLink controller='catOrigenDatos' action='getTablaVariables' />",--%>
+<%--			    "success": function ( json ) {--%>
+<%--			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );--%>
+<%--			        $('#'+tabla).dataTable( json );--%>
+<%--			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');--%>
+<%--			    },--%>
+<%--			    "dataType": "json"--%>
+<%--			} );--%>
+
+			$(document).ready(function(){
+				//Crear tabla de variables
+				var div = "divVariables";
+				var tabla = "tablaVariables";
+				
+				$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
+				$('#'+tabla).dataTable({	
+					"bProcessing": true,
+				    "bServerSide": true,
+				    "sAjaxSource": "<g:createLink controller='catOrigenDatos' action='getTablaVariables' />",
+				    "oLanguage": {
+				    	  "sUrl": "../datatables/language/spanish.txt"
+				    	},
+					"aoColumns": [
+						{ "sTitle": "Clave" },
+						{ "sTitle": "Descripción" }
+					],
+					"aaSorting": [[ 0, "asc" ]]
+				});
+			});
 		</script>
 	</head>
 	<body>

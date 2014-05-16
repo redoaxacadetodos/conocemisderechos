@@ -129,7 +129,7 @@
 
 		<div class="tm-footer">
 			<div class="uk-container uk-container-center">
-				<p><strong>Un clic x sus derechos,</strong> Sistema de Monitoreo de Derechos de la Niñéz y la Adolescencia en Oaxaca, es una plataforma de código abierto del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
+				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñéz y la Adolescencia en Oaxaca, es una plataforma de código abierto del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
 				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
 				<hr></hr>
 				<div class="uk-grid">
@@ -165,7 +165,7 @@
 				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
 					<li class="uk-parent uk-active"><a href="#">Índice</a>
 						<ul class="uk-nav-sub">
-							
+
 							<li class="uk-nav-header">Men&uacute;</li>
 
 							<li><g:link controller="Indicador" >Principal</g:link></li>
@@ -173,9 +173,9 @@
 							   <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
 								   <li><g:link controller="Formula">F&oacute;rmulas</g:link></li>
 							   </sec:ifAnyGranted>
-							<li><g:link controller="Variable">Origen de datos</g:link></li>
- 							 <sec:ifAnyGranted roles="ROLE_ADMIN">	
- 							 <li><g:link controller="Variable" action="dele">Limpieza de origen de datos </g:link></li>
+							<li><g:link controller="Variable">Datos estad&iacute;sticos</g:link></li>
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<li><g:link controller="Variable" action="dele">Eliminar Datos</g:link></li>
 							<li class="uk-nav-header">Cat&aacute;logos</li>
 							<li><g:link controller="tipo">Categor&iacute;as </g:link></li>
 							<li><g:link controller="sentido">Sentido</g:link></li>
@@ -183,16 +183,21 @@
 							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
 							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
 							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
-							<li><g:link controller="eje">Modulo</g:link></li>
-							<li><g:link controller="division">SubModulo</g:link></li>
+							<li><g:link controller="eje">M&oacute;dulo</g:link></li>
+							<li><g:link controller="division">SubM&oacute;dulo</g:link></li>
 							<li><g:link controller="PNDesarrollo">PED</g:link></li>
-							<li><g:link controller="objetivoMilenio">Objetivos del milenio</g:link></li>
-							</sec:ifAnyGranted>
-							<li class="uk-nav-header">Seguimiento</li>
+							<li><g:link controller="tema">Tema PED</g:link></li>
+							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
+							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
+							<li class="uk-nav-header">Seguridad</li>
+							<li><g:link controller="Rol">Roles</g:link></li>
+							<li><g:link controller="Usuario">Usuarios</g:link></li>
+						</sec:ifAnyGranted>
+						<li class="uk-nav-header">Seguimiento</li>
 							<li><g:link controller="Indicador" action="semaforo">Sem&aacute;foro</g:link></li>
 							<br/>
 							<li><g:link controller="logout">Cerrar sesi&oacute;n </g:link></li>
-					
+
 						</ul>
 					</li>
 

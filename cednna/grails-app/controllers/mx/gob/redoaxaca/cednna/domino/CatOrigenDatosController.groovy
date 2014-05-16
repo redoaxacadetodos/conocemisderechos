@@ -21,14 +21,16 @@ class CatOrigenDatosController {
     }
 	
 	def getTablaVariables(){
-		def datos = tablasService.getTablaVariables()
-		def totalRecords = datos.size()
-		def titulos = []
+		int sEcho = 0
+		if(params.sEcho){
+			sEcho = params.sEcho.toInteger()
+			sEcho++
+		}
 		
-		titulos.add([sTitle : "Clave"])
-		titulos.add([sTitle : "Descripci&oacute;n"])
+		def datos = tablasService.getTablaVariables(params, false)
+		def totalRecords = tablasService.getTablaVariables(params, true)
 		
-		def result = ["bDestroy": true, "bRetrieve": true,'sEcho':1, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'aoColumns':titulos, 'oLanguage':["sUrl": "../datatables/language/spanish.txt"]]
+		def result = ['sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
 		
 		render result as JSON
 	}

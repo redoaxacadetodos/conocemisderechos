@@ -356,11 +356,12 @@ border-radius: 4px;
 }
 .dataTables_wrapper .row [class*="span"],
 .dataTables_wrapper .row-fluid [class*="span"] {
-  margin-bottom: 0;
+ 
 }
 .dataTables_wrapper table.table {
   clear: both;
   margin-bottom: 10px;
+  margin-top: 15px;
 }
 .dataTables_wrapper div.dataTables_length label {
   float: left;
@@ -371,6 +372,7 @@ border-radius: 4px;
 }
 .dataTables_wrapper div.dataTables_filter label {
   float: right;
+  margin-bottom: 15px;
 }
 .dataTables_wrapper .dataTables_paginate {
   margin: 0;
@@ -404,7 +406,7 @@ border-radius: 4px;
 .dataTables_wrapper table.table thead .sorting_desc,
 .dataTables_wrapper table.table thead .sorting_asc_disabled,
 .dataTables_wrapper table.table thead .sorting_desc_disabled {
-  background-position: center right;
+  background-position: bottom right;
   background-repeat: no-repeat;
 }
 .dataTables_wrapper table.dataTable th:active {

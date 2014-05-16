@@ -23,7 +23,7 @@
 		
 		<script type="text/javascript" charset="utf-8">
 		  $(document).ready(function(){
-		    $("a[rel^='prettyPhoto']").prettyPhoto({
+		    $("a[rel^='intro']").prettyPhoto({
 		    	theme: 'dark_rounded',
 		    	modal: true,
 		    	keyboard_shortcuts: false,
@@ -53,7 +53,7 @@
 	</div>
 </div>
 	
-<a id="linkyoutube" href="https://www.youtube.com/watch?v=dzlPdjD_3is&feature=youtu.be" rel="prettyPhoto" title=""></a>
+<a id="linkyoutube" href="https://www.youtube.com/watch?v=dzlPdjD_3is&feature=youtu.be" rel="intro" title=""></a>
 
 		
 		<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>

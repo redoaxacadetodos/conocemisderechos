@@ -34,16 +34,16 @@
 			
 
 
-				<g:if test="${ejeInstance?.division}">
-				<li class="fieldcontain">
-					<span id="division-label" class="property-label"><g:message code="eje.division.label" default="Derechos asociados a grupo de derechos" /></span>
-					
-						<g:each in="${ejeInstance.division}" var="d">
-						<span class="property-value" aria-labelledby="division-label"><g:link controller="division" action="show" id="${d.id}">${d?.descripcion.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
+<%--				<g:if test="${ejeInstance?.division}">--%>
+<%--				<li class="fieldcontain">--%>
+<%--					<span id="division-label" class="property-label"><g:message code="eje.division.label" default="Derechos asociados a grupo de derechos" /></span>--%>
+<%--					--%>
+<%--						<g:each in="${ejeInstance.division}" var="d">--%>
+<%--						<span class="property-value" aria-labelledby="division-label"><g:link controller="division" action="show" id="${d.id}">${d?.descripcion.encodeAsHTML()}</g:link></span>--%>
+<%--						</g:each>--%>
+<%--					--%>
+<%--				</li>--%>
+<%--				</g:if>--%>
 			
 			</ol>
 			<g:form>

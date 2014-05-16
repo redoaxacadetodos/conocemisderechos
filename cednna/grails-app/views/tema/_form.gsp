@@ -15,6 +15,6 @@
 		<g:message code="tema.ped.label" default="Ped" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="ped" name="ped.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${temaInstance?.ped?.id}" class="many-to-one"/>
+	<g:select id="ped" name="ped.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${temaInstance?.eje?.id}" class="many-to-one"/>
 </div>
 
