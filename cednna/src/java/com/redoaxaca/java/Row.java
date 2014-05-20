@@ -17,6 +17,7 @@ public class Row {
 	int     total;
 	String  descripcion;
 	int     anio;
+	String  periodo;
 	
 	String clave;
 	

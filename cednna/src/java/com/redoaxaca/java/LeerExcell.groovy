@@ -10,6 +10,7 @@ import java.util.Iterator;
 import mx.gob.redoaxaca.cednna.domino.Categoria;
 import mx.gob.redoaxaca.cednna.domino.Dependencia
 import mx.gob.redoaxaca.cednna.domino.Estado
+import mx.gob.redoaxaca.cednna.domino.Periodo
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -125,12 +126,18 @@ class LeerExcell {
 			switch (opcion) {
 				case 1:
 					for(i=5;i<=total; i++){
-						
+						boolean periodo = false
 						actual++
 
 						writer.append(actual.toString());
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(2).getNumericCellValue().intValue().toString());
+						try{
+							writer.append(hssfSheet.getRow(i).getCell(2).getNumericCellValue().intValue().toString());
+						}catch(Exception e){
+							String anio = hssfSheet.getRow(i).getCell(2).getStringCellValue().substring(0,4)
+							writer.append(anio);
+							periodo = true
+						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(0).getStringCellValue());
 						writer.append(',');
@@ -153,7 +160,13 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(dep?.toString());
 						writer.append(',');
-						writer.append(null);
+						if(periodo){
+							Periodo p = Periodo.findByDescripcion(hssfSheet.getRow(i).getCell(2).getStringCellValue())
+							writer.append(p.id.toString());
+						}else{
+							writer.append(null);
+						}
+						
 						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){
@@ -168,12 +181,18 @@ class LeerExcell {
 
 				case 2:
 					for(i=5;i<=total; i++){
-
+						boolean periodo = false
 						actual++
 
 						writer.append(actual.toString());//ID
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());//ANIO
+						try{
+							writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());//ANIO
+						}catch(Exception e){
+							String anio = hssfSheet.getRow(i).getCell(4).getStringCellValue().substring(0,4)
+							writer.append(anio);
+							periodo = true
+						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue());//CLAVE
 						writer.append(',');
@@ -197,7 +216,13 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(dep?.toString());//DEPENDENCIA
 						writer.append(',');
-						writer.append(null);
+						if(periodo){
+							Periodo p = Periodo.findByDescripcion(hssfSheet.getRow(i).getCell(4).getStringCellValue())
+							writer.append(p.id.toString());
+						}else{
+							writer.append(null);
+						}
+						
 						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){
@@ -213,10 +238,17 @@ class LeerExcell {
 				case 3:
 					for(i=5;i<=total; i++){
 						actual++
+						boolean periodo = false
 
 						writer.append(actual.toString());//ID
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//ANIO
+						try{
+							writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//ANIO
+						}catch(Exception e){
+							String anio = hssfSheet.getRow(i).getCell(6).getStringCellValue().substring(0,4)
+							writer.append(anio);
+							periodo = true
+						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue());//CLAVE
 						writer.append(',');
@@ -240,7 +272,12 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(dep.toString());//DEPENDENCIA
 						writer.append(',');
-						writer.append(null);
+						if(periodo){
+							Periodo p = Periodo.findByDescripcion(hssfSheet.getRow(i).getCell(6).getStringCellValue())
+							writer.append(p.id.toString());
+						}else{
+							writer.append(null);
+						}
 						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){

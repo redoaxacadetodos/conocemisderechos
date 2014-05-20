@@ -196,7 +196,7 @@
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />
 		
 	</label>
-	<textarea  name="comentarios" rows="5" cols="40">${indicadorInstance?.comentarios}</textarea>
+	<textarea  name="comentarios" rows="5" cols="40" required="required">${indicadorInstance?.comentarios}</textarea>
 </div>
 
 
@@ -240,7 +240,7 @@
 		<g:message code="indicador.mailResponsable.label" default="Email de contacto" />
 		<span class="required-indicator">*</span>
 	</label>
-		<g:textField name="mailResponsable"  maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"  style="width:500px;"/>
+		<input type="email"  name="mailResponsable" id="mailResponsable"maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"  style="width:500px;">
 </div>
 
 <%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">--%>

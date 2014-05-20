@@ -192,10 +192,18 @@ class VariableController {
 	
 	def tieneDatosOrigen(){
 		String respuesta = ""
-		
-		def variables = Variable.findAll{
-			clave == params.origenDatos && anio==params.anio
+		def variables
+		if(params.periodo){
+			Periodo p = Periodo.get(params['periodo.id'].toLong())
+			variables = Variable.findAll{
+				clave == params.origenDatos && periodo==p
+			}
+		}else{
+			variables = Variable.findAll{
+				clave == params.origenDatos && anio==params.anio
+			}
 		}
+		
 		
 		if(variables.size()!=0){
 			respuesta = "<script>verificarDescarga(1);</script>"
@@ -214,12 +222,17 @@ class VariableController {
 		if(cod){
 			def clave =cod.clave
 			def descripcion=cod.descripcion
+			Periodo periodo
+			int anio
 			
 //			String periodo = params.anio
-//			if(params.periodo){
-//				anio = params.periodo
-//			}
-			int anio= params.anio.toInteger()
+			if(params['periodo.id']){
+				periodo = Periodo.get(params['periodo.id'].toLong())
+				anio = periodo.anioInicial
+			}else{
+				anio= params.anio.toInteger()
+			}
+			
 			int opcion= params.opcionSerie.toInteger()
 			def numCategorias= params.numCategorias.toInteger()
 			System.out.println("El numero de categoria es : "+numCategorias);
@@ -305,7 +318,11 @@ class VariableController {
 						Row renglon = new Row()
 						renglon.clave=clave
 						renglon.descripcion=descripcion
-						renglon.anio=anio;
+						if(params.periodo){
+							renglon.periodo=periodo.descripcion
+						}else{
+							renglon.anio=anio
+						}
 						renglon.categorias = new ArrayList<Long>();
 						for(int v=0; v<tamY;v++){
 							renglon.categorias.add(Categoria.get(mat[x][v]));
@@ -324,7 +341,11 @@ class VariableController {
 							renglon.descripcion=descripcion
 							renglon.idRegion=it.id
 							renglon.region=it.descripcion
-							renglon.anio=anio;
+							if(params.periodo){
+								renglon.periodo=periodo.descripcion
+							}else{
+								renglon.anio=anio
+							}
 							renglon.categorias = new ArrayList<Long>();
 							for(int v=0; v<tamY;v++){
 								renglon.categorias.add(Categoria.get(mat[x][v]));
@@ -347,7 +368,11 @@ class VariableController {
 							renglon.idMunicipio=it.id
 							renglon.municipio=it.descripcion
 
-							renglon.anio=anio;
+							if(params.periodo){
+								renglon.periodo=periodo.descripcion
+							}else{
+								renglon.anio=anio
+							}
 							renglon.categorias = new ArrayList<Long>();
 							for(int v=0; v<tamY;v++){
 								renglon.categorias.add(Categoria.get(mat[x][v]));
@@ -364,7 +389,11 @@ class VariableController {
 						Row renglon = new Row()
 						renglon.clave=clave
 						renglon.descripcion=descripcion
-						renglon.anio=anio;
+						if(params.periodo){
+							renglon.periodo=periodo.descripcion
+						}else{
+							renglon.anio=anio
+						}
 						renglon.categorias = new ArrayList<Integer>();
 
 						renglon.idRegion=it.municipio.region.id
@@ -386,8 +415,13 @@ class VariableController {
 					}
 					break;
 		}
+		ArchivoDescarga archivodown
+		if(params['periodo.id']){
+			archivodown = new ArchivoDescarga(renglones,cts,opcion, true)
+		}else{
+			archivodown = new ArchivoDescarga(renglones,cts,opcion, false)
+		}
 		
-		ArchivoDescarga archivodown = new ArchivoDescarga(renglones,cts,opcion)
 		try {
 			def archivo = new File (archivodown.getRuta())
 			response.setContentType("application/octet-stream")
@@ -864,7 +898,7 @@ class VariableController {
 		String sshCommand = "\\copy "+tabla+" from"+" '"+path+"'"+" csv header   NULL  'null'"
 		sshCommand = """psql cednna_dev_280314 -c "${sshCommand}" """
 		java.util.Properties config = new java.util.Properties()
-		
+		println 'sshCommand:'+sshCommand
 		config.put "StrictHostKeyChecking", "no"
 		
 		JSch jsch=new JSch();

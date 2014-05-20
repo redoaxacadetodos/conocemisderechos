@@ -393,21 +393,21 @@ class PublicoController {
 		}
 		
 		int tipo = params.idTipo.toInteger()
-		def indicador = Indicador.get(id)
-		
-		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
-		def resultadosIndicador = detalleIndicador.resultados
-		println 'resultados:'+resultadosIndicador
-		
-		if(tipo==2){
-			resultadosIndicador.sort{it.region}
-		}else if(tipo==3){
-			CollectionUtils.extendMetaClass()
-			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}
-		}
-		
-		def datos = publicoService.getTablaIndicador(resultadosIndicador, tipo)
-		def totalRecords = datos.size()
+//		def indicador = Indicador.get(id)
+//		
+//		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
+//		def resultadosIndicador = detalleIndicador.resultados
+//		println 'resultados:'+resultadosIndicador
+//		
+//		if(tipo==2){
+//			resultadosIndicador.sort{it.region}
+//		}else if(tipo==3){
+//			CollectionUtils.extendMetaClass()
+//			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}
+//		}
+//		
+//		def datos = publicoService.getTablaIndicador(resultadosIndicador, tipo)
+//		def totalRecords = datos.size()
 		def titulos = []
 		
 		switch (tipo){
@@ -428,24 +428,29 @@ class PublicoController {
 				break
 		}
 		
-		if(resultadosIndicador){
-			def resultadoaux = resultadosIndicador?.get(0)
-			
-			resultadoaux?.resultados.each{ resultado->
-				titulos.add([sTitle : resultado?.anio.toString()])
-			}
+		getTitulosTablaIndicador(id).each{
+			titulos.add([sTitle : it.anio.toString()])
 		}
-		def metodo = "/cednna/publico/getTablaIndicador" + "/"+ indicador.id+"?idTipo=" + tipo
 		
 		
-//		def result = ["bServerSide": true,"bProcessing": true, "sAjaxSource":metodo,"bDestroy": true, "bRetrieve": true, 'aoColumns':titulos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
-		def result = ["bDestroy": true, "bRetrieve": true, 'aoColumns':titulos,,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
+//		if(resultadosIndicador){
+//			def resultadoaux = resultadosIndicador?.get(0)
+//			
+//			resultadoaux?.resultados.each{ resultado->
+//				titulos.add([sTitle : resultado?.anio.toString()])
+//			}
+//		}
+		def metodo = "/cednna/publico/getTablaIndicadorJson" + "/"+ id+"?idTipo=" + tipo
+		
+		
+		def result = ["bServerSide": true,"bProcessing": true, "sAjaxSource":metodo,"bDestroy": true, "bRetrieve": true, 'aoColumns':titulos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
+//		def result = ["bDestroy": true, "bRetrieve": true, 'aoColumns':titulos,,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
 		println 'result:'+result
 //		def result = ['aoColumns':titulos,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
 		render result as JSON
 	}
 	
-	def getTablaIndicadorJson(){
+	def getTablaIndicadorJson(Long id){
 		int sEcho = 0
 		if(params.sEcho){
 			sEcho = params.sEcho.toInteger()
@@ -457,25 +462,11 @@ class PublicoController {
 		
 		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
 		def resultadosIndicador = detalleIndicador.resultados
-		println 'resultados:'+resultadosIndicador
-		
-		if(tipo==2){
-			resultadosIndicador.sort{it.region}
-		}else if(tipo==3){
-			CollectionUtils.extendMetaClass()
-			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}
-		}
 		
 		def datos = publicoService.getTablaIndicador(resultadosIndicador, tipo)
 		def totalRecords = datos.size()
-		
-		
-		if(resultadosIndicador){
-			def resultadoaux = resultadosIndicador?.get(0)
-			
-			resultadoaux?.resultados.each{ resultado->
-				titulos.add([sTitle : resultado?.anio.toString()])
-			}
+		if(tipo==3){
+			totalRecords = 570
 		}
 		
 		def result = ['sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
@@ -583,7 +574,28 @@ class PublicoController {
 		render(template:"graficaIndicador", model:[tablaJSON:jsondata, nivel: nivel])
 	}
 	
-	def DetalleIndicador visorIndicadorPaginado(Long id,int idTipo,params){
+	def getTitulosTablaIndicador(Long id){
+		def indicadorInstance = Indicador.get(id)
+		String claves = ""
+		int tamVariables = indicadorInstance.variables.size()
+		int cont = 1
+		for(v in indicadorInstance.variables){
+			claves += " cvv_clave = '" + v.claveVar + "'"
+			if(cont<tamVariables){
+				claves += " or "
+			}
+			cont++
+		}
+		
+		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves
+		println  'anios:'+anios
+		
+		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
+		def titulos = sqlAnio.rows(anios)
+		return titulos
+	}
+	
+	DetalleIndicador visorIndicadorPaginado(Long id,int idTipo,params){
 		//println 'id:'+id+ ' idTipo:'+idTipo
 		//idTipo = 3
 		def indicadorInstance = Indicador.get(id);
@@ -892,6 +904,8 @@ class PublicoController {
 								"GROUP BY "+
 								"o.region_id,  "+
 								"region,descripcion"
+								
+						query += " order by region " + (params.sSortDir_0 != null ? params.sSortDir_0 : '' )
 
 						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1069,6 +1083,17 @@ class PublicoController {
 				/***
 				 * Comienza la busqueda en el origen de datos en base a las variable
 				 * */
+					String orden='region '
+					if(params?.iSortCol_0){
+						switch (params?.iSortCol_0) {
+							case '0':
+								orden = 'region '
+								break
+							case '1':
+								orden = 'municipio '
+								break
+						}
+					}
 
 					for(vari in indicadorInstance.variables){
 						def sql = new Sql(sessionFactory.currentSession.connection())
@@ -1129,34 +1154,27 @@ class PublicoController {
 							query=query+"  ) "
 						}
 
-						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "+
-								"GROUP BY "+
+						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "
+						if(params?.sSearch!=null && params?.sSearch!=''){
+							query +=
+									""" WHERE
+					            UPPER(region) LIKE UPPER ('%${params?.sSearch}%') 
+					            OR UPPER(municipio) LIKE UPPER ('%${params?.sSearch}%')  					                                    
+					        """
+						}
+						
+						query +="GROUP BY "+
 								"o.region_id,  "+
 								"region,"+
 								"o.municipio_id, " +
 								"municipio,descripcion"
 								
-//								if(params?.iSortCol_0){
-//									switch (params?.iSortCol_0) {
-//										case '0':
-//											orden = 'clave '
-//											break
-//										case '1':
-//											orden = 'descripcion '
-//											break
-//										case '2':
-//											orden = 'region '
-//											break
-//									}
-//								}
-//						
-//								
-//								if(!params?.iSortCol_0){
-//									sql+=" ORDER BY descripcion "
-//								}else{
-//									sql += " ORDER BY " +orden+ (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
-//								}
-//								query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+						
+								
+						query += " order by " + orden + (params.sSortDir_0 != null ? params.sSortDir_0 : '' )
+						query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+						
+						
 
 						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);

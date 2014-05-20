@@ -67,6 +67,7 @@ class Indicador {
 				nombrePrograma(blank:true, nullable:true)
 				objetivosMilenio(blank:true, nullable:true)
 				
+				mediosVerificacion(nullable:true)
 				fuenteInformacion( nullable:true)
 				periodo( nullable:true)
 				decimales( nullable:true)

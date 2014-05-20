@@ -140,6 +140,13 @@
 
 	}
 </script>
+<script>
+	$(document).ready(function() {
+		$('#periodo_chosen').css({"width": "150px"});
+		$('#periodo').attr('disabled','disabled');
+		$('#divPeriodo').hide();
+	});
+	</script>	
 </head>
 <body>
 	<g:form action="generaXLS" controller="variable" method="post" name="formDescargar">
@@ -184,14 +191,36 @@
 
 		</g:else>
 
-		<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
-			<label class="uk-form-label" for="anio"> <g:message
-					code="variable.anio.label" default="Año" /> <span
-				class="required-indicator">*</span>
+<%--		<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">--%>
+<%--			<label class="uk-form-label" for="anio"> <g:message--%>
+<%--					code="variable.anio.label" default="Año" /> <span--%>
+<%--				class="required-indicator">*</span>--%>
+<%--			</label>--%>
+<%--			<div class="uk-form-controls">--%>
+<%--				<select id="anio" name="anio" style="width: 150px"></select>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+		
+		<g:hiddenField name="tipoPeriodo" value="false"/>
+		
+		<div id="divAnio" class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
+			<label class="uk-form-label" for="anio">
+				<g:message code="variable.anio.label" default="Año" />
+				<span class="required-indicator">*</span>
 			</label>
 			<div class="uk-form-controls">
-				<select id="anio" name="anio" style="width: 150px"></select>
+			<select id="anio" name="anio" ></select>
+			<input type="button" id="mostrarPeriodo" onClick="$('#divPeriodo').show();$('#divAnio').hide();$('#anio').attr('disabled','disabled');$('#periodo').removeAttr('disabled'); $('#tipoPeriodo').val('true');" value="Mostrar periodos" class="uk-button">
 			</div>
+		</div>
+		
+		<div id="divPeriodo" class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
+			<label class="uk-form-label"for="frecuencia">
+				<g:message code="indicador.frecuencia.label" default="Ciclo escolar " />
+		
+			</label>
+			<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one" style="width:350px;"/>
+			<input type="button" id="ocultarPeriodo" onclick="$('#divPeriodo').hide();$('#divAnio').show();$('#periodo').attr('disabled','disabled');$('#anio').removeAttr('disabled');$('#tipoPeriodo').val('false');" value="Ocultar periodos" class="uk-button">
 		</div>
 
 		<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">

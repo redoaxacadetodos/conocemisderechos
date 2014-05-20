@@ -16,7 +16,7 @@ public class ArchivoDescarga {
 	
 	String ruta;
 	
-	public ArchivoDescarga(ArrayList<com.redoaxaca.java.Row> data, ArrayList<ResultCategorias> cts,int tipo){
+	public ArchivoDescarga(ArrayList<com.redoaxaca.java.Row> data, ArrayList<ResultCategorias> cts,int tipo, boolean periodo){
 			
 		SXSSFWorkbook wb = new SXSSFWorkbook(); // keep 100 rows in memory, exceeding rows will be flushed to disk
         Sheet sh = wb.createSheet();
@@ -46,7 +46,10 @@ public class ArchivoDescarga {
 	        cellCabecera = rowCabecera.createCell(1);
 	        cellCabecera.setCellValue("DESCRIPCION");
 	        cellCabecera = rowCabecera.createCell(2);
-	        cellCabecera.setCellValue("ANIO");
+	        if(periodo==true)
+	        	cellCabecera.setCellValue("PERIODO");
+	        else
+	        	cellCabecera.setCellValue("ANIO");
 	        cellCabecera = rowCabecera.createCell(3);
 	        cellCabecera.setCellValue("MUJER");
 	        cellCabecera = rowCabecera.createCell(4);
@@ -72,7 +75,10 @@ public class ArchivoDescarga {
 	                cell = row.createCell(1);
 	                cell.setCellValue(fila.descripcion);
 	                cell = row.createCell(2);
-	                cell.setCellValue(fila.anio);
+	                if(periodo==true)
+	                	cell.setCellValue(fila.periodo);
+	    	        else
+	    	        	cell.setCellValue(fila.anio);
 	                cell = row.createCell(3);
 	                cell.setCellValue(fila.hombres);
 	                cell = row.createCell(4);
@@ -111,7 +117,10 @@ public class ArchivoDescarga {
 	        cellCabecera = rowCabecera.createCell(3);
 	        cellCabecera.setCellValue("DESCRIPCION");
 	        cellCabecera = rowCabecera.createCell(4);
-	        cellCabecera.setCellValue("ANIO");
+	        if(periodo==true)
+	        	cellCabecera.setCellValue("PERIODO");
+	        else
+	        	cellCabecera.setCellValue("ANIO");
 	        cellCabecera = rowCabecera.createCell(5);
 	        cellCabecera.setCellValue("MUJER");
 	        
@@ -147,7 +156,10 @@ public class ArchivoDescarga {
 	                cell = row.createCell(3);
 	                cell.setCellValue(fila.descripcion);
 	                cell = row.createCell(4);
-	                cell.setCellValue(fila.anio);
+	                if(periodo==true)
+	                	cell.setCellValue(fila.periodo);
+	    	        else
+	    	        	cell.setCellValue(fila.anio);
 	                cell = row.createCell(5);
 	                cell.setCellValue(fila.hombres);
 	                cell = row.createCell(6);
@@ -195,7 +207,10 @@ public class ArchivoDescarga {
 	        cellCabecera = rowCabecera.createCell(5);
 	        cellCabecera.setCellValue("DESCRIPCION");
 	        cellCabecera = rowCabecera.createCell(6);
-	        cellCabecera.setCellValue("ANIO");
+	        if(periodo==true)
+	        	cellCabecera.setCellValue("PERIODO");
+	        else
+	        	cellCabecera.setCellValue("ANIO");
 	        cellCabecera = rowCabecera.createCell(7);
 	        cellCabecera.setCellValue("MUJER");
 	        
@@ -235,7 +250,10 @@ public class ArchivoDescarga {
 	                cell = row.createCell(5);
 	                cell.setCellValue(fila.descripcion);
 	                cell = row.createCell(6);
-	                cell.setCellValue(fila.anio);
+	                if(periodo==true)
+	                	cell.setCellValue(fila.periodo);
+	    	        else
+	    	        	cell.setCellValue(fila.anio);
 	                cell = row.createCell(7);
 	                cell.setCellValue(fila.hombres);
 	                cell = row.createCell(8);
