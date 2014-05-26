@@ -20,7 +20,7 @@
 			
 		<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
 		<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>	
-		
+		<g:javascript src="jquery.dataTables.js" />
 		<script type="text/javascript" charset="utf-8">
 		  $(document).ready(function(){
 		    $("a[rel^='intro']").prettyPhoto({
@@ -30,14 +30,58 @@
 		    	social_tools:false
 			});
 		    $("#linkyoutube").click();
+
+		    $('#buscador').dataTable({	
+				"bProcessing": true,
+			    "bServerSide": true,
+			    "sAjaxSource": "<g:createLink controller='publico' action='getTablaBuscador' />",
+			    "oLanguage": {
+			    	  "sUrl": "datatables/language/spanish.txt"
+			    	},
+				"aoColumns": [
+					{ "sTitle": "Modulo" },
+					{ "sTitle": "Sección" },
+					{ "sTitle": "Indicador" },
+					{ "sTitle": "Ver indicador" }
+				],
+				"aaSorting": [[ 1, "desc" ]]
+				
+			});
+
+		    
 		  });
+
+		  function buscar(id, ejeid){
+			  $.ajax( {
+				    "url": "<g:createLink controller='publico' action='mostrarIndicador' />" + "/"+ id+"?ejeInstance=" + ejeid,
+				    "success": function ( json ) {
+				    	
+				    }
+				} );
+		  }
+
 		</script>
 				
 	</head>
 	<body>
+	
 		<div class="uk-container uk-container-center">
 		<div class="uk-panel-space uk-text-center uk-container-center"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div>
 		</div>
+		<!-- This is a button toggling the modal -->
+		<button class="uk-button" data-uk-modal="{target:'#divBuscador'}">¿Qué indicador buscas?</button>
+		
+		<!-- This is the modal -->
+		<div id="divBuscador" class="uk-modal">
+		    <div class="uk-modal-dialog">
+		        <a class="uk-modal-close uk-close"></a>
+				<div>
+					<table class="table table-striped table-hover table-bordered" id="buscador"></table>
+					<br><br>
+				</div>        
+		    </div>
+		</div>
+		
 <div class="uk-container uk-container-center">	
 	<div class="uk-grid" data-uk-grid-margin="">
 		<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
@@ -54,6 +98,9 @@
 </div>
 	
 <a id="linkyoutube" href="https://www.youtube.com/watch?v=dzlPdjD_3is&feature=youtu.be" rel="intro" title=""></a>
+
+
+
 
 		
 		<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>

@@ -30,6 +30,7 @@ class PublicoController {
 	def dataSource
 	def dataTablesService
 	def publicoService
+	def tablasService
 
 
     def index() { 
@@ -76,19 +77,6 @@ class PublicoController {
 		
 	}
 		
-	def insertarCoordenadas = {		
-		
-		GuardarCoordenadas gc = new GuardarCoordenadas(Municipio) 				
-		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/municipios.kml").getFile())
-		/*
-		GuardarCoordenadas gc = new GuardarCoordenadas(Estado)
-		gc.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/entidad.kml").getFile())
-		 */		
-		/*
-		GuardarCoordenadas gcr = new GuardarCoordenadas(Region)
-		gcr.guardarCoordenadas(grailsAttributes.getApplicationContext().getResource("kml/regiones.kml").getFile())*/
-	}
-	
 	def contacto = {
 		def contactos = Contacto.getAll()
 		[contactos: contactos]
@@ -242,19 +230,23 @@ class PublicoController {
 		
 		if(indicador){
 			def decimales = indicador?.decimales
-//			DetalleIndicador detalleIndicador = visorIndicador(id,1)
-//			def resultadosIndicador = detalleIndicador?.resultados
+			DetalleIndicador detalleIndicador = visorIndicador(id,1)
+			def resultadosIndicador = detalleIndicador?.resultados
 			def resultados = []
 			def coordenadasList = []
 			def nulo = true
 		
 			//Buscar datos para Google Maps
-//			def ubicaciones = []
-//			def aux = [:]
-//			def ubicacioneString = []
-//				
-//			def nombreCoordenadas = []
-//						
+			def ubicaciones = []
+			def aux = [:]
+			def ubicacioneString = []
+				
+			def nombreCoordenadas = []
+			
+			resultadosIndicador.each { resultado ->
+				resultados = resultado.resultados
+			}
+						
 //			resultadosIndicador.each { resultado ->
 //				def idEstado = 20
 //				
@@ -289,9 +281,9 @@ class PublicoController {
 //			def jsondata = aux as JSON
 			//[ubicaciones: ubicacioneString, aux: jsondata,nombreCoordenadas:nombreCoordenadas]
 			
-//			if(nulo){
-//				resultadosIndicador = null
-//			}
+			if(nulo){
+				resultadosIndicador = null
+			}
 			
 			//Cambiar f—rmula
 			String formula = crearFormula(indicador)
@@ -309,7 +301,7 @@ class PublicoController {
 			else
 				nombreIndicador =  indicador?.nombre
 					
-			[nombreIndicador: nombreIndicador, ejeInstance:eje, indicadorInstance: indicador, resultados:resultados,  tipo:'1',coordenadasList:coordenadasList, tamVariables:tamVariables, formula:formula]
+			[resultados:resultados,nombreIndicador: nombreIndicador, ejeInstance:eje, indicadorInstance: indicador, resultados:resultados,  tipo:'1',coordenadasList:coordenadasList, tamVariables:tamVariables, formula:formula]
 		}
 		else{
 			redirect(action:"indicadores")
@@ -574,6 +566,20 @@ class PublicoController {
 		render(template:"graficaIndicador", model:[tablaJSON:jsondata, nivel: nivel])
 	}
 	
+	def getTablaBuscador(){
+		int sEcho = 0
+		if(params.sEcho){
+			sEcho = params.sEcho.toInteger()
+			sEcho++
+		}
+		
+		def datos = tablasService.getTablaBuscador(params, false)
+		def totalRecords = tablasService.getTablaBuscador(params, true)
+		
+		def result = ['sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
+		render result as JSON
+	}
+	
 	def getTitulosTablaIndicador(Long id){
 		def indicadorInstance = Indicador.get(id)
 		String claves = ""
@@ -587,7 +593,7 @@ class PublicoController {
 			cont++
 		}
 		
-		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves
+		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves + " order by 1"
 		println  'anios:'+anios
 		
 		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
@@ -626,7 +632,7 @@ class PublicoController {
 			cont++
 		}
 		
-		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves
+		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves + " order by 1"
 		println  'anios:'+anios
 		
 		def sqlAnio = new Sql(sessionFactory.currentSession.connection())

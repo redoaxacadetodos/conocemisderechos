@@ -172,6 +172,62 @@ class TablasService {
         return list
     }
 
+    def getTablaBuscador(params, cuenta){
+        String orden='clave '
+        if(params?.iSortCol_0){
+            switch (params?.iSortCol_0) {
+                case '0':
+                    orden = 'modulo '
+                    break
+                case '1':
+                    orden = 'seccion '
+                    break
+                case '2':
+                    orden = 'indicador '
+                    break
+            }
+        }
+
+        String sql = """
+            select i.idn_id id,  e.id ejeid, e.descripcion modulo, d.descripcion seccion,  i.idn_nombre indicador from idn_indicador i
+            left join division d on (i.division_id=d.id) left join eje e on (d.eje_id = e.id)
+            WHERE idn_publico = true
+        """
+
+        if(params?.sSearch!=null && params?.sSearch!=''){
+            sql +=
+            """
+            and (UPPER(idn_nombre) LIKE UPPER ('%${params?.sSearch}%') 
+            OR UPPER(e.descripcion) LIKE UPPER ('%${params?.sSearch}%') 
+            OR UPPER(d.descripcion) LIKE UPPER ('%${params?.sSearch}%') )
+        """
+        }
+
+        if (cuenta){ 
+            return (executeQuery(" select count(*) numero from ( "+ sql +" ) consulta" ))?.numero
+        }else{
+            if(!params?.iSortCol_0){
+                sql+=" ORDER BY modulo, seccion "
+            }else{
+                sql += " ORDER BY " +orden+ (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + " "
+            }
+            sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+        }
+        println 'sql:'+sql
+        def list = []
+        def indicadores = executeQuery(sql)
+        indicadores.each{
+            list<<[
+                '0':it.modulo,
+                '1':it.seccion,
+                '2':it.indicador,
+                '3':"<a href='/cednna/publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-edit'> </a>"
+            ]   
+        }
+        return list
+
+    }
+
     @Transactional(readOnly = true)
     def executeQuery(String sql){
         def db = new Sql(dataSource)

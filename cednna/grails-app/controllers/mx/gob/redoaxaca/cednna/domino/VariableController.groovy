@@ -871,7 +871,7 @@ class VariableController {
 			archivo_ = new File(path + fBase.originalFilename.toString())
 			def arc = new LeerExcell(archivo_, sec,estOaxaca, dependencia,path)
 			 
-			contadorBuenos=arc.total
+			contadorBuenos=arc.total()
 			
 			Valor servidor = Valor.findByKey("servidor")
 			Valor usuarioSSH = Valor.findByKey("usuario")
