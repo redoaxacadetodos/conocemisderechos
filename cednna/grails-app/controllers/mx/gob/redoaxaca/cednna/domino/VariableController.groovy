@@ -19,7 +19,7 @@ import com.redoaxaca.java.Row
 import com.redoaxaca.java.TotalVariable
 
 
-@Secured(['ROLE_DEP','ROLE_LECTURA'])
+@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN'])
 class VariableController {
 	def dataTablesService
 	def tablasService
@@ -439,7 +439,7 @@ class VariableController {
 		
 	}
 	
-	@Secured(['ROLE_DEP'])
+	@Secured(['ROLE_DEP', 'ROLE_ADMIN'])
 	def archivo(){
 		def usuario = springSecurityService.currentUser
 		[dependencia:usuario.dependencia]

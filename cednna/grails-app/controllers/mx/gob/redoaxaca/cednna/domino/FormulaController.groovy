@@ -7,7 +7,7 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 
-@Secured(['ROLE_NUCLEO'])
+@Secured(['ROLE_NUCLEO', 'ROLE_ADMIN'])
 class FormulaController {
 
 	def dataTablesService

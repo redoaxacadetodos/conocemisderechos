@@ -87,7 +87,7 @@
 		<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 			<div id="bot_prog" class="uk-width-medium-1-4">
 				<div class="uk-panel">
-					<g:link action="detalleIndicador" controller="publico"  value="${eje.descripcion}" id="${eje.id}">
+					<g:link action="detalleIndicador" title="${eje?.titulo }" controller="publico"  value="${eje?.descripcion}" id="${eje?.id}">
 					<div class="bot${eje.id}"></div>
 					</g:link>			
 				</div>

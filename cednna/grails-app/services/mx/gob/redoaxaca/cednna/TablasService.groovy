@@ -65,23 +65,20 @@ class TablasService {
                     break
                 case '3':
                     orden = 'municipio '
-                    break
+                    break                
                 case '4':
-                    orden = 'localidad '
-                    break
-                case '5':
                     orden = 'categoria '
                     break
-                case '6':
+                case '5':
                     orden = 'anio '
                     break
-                case '7':
+                case '6':
                     orden = 'poblaciontotal '
                     break
-                case '8':
+                case '7':
                     orden = 'mujeres '
                     break
-                case '9':
+                case '8':
                     orden = 'hombres '
                     break
             }
@@ -90,12 +87,12 @@ class TablasService {
         String sql = """
             select 
             cvv_id id, cvv_anio anio, cvv_clave clave, cvv_descripcion descripcion, 
-            e.ent_descripcion estado, l.ctl_descripcion localidad, mun.mun_descripcion municipio, cvv_hombres hombres, 
+            e.ent_descripcion estado,  mun.mun_descripcion municipio, cvv_hombres hombres, 
             cvv_mujeres mujeres , cvv_poblacion_total poblaciontotal, r.crg_descripcion region, 
             cat.cct_descripcion categoria, p.descripcion periodo
             from cat_variable v 
             LEFT JOIN cat_entidad e ON (e.ent_id = v.cvv_estado) 
-            LEFT JOIN cat_localidad l ON (v.cvv_localidad = l.ctl_id)
+            
             LEFT JOIN cat_municipio mun ON (v.cvv_municipio = mun.mun_id) 
             LEFT JOIN cat_region r ON (v.cvv_region = r.crg_id)
             LEFT JOIN cat_variable_categoria vc ON (vc.cvc_cvv_id = v.cvv_id) 
@@ -110,7 +107,6 @@ class TablasService {
             OR UPPER(cvv_clave) LIKE UPPER ('%${params?.sSearch}%') 
             OR UPPER(cvv_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
             OR UPPER(e.ent_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
-            OR UPPER(l.ctl_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
             OR UPPER(mun.mun_descripcion) LIKE UPPER ('%${params?.sSearch}%')             
             OR UPPER(r.crg_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
             OR UPPER(cat.cct_descripcion) LIKE UPPER ('%${params?.sSearch}%')                          
@@ -146,7 +142,7 @@ class TablasService {
                 } 
             }
         }        
-        println 'sql:'+sql
+        
         def list = []
         def variables = executeQuery(sql)
         variables.each{
@@ -159,21 +155,20 @@ class TablasService {
                 '0':it.clave,
                 '1':it.descripcion,
                 '2':it.region,
-                '3':it.municipio,
-                '4':it.localidad,
-                '5':it.categoria,
-                '6':anio,
-                '7':it.poblaciontotal,
-                '8':it.mujeres,
-                '9':it.hombres,
-                '10':"<a onclick='"+metodo+"("+it.id+"); ' class='uk-icon-button uk-icon-edit' href='#'> </a>"
+                '3':it.municipio,                
+                '4':it.categoria,
+                '5':anio,
+                '6':it.poblaciontotal,
+                '7':it.mujeres,
+                '8':it.hombres,
+                '9':"<a onclick='"+metodo+"("+it.id+"); ' class='uk-icon-button uk-icon-edit' href='#'> </a>"
             ]   
         }
         return list
     }
 
     def getTablaBuscador(params, cuenta){
-        String orden='clave '
+        String orden='modulo '
         if(params?.iSortCol_0){
             switch (params?.iSortCol_0) {
                 case '0':
@@ -213,7 +208,7 @@ class TablasService {
             }
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
         }
-        println 'sql:'+sql
+
         def list = []
         def indicadores = executeQuery(sql)
         indicadores.each{

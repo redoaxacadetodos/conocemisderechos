@@ -69,7 +69,6 @@
 						{ "sTitle": "Descripción" },
 						{ "sTitle": "Región" },
 						{ "sTitle": "Municipio" },
-						{ "sTitle": "Localidad" },
 						{ "sTitle": "Categoría" },
 						{ "sTitle": "Año/Ciclo" },
 						{ "sTitle": "Población total" },

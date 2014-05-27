@@ -96,7 +96,7 @@
 	</label>
 	<div class="uk-form-controls">
 	
-	<g:field name="hombres"  id="hombres" type="text" value="${variableInstance.hombres}" required="" class="uk-button"/>
+	<g:field name="hombres"  id="hombres" type="text" value="${variableInstance.hombres}" required="" />
 	</div>
 </div>
 

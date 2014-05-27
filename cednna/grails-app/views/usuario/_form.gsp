@@ -4,7 +4,7 @@
 <script>
 $(function() {
 	$('#rol').selectize({
-		maxItems: 3
+		maxItems: 15
 	});
 });
 		</script>

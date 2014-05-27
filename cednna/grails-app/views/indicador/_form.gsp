@@ -210,6 +210,13 @@
 	<g:checkBox name="publico" value="${indicadorInstance?.publico}" />
 </div>
 
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'urlExterna', 'error')} ">
+			<label class="uk-form-label" for="urlExterna">
+				<g:message code="indicador.urlExterna.label" default="Url externa" />
+			
+			</label>
+			<g:textField name="urlExterna"  value="${indicadorInstance?.urlExterna}" style="width:600px;"/>
+		</div>
 
 <br>
 <br>

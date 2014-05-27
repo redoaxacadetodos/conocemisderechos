@@ -21,7 +21,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 
-@Secured(['ROLE_DEP'])
+@Secured(['ROLE_DEP', 'ROLE_ADMIN'])
 class IndicadorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -29,11 +29,11 @@ class IndicadorController {
 	def dataTablesService
 	def springSecurityService
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
     def index() {
         
     }
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
 		def usuario = springSecurityService.currentUser
@@ -65,7 +65,7 @@ class IndicadorController {
         [indicadorInstance: new Indicador(params),dep:dep,decimalesList:decimalesList]
     }
 
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def dataTablesListadoIndicadores = {
 		
 	def query="  from idn_indicador	 as i "
@@ -101,7 +101,7 @@ class IndicadorController {
 	
 	
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def tabla(){
 		
 		[dependencia:params.id]
@@ -109,7 +109,7 @@ class IndicadorController {
 		
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def visor(){
 
 		def indicadorInstance = Indicador.get(params.id);
@@ -1235,7 +1235,7 @@ class IndicadorController {
 		
 	}
 
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
 	
 		def ban = false
@@ -1250,7 +1250,7 @@ class IndicadorController {
 	return ban;
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def  descripciones(){
 		def cvar= new ArrayList<ComboVariable>()
 		def sql = new Sql(sessionFactory.currentSession.connection())
@@ -1356,7 +1356,7 @@ class IndicadorController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'indicador.label', default: 'Indicador'), indicadorInstance.id])
         redirect(action: "show", id: indicadorInstance.id)
     }
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
     def show(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {
@@ -1368,7 +1368,7 @@ class IndicadorController {
         [indicadorInstance: indicadorInstance]
     }
 
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
     def edit(Long id) {
         def indicadorInstance = Indicador.get(id)
         if (!indicadorInstance) {
@@ -1460,7 +1460,7 @@ class IndicadorController {
 
 	
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def categorias(){
 		
 		def var =params.id
@@ -1469,7 +1469,7 @@ class IndicadorController {
 		[var:var,con:con]
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def buscadorVariable(){
 		def formula = Formula.get(params.id);
 		def var
@@ -1523,7 +1523,7 @@ class IndicadorController {
 	
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def resultadoVariable(){
 		
 		
@@ -1573,7 +1573,7 @@ class IndicadorController {
     }
 	
 	
-	@Secured(['ROLE_DEP','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def semaforo(){
 		def usuario = springSecurityService.currentUser
 		def dependencia =  usuario.dependencia
@@ -1581,7 +1581,7 @@ class IndicadorController {
 		
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_LECTURA'])
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def actualizarSemaforo(){
 		def dependencia = Dependencia.get(params.id)
 		def indicadores = Indicador.findAllByDependencia(dependencia)

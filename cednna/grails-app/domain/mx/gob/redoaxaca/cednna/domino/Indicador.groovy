@@ -33,6 +33,8 @@ class Indicador {
 	Tema			tema
 	Integer			decimales
 	
+	String 			urlExterna
+	
 	
 	Division       division
 	
@@ -48,6 +50,7 @@ class Indicador {
 				fechaActualizacion(blank:false, nullable:false, size:1..500)
 				areaResponsable(blank:false, nullable:false, size:1..500)
 				mailResponsable(blank:false, nullable:false, size:1..1024,email:true)
+				urlExterna(nullable:true, size:1..1024)
 		
 		
 				comentarios(blank:false, nullable:false, size:1..4048)
@@ -107,6 +110,7 @@ class Indicador {
 	fuenteInformacion(column:'idn_fue_info')
 	periodo(column:'idn_periodo')
 	decimales(column:'idn_decimales')
+	urlExterna(column:'idn_urlExterna')
 	
 	version(false)
   }    
