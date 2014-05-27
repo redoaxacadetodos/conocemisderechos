@@ -69,7 +69,7 @@
 		<div class="uk-panel-space uk-text-center uk-container-center"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div>
 		</div>
 		<!-- This is a button toggling the modal -->
-		<button class="uk-button" data-uk-modal="{target:'#divBuscador'}">¿Qué indicador buscas?</button>
+		
 		
 		<!-- This is the modal -->
 		<div id="divBuscador" class="uk-modal">
@@ -83,6 +83,7 @@
 		</div>
 		
 <div class="uk-container uk-container-center">	
+	<button class="uk-button uk-button-primary uk-button-large" data-uk-modal="{target:'#divBuscador'}">¿Qué indicador buscas?</button>
 	<div class="uk-grid" data-uk-grid-margin="">
 		<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 			<div id="bot_prog" class="uk-width-medium-1-4">
