@@ -7,6 +7,8 @@ import groovy.sql.Sql
 
 import org.springframework.transaction.annotation.Transactional
 
+import grails.plugins.springsecurity.Secured
+
 
 class TablasService {
     def dataSource
@@ -167,6 +169,7 @@ class TablasService {
         return list
     }
 
+    @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
     def getTablaBuscador(params, cuenta){
         String orden='modulo '
         if(params?.iSortCol_0){
@@ -223,6 +226,7 @@ class TablasService {
 
     }
 
+    @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
     @Transactional(readOnly = true)
     def executeQuery(String sql){
         def db = new Sql(dataSource)

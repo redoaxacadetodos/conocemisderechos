@@ -3,7 +3,9 @@ package mx.gob.redoaxaca.cednna
 import org.codehaus.groovy.grails.web.json.JSONArray
 import grails.converters.JSON
 import groovy.json.JsonSlurper
+import grails.plugins.springsecurity.Secured
 
+@Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
 class PublicoService {
 
     def serviceMethod() {
@@ -24,7 +26,8 @@ class PublicoService {
 	    			listRow.put(index,'Oaxaca')  
 	    			index++  
 	    		}
-	    		lista.each{ resultadoIndicador ->
+
+	    		lista.each{ resultadoIndicador ->	    			
 	    			if(tipo==2 || tipo==3 || tipo==4){
 	    				listRow.put(index,resultadoIndicador?.region) 
 	    				index++
@@ -43,6 +46,7 @@ class PublicoService {
 	    		list.addAll(0,listRow)	    	
 	    	}
     	}
+    	println '------list:'+list
     	return list
     }
 

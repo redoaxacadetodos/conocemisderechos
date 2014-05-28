@@ -39,10 +39,13 @@
 			    	  "sUrl": "datatables/language/spanish.txt"
 			    	},
 				"aoColumns": [
-					{ "sTitle": "Modulo" },
+					{ "sTitle": "Módulo" },
 					{ "sTitle": "Sección" },
 					{ "sTitle": "Indicador" },
 					{ "sTitle": "Ver indicador" }
+				],
+				"aoColumnDefs": [
+				    { 'bSortable': false, 'aTargets': [ 3 ] }
 				],
 				"aaSorting": [[ 1, "desc" ]]
 				
@@ -68,22 +71,19 @@
 		<div class="uk-container uk-container-center">
 		<div class="uk-panel-space uk-text-center uk-container-center"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div>
 		</div>
-		<!-- This is a button toggling the modal -->
-		
 		
 		<!-- This is the modal -->
 		<div id="divBuscador" class="uk-modal">
-		    <div class="uk-modal-dialog">
-		        <a class="uk-modal-close uk-close"></a>
-				<div>
-					<table class="table table-striped table-hover table-bordered" id="buscador"></table>
-					<br><br>
-				</div>        
-		    </div>
+			<div class="uk-modal-dialog">
+			    <a class="uk-modal-close uk-close"></a>
+			    <div class="uk-overflow-container">
+			    	<table class="table table-striped table-hover table-bordered" id="buscador"></table>
+			    </div>
+			</div>
 		</div>
 		
 <div class="uk-container uk-container-center">	
-	<button class="uk-button uk-button-primary uk-button-large" data-uk-modal="{target:'#divBuscador'}">¿Qué indicador buscas?</button>
+	<button class="uk-button uk-button-primary uk-button-large uk-width-1-1" data-uk-modal="{target:'#divBuscador'}">¿Qué indicador buscas?</button>
 	<div class="uk-grid" data-uk-grid-margin="">
 		<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
 			<div id="bot_prog" class="uk-width-medium-1-4">

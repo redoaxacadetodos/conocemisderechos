@@ -76,6 +76,9 @@
 						{ "sTitle": "Hombre" },
 						{ "sTitle": "Opciones" }
 					],
+					"aoColumnDefs": [
+						{ 'bSortable': false, 'aTargets': [ 9 ] }
+					],
 					"aaSorting": [[ 0, "asc" ]]
 					
 				});

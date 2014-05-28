@@ -385,57 +385,45 @@ class PublicoController {
 		}
 		
 		int tipo = params.idTipo.toInteger()
-//		def indicador = Indicador.get(id)
-//		
-//		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
-//		def resultadosIndicador = detalleIndicador.resultados
-//		println 'resultados:'+resultadosIndicador
-//		
-//		if(tipo==2){
-//			resultadosIndicador.sort{it.region}
-//		}else if(tipo==3){
-//			CollectionUtils.extendMetaClass()
-//			resultadosIndicador.sort{remplazarAcentos(it.region)}{remplazarAcentos(it.municipio)}
-//		}
-//		
-//		def datos = publicoService.getTablaIndicador(resultadosIndicador, tipo)
-//		def totalRecords = datos.size()
 		def titulos = []
+		def columnasSinOrdenar = []
+		def indexColumnas = 0
+		def indices = []
 		
 		switch (tipo){
 			case 1:
 				titulos.add([sTitle : "Estado"])
+				indexColumnas++
 				break
 			case 2:
 				titulos.add([sTitle : "Regi&oacute;n"])
+				indexColumnas++
 				break
 			case 3:
 				titulos.add([sTitle : "Regi&oacute;n"])
 				titulos.add([sTitle : "Municipio"])
+				indexColumnas+=2
 				break
 			case 4:
 				titulos.add([sTitle : "Regi&oacute;n"])
 				titulos.add([sTitle : "Municipio"])
 				titulos.add([sTitle : "Localidad"])
+				indexColumnas+=3
 				break
 		}
 		
 		getTitulosTablaIndicador(id).each{
 			titulos.add([sTitle : it.anio.toString()])
+			indices.add(indexColumnas)
+			indexColumnas++
 		}
 		
+		columnasSinOrdenar.add(bSortable: false, aTargets: indices)
 		
-//		if(resultadosIndicador){
-//			def resultadoaux = resultadosIndicador?.get(0)
-//			
-//			resultadoaux?.resultados.each{ resultado->
-//				titulos.add([sTitle : resultado?.anio.toString()])
-//			}
-//		}
 		def metodo = "/cednna/publico/getTablaIndicadorJson" + "/"+ id+"?idTipo=" + tipo
 		
 		
-		def result = ["bServerSide": true,"bProcessing": true, "sAjaxSource":metodo,"bDestroy": true, "bRetrieve": true, 'aoColumns':titulos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
+		def result = ["bServerSide": true,"bProcessing": true, "sAjaxSource":metodo,"bDestroy": true, "bRetrieve": true, 'aoColumns':titulos, 'aoColumnDefs': columnasSinOrdenar,'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
 //		def result = ["bDestroy": true, "bRetrieve": true, 'aoColumns':titulos,,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
 		println 'result:'+result
 //		def result = ['aoColumns':titulos,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
@@ -790,8 +778,9 @@ class PublicoController {
 							rTemp.anio=anio
 							listTemp.add(rTemp)
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							//e.printStackTrace();
+							rTemp.resultadoIndicador = null
+							rTemp.anio=anio
+							listTemp.add(rTemp)
 						}
 
 						formula= indicadorInstance?.formula?.sentencia
@@ -808,7 +797,7 @@ class PublicoController {
 							Resultado res= new Resultado()
 							res.anio=actual.anio
 							
-							if(!Double.isNaN(actual.resultadoIndicador)){
+							if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 								res.indicador=actual.resultadoIndicador
 							}else{
 								res.indicador=null;
@@ -1006,8 +995,11 @@ class PublicoController {
 								listTemp.add(rTemp)
 
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								//e.printStackTrace();
+								rTemp.resultadoIndicador = null
+								rTemp.region= base.region
+								rTemp.idRegion= base.idRegion
+								rTemp.anio=base.anio
+								listTemp.add(rTemp)
 							}
 
 							formula= indicadorInstance?.formula?.sentencia
@@ -1027,7 +1019,7 @@ class PublicoController {
 									if(it.idRegion==actual.idRegion){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										if(!Double.isNaN(actual.resultadoIndicador)){
+										if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 											res.indicador=actual.resultadoIndicador
 										}else{
 											res.indicador=null;
@@ -1288,8 +1280,13 @@ class PublicoController {
 								listTemp.add(rTemp)
 
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								//e.printStackTrace();
+								rTemp.resultadoIndicador = null
+								rTemp.region= base.region
+								rTemp.idRegion= base.idRegion
+								rTemp.municipio= base.municipio
+								rTemp.idMunicipio= base.idMunicipio
+								rTemp.anio=base.anio
+								listTemp.add(rTemp)
 							}
 							formula= indicadorInstance?.formula?.sentencia
 						}
@@ -1309,7 +1306,7 @@ class PublicoController {
 									if(it.idMunicipio==actual.idMunicipio){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										if(!Double.isNaN(actual.resultadoIndicador)){
+										if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 											res.indicador=actual.resultadoIndicador
 										}else{
 											res.indicador=null;
@@ -1590,8 +1587,15 @@ class PublicoController {
 								listTemp.add(rTemp)
 
 							} catch (ScriptException e) {
-								// TODO Auto-generated catch block
-								//e.printStackTrace();
+								rTemp.resultadoIndicador = null
+								rTemp.region= base.region
+								rTemp.idRegion= base.idRegion
+								rTemp.municipio= base.municipio
+								rTemp.idMunicipio= base.idMunicipio
+								rTemp.localidad= base.localidad
+								rTemp.idLocalidad= base.idLocalidad
+								rTemp.anio=base.anio
+								listTemp.add(rTemp)
 							}
 
 
@@ -1615,7 +1619,7 @@ class PublicoController {
 									if(it.idLocalidad==actual.idLocalidad){
 										Resultado res= new Resultado()
 										res.anio=actual.anio
-										if(!Double.isNaN(actual.resultadoIndicador)){
+										if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 											res.indicador=actual.resultadoIndicador
 										}else{
 											res.indicador=null;
