@@ -1,6 +1,16 @@
 package mx.gob.redoaxaca.cednna.publico
 
+import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
+import groovy.sql.Sql
+
 import java.text.Normalizer
+
+import javax.script.ScriptEngine
+import javax.script.ScriptEngineManager
+
+import mx.gob.redoaxaca.cednna.domino.*
+
 import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
@@ -8,19 +18,6 @@ import com.redoaxaca.java.RVariable
 import com.redoaxaca.java.Resultado
 import com.redoaxaca.java.ResultadoIndicador
 import com.redoaxaca.java.ResultadoTemporal
-import com.redoaxaca.kml.GuardarCoordenadas
-import com.redoaxaca.kml.ObtenerCoordenadas
-import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
-import groovy.sql.Sql
-
-import java.text.DecimalFormat
-import java.util.List;
-
-import javax.script.ScriptEngine
-import javax.script.ScriptEngineManager
-
-import mx.gob.redoaxaca.cednna.domino.*
 
 
 @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
@@ -420,8 +417,7 @@ class PublicoController {
 		
 		columnasSinOrdenar.add(bSortable: false, aTargets: indices)
 		
-		def metodo = "/cednna/publico/getTablaIndicadorJson" + "/"+ id+"?idTipo=" + tipo
-		
+		def metodo = createLink(controller:'publico', action:'getTablaIndicadorJson', id:id, params:[idTipo:tipo])
 		
 		def result = ["bServerSide": true,"bProcessing": true, "sAjaxSource":metodo,"bDestroy": true, "bRetrieve": true, 'aoColumns':titulos, 'aoColumnDefs': columnasSinOrdenar,'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
 //		def result = ["bDestroy": true, "bRetrieve": true, 'aoColumns':titulos,,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
@@ -807,7 +803,7 @@ class PublicoController {
 						}else{
 							Resultado res= new Resultado()
 							res.anio=actual.anio
-							if(!Double.isNaN(actual.resultadoIndicador)){
+							if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 								res.indicador=actual.resultadoIndicador
 							}else{
 								res.indicador=null;
@@ -989,12 +985,14 @@ class PublicoController {
 							ScriptEngine js = script.getEngineByName("JavaScript");
 							try {
 								rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
+								println 'rTemp.resultadoIndicador:'+rTemp.resultadoIndicador
 								rTemp.region= base.region
 								rTemp.idRegion= base.idRegion
 								rTemp.anio=base.anio
 								listTemp.add(rTemp)
 
 							} catch (Exception e) {
+							println 'excepcion:'+rTemp.resultadoIndicador
 								rTemp.resultadoIndicador = null
 								rTemp.region= base.region
 								rTemp.idRegion= base.idRegion
@@ -1004,7 +1002,7 @@ class PublicoController {
 
 							formula= indicadorInstance?.formula?.sentencia
 						}
-
+						println 'listTemp:'
 						/***
 					 * Comienza el proceso de ordenamiento para salida
 					 * */
@@ -1032,7 +1030,7 @@ class PublicoController {
 								if(ban!=1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									if(!Double.isNaN(actual.resultadoIndicador)){
+									if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 										res.indicador=actual.resultadoIndicador
 									}else{
 										res.indicador=null;
@@ -1047,7 +1045,7 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								if(!Double.isNaN(actual.resultadoIndicador)){
+								if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 									res.indicador=actual.resultadoIndicador
 								}else{
 									res.indicador=null;
@@ -1320,7 +1318,7 @@ class PublicoController {
 								if(ban!=1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									if(!Double.isNaN(actual.resultadoIndicador)){
+									if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 										res.indicador=actual.resultadoIndicador
 									}else{
 										res.indicador=null;
@@ -1337,7 +1335,7 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								if(!Double.isNaN(actual.resultadoIndicador)){
+								if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 									res.indicador=actual.resultadoIndicador
 								}else{
 									res.indicador=null;
@@ -1633,7 +1631,7 @@ class PublicoController {
 								if(ban==1){
 									Resultado res= new Resultado()
 									res.anio=actual.anio
-									if(!Double.isNaN(actual.resultadoIndicador)){
+									if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 										res.indicador=actual.resultadoIndicador
 									}else{
 										res.indicador=null;
@@ -1653,7 +1651,7 @@ class PublicoController {
 							}else{
 								Resultado res= new Resultado()
 								res.anio=actual.anio
-								if(!Double.isNaN(actual.resultadoIndicador)){
+								if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
 									res.indicador=actual.resultadoIndicador
 								}else{
 									res.indicador=null;
