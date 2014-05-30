@@ -297,8 +297,7 @@ class LeerExcell {
 			writerCT.close();
 
 		} catch (Exception e) {
-			e.getMessage();
-			e.printStackTrace();
+			total = 4;
 		}
 
 	}

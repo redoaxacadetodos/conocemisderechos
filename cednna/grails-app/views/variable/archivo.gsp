@@ -145,8 +145,26 @@
 		$('#periodo_chosen').css({"width": "150px"});
 		$('#periodo').attr('disabled','disabled');
 		$('#divPeriodo').hide();
+		$('#descargar').hide();
 	});
 	</script>	
+	<script type="text/javascript">
+	function mostrarProcesarArchivo(){
+		if($("#fileBase").val() == ''){
+			$("#Procesar").hide();
+		}else{
+			$("#Procesar").show();
+		}
+	}
+
+	function mostrarDescargaArchivo(){
+		if($("#origenDatos").val() == 'null'){
+			$("#descargar").hide();
+		}else{
+			$("#descargar").show();
+		}
+	}
+	</script>
 </head>
 <body>
 	<g:form action="generaXLS" controller="variable" method="post" name="formDescargar">
@@ -171,6 +189,7 @@
 						from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}"
 						optionKey="clave" optionValue="detalleCombo" class="chosen-select"
 						style="width:800px;" value="${variableInstance?.clave}"
+						onchange="mostrarDescargaArchivo();"
 						noSelection="['null': '- Ninguna variable-']" />
 				</div>
 			</div>
@@ -185,6 +204,7 @@
 						from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.list()}"
 						optionKey="clave" optionValue="detalleCombo" class="chosen-select"
 						style="width:800px;" value="${variableInstance?.clave}"
+						onchange="mostrarDescargaArchivo();"
 						noSelection="['null': '- Ninguna variable-']" />
 				</div>
 			</div>
@@ -240,14 +260,20 @@
 		<g:hiddenField name="valida" value="1" />
 		<g:hiddenField name="numCategorias" value="0" />
 		<input id="addCat" name="addCat" value="Agregar Categor&iacute;a" type="button" class="uk-button" />
-
+		
 		<hr class="uk-article-divider" class="uk-button">
-
-		<g:submitToRemote class="uk-button uk-icon-download"
-			value="Descarga el formato para carga de datos"
-			url="[action: 'tieneDatosOrigen']" update="respuesta" />
-
-		<hr class="uk-article-divider">
+		
+		<div id="descargar">
+			
+			
+			<g:submitToRemote class="uk-button uk-icon-download"
+				id="descargaArchivo"
+				name="descargaArchivo"
+				value="Descarga el formato para carga de datos"
+				url="[action: 'tieneDatosOrigen']" update="respuesta"/>
+				
+			<hr class="uk-article-divider">
+		</div>
 	</g:form>
 	
 	<div id="respuesta"></div>
@@ -255,14 +281,14 @@
 	<g:form action="subirArchivo" controller="variable" method="post" enctype="multipart/form-data">
 		<fieldset class="uk-form uk-form-horizontal">
 			<div class="fieldcontain">
-				<input type="file" name="fileBase" multiple="multiple"
+				<input type="file" id="fileBase" name="fileBase" onchange="mostrarProcesarArchivo();"
 					class="uk-form"></input>
 			</div>
-			<br /> <input type="submit" name="Procesar" class="uk-button"
-				value="Procesar archivo"
-				onclick="spinerLoad('Procesando datos...');">
+			<br /> <input type="submit" id="Procesar" name="Procesar" class="uk-button"
+				value="Procesar archivo" onclick="spinerLoad('Procesando datos...');" style="display:none;">
 		</fieldset>
 	</g:form>
+	
 </body>
 
 </html>

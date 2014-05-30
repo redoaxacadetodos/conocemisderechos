@@ -26,6 +26,7 @@ class VariableController {
 	def sessionFactory
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
+	
     def index() {
         redirect(action: "list", params: params)
     }
