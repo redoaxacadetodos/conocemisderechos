@@ -627,6 +627,7 @@ class PublicoController {
 			def anio = it.anio
 			boolean  b = true
 			println 'opcion:'+opcion + ' a–o:'+anio
+			
 			switch (opcion) {
 
 				case 1:
@@ -641,6 +642,13 @@ class PublicoController {
 
 					for(vari in indicadorInstance.variables){
 						def sql = new Sql(sessionFactory.currentSession.connection())
+						
+						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
+						def intervalos = sql.rows(intervaloSql)
+						int intervalo
+						intervalos.each{
+							intervalo = it.intervalo.toInteger()
+						}
 
 						def query = "SELECT "+
 								"clave, "+
@@ -658,7 +666,7 @@ class PublicoController {
 								"	cat_variable.cvv_poblacion_total AS total "+
 								" FROM cat_variable "+
 								"where "+
-								" cvv_clave='"+vari.claveVar+"'    and   cvv_anio="+anio+" "
+								" cvv_clave='"+vari.claveVar+"'    and   cvv_anio="+(anio.toInteger()-intervalo).toString()+" "
 
 						if(vari.categorias){
 							query=query+" and "+
@@ -834,6 +842,13 @@ class PublicoController {
 
 					for(vari in indicadorInstance.variables){
 						def sql = new Sql(sessionFactory.currentSession.connection())
+						
+						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
+						def intervalos = sql.rows(intervaloSql)
+						int intervalo
+						intervalos.each{
+							intervalo = it.intervalo.toInteger()
+						}
 
 						def query = "SELECT o.region_id,"+
 								"descripcion,"+
@@ -851,7 +866,7 @@ class PublicoController {
 								"	cat_variable.cvv_poblacion_total AS total "+
 								" FROM cat_variable "+
 								"where "+
-								" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+"  "
+								" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+(anio.toInteger()-intervalo).toString()+"  "
 
 						if(vari.categorias){
 							query=query+" and "+"("
@@ -890,13 +905,29 @@ class PublicoController {
 						if(vari.categorias){
 							query=query+"  ) "
 						}
+						
+						
+						
+						
+						
 
-						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "+
-								"GROUP BY "+
+						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "
+								
+								
+							if(params?.sSearch!=null && params?.sSearch!=''){
+									query +=
+											""" WHERE
+					            UPPER(cr.crg_descripcion) LIKE UPPER ('%${params?.sSearch}%')   					                                    
+					        """
+							}
+						query +="GROUP BY "+
 								"o.region_id,  "+
 								"region,descripcion"
 								
-						query += " order by region " + (params.sSortDir_0 != null ? params.sSortDir_0 : '' )
+						query += " order by region "  + (params.sSortDir_0 != null ? params.sSortDir_0 : '' )
+								
+						
+						query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
 
 						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1093,7 +1124,12 @@ class PublicoController {
 
 					for(vari in indicadorInstance.variables){
 						def sql = new Sql(sessionFactory.currentSession.connection())
-
+						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
+						def intervalos = sql.rows(intervaloSql)
+						int intervalo
+						intervalos.each{
+							intervalo = it.intervalo.toInteger()
+						}
 						def query = "SELECT o.region_id,"+
 								"descripcion,"+
 								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
@@ -1112,7 +1148,7 @@ class PublicoController {
 								"	cat_variable.cvv_poblacion_total AS total "+
 								" FROM cat_variable "+
 								"where "+
-								" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+" and   cvv_municipio is not null  "
+								" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+(anio.toInteger()-intervalo).toString()+" and   cvv_municipio is not null  "
 
 						if(vari.categorias){
 							query=query+" and "+"("
@@ -1154,8 +1190,8 @@ class PublicoController {
 						if(params?.sSearch!=null && params?.sSearch!=''){
 							query +=
 									""" WHERE
-					            UPPER(region) LIKE UPPER ('%${params?.sSearch}%') 
-					            OR UPPER(municipio) LIKE UPPER ('%${params?.sSearch}%')  					                                    
+					            UPPER(cr.crg_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
+					            OR UPPER(cm.mun_descripcion) LIKE UPPER ('%${params?.sSearch}%')  					                                    
 					        """
 						}
 						

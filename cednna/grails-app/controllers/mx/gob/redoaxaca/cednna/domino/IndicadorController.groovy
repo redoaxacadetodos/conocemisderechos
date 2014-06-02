@@ -1329,6 +1329,7 @@ class IndicadorController {
 				dVariable.clave=v
 				dVariable.descripcion=params.getAt("descripcion_"+v)
 				dVariable.claveVar=params.getAt("claveVar_"+v)
+				dVariable.intervalo=params.getAt("intervalo_"+v).toInteger()
 				dVariable.poblacion=poblacion
 				
 				
@@ -1428,6 +1429,7 @@ class IndicadorController {
 							dVariable.clave=v
 							dVariable.descripcion=params.getAt("descripcion_"+v)
 							dVariable.claveVar=params.getAt("claveVar_"+v)
+							dVariable.intervalo=params.getAt("intervalo_"+v).toInteger()
 							
 							dVariable.poblacion=poblacion
 							
@@ -1487,7 +1489,7 @@ class IndicadorController {
 						
 						var= indicador.variables
 						
-						System.out.println("Indicador variables : "+ var);
+						//System.out.println("Indicador variables : "+ var);
 					[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
 					
 					}

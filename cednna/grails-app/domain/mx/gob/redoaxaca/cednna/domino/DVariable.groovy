@@ -12,6 +12,7 @@ class DVariable {
 	Localidad  localidad
 	Poblacion  poblacion
 	String     claveVar
+	int 	   intervalo
 	
 	static hasMany = [categorias:Categoria]
 
@@ -25,6 +26,7 @@ class DVariable {
 		localidad(blank:true, nullable:true)
 		region(blank:true, nullable:true)
 		claveVar(blank:true, nullable:true)
+		intervalo (nullable: true)
     }
 
    static mapping = {
@@ -40,6 +42,7 @@ class DVariable {
 		clave(column:'cdv_clave_id')
 		estado(column: 'cdv_ent_id')
 		claveVar(column:'cdv_claveVar')
+		intervalo(column:'cdv_intervalo')
 	//	categorias (column: 'cdc_cdv_id', joinTable: 'cat_dvariable_categoria')
 
 	 	categorias joinTable: [name: 'cat_dvariable_categoria',

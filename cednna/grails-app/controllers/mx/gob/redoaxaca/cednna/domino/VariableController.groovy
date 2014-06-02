@@ -27,6 +27,7 @@ class VariableController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
 	
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
     def index() {
         redirect(action: "list", params: params)
     }
@@ -134,6 +135,7 @@ class VariableController {
 	}
 	def dele(){}
 
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
 	def getTablaDatosEstadisticos(){
 		int sEcho = 0
 		if(params.sEcho){
@@ -149,6 +151,7 @@ class VariableController {
 		render result as JSON
 	}
 	
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [variableInstanceList: Variable.list(params), variableInstanceTotal: Variable.count()]

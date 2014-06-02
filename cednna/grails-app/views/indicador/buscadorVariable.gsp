@@ -23,6 +23,14 @@
 	
 		</div>
 </div>
+<div class="fieldcontain uk-form-row">
+	<label class="uk-form-label" for="intervalo">
+		<g:message code="indicador.estado.label" default="Intervalo" />
+	</label>
+	<g:select id="intervalo" name="intervalo_${var?.clave}" from="[[k:0, v:0],[k:1, v:1],[k:2, v:2],[k:3, v:3],[k:4, v:4]]" 
+		optionKey="k" optionValue="v" value="${var?.intervalo}" class="many-to-one"/>
+</div>
+
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
 	<label class="uk-form-label" for="descripcion">
 		<g:message code="indicador.estado.label" default="Fuente de información" />

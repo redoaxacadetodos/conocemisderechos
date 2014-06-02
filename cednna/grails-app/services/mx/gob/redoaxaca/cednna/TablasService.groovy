@@ -23,10 +23,23 @@ class TablasService {
             return CatOrigenDatos.list().size()
         }
 
+        String orden='clave '
+        if(params?.iSortCol_0){
+            switch (params?.iSortCol_0) {
+                case '0':
+                    orden = 'clave '
+                    break
+                case '1':
+                    orden = 'descripcion '
+                    break
+            }
+        }
+
+
         def list = []
         def maximo = params.iDisplayLength!=null?params.iDisplayLength:10
         def inicio = params.iDisplayStart!=null?params.iDisplayStart:0
-        def orden = ""
+        
         def tipo = params.sSortDir_0 != null ? params.sSortDir_0 : 'asc'
         if(params?.iSortCol_0){
             switch (params?.iSortCol_0) {
@@ -39,7 +52,19 @@ class TablasService {
             }
         }
 
-    	def variables = CatOrigenDatos.list(max: maximo, offset: inicio, sort: orden, order: tipo)
+        String sql = """
+            select cod_id id, cod_clave clave, cod_descripcion descripcion from cat_origen_datos 
+            where upper(cod_clave) like upper('%${params?.sSearch}%')
+            or upper(cod_descripcion) like upper('%${params?.sSearch}%')
+        """
+        if(!params?.iSortCol_0){
+                sql+=" ORDER BY clave "
+            }else{
+                sql += " ORDER BY " +orden+ " " + (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + " "
+            }
+            sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+
+    	def variables = executeQuery(sql)
 
     	variables.each{
     		list<<[
@@ -121,7 +146,7 @@ class TablasService {
             if(!params?.iSortCol_0){
                 sql+=" ORDER BY clave, anio desc, categoria "
             }else{
-                sql += " ORDER BY " +orden+ (params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
+                sql += " ORDER BY " +orden+  " " +(params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
             }
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
         }
