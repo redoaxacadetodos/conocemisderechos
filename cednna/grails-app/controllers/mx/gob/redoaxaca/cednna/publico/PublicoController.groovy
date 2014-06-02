@@ -227,7 +227,8 @@ class PublicoController {
 		
 		if(indicador){
 			def decimales = indicador?.decimales
-			DetalleIndicador detalleIndicador = visorIndicador(id,1)
+			params.paginado = false
+			DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,1,params)
 			def resultadosIndicador = detalleIndicador?.resultados
 			def resultados = []
 			def coordenadasList = []
@@ -333,8 +334,8 @@ class PublicoController {
 	def getTablaDatosCalculo(Long id){
 		int tipo = params.idTipo.toInteger()
 		def indicador = Indicador.get(id)
-		
-		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		params.paginado = true
+		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
 		def resultadosIndicador = detalleIndicador.resultados
 		
 		def tamVariables = indicador.variables.size()
@@ -471,8 +472,8 @@ class PublicoController {
 		
 		def indicador = Indicador.get(id)
 		def decimales = indicador?.decimales
-		
-		DetalleIndicador detalleIndicador = visorIndicador(id,tipo)
+		params.paginado = false
+		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
 	
 		if(detalleIndicador.resultados.size()>0){
 			if(tipo==2){
@@ -925,9 +926,11 @@ class PublicoController {
 								"region,descripcion"
 								
 						query += " order by region "  + (params.sSortDir_0 != null ? params.sSortDir_0 : '' )
-								
+							
+						if(!params.paginado){
+							query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+						}
 						
-						query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
 
 						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
@@ -1204,7 +1207,9 @@ class PublicoController {
 						
 								
 						query += " order by " + orden + (params.sSortDir_0 != null ? params.sSortDir_0 : '' )
-						query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+						if(!params.paginado){
+							query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
+						}
 						
 						
 
