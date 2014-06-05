@@ -244,7 +244,7 @@ class TablasService {
                 '0':it.modulo,
                 '1':it.seccion,
                 '2':it.indicador,
-                '3':"<a href='/cednna/publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-edit'> </a>"
+                '3':"<a href='publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-edit'> </a>"
             ]   
         }
         return list
