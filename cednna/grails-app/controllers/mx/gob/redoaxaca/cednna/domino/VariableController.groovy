@@ -2,6 +2,7 @@ package mx.gob.redoaxaca.cednna.domino
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import grails.util.Environment
 import groovy.sql.Sql
 import groovyx.net.http.*
 
@@ -899,8 +900,18 @@ class VariableController {
 		}
 	
 	def ejecutarCopy(String url, String usuario, String rutaPEM, String path, String tabla){
+		Valor base
+		switch (Environment.current) {
+		    case Environment.DEVELOPMENT:
+				base = Valor.findByKey("desarrollo")
+		        break
+		    case Environment.PRODUCTION:
+				base = Valor.findByKey("produccion")
+		        break
+		}
+		String baseDatos = base?.valor
 		String sshCommand = "\\copy "+tabla+" from"+" '"+path+"'"+" csv header   NULL  'null'"
-		sshCommand = """psql cednna_dev_280314 -c "${sshCommand}" """
+		sshCommand = """psql ${baseDatos} -c "${sshCommand}" """
 		java.util.Properties config = new java.util.Properties()
 		println 'sshCommand:'+sshCommand
 		config.put "StrictHostKeyChecking", "no"
