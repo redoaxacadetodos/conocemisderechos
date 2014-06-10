@@ -212,7 +212,7 @@ class TablasService {
         }
 
         String sql = """
-            select i.idn_id id,  e.id ejeid, e.descripcion modulo, d.descripcion seccion,  i.idn_nombre indicador from idn_indicador i
+            select i.idn_id id,  idn_urlexterna url,  e.id ejeid, e.descripcion modulo, d.descripcion seccion,  i.idn_nombre indicador from idn_indicador i
             left join division d on (i.division_id=d.id) left join eje e on (d.eje_id = e.id)
             WHERE idn_publico = true
         """
@@ -236,15 +236,23 @@ class TablasService {
             }
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
         }
+        println 'sql:'+sql
 
         def list = []
         def indicadores = executeQuery(sql)
+        def url = ""
         indicadores.each{
+            if(it.url){
+                url = "<a href='"+it.url+"' class='uk-icon-button uk-icon-edit'> </a>"
+            }else{
+                url = "<a href='publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-edit'> </a>"
+            }
+
             list<<[
                 '0':it.modulo,
                 '1':it.seccion,
                 '2':it.indicador,
-                '3':"<a href='publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-edit'> </a>"
+                '3':url
             ]   
         }
         return list

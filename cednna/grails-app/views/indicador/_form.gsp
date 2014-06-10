@@ -1,9 +1,6 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 
-
 <h3>Datos generales del indicador</h3>
-
-
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} required">
 	<label class="uk-form-label" for="nombre">
@@ -13,40 +10,50 @@
 	<g:textField name="nombre" required="" value="${indicadorInstance?.nombre}" style="width:600px;"/>
 </div>
 
+<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">--%>
+<%--	<label class="uk-form-label"for="externa">--%>
+<%--		<g:message code="indicador.urlExterna.label" default="Url Externa" />--%>
+<%--		--%>
+<%--	</label>--%>
+<%--	<g:checkBox name="externa" value="${indicadorInstance?.urlExterna!=null}" />--%>
+<%--</div>--%>
+<%----%>
+<%--<div id="url" class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'urlExterna', 'error')} " style="display:none;">--%>
+<%--	<label class="uk-form-label" for="urlExterna">--%>
+<%--		<g:message code="indicador.urlExterna.label" default="Url" />--%>
+<%--	</label>--%>
+<%--	<g:textField name="urlExterna"  value="${indicadorInstance?.urlExterna}" style="width:600px;"/>--%>
+<%--</div>--%>
 
+<div id="div1" class="fieldcontain uk-form-row">
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'objetivo', 'error')} required">
 	<label class="uk-form-label" for="objetivo">
 		<g:message code="indicador.objetivo.label" default="Objetivo del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
-	<textarea  name="objetivo" rows="5" cols="40">${indicadorInstance?.objetivo}</textarea>
+	<textarea id="objetivo"  name="objetivo" rows="5" cols="40" required="required">${indicadorInstance?.objetivo} </textarea>
 	
 </div>
 
 <g:if test="${dep}">	
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
-	<label class="uk-form-label"for="dependencia">
-		<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:hiddenField name="dependencia.id" value="${dep?.id}"/>
-	<input  name="dep"  value="${dep?.descripcion}" style="width:600px;" type="text" readonly="readonly"/>
-</div>
-
-
+	<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
+		<label class="uk-form-label"for="dependencia">
+			<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
+			<span class="required-indicator">*</span>
+		</label>
+		<g:hiddenField name="dependencia.id" value="${dep?.id}"/>
+		<input  name="dep"  value="${dep?.descripcion}" style="width:600px;" type="text" readonly="readonly"/>
+	</div>
 </g:if>
 <g:else>
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
-	<label class="uk-form-label"for="dependencia">
-		<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
-</div>
+	<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'dependencia', 'error')} required">
+		<label class="uk-form-label"for="dependencia">
+			<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
+			<span class="required-indicator">*</span>
+		</label>
+		<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
+	</div>
 </g:else>
-
-
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'ejecutora', 'error')} required">
 	<label class="uk-form-label"for="ejecutora">
@@ -56,17 +63,6 @@
 	<g:select id="ejecutora" name="ejecutora.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadEjecutora.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.ejecutora?.id}" class="many-to-one"/>
 </div>
 
-
-
-<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'anio', 'error')} required">--%>
-<%--	<label class="uk-form-label"for="anio">--%>
-<%--		<g:message code="indicador.anio.label" default="Año" />--%>
-<%--		<span class="required-indicator">*</span>--%>
-<%--	</label>--%>
-<%--		<select id="anio" name="anio" ></select> --%>
-
-<%--</div>--%>
-
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'sentido', 'error')} required">
 	<label class="uk-form-label"for="sentido">
 		<g:message code="indicador.sentido.label" default="Sentido esperado" />
@@ -74,10 +70,6 @@
 	</label>
 	<g:select id="sentido" name="sentido.id" from="${mx.gob.redoaxaca.cednna.domino.Sentido.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.sentido?.id}" class="many-to-one"/>
 </div>
-
-
-
-
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
@@ -94,9 +86,9 @@
 	</label>
 	<g:select id="uMedida" name="uMedida.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadMedida.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.uMedida?.id}" class="many-to-one"/>
 </div>
+</div>
 
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
+<div  class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
 		<g:message code="indicador.frecuencia.label" default="M&oacute;dulo" />
 		<span class="required-indicator">*</span>
@@ -104,19 +96,13 @@
 	<g:select id="eje" name="eje.id" from="${mx.gob.redoaxaca.cednna.domino.Eje.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.eje?.id}" class="many-to-one"/>
 </div>
 
-
-
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
+<div id="div2" class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
 	<label class="uk-form-label"for="frecuencia">
 		<g:message code="indicador.frecuencia.label" default="Categor&iacute;a" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="division" name="division.id" from="${mx.gob.redoaxaca.cednna.domino.Division.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.id}" class="many-to-one"/>
 </div>
-
-
-
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
 	<label class="uk-form-label"for="frecuencia">
@@ -126,6 +112,7 @@
 	<g:select id="pnDesarrollo" name="pnDesarrollo.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.pnDesarrollo?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
 </div>
 <br>
+<div id="div3" class="fieldcontain uk-form-row">
 <div id="divPND">
 	
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')}">
@@ -173,33 +160,15 @@
 	<g:select id="objetivosMilenio" name="objetivosMilenio.id" from="${mx.gob.redoaxaca.cednna.domino.ObjetivoMilenio.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.objetivosMilenio?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a un ODM-']"/>
 </div>
 
-
-<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">--%>
-<%--	<label class="uk-form-label"for="mediosVerificacion">--%>
-<%--		<g:message code="indicador.mediosVerificacion.label" default="Medios de verificaci&oacute;n" />--%>
-<%--		--%>
-<%--	</label>--%>
-<%--	<textarea  name="mediosVerificacion" rows="5" cols="40">${indicadorInstance?.mediosVerificacion}</textarea>--%>
-<%--</div>--%>
-<%----%>
-<%----%>
-<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">--%>
-<%--	<label class="uk-form-label"for="comentarios">--%>
-<%--		<g:message code="indicador.comentarios.label" default="Fuente de informacion del indicador" />--%>
-<%--		--%>
-<%--	</label>--%>
-<%--	<textarea  name="fuenteInformacion" rows="5" cols="40">${indicadorInstance?.fuenteInformacion}</textarea>--%>
-<%--</div>--%>
-
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
 	<label class="uk-form-label"for="comentarios">
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />
 		
 	</label>
-	<textarea  name="comentarios" rows="5" cols="40" required="required">${indicadorInstance?.comentarios}</textarea>
+	<textarea  id="comentarios" name="comentarios" rows="5" cols="40" required="required">${indicadorInstance?.comentarios}</textarea>
 </div>
 
-
+</div>
 
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
@@ -210,17 +179,11 @@
 	<g:checkBox name="publico" value="${indicadorInstance?.publico}" />
 </div>
 
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'urlExterna', 'error')} ">
-			<label class="uk-form-label" for="urlExterna">
-				<g:message code="indicador.urlExterna.label" default="Url externa" />
-			
-			</label>
-			<g:textField name="urlExterna"  value="${indicadorInstance?.urlExterna}" style="width:600px;"/>
-		</div>
+
 
 <br>
 <br>
-
+<div id="div4" class="fieldcontain uk-form-row">
 
 <h3>Datos del responsable del indicador</h3>
 
@@ -250,19 +213,8 @@
 		<input type="email"  name="mailResponsable" id="mailResponsable"maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"  style="width:500px;">
 </div>
 
-<%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'fechaActualizacion', 'error')} required">--%>
-<%--	<label class="uk-form-label"for="fechaActualizacion">--%>
-<%--		<g:message code="indicador.fechaActualizacion.label" default="Fecha de actualizaci&oacute;n"  />--%>
-<%--		<span class="required-indicator">*</span>--%>
-<%--	</label>--%>
-<%--	<input  id="fechaActua" name="fechaActua"  type="text" value="${indicadorInstance?.fechaActualizacion?.format('dd/MM/yyyy')}" style="width:500px;"  />--%>
-<%--</div>--%>
-
-
 <br>
 <br>
-
-
 
 <h3>Datos para el cálculo del indicador</h3>
 
@@ -289,7 +241,7 @@
 
 
 </div>
-
+</div>
 
 <script type="text/javascript">
 
@@ -437,5 +389,43 @@ $(function(){
 
 });
 </script>
+<%--<script type="text/javascript">--%>
+<%--		$(function(){--%>
+<%--			if(${indicadorInstance?.urlExterna!=null}){--%>
+<%--				urlExterna(true);--%>
+<%--			}--%>
+<%----%>
+<%--			function urlExterna(externa){--%>
+<%--				var valor = "-";--%>
+<%--				if(externa==true){--%>
+<%--					$('.chosen-container').width( 400 );--%>
+<%--					$("#div1").hide();--%>
+<%--					$("#div2").hide();--%>
+<%--					$("#div3").hide();--%>
+<%--					$("#div4").hide();--%>
+<%--					$("#url").show();--%>
+<%--					$("#comentarios").val(valor);--%>
+<%--					$("#nombreResponsable").val(valor);--%>
+<%--					$("#areaResponsable").val(valor);--%>
+<%--					$("#mailResponsable").val("a@a.com");--%>
+<%--					$.each($("#poblacion\\[\\]"), function(k, v){--%>
+<%--						$('[name='+v.name+']').val(1);--%>
+<%--					});--%>
+<%--					$("#objetivo").val(valor);--%>
+<%--				}else{--%>
+<%--					$("#div1").show();--%>
+<%--					$("#div2").show();--%>
+<%--					$("#div3").show();--%>
+<%--					$("#div4").show();--%>
+<%--					$("#url").hide();--%>
+<%--					$("#mailResponsable").val("");--%>
+<%--				}--%>
+<%--			}--%>
+<%--			--%>
+<%--			$('#externa').change(function() {--%>
+<%--				urlExterna($('#externa').is(':checked'));--%>
+<%--			});--%>
+<%--		});--%>
+<%--		</script>--%>
 
 

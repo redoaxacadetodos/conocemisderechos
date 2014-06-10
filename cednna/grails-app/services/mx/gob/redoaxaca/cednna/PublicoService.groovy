@@ -46,7 +46,6 @@ class PublicoService {
 	    		list.addAll(0,listRow)	    	
 	    	}
     	}
-    	println '------list:'+list
     	return list
     }
 
@@ -62,7 +61,6 @@ class PublicoService {
 		    		if(i<tamVariables){
 		    			listRow.put(index, datos.descripcion)
 		    			index++
-		    			
 		    			if(tipo==1){
 		    				listRow.put(index, 'Oaxaca')
 		    				index++
@@ -76,7 +74,8 @@ class PublicoService {
 
 		    			datosCalculo.eachWithIndex(){ datosAux, cont ->
 			    			if(((cont+i) % tamVariables) == 0){
-			    				datosAux?.valores.each{ valores ->		
+			    				datosAux?.valores.each{ valores ->	
+
 			    					if(tipo==1){
 					    				listRow.put(index, valores.indicador)
 					    				index++

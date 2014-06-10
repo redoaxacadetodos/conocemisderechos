@@ -204,7 +204,7 @@
 			  			<td>${indicadorInstance?.nombre}</td>
 				  		<g:each var="resultado" in="${resultados}">
 					  		<g:if test="${imprimirDatos=='true'}">
-					  			<g:if test="${resultado?.indicador!=null && anio!=null}">
+					  			<g:if test="${resultado?.indicador!=null && anio!='null'}">
 			  					<td>			  					
 			  					${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos					
 			  					</td>

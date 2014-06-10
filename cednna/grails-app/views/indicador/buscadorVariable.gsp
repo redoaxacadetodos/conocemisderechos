@@ -52,7 +52,7 @@
 	</label>
 
 
-	<g:select id="poblacion" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list().sort{-it.id}}" 
+	<g:select id="poblacion[]" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list().sort{-it.id}}" 
 		optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}" noSelection="['':'-Seleccione una opción-']"  class="many-to-one" required="required"/>
 	
 </div>

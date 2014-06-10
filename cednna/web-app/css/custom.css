@@ -997,4 +997,7 @@ margin: 20px 0 0px 0;
 color: #754e17;
 }
 
+.chosen-select{
+	width: 100% !important;
+}
 

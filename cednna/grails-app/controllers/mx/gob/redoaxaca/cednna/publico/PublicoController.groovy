@@ -521,8 +521,10 @@ class PublicoController {
 			a.put("tooltip", [valueSuffix: '%'])
 			a.put("legend", [layout: "vertical", align: "right", verticalAlign: "middle", borderWidth: 0])
 			resultados.each { result ->
-				categorias.add(result?.anio)
-				datos.add(result?.indicador.round(decimales))
+				if(result?.indicador!=null){
+					categorias.add(result?.anio)
+					datos.add(result?.indicador.round(decimales))
+				}
 			}
 			
 			a.put("xAxis", [categories: categorias] )
@@ -578,17 +580,26 @@ class PublicoController {
 			cont++
 		}
 		
+		String sqlAnios = """
+			select count(anio) v, anio from (
+				select DISTINCT (cvv_anio) as anio, cvv_clave  
+				from cat_variable 
+				where ${claves} order by 1
+			) as p 
+			group by anio
+			having count(anio) = (select count(*) from cat_dvariable where cdv_ind_id = ${indicadorInstance?.id})
+		"""
+		println  'sqlAnios:'+sqlAnios
+		
 		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves + " order by 1"
 		println  'anios:'+anios
 		
 		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
-		def titulos = sqlAnio.rows(anios)
+		def titulos = sqlAnio.rows(sqlAnios)
 		return titulos
 	}
 	
 	DetalleIndicador visorIndicadorPaginado(Long id,int idTipo,params){
-		//println 'id:'+id+ ' idTipo:'+idTipo
-		//idTipo = 3
 		def indicadorInstance = Indicador.get(id);
 		def opcion= idTipo;
 
@@ -617,13 +628,8 @@ class PublicoController {
 			cont++
 		}
 		
-		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves + " order by 1"
-		println  'anios:'+anios
+		def aniosPorBuscar = getTitulosTablaIndicador(id)
 		
-		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
-		def aniosPorBuscar = sqlAnio.rows(anios)
-		
-//		for(anio in 2005..2020){
 		aniosPorBuscar.each{
 			def anio = it.anio
 			boolean  b = true
@@ -714,6 +720,9 @@ class PublicoController {
 						println 'Query3:'+query
 						def resultTotal = sql.rows(query.toString())
 						
+						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
+						def descripcionVariable = sql.rows(queryVariable.toString())
+						
 						if(resultTotal.size()>0){
 							System.out.println("*LA CONSULTA ES : "+query);
 							println 'resultTotal.size():'+resultTotal.size()
@@ -727,36 +736,26 @@ class PublicoController {
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
-
 										valorTem.indicador=it.hombres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
-
 									case "M":
-
 										valorTem.indicador=it.mujeres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
-
 									case "T":
-
 										valorTem.indicador=it.total
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
 								}
+								valorTem.anio=anio
+								temVar.valores.add(valorTem)
+								temVar.descripcion=descripcionVariable[0]?.descripcion
 							}
-
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
+						
+					
 						sql.close()
 					}
 
@@ -764,11 +763,20 @@ class PublicoController {
 				 * Comienza el calculo del indicador en base a las variables
 				 * */
 				//											System.out.println("ANIO : "+anio+ "  -   variables "+rVariables.size());
-					println 'rVariables.size:'+rVariables.size()
+					
+					if(indicadorInstance.variables.size()!=rVariables.size()){
+						rVariables.each{
+							resutaldoVariables.remove(it)
+						}
+						rVariables = []
+					}
+					
 					if(rVariables.size()>0){
 
 						rVariables.each { var->
-							formula=formula.replaceAll(var.letra, String.valueOf(var.valores.get(0).indicador))
+							if(var?.valores?.get(0)?.indicador!=null){
+								formula=formula.replaceAll(var.letra, String.valueOf(var?.valores?.get(0)?.indicador))
+							}
 						}
 						System.out.println(formula);
 
@@ -906,14 +914,8 @@ class PublicoController {
 						if(vari.categorias){
 							query=query+"  ) "
 						}
-						
-						
-						
-						
-						
 
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "
-								
 								
 							if(params?.sSearch!=null && params?.sSearch!=''){
 									query +=
@@ -930,12 +932,14 @@ class PublicoController {
 						if(!params.paginado){
 							query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
 						}
-						
 
 						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
-
+						
+						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
+						def descripcionVariable = sql.rows(queryVariable.toString())
+						println '-------------resultTotal.size:'+resultTotal.size()
 						if(resultTotal.size()>0){
 							//System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
@@ -944,53 +948,51 @@ class PublicoController {
 							resultTotal?.each{
 								//	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 								ResultadoTemporal valorTem = new ResultadoTemporal()
+								
 								switch (vari.poblacion.clave) {
 									case "H":
-										valorTem.region=it.region
-										valorTem.idRegion = it.region_id
 										valorTem.indicador=it.hombres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
-
 									case "M":
-										valorTem.region=it.region
-										valorTem.idRegion =it.region_id
 										valorTem.indicador=it.mujeres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
-
 									case "T":
-										valorTem.region=it.region
-										valorTem.idRegion =it.region_id
 										valorTem.indicador=it.total
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
 								}
+								valorTem.region=it.region
+								valorTem.idRegion =it.region_id
+								valorTem.anio=anio
+								temVar.descripcion=descripcionVariable[0]?.descripcion
+								temVar.valores.add(valorTem)
 							}
-
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
+							
 						}
+						
 						sql.close()
 					}	
 
 				/***
 				 * Comienza el calculo del indicador en base a las variables
 				 * */
-					println 'rVariables.size:'+rVariables.size()
+					
+					if(indicadorInstance.variables.size()!=rVariables.size()){
+						rVariables.each{
+							resutaldoVariables.remove(it)
+						}
+						rVariables = []
+					}
+					
 					if(rVariables.size()>0){
 						num=rVariables.get(0).letra
 						letra=rVariables.get(0).valores.size()
 
 						rVariables.each {
+							println 'it.valores.size()<num:' + it.valores.size + ' num:'+num
 							if( it.valores.size()<num){
 								num=it.valores.size()
 								letra=it.letra
@@ -998,8 +1000,10 @@ class PublicoController {
 							}
 						}
 						
-						println 'valorBase:'+valorBase
+						println '-----valorBase:'+valorBase
 						valorBase.each {base->
+							println 'base.indicador:'+base.indicador
+							println 'letra:'+letra
 							formula=formula.replaceAll(letra, String.valueOf(base.indicador))
 							rVariables.each {
 								var->
@@ -1217,6 +1221,10 @@ class PublicoController {
 						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 						println 'resultTotal:'+resultTotal
+						
+						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
+						def descripcionVariable = sql.rows(queryVariable.toString())
+						
 						if(resultTotal.size()>0){
 							System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
@@ -1227,40 +1235,24 @@ class PublicoController {
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
-										valorTem.region=it.region
-										valorTem.idRegion = it.region_id
-										valorTem.municipio=it.municipio
-										valorTem.idMunicipio = it.municipio_id
 										valorTem.indicador=it.hombres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
-
 									case "M":
-										valorTem.region=it.region
-										valorTem.idRegion =it.region_id
-										valorTem.municipio=it.municipio
-										valorTem.idMunicipio = it.municipio_id
 										valorTem.indicador=it.mujeres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
-
 									case "T":
-										valorTem.region=it.region
-										valorTem.idRegion =it.region_id
-										valorTem.municipio=it.municipio
-										valorTem.idMunicipio = it.municipio_id
 										valorTem.indicador=it.total
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
 										break;
 									default:
 										break;
 								}
+								valorTem.region=it.region
+								valorTem.idRegion =it.region_id
+								valorTem.municipio=it.municipio
+								valorTem.idMunicipio = it.municipio_id
+								valorTem.anio=anio
+								temVar.valores.add(valorTem)
+								temVar.descripcion=descripcionVariable[0]?.descripcion
 							}
 
 							rVariables.add(temVar)
@@ -1272,6 +1264,12 @@ class PublicoController {
 				/***
 				 * Comienza el calculo del indicador en base a las variables
 				 * */
+					if(indicadorInstance.variables.size()!=rVariables.size()){
+						rVariables.each{
+							resutaldoVariables.remove(it)
+						}
+						rVariables = []
+					}
 
 					if(rVariables.size()>0){
 
@@ -1411,360 +1409,19 @@ class PublicoController {
 
 					break;
 
-				case 4:
-
-
-
-				/***
-				 * PROCESO DE SALIDA POR LOCALIDADES
-				 *
-				 * */
-
-
-				/***
-				 * Comienza la busqueda en el origen de datos en base a las variable
-				 * */
-
-					for(vari in indicadorInstance.variables){
-
-						def sql = new Sql(sessionFactory.currentSession.connection())
-
-						def query = "SELECT o.region_id,"+
-								"descripcion,"+
-								"COALESCE(cr.crg_descripcion, ''::character varying) AS region,"+
-								"o.municipio_id,"+
-								"COALESCE(cm.mun_descripcion, ''::character varying) AS municipio,"+
-								"o.localidad_id,"+
-								"COALESCE(cl.ctl_descripcion, ''::character varying) AS localidad,"+
-								"sum(o.mujeres) as mujeres, "+
-								"sum(o.hombres) as hombres , "+
-								"sum(o.total)  as total "+
-								"FROM (SELECT cat_variable.cvv_clave AS clave, "+
-								"	cat_variable.cvv_descripcion AS descripcion, "+
-								"	cat_variable.cvv_region AS region_id, "+
-								"	cat_variable.cvv_municipio AS municipio_id, "+
-								"	cat_variable.cvv_localidad AS localidad_id, "+
-								"    cat_variable.cvv_mujeres AS mujeres, "+
-								"	cat_variable.cvv_hombres AS hombres, "+
-								"	cat_variable.cvv_poblacion_total AS total "+
-								" FROM cat_variable "+
-								"where "+
-								" cvv_clave='"+vari.claveVar+"' and   cvv_region is not null     and   cvv_anio="+anio+" and   cvv_municipio is not null  and   cvv_localidad is not null  "
-
-						if(vari.categorias){
-
-							query=query+" and "+
-									"("
-
-						}
-						def queryTipo="select ctt_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
-								" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+ vari.id+") group by ctt_id"
-
-						def resultTipo
-						def result = sql.rows(queryTipo.toString())
-
-
-						def tamTipo =result.size()
-						def cc=1
-						result?.each
-						{
-
-
-							def queryCat="select cct_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
-									" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+  vari.id+" ) and ctt_id ="+ it.ctt_id
-							resultTipo= sql.rows(queryCat.toString())
-							def tam =resultTipo.size()
-							def c=1
-							resultTipo?.each
-							{
-								query=query+" cvv_id in (select  cvc_cvv_id from cat_variable_categoria where cvc_cct_id = "+it.cct_id+")  "
-								if(c!=tam)
-									query=query+" or "
-								c++
-							}
-
-							if(cc!=tam)
-								query=query+" and "
-
-							cc++
-
-						}
-
-						if(vari.categorias){
-
-							query=query+"  ) "
-
-						}
-
-						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id "+
-								"GROUP BY "+
-								"o.region_id,  "+
-								"region,"+
-								"o.municipio_id, " +
-								"municipio,"+
-								"o.localidad_id,"+
-								"localidad,descripcion"
-
-
-						//System.out.println("LA CONSULTA ES : "+query);
-						def resultTotal = sql.rows(query.toString())
-
-						if(resultTotal.size()>0){
-							System.out.println("LA CONSULTA ES : "+query);
-							temVar= new RVariable()
-							temVar.letra=vari.clave
-
-							resultTotal?.each
-							{
-
-								//	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
-								ResultadoTemporal valorTem = new ResultadoTemporal()
-								switch (vari.poblacion.clave) {
-									case "H":
-										valorTem.region=it.region
-										valorTem.idRegion = it.region_id
-										valorTem.municipio=it.municipio
-										valorTem.idMunicipio = it.municipio_id
-										valorTem.localidad=it.localidad
-										valorTem.idLocalidad = it.localidad_id
-										valorTem.indicador=it.hombres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
-										break;
-
-									case "M":
-										valorTem.region=it.region
-										valorTem.idRegion =it.region_id
-										valorTem.municipio=it.municipio
-										valorTem.idMunicipio = it.municipio_id
-										valorTem.localidad=it.localidad
-										valorTem.idLocalidad = it.localidad_id
-										valorTem.indicador=it.mujeres
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
-										break;
-
-									case "T":
-										valorTem.region=it.region
-										valorTem.idRegion =it.region_id
-										valorTem.municipio=it.municipio
-										valorTem.idMunicipio = it.municipio_id
-										valorTem.localidad=it.localidad
-										valorTem.idLocalidad = it.localidad_id
-										valorTem.indicador=it.total
-										valorTem.anio=anio
-										temVar.valores.add(valorTem)
-										temVar.descripcion=it.descripcion
-										break;
-									default:
-										break;
-								}
-							}
-
-							rVariables.add(temVar)
-							resutaldoVariables.add(temVar)
-						}
-						sql.close()
-					}
-
-				/***
-				 * Comienza el calculo del indicador en base a las variables
-				 * */
-
-					if(rVariables.size()>0){
-
-						num=rVariables.get(0).letra
-						letra=rVariables.get(0).valores.size()
-
-
-
-						rVariables.each {
-							if( it.valores.size()<num){
-								num=it.valores.size()
-								letra=it.letra
-								valorBase=it.valores
-							}
-						}
-
-						valorBase.each {
-							base->
-
-
-							formula=formula.replaceAll(letra, String.valueOf(base.indicador))
-							rVariables.each {
-								var->
-								if(var.letra!=letra){
-									var.valores.each {
-
-										if(base.idLocalidad==it.idLocalidad){
-
-											formula=formula.replaceAll(var.letra, String.valueOf(it.indicador))
-										}
-									}
-								}
-
-							}
-							System.out.println(formula);
-
-							ResultadoTemporal rTemp = new ResultadoTemporal()
-
-
-							ScriptEngineManager script = new ScriptEngineManager();
-							ScriptEngine js = script.getEngineByName("JavaScript");
-							try {
-
-								rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
-								rTemp.region= base.region
-								rTemp.idRegion= base.idRegion
-								rTemp.municipio= base.municipio
-								rTemp.idMunicipio= base.idMunicipio
-								rTemp.localidad= base.localidad
-								rTemp.idLocalidad= base.idLocalidad
-								rTemp.anio=base.anio
-								listTemp.add(rTemp)
-
-							} catch (ScriptException e) {
-								rTemp.resultadoIndicador = null
-								rTemp.region= base.region
-								rTemp.idRegion= base.idRegion
-								rTemp.municipio= base.municipio
-								rTemp.idMunicipio= base.idMunicipio
-								rTemp.localidad= base.localidad
-								rTemp.idLocalidad= base.idLocalidad
-								rTemp.anio=base.anio
-								listTemp.add(rTemp)
-							}
-
-
-							formula= indicadorInstance?.formula?.sentencia
-
-
-
-						}
-
-						/***
-					 * Comienza el proceso de ordenamiento para salida
-					 * */
-
-						listTemp.each {
-							actual->
-							def ban=0
-							if(resultados.size()>0){
-
-								resultados.each {
-
-									if(it.idLocalidad==actual.idLocalidad){
-										Resultado res= new Resultado()
-										res.anio=actual.anio
-										if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
-											res.indicador=actual.resultadoIndicador
-										}else{
-											res.indicador=null;
-										}
-										it.resultados.add(res)
-										ban=1
-									}
-								}
-
-
-								if(ban==1){
-									Resultado res= new Resultado()
-									res.anio=actual.anio
-									if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
-										res.indicador=actual.resultadoIndicador
-									}else{
-										res.indicador=null;
-									}
-									ResultadoIndicador ri =  new  ResultadoIndicador()
-									ri.region=actual.region
-									ri.idRegion=actual.idRegion
-									ri.municipio= actual.municipio
-									ri.idMunicipio= actual.idMunicipio
-									ri.localidad= actual.localidad
-									ri.idLocalidad= actual.idLocalidad
-
-									ri.resultados.add(res)
-									resultados.add(ri)
-
-								}
-							}else{
-								Resultado res= new Resultado()
-								res.anio=actual.anio
-								if(actual.resultadoIndicador!=null && !Double.isNaN(actual.resultadoIndicador)){
-									res.indicador=actual.resultadoIndicador
-								}else{
-									res.indicador=null;
-								}
-								ResultadoIndicador ri =  new  ResultadoIndicador()
-								ri.municipio= actual.municipio
-								ri.idMunicipio= actual.idMunicipio
-								ri.localidad= actual.localidad
-								ri.idLocalidad= actual.idLocalidad
-								ri.resultados.add(res)
-								resultados.add(ri)
-
-							}
-						}
-
-
-
-
-
-
-					}
-
-					num=0
-					rVariables= new ArrayList<RVariable>()
-					listTemp = new ArrayList<ResultadoTemporal>()
-
-
-
-					break;
+			
 
 			}
 
 
 
 		}
-
-
-
-		//		resultados.each {
-		//
-		//			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
-		//			System.out.println("Tama–o  "+it.resultados.size());
-		//			it.resultados.each {
-		//				an->
-		//
-		//					an.each {
-		//
-		//						System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
-		//
-		//					}
-		//			}
-		//
-		//		}
-		//
-		//		System.out.println("rVariable tam: "+resutaldoVariables.size())
-		//		resutaldoVariables.each{
-		//			System.out.println("valores tam: "+it.valores.size())
-		//			it.valores.each {
-		//				System.out.println("Region: "+it.region)
-		//			}
-		//
-		//		}
 		
 		DetalleIndicador detalleIndicador = new DetalleIndicador()
 		detalleIndicador.resultados = resultados
 		detalleIndicador.rVariables = resutaldoVariables
 
 		return detalleIndicador
-
-		//[indicadorInstance:indicadorInstance,resultados:resultados]
-
-
 	}
 	
 	def DetalleIndicador visorIndicador(Long id, int idTipo){
