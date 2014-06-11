@@ -788,6 +788,9 @@ class PublicoController {
 						
 						try {
 							rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
+							if(rTemp.resultadoIndicador.toString().equals('Infinity')){
+								rTemp.resultadoIndicador = null
+							}
 							rTemp.anio=anio
 							listTemp.add(rTemp)
 						} catch (Exception e) {
@@ -1023,7 +1026,9 @@ class PublicoController {
 							ScriptEngine js = script.getEngineByName("JavaScript");
 							try {
 								rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
-								println 'rTemp.resultadoIndicador:'+rTemp.resultadoIndicador
+								if(rTemp.resultadoIndicador.toString().equals('Infinity')){
+									rTemp.resultadoIndicador = null
+								}
 								rTemp.region= base.region
 								rTemp.idRegion= base.idRegion
 								rTemp.anio=base.anio
@@ -1309,6 +1314,9 @@ class PublicoController {
 							try {
 
 								rTemp.resultadoIndicador =js.eval("eval('"+formula+"')")
+								if(rTemp.resultadoIndicador.toString().equals('Infinity')){
+									rTemp.resultadoIndicador = null
+								}
 								rTemp.region= base.region
 								rTemp.idRegion= base.idRegion
 								rTemp.municipio= base.municipio
