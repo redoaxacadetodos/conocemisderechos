@@ -34,7 +34,7 @@ $(function() {
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionValue="descripcion" optionKey="id" value="${usuarioInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': 'Seleccione una dependencia']"/>
+	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionValue="descripcion" optionKey="id" value="${usuarioInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': 'Seleccione una dependencia']" required=""/>
 </div>
 </div>
 
@@ -44,8 +44,8 @@ $(function() {
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="rol" name="rol" from="${mx.gob.redoaxaca.cednna.seguridad.Rol.list()}" optionValue="authority" optionKey="id" required="" value="${usuarioRolInstance*.rol?.id}" class="many-to-one"/>
-</div>
+		<g:select id="rol" name="rol" from="${mx.gob.redoaxaca.cednna.seguridad.Rol.list()}" optionValue="authority" optionKey="id" required="" value="${usuarioRolInstance*.rol?.id}" class="many-to-one"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'accountExpired', 'error')} ">

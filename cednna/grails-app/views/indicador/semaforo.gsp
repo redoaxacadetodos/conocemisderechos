@@ -77,13 +77,13 @@
 			<h4>ESTATUS DE ACTUALIZACI&Oacute;N POR INDICADOR</h4>
 			<label for="dependencias">Dependencia: ${dependencia?.descripcion}</label>			
 			
-			 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
+			 <sec:ifAnyGranted roles="ROLE_ADMIN">
 			
 			<g:select id="dependencias" name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}"		 
 			/>
 				<g:hiddenField name="rol" value="1"/>
 			</sec:ifAnyGranted>
-			 <sec:ifAnyGranted roles="ROLE_DEP,ROLE_LECTURA">
+			 <sec:ifAnyGranted roles="ROLE_DEP,ROLE_LECTURA,ROLE_NUCLEO">
  		 
  		 	<g:hiddenField name="dependencias" value="${dependencia?.id}"/>
  		 	

@@ -981,7 +981,7 @@ class VariableController {
 		[var:var,con:con,categorias:categorias,tipo:tipo,idn:tipo.id+"_"+con]
 	}
 	
-	
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN','ROLE_NUCLEO'])
     def show(Long id) {
         def variableInstance = Variable.get(id)
         if (!variableInstance) {

@@ -24,16 +24,27 @@ class UsuarioController {
 
     def save() {
         def usuarioInstance = new Usuario(params)
+		def error = false
 		
 		usuarioInstance.save(flush: true)
 		
 		params.rol.each{
 			def rol = Rol.get(it.toLong())
-			UsuarioRol.create usuarioInstance, rol, true
+			try{
+				UsuarioRol.create usuarioInstance, rol, true
+			}catch(Exception e){
+				error = true
+			}
+			
 		}
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuarioInstance.id])
-        redirect(action: "show", id: usuarioInstance.id)
+		
+		if(error){
+			render(view: "create", model: [usuarioInstance: usuarioInstance])
+			return
+		}else{
+			flash.message = message(code: 'default.created.message', args: [message(code: 'usuario.label', default: 'Usuario'), usuarioInstance.id])
+			redirect(action: "show", id: usuarioInstance.id)
+		}
     }
 
     def show(Long id) {
@@ -66,10 +77,16 @@ class UsuarioController {
     def update(Long id, Long version) {
         def usuarioInstance = Usuario.get(id)
 		
-		UsuarioRol.removeAll(usuarioInstance)		
+		UsuarioRol.removeAll(usuarioInstance)	
 		
-		def rolNuevo = Rol.get(params.rol.toLong())
-		UsuarioRol.create usuarioInstance, rolNuevo, true
+		params.rol.each{
+			def rol = Rol.get(it.toLong())
+			try{
+				UsuarioRol.create usuarioInstance, rol, true
+			}catch(Exception e){
+				error = true
+			}
+		}
 		
         if (!usuarioInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'usuario.label', default: 'Usuario'), id])

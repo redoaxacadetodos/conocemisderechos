@@ -11,7 +11,9 @@
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 				<li><g:link class="list" action="list">Datos estad&iacute;sticos</g:link></li>
+				<sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_DEP">
 				<li><g:link class="create" action="create">Nuevo dato</g:link></li>
+				</sec:ifAnyGranted>
 			</ul>
 </nav>
 		<div id="edit-variable" class="content scaffold-edit" role="main">
@@ -35,9 +37,11 @@
 				<fieldset class="uk-form uk-form-horizontal">
 				<div>
 				<p>
+				<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_DEP">
 				<g:if test="${ban==1}">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" class="uk-button"/>
 				</g:if>
+				</sec:ifAnyGranted>
 				<sec:ifAnyGranted roles="ROLE_ADMIN">
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" class="uk-button"/>
 				</sec:ifAnyGranted>

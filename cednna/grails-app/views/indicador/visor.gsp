@@ -252,7 +252,7 @@
 		<g:message code="indicador.publico.label" default="P&uacute;blico:" />
 	</b>
 	</label>
-	<g:checkBox name="publico" value="${indicadorInstance?.publico}" />
+	<g:checkBox name="publico" value="${indicadorInstance?.publico}" disabled=""/>
 </div>
 
 

@@ -151,24 +151,28 @@ class TablasService {
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
         }
 
+
+        boolean editar = false
         def rol = springSecurityService.getPrincipal().getAuthorities()
         def metodo = ''
         def esString = rol instanceof String
         if(esString){
-            if(rol.equals('ROLE_DEP')){
-                metodo = 'editaRegistro'
-            }else if(rol.equals('ROLE_LECTURA')){
-                metodo = 'monitorRegistro'
+            if(rol.equals('ROLE_DEP') || rol.equals('ROLE_ADMIN')){
+                editar = true
             }    
         }else{
             rol.each {
-                if(it.equals('ROLE_DEP')){
-                    metodo = 'editaRegistro'
-                }else if(it.equals('ROLE_LECTURA')){
-                    metodo = 'monitorRegistro'
-                } 
+                if(it.equals('ROLE_DEP')||it.equals('ROLE_ADMIN')){
+                    editar = true
+                }
             }
         }        
+
+        if(editar){
+            metodo = 'editaRegistro'
+        }else{
+            metodo = 'monitorRegistro'
+        } 
         
         def list = []
         def variables = executeQuery(sql)

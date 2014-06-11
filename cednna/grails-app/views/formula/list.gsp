@@ -15,22 +15,15 @@
 	
 	<script type="text/javascript" >
 
-
 		function muestraBoton(source, type, val) 	
 		{
 		return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/>"
 		}
 
-			function editaRegistro(id){
-			
+		function editaRegistro(id){
 			document.location.href=CONTEXT_ROOT+"/formula/edit/"+id;
-
 		}
-			
-				
-
-				
-</script>
+	</script>
 	
 	</head>
 	
@@ -42,7 +35,9 @@
 
 		
 				<li class="uk-active"><g:link class="list" action="list">Lista de f&oacute;rmulas</g:link></li>
-				<li><g:link class="create" action="create">Nueva f&oacute;rmula</g:link></li>
+				<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
+					<li><g:link class="create" action="create">Nueva f&oacute;rmula</g:link></li>
+				</sec:ifAnyGranted>
 
 		</ul>
 </nav>

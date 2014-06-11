@@ -17,7 +17,9 @@
 <nav class="uk-navbar">
 		<ul class="uk-navbar-nav">
 		<li class="uk-active"><g:link class="list" action="list">Listado</g:link></li>
-		<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+		<sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_DEP">
+			<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+		</sec:ifAnyGranted>
 		</ul>
 </nav>		
 		<br>

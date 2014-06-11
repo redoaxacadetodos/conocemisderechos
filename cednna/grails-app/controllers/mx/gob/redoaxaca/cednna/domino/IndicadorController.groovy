@@ -1575,7 +1575,7 @@ class IndicadorController {
     }
 	
 	
-	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN'])
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
 	def semaforo(){
 		def usuario = springSecurityService.currentUser
 		def dependencia =  usuario.dependencia
@@ -1583,7 +1583,7 @@ class IndicadorController {
 		
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN'])
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
 	def actualizarSemaforo(){
 		def dependencia = Dependencia.get(params.id)
 		def indicadores = Indicador.findAllByDependencia(dependencia)

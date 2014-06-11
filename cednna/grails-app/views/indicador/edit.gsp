@@ -34,7 +34,7 @@
 				</fieldset>
 				<fieldset class="uk-form uk-form-horizontal">
 				<div >
-					<sec:ifAnyGranted roles="ROLE_DEP">
+					<sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_DEP">
 					<g:actionSubmit class="save uk-button" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 					</sec:ifAnyGranted>
 					<sec:ifAnyGranted roles="ROLE_ADMIN">

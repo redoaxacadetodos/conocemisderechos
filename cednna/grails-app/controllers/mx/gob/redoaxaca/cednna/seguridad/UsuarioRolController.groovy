@@ -28,6 +28,7 @@ class UsuarioRolController {
             render(view: "create", model: [usuarioRolInstance: usuarioRolInstance])
             return
         }
+		println 'usuarioRolInstance:'+usuarioRolInstance
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'usuarioRol.label', default: 'UsuarioRol'), usuarioRolInstance.id])
         redirect(action: "show", id: usuarioRolInstance.id)

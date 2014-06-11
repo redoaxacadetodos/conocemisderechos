@@ -196,7 +196,7 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue());//CLAVE
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(3).getStringCellValue());//DESCRIPCION
+						writer.append('"'+hssfSheet.getRow(i).getCell(3).getStringCellValue()+'"');//DESCRIPCION
 						writer.append(',');
 						writer.append(estado?.id?.toString());//ESTADO
 						writer.append(',');
@@ -236,10 +236,11 @@ class LeerExcell {
 					break;
 					
 				case 3:
+					println '---------municipios'
 					for(i=5;i<=total; i++){
 						actual++
 						boolean periodo = false
-
+						println '---------id:'+actual.toString()
 						writer.append(actual.toString());//ID
 						writer.append(',');
 						try{
@@ -252,7 +253,7 @@ class LeerExcell {
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue());//CLAVE
 						writer.append(',');
-						writer.append(hssfSheet.getRow(i).getCell(5).getStringCellValue());//DESCRIPCION
+						writer.append('"'+hssfSheet.getRow(i).getCell(5).getStringCellValue()+'"');//DESCRIPCION
 						writer.append(',');
 						writer.append(estado.id.toString());//ESTADO
 						writer.append(',');
@@ -279,6 +280,8 @@ class LeerExcell {
 							writer.append(null);
 						}
 						writer.append('\n');
+						
+						
 
 						for(int x=1;x<=(numCategorias*2); x++){
 							writerCT.append(actual.toString());
