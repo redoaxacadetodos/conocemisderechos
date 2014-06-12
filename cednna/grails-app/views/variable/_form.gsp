@@ -124,9 +124,9 @@
 </div>
 
 <div id="divPeriodo" class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
-	<label class="uk-form-label"for="frecuencia">
+	<label class="uk-form-label"for=periodo>
 		<g:message code="indicador.frecuencia.label" default="Ciclo escolar " />
-
+		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one chosen-select" style="width:350px;"/>
 	<input type="button" id="ocultarPeriodo" onclick="$('#divPeriodo').hide();$('#divAnio').show();$('#periodo').attr('disabled','disabled');$('#anio').removeAttr('disabled');$('#tipoPeriodo').val('false');" value="Ocultar periodos" class="uk-button">

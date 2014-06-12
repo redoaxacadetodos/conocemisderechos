@@ -36,7 +36,7 @@
 		<br>
  		</sec:ifAnyGranted>
  		
- 		 <sec:ifAnyGranted roles="ROLE_DEP">
+ 		 <sec:ifAnyGranted roles="ROLE_DEP,ROLE_ADMIN">
  		 
  		 	<g:hiddenField name="dependencia" value="${dependencia}"/>
  		 		<g:hiddenField name="lectura" value="0"/>

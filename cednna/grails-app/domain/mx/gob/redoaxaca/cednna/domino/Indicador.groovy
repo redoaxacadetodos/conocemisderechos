@@ -38,7 +38,8 @@ class Indicador {
 	
 	Division       division
 	
-	boolean        publico
+	boolean			publico	
+	boolean 		etiquetaPeriodo
 	
 	static hasMany = [variables:DVariable]
 
@@ -51,6 +52,7 @@ class Indicador {
 				areaResponsable(blank:false, nullable:false, size:1..500)
 				mailResponsable(blank:false, nullable:false, size:1..1024,email:true)
 				urlExterna(nullable:true, size:1..1024)
+				etiquetaPeriodo(nullable:true)
 		
 		
 				comentarios(blank:false, nullable:false, size:1..4048)
@@ -111,6 +113,7 @@ class Indicador {
 	periodo(column:'idn_periodo')
 	decimales(column:'idn_decimales')
 	urlExterna(column:'idn_urlExterna')
+	etiquetaPeriodo(column:'idn_etiquetaPeriodo')
 	
 	version(false)
   }    

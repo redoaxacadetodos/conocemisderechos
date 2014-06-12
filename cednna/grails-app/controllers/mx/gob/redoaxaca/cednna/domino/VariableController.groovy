@@ -28,7 +28,7 @@ class VariableController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
 	
-	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
+	@Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {
         redirect(action: "list", params: params)
     }
@@ -134,9 +134,12 @@ class VariableController {
 	def monitor(){
 		
 	}
+	
+	@Secured(['ROLE_ADMIN'])
 	def dele(){}
+	
 
-	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
+	@Secured(['IS_AUTHENTICATED_FULLY'])
 	def getTablaDatosEstadisticos(){
 		int sEcho = 0
 		if(params.sEcho){
@@ -152,7 +155,7 @@ class VariableController {
 		render result as JSON
 	}
 	
-	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
+	@Secured(['IS_AUTHENTICATED_FULLY'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [variableInstanceList: Variable.list(params), variableInstanceTotal: Variable.count()]
@@ -185,6 +188,17 @@ class VariableController {
 				variableInstance.addToCategorias(temCategoria)
 			}
 		}
+		
+		def sec
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		def secuencia= "select max(cvv_id) as ultimo from cat_variable"
+		def resulSec = sql.rows(secuencia)
+		sql.close()
+		resulSec?.each{
+			sec=it.ultimo
+		}
+		
+		variableInstance.id = sec
 		
         if (!variableInstance.save(flush: true)) {
             render(view: "create", model: [variableInstance: variableInstance])
@@ -452,16 +466,24 @@ class VariableController {
 	
 	def borrarOrigen(){
 		def sql = new Sql(sessionFactory.currentSession.connection())
-		def consulta ="delete  from cat_variable_categoria where cvc_cvv_id in (select cvv_id from cat_variable where cvv_anio=? and  cvv_clave=?)"
-		sql.execute(consulta, [params.anio.toInteger(),params.origenDatos.toString()])
+		def anio = "cvv_anio=?"
+		int idAnio 
+		println 'params.periodo.toInteger():'+params.periodo
+		
+		if(params.tipoPeriodo=='true'){
+			anio = "cvv_ped_id=?"
+			idAnio = params.periodo.toInteger()
+		}else{
+			idAnio = params.anio.toInteger()
+		}
+		
+		def consulta ="delete  from cat_variable_categoria where cvc_cvv_id in (select cvv_id from cat_variable where ${anio} and  cvv_clave=?)"
+		sql.execute(consulta, [idAnio,params.origenDatos.toString()])
 			
-		consulta ="delete from cat_variable where cvv_anio=? and  cvv_clave=? "
-		sql.execute(consulta, [params.anio.toInteger(),params.origenDatos.toString()])
-		 
+		consulta ="delete from cat_variable where ${anio} and  cvv_clave=? "
+		sql.execute(consulta, [idAnio,params.origenDatos.toString()])
 	
 		redirect(action: "list")
-		return
-		
 	}
 	
 	def getCategoriaByTipo() {

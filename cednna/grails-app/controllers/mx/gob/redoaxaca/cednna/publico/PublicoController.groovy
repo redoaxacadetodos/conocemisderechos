@@ -333,12 +333,12 @@ class PublicoController {
 	
 	def getTablaDatosCalculo(Long id){
 		int tipo = params.idTipo.toInteger()
-		def indicador = Indicador.get(id)
+		def indicadorInstance = Indicador.get(id)
 		params.paginado = true
 		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
 		def resultadosIndicador = detalleIndicador.resultados
 		
-		def tamVariables = indicador.variables.size()
+		def tamVariables = indicadorInstance.variables.size()
 		def datosCalculo = detalleIndicador.rVariables
 		
 		if(tipo==2){
@@ -364,9 +364,12 @@ class PublicoController {
 			titulos.add([sTitle : "Municipios"])
 		}
 		
-		datosCalculo.eachWithIndex(){ valor,i ->
-			if((i % tamVariables) == 0 ){
-				titulos.add([sTitle : valor.valores.anio.get(0).toString()])
+		getAnosPorIndicador(id,tipo).each{
+			if(indicadorInstance?.etiquetaPeriodo){
+				def periodo = Periodo.get(it.periodo.toLong())
+				titulos.add([sTitle : periodo.descripcion])
+			}else{
+				titulos.add([sTitle : it.anio.toString()])
 			}
 		}
 		 	
@@ -377,6 +380,7 @@ class PublicoController {
 	
 	def getTablaIndicador(Long id){
 		int sEcho = 0
+		def indicadorInstance = Indicador.get(id)
 		if(params.sEcho){
 			sEcho = params.sEcho.toInteger()
 			sEcho++
@@ -410,8 +414,13 @@ class PublicoController {
 				break
 		}
 		
-		getTitulosTablaIndicador(id).each{
-			titulos.add([sTitle : it.anio.toString()])
+		getAnosPorIndicador(id,tipo).each{
+			if(indicadorInstance?.etiquetaPeriodo){
+				def periodo = Periodo.get(it.periodo.toLong())
+				titulos.add([sTitle : periodo.descripcion])
+			}else{
+				titulos.add([sTitle : it.anio.toString()])
+			}
 			indices.add(indexColumnas)
 			indexColumnas++
 		}
@@ -421,9 +430,6 @@ class PublicoController {
 		def metodo = createLink(controller:'publico', action:'getTablaIndicadorJson', id:id, params:[idTipo:tipo])
 		
 		def result = ["bServerSide": true,"bProcessing": true, "sAjaxSource":metodo,"bDestroy": true, "bRetrieve": true, 'aoColumns':titulos, 'aoColumnDefs': columnasSinOrdenar,'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
-//		def result = ["bDestroy": true, "bRetrieve": true, 'aoColumns':titulos,,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
-		println 'result:'+result
-//		def result = ['aoColumns':titulos,'sEcho':sEcho, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos]
 		render result as JSON
 	}
 	
@@ -567,9 +573,11 @@ class PublicoController {
 		render result as JSON
 	}
 	
-	def getTitulosTablaIndicador(Long id){
+	def getAnosPorIndicador(Long id, int idTipo){
 		def indicadorInstance = Indicador.get(id)
 		String claves = ""
+		String periodo = ""
+		String tipo = ""
 		int tamVariables = indicadorInstance.variables.size()
 		int cont = 1
 		for(v in indicadorInstance.variables){
@@ -580,15 +588,34 @@ class PublicoController {
 			cont++
 		}
 		
+		switch(idTipo){
+			case 2:
+				tipo = "and cvv_region is not null"
+				break
+			case 3:
+				tipo = "and cvv_municipio is not null"
+				break
+		}
+		
+		if(indicadorInstance?.etiquetaPeriodo){
+			periodo = " and cvv_ped_id is not null "
+		}else{
+			periodo = " and cvv_ped_id is null "
+		}
+		
 		String sqlAnios = """
-			select count(anio) v, anio from (
-				select DISTINCT (cvv_anio) as anio, cvv_clave  
+			select count(anio) v, anio, cvv_ped_id periodo from (
+				select DISTINCT (cvv_anio) as anio, cvv_clave, cvv_ped_id   
 				from cat_variable 
-				where ${claves} order by 1
+				where (${claves}) ${periodo} ${tipo}
 			) as p 
-			group by anio
+			group by anio, cvv_ped_id
 			having count(anio) = (select count(*) from cat_dvariable where cdv_ind_id = ${indicadorInstance?.id})
+			order by 2
 		"""
+		
+		
+		
 		println  'sqlAnios:'+sqlAnios
 		
 		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves + " order by 1"
@@ -628,7 +655,7 @@ class PublicoController {
 			cont++
 		}
 		
-		def aniosPorBuscar = getTitulosTablaIndicador(id)
+		def aniosPorBuscar = getAnosPorIndicador(id,idTipo)
 		
 		aniosPorBuscar.each{
 			def anio = it.anio

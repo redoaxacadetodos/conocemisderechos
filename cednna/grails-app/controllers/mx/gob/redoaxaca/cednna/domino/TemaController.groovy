@@ -3,7 +3,7 @@ package mx.gob.redoaxaca.cednna.domino
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
-@Secured( ['IS_AUTHENTICATED_FULLY'])
+@Secured( ['ROLE_ADMIN'])
 class TemaController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
 
-@Secured( ['IS_AUTHENTICATED_FULLY'])
+@Secured( ['ROLE_ADMIN'])
 class EjeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

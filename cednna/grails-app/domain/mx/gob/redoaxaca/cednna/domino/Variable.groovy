@@ -56,5 +56,6 @@ class Variable {
  	categorias (column: 'cvc_cvv_id', joinTable: 'cat_variable_categoria')
 
 	version(false)
-  }    
+  }   
+
 }

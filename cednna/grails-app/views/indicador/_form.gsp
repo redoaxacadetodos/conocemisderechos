@@ -170,6 +170,14 @@
 
 </div>
 
+<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
+	<label class="uk-form-label"for="publico">
+		<g:message code="indicador.etiquetaPeriodo.label" default="Calcular por periodo" />
+		
+	</label>
+	<g:checkBox name="etiquetaPeriodo" value="${indicadorInstance?.etiquetaPeriodo}" />
+</div>
+
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">
 	<label class="uk-form-label"for="publico">

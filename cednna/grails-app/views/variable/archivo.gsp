@@ -8,7 +8,7 @@
 	function verificarDescarga(tipo) {
 		if(tipo==1){
 			if(confirm('La variable ya contiene datos de origen ¿Desea continuar?')){
-				submit();
+				$("#formDescargar").submit();
 			}
 		}else if(tipo==2){
 			$("#formDescargar").submit();
@@ -146,6 +146,7 @@
 		$('#periodo').attr('disabled','disabled');
 		$('#divPeriodo').hide();
 		$('#descargar').hide();
+		
 	});
 	</script>	
 	<script type="text/javascript">
@@ -164,6 +165,10 @@
 			$("#descargar").show();
 		}
 	}
+
+	function mostrarCargado(){
+		$("#resultado").show();
+	}
 	</script>
 </head>
 <body>
@@ -173,6 +178,7 @@
 			<ul class="uk-navbar-nav">
 				<li><g:link class="list" action="list">Datos estad&iacute;sticos</g:link></li>
 				<li class="uk-active"><g:link class="create" action="create">Nuevo dato</g:link></li>
+			</ul>
 		</nav>
 
 		<h1 class="uk-article-title">Procesar datos desde archivo xlsx</h1>
@@ -277,8 +283,17 @@
 	</g:form>
 	
 	<div id="respuesta"></div>
-	
-	<g:form action="subirArchivo" controller="variable" method="post" enctype="multipart/form-data">
+<%--	<g:formRemote name="formArchivo" method="post" url="[controller: 'variable', action: 'subirArchivo']" enctype="multipart/form-data">--%>
+<%--		<fieldset class="uk-form uk-form-horizontal">--%>
+<%--			<div class="fieldcontain">--%>
+<%--				<input type="file" id="fileBase" name="fileBase" onchange="mostrarProcesarArchivo();"--%>
+<%--					class="uk-form"></input>--%>
+<%--			</div>--%>
+<%--			<br /> <input type="submit" id="Procesar" name="Procesar" class="uk-button"--%>
+<%--				value="Procesar archivo" onclick="mostrarCargado();" style="display:none;">--%>
+<%--		</fieldset>--%>
+<%--	</g:formRemote>--%>
+	<g:form name="formArchivo" action="subirArchivo" controller="variable" method="post" enctype="multipart/form-data">
 		<fieldset class="uk-form uk-form-horizontal">
 			<div class="fieldcontain">
 				<input type="file" id="fileBase" name="fileBase" onchange="mostrarProcesarArchivo();"
@@ -288,6 +303,19 @@
 				value="Procesar archivo" onclick="spinerLoad('Procesando datos...');" style="display:none;">
 		</fieldset>
 	</g:form>
+	
+<%--	<div id="resultado" style="display:none">--%>
+<%--		<div id="noTrespassingOuterBarG">--%>
+<%--			<div id="noTrespassingFrontBarG" class="noTrespassingAnimationG">--%>
+<%--				<div class="noTrespassingBarLineG"></div>--%>
+<%--				<div class="noTrespassingBarLineG"></div>--%>
+<%--				<div class="noTrespassingBarLineG"></div>--%>
+<%--				<div class="noTrespassingBarLineG"></div>--%>
+<%--				<div class="noTrespassingBarLineG"></div>--%>
+<%--				<div class="noTrespassingBarLineG"></div>--%>
+<%--			</div>--%>
+<%--		</div>	--%>
+<%--	</div>--%>
 	
 </body>
 

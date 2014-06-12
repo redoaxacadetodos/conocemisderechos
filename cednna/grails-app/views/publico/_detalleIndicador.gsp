@@ -1,5 +1,6 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <%@ page import="mx.gob.redoaxaca.cednna.domino.CatOrigenDatos" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Periodo" %>
 
 <g:javascript src="jquery.dataTables.js"></g:javascript>
 	<script type="text/javascript" charset="utf-8">
@@ -115,8 +116,6 @@
 <script>
 	  $(function () {
 		  $( "#tabs" ).tabs();
-<%--	        $('#container').highcharts(--%>
-<%--	            ${tablaJSON});--%>
             	        
 	        $('#myTab a').click(function (e) {
 	      	  e.preventDefault();
@@ -189,7 +188,12 @@
 			  			<g:set value="false" var="imprimir"></g:set>
 			  			<g:each var="resultado" in="${resultados}">
 			  				<g:if test="${imprimir=='true'}">
-			  					<th class="subcelda">${anio}/${resultado?.anio}</th>
+			  					<g:if test="${indicadorInstance?.etiquetaPeriodo}">
+				  					<th class="subcelda">${Periodo.findByAnioInicial(anio)?.descripcion}/${Periodo.findByAnioInicial(resultado?.anio)?.descripcion}</th>
+			  					</g:if>
+			  					<g:else>
+			  						<th class="subcelda">${anio}/${resultado?.anio}</th>
+			  					</g:else>
 			  					<g:set value="${resultado?.anio}" var="anio"></g:set>			  					
 			  				</g:if>
 			  				<g:else>
