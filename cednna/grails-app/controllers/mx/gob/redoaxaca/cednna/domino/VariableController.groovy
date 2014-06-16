@@ -877,6 +877,15 @@ class VariableController {
 				sec=it.ultimo
 			}
 			
+			def idTemporal
+			def sqlTemporal = new Sql(sessionFactory.currentSession.connection())
+			def sqlSecuencia= "select nextval('sec_tmp_carga')"
+			def result = sqlTemporal.rows(sqlSecuencia)
+			sqlTemporal.close()
+			idTemporal = result[0].nextval
+			
+			println 'idTemporal:'+idTemporal
+			
 			Estado estOaxaca=Estado.get(20)
 			
 			def fBase = request.getFile('fileBase')
@@ -885,23 +894,28 @@ class VariableController {
 			}
 	
 			archivo_ = new File(path + fBase.originalFilename.toString())
-			def arc = new LeerExcell(archivo_, sec,estOaxaca, dependencia,path)
+			def arc = new LeerExcell(archivo_, idTemporal,estOaxaca, dependencia,path)
 			 
 			contadorBuenos=arc.total()
 			
 			Valor servidor = Valor.findByKey("servidor")
 			Valor usuarioSSH = Valor.findByKey("usuario")
 			Valor pem = Valor.findByKey("pem")
-			String tabla = "CAT_VARIABLE"
-			String columnas = "(cvv_anio,cvv_clave,cvv_descripcion,cvv_estado,cvv_hombres,cvv_localidad,cvv_mujeres,cvv_municipio,cvv_poblacion_total,cvv_region,cvv_dependencia,cvv_ped_id)"
+//			String tabla = "CAT_VARIABLE"
+			String tabla = "tmp_carga"
+//			String columnas = "(cvv_anio,cvv_clave,cvv_descripcion,cvv_estado,cvv_hombres,cvv_localidad,cvv_mujeres,cvv_municipio,cvv_poblacion_total,cvv_region,cvv_dependencia,cvv_ped_id)"
+			String columnas = ""
 			
-			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv" )
-			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv", tabla, columnas)
 			
-			tabla = "CAT_VARIABLE_CATEGORIA"
-			columnas = ""
-			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv" )
-			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv", tabla, columnas)
+			
+			
+			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+idTemporal+".csv" )
+			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+idTemporal+".csv", tabla, columnas)
+			
+//			tabla = "CAT_VARIABLE_CATEGORIA"
+//			columnas = ""
+//			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv" )
+//			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv", tabla, columnas)
 			
 			}catch (Exception e) {
 				println(e.getMessage())

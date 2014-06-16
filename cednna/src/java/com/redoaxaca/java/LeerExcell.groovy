@@ -68,29 +68,76 @@ class LeerExcell {
 
 			Writer writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCv), "UTF-8"));
 
-			writer.append("cvv_anio");
+//			writer.append("cvv_anio");
+//			writer.append(',');
+//			writer.append("cvv_clave");
+//			writer.append(',');
+//			writer.append("cvv_descripcion");
+//			writer.append(',');
+//			writer.append("cvv_estado");
+//			writer.append(',');
+//			writer.append("cvv_hombres");
+//			writer.append(',');
+//			writer.append("cvv_localidad");
+//			writer.append(',');
+//			writer.append("cvv_mujeres");
+//			writer.append(',');
+//			writer.append("cvv_municipio");
+//			writer.append(',');
+//			writer.append("cvv_poblacion_total");
+//			writer.append(',');
+//			writer.append("cvv_region");
+//			writer.append(',');
+//			writer.append("cvv_dependencia");
+//			writer.append(',');
+//			writer.append("cvv_ped_id");
+		
+			writer.append("id");
 			writer.append(',');
-			writer.append("cvv_clave");
+			writer.append("anio");
 			writer.append(',');
-			writer.append("cvv_descripcion");
+			writer.append("clave");
 			writer.append(',');
-			writer.append("cvv_estado");
+			writer.append("descripcion");
 			writer.append(',');
-			writer.append("cvv_hombres");
+			writer.append("estado");
 			writer.append(',');
-			writer.append("cvv_localidad");
+			writer.append("hombres");
 			writer.append(',');
-			writer.append("cvv_mujeres");
+			writer.append("localidad");
 			writer.append(',');
-			writer.append("cvv_municipio");
+			writer.append("mujeres");
 			writer.append(',');
-			writer.append("cvv_poblacion_total");
+			writer.append("municipio");
 			writer.append(',');
-			writer.append("cvv_region");
+			writer.append("poblacion_total");
 			writer.append(',');
-			writer.append("cvv_dependencia");
+			writer.append("region");
 			writer.append(',');
-			writer.append("cvv_ped_id");
+			writer.append("dependencia");
+			writer.append(',');
+			writer.append("periodo");
+			writer.append(',');
+			writer.append("categoria1");
+			writer.append(',');
+			writer.append("categoria2");
+			writer.append(',');
+			writer.append("categoria3");
+			writer.append(',');
+			writer.append("categoria4");
+			writer.append(',');
+			writer.append("categoria5");
+			writer.append(',');
+			writer.append("categoria6");
+			writer.append(',');
+			writer.append("categoria7");
+			writer.append(',');
+			writer.append("categoria8");
+			writer.append(',');
+			writer.append("categoria9");
+			writer.append(',');
+			writer.append("categoria10");
+			
 
 			writer.append('\n');
 
@@ -125,7 +172,10 @@ class LeerExcell {
 				case 1:
 					for(i=5;i<=total; i++){
 						boolean periodo = false
-						actual++
+//						actual++
+						
+						writer.append(actual.toString());
+						writer.append(',');
 
 						try{
 							writer.append(hssfSheet.getRow(i).getCell(2).getNumericCellValue().intValue().toString());
@@ -163,22 +213,32 @@ class LeerExcell {
 							writer.append(null);
 						}
 						
-						writer.append('\n');
+//						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){
-							writerCT.append(actual.toString());
-							writerCT.append(',');
-							writerCT.append(new Double(hssfSheet.getRow(i).getCell(x+4).getNumericCellValue()).longValue().toString());
-							writerCT.append('\n');
+//							writerCT.append(actual.toString());
+							writer.append(',');
+							writer.append(new Double(hssfSheet.getRow(i).getCell(x+4).getNumericCellValue()).longValue().toString());
+							
 							x++;
 						}
+						
+						for(int j=numCategorias;j<10;j++){
+							writer.append(',');
+							writer.append(null);
+						}
+						
+						writer.append('\n');
 					}
 					break;
 
 				case 2:
 					for(i=5;i<=total; i++){
 						boolean periodo = false
-						actual++
+//						actual++
+						
+						writer.append(actual.toString());
+						writer.append(',');
 
 						try{
 							writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());//ANIO
@@ -217,23 +277,33 @@ class LeerExcell {
 							writer.append(null);
 						}
 						
-						writer.append('\n');
+//						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){
-							writerCT.append(actual.toString());
-							writerCT.append(',');
-							writerCT.append(new Double(hssfSheet.getRow(i).getCell(x+6).getNumericCellValue()).longValue().toString());
-							writerCT.append('\n');
+//							writerCT.append(actual.toString());
+							writer.append(',');
+							writer.append(new Double(hssfSheet.getRow(i).getCell(x+6).getNumericCellValue()).longValue().toString());
+//							writer.append('\n');
 							x++;
 						}
+						for(int j=numCategorias;j<10;j++){
+							writer.append(',');
+							writer.append(null);
+						}
+						
+						writer.append('\n');
 					}
 					break;
 					
 				case 3:
 					println '---------municipios'
 					for(i=5;i<=total; i++){
-						actual++
+//						actual++
 						boolean periodo = false
+						
+						writer.append(actual.toString());
+						writer.append(',');
+						
 						try{
 							writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//ANIO
 						}catch(Exception e){
@@ -270,17 +340,23 @@ class LeerExcell {
 						}else{
 							writer.append(null);
 						}
-						writer.append('\n');
+//						writer.append('\n');
 						
 						
 
 						for(int x=1;x<=(numCategorias*2); x++){
-							writerCT.append(actual.toString());
-							writerCT.append(',');
-							writerCT.append(new Double(hssfSheet.getRow(i).getCell(x+8).getNumericCellValue()).longValue().toString());
-							writerCT.append('\n');
+//							writerCT.append(actual.toString());
+							writer.append(',');
+							writer.append(new Double(hssfSheet.getRow(i).getCell(x+8).getNumericCellValue()).longValue().toString());
+//							writer.append('\n');
 							x++;
 						}
+						for(int j=numCategorias;j<10;j++){
+							writer.append(',');
+							writer.append(null);
+						}
+						
+						writer.append('\n');
 					}
 					break;
 			}
