@@ -37,7 +37,7 @@ class Variable {
 
     static mapping = {
 	table('cat_variable')
-	id(column: 'cvv_id')
+	id(column: 'cvv_id', params:[sequence:'sec_cat_variable'])
 	dependencia(column:'cvv_dependencia')
 	
 	clave(column:'cvv_clave')

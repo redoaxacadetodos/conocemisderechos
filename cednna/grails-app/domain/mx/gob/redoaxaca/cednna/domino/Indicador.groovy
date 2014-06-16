@@ -113,7 +113,7 @@ class Indicador {
 	periodo(column:'idn_periodo')
 	decimales(column:'idn_decimales')
 	urlExterna(column:'idn_urlExterna')
-	etiquetaPeriodo(column:'idn_etiquetaPeriodo')
+	etiquetaPeriodo(column:'idn_etiquetaperiodo')
 	
 	version(false)
   }    

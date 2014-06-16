@@ -189,17 +189,6 @@ class VariableController {
 			}
 		}
 		
-		def sec
-		def sql = new Sql(sessionFactory.currentSession.connection())
-		def secuencia= "select max(cvv_id) as ultimo from cat_variable"
-		def resulSec = sql.rows(secuencia)
-		sql.close()
-		resulSec?.each{
-			sec=it.ultimo
-		}
-		
-		variableInstance.id = sec
-		
         if (!variableInstance.save(flush: true)) {
             render(view: "create", model: [variableInstance: variableInstance])
             return
@@ -904,13 +893,15 @@ class VariableController {
 			Valor usuarioSSH = Valor.findByKey("usuario")
 			Valor pem = Valor.findByKey("pem")
 			String tabla = "CAT_VARIABLE"
+			String columnas = "(cvv_anio,cvv_clave,cvv_descripcion,cvv_estado,cvv_hombres,cvv_localidad,cvv_mujeres,cvv_municipio,cvv_poblacion_total,cvv_region,cvv_dependencia,cvv_ped_id)"
 			
 			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv" )
-			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv", tabla)
+			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+sec+".csv", tabla, columnas)
 			
 			tabla = "CAT_VARIABLE_CATEGORIA"
+			columnas = ""
 			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv" )
-			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv", tabla)
+			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv", tabla, columnas)
 			
 			}catch (Exception e) {
 				println(e.getMessage())
@@ -921,7 +912,7 @@ class VariableController {
 			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
 		}
 	
-	def ejecutarCopy(String url, String usuario, String rutaPEM, String path, String tabla){
+	def ejecutarCopy(String url, String usuario, String rutaPEM, String path, String tabla, String columnas){
 		Valor base
 		switch (Environment.current) {
 		    case Environment.DEVELOPMENT:
@@ -932,7 +923,7 @@ class VariableController {
 		        break
 		}
 		String baseDatos = base?.valor
-		String sshCommand = "\\copy "+tabla+" from"+" '"+path+"'"+" csv header   NULL  'null'"
+		String sshCommand = "\\copy ${tabla} ${columnas} from '${path}' csv header   NULL  'null'"
 		sshCommand = """psql ${baseDatos} -c "${sshCommand}" """
 		java.util.Properties config = new java.util.Properties()
 		println 'sshCommand:'+sshCommand

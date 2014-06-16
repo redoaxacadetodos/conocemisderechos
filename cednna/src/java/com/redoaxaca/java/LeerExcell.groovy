@@ -68,8 +68,6 @@ class LeerExcell {
 
 			Writer writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCv), "UTF-8"));
 
-			writer.append("cvv_id");
-			writer.append(',');
 			writer.append("cvv_anio");
 			writer.append(',');
 			writer.append("cvv_clave");
@@ -129,8 +127,6 @@ class LeerExcell {
 						boolean periodo = false
 						actual++
 
-						writer.append(actual.toString());
-						writer.append(',');
 						try{
 							writer.append(hssfSheet.getRow(i).getCell(2).getNumericCellValue().intValue().toString());
 						}catch(Exception e){
@@ -184,8 +180,6 @@ class LeerExcell {
 						boolean periodo = false
 						actual++
 
-						writer.append(actual.toString());//ID
-						writer.append(',');
 						try{
 							writer.append(hssfSheet.getRow(i).getCell(4).getNumericCellValue().intValue().toString());//ANIO
 						}catch(Exception e){
@@ -240,9 +234,6 @@ class LeerExcell {
 					for(i=5;i<=total; i++){
 						actual++
 						boolean periodo = false
-						println '---------id:'+actual.toString()
-						writer.append(actual.toString());//ID
-						writer.append(',');
 						try{
 							writer.append(hssfSheet.getRow(i).getCell(6).getNumericCellValue().intValue().toString());//ANIO
 						}catch(Exception e){
