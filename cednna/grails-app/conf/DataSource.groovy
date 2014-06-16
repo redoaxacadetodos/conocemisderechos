@@ -33,7 +33,7 @@ environments {
 	    //url = "jdbc:postgresql://localhost:5432/cednna"
       //url = "jdbc:postgresql://172.31.0.101:5432/cednna_curso"
       url = "jdbc:postgresql://172.30.0.241:5432/prod_cednna"
-      dbCreate = "validate"
+      dbCreate = "update"
       }       
     }
 }
