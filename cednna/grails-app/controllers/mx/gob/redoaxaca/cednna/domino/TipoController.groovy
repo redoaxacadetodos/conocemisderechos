@@ -1,12 +1,15 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured( ['ROLE_ADMIN'])
 
 class TipoController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -18,6 +21,22 @@ class TipoController {
         params.max = Math.min(max ?: 10, 100)
         [tipoInstanceList: Tipo.list(params), tipoInstanceTotal: Tipo.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_tipo"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"ctt_id as id",
+			"ctt_descripcion as descripcion"
+			],
+			[
+			"ctt_descripcion"
+			],
+			[
+			"id",
+			"descripcion"	
+			],1,"text") as JSON
+	}
 
     def create() {
         [tipoInstance: new Tipo(params)]

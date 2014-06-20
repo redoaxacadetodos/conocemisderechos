@@ -8,7 +8,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" value="${catOrigenDatosInstance?.dependencia?.id}" class="many-to-one" noSelection="['null': 'Elige una dependencia']"/>
+	<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list()}" optionKey="id" optionValue="descripcion" value="${catOrigenDatosInstance?.dependencia?.id}" required=""/>
 	</div>
 </div>
 
@@ -18,7 +18,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:textField name="clave" value="${catOrigenDatosInstance?.clave}"/>
+	<g:textField name="clave" value="${catOrigenDatosInstance?.clave}" required=""/>
 	</div>
 </div>
 

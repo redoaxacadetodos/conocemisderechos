@@ -1,11 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured( ['ROLE_ADMIN'])
 class PNDesarrolloController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -17,6 +20,22 @@ class PNDesarrolloController {
         params.max = Math.min(max ?: 10, 100)
         [PNDesarrolloInstanceList: PNDesarrollo.list(params), PNDesarrolloInstanceTotal: PNDesarrollo.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_pn_desarrollo"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"cnpd_id as id",
+			"cnpd_descripcion as descripcion"
+			],
+			[
+			"cnpd_descripcion"
+			],
+			[
+			"id",
+			"descripcion"
+			],1,"text") as JSON
+	}
 
     def create() {
         [PNDesarrolloInstance: new PNDesarrollo(params)]

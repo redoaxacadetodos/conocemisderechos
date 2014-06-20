@@ -201,26 +201,34 @@ class VariableController {
 	def tieneDatosOrigen(){
 		String respuesta = ""
 		def variables
+		def tipo = params.opcionSerie.toInteger()
+		def clave = params.origenDatos
+		String areaGeografica = ""
+		String periodo = ""
+		
+		if(tipo==2)
+				areaGeografica = " and cvv_region is not null"
+		else if(tipo==3)
+				areaGeografica = " and cvv_municipio is not null"
+		
 		if(params.periodo){
 			Periodo p = Periodo.get(params['periodo.id'].toLong())
-			variables = Variable.findAll{
-				clave == params.origenDatos && periodo==p
-			}
+			periodo = " cvv_ped_id = '${p.id}' "
 		}else{
-			variables = Variable.findAll{
-				clave == params.origenDatos && anio==params.anio
-			}
+			periodo = " cvv_anio = '${params.anio}' and cvv_ped_id is null "
 		}
 		
+		def sql = new Sql(sessionFactory.currentSession.connection())
+		String sqlOrigen = "select count(*) from cat_variable where cvv_clave = '${clave}' and ${periodo} ${areaGeografica}"
+		variables = sql.rows(sqlOrigen)
 		
-		if(variables.size()!=0){
+		if(variables[0].count!=0){
 			respuesta = "<script>verificarDescarga(1);</script>"
 		}else{
 			respuesta ="<script>verificarDescarga(2);</script>"
 		}
 		
 		render(text: respuesta, contentType: "text/html", encoding: "UTF-8")
-		
 	}
 	
 	def generaXLS() {
@@ -1020,6 +1028,7 @@ class VariableController {
         [variableInstance: variableInstance]
     }
 
+	@Secured(['ROLE_DEP','ROLE_ADMIN'])
     def edit(Long id) {
 		def ban=1;
 		def usuario = springSecurityService.currentUser

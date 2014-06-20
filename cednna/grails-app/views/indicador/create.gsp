@@ -32,14 +32,17 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" name="indicador" >
-				<fieldset class="uk-form uk-form-horizontal">
+			<g:form action="save" name="indicador" class="uk-form uk-form-horizontal">
+				<fieldset class="form">
 					<g:render template="form"/>
-					 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_DEP">
-					<g:submitButton name="create" class="uk-button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-					</sec:ifAnyGranted>
 				</fieldset>
-				
+				<fieldset class="uk-form-horizontal">
+				 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_DEP">
+					<button  onclick="form.submit();" class="uk-button uk-button-primary">
+						${message(code: 'default.button.create.label', default: 'Create')}
+					</button>
+				</sec:ifAnyGranted>
+				</fieldset>
 			</g:form>
 		</div>
 	</body>

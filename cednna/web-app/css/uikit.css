@@ -2974,7 +2974,7 @@ select.uk-form-width-mini {
   width: 200px;
 }
 .uk-form-width-large {
-  width: 500px;
+  width: 100%;
 }
 /* Sub-objects: `uk-form-row`
  * Groups labels and controls in rows

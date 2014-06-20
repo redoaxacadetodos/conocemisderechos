@@ -14,42 +14,20 @@
 <%--	action="dataTablesListadoVariables" jqueryui="true"--%>
 <%--	lang="${request.getContextPath()}/js/langtabla.json"--%>
 <%--	aoColumns="['{bVisible: false }','{mData:1 } ','{mData:2}','{mData:3}','{mData:4}','{mData:5}','{mData:6}','{mData:7}','{mData:8}','{mData:9}','{mData:10}','{mData:muestraBoton}']" />--%>
+<g:hiddenField name="lectura" value="1" />
 
-
-<sec:ifAnyGranted roles="ROLE_DEP">
-	<g:hiddenField name="lectura" value="0" />
-</sec:ifAnyGranted>
-<sec:ifAnyGranted roles="ROLE_LECTURA">
-	<g:hiddenField name="lectura" value="1" />
+<sec:ifAnyGranted roles="ROLE_DEP, ROLE_ADMIN">
+	<script type="text/javascript">
+		$("#lectura").val("0");
+	</script>
 </sec:ifAnyGranted>
 <script type="text/javascript">
-<%--		function muestraBoton(source, type, val) 	--%>
-<%--		{--%>
-<%--			if($("#lectura").val()==0)--%>
-<%--			return "<a href='#'  class='uk-icon-button uk-icon-edit'  onclick='editaRegistro(" + source[0] + "); '\/> ";--%>
-<%--			else--%>
-<%--			{--%>
-<%--			return "<a href='#'  class='uk-icon-button uk-icon-search'  onclick='monitorRegistro(" + source[0] + "); '\/> ";--%>
-<%--			}--%>
-<%--		}--%>
-
-		function editaRegistro(id){
-			
-			document.location.href=CONTEXT_ROOT+"/variable/edit/"+id;
-
+		function muestraBoton(source, type, val){
+			if($("#lectura").val()==0)
+				return "<a href='"+ CONTEXT_ROOT+"/variable/edit/"+ source[0] + "'  class='uk-icon-button uk-icon-edit'/> ";
+			else
+				return "<a href='"+CONTEXT_ROOT+"/variable/show/"+ source[0] + "'  class='uk-icon-button uk-icon-search'/> ";
 		}
-
-
-		function monitorRegistro(id){
-			
-			document.location.href=CONTEXT_ROOT+"/variable/show/"+id;
-
-		}
-			
-			
-				
-
-				
 </script>
 
 <script type="text/javascript" charset="utf&minus;8">
@@ -65,6 +43,7 @@
 				    	  "sUrl": "../datatables/language/spanish.txt"
 				    	},
 					"aoColumns": [
+						{ "sTitle": "Id", bVisible: false },
 						{ "sTitle": "Clave" },
 						{ "sTitle": "Descripción" },
 						{ "sTitle": "Región" },
@@ -74,7 +53,7 @@
 						{ "sTitle": "Población total" },
 						{ "sTitle": "Mujeres" },
 						{ "sTitle": "Hombre" },
-						{ "sTitle": "Opciones" }
+						{ "sTitle": "Opciones", mData:muestraBoton }
 					],
 					"aoColumnDefs": [
 						{ 'bSortable': false, 'aTargets': [ 9 ] }

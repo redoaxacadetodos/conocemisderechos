@@ -3,10 +3,12 @@
 
 
 <div class="fieldcontain ${hasErrors(bean: unidadEjecutoraInstance, field: 'descripcion', 'error')} ">
-	<label for="descripcion">
+	<label for="descripcion" class="uk-form-label">
 		<g:message code="unidadEjecutora.descripcion.label" default="Descripci&oacute;n" />
 		
 	</label>
-	<g:textField name="descripcion" value="${unidadEjecutoraInstance?.descripcion}"/>
+	<div class="uk-form-controls">
+		<g:textField name="descripcion" value="${unidadEjecutoraInstance?.descripcion}" required="" class="uk-form-width-large"/>
+	</div>
 </div>
 

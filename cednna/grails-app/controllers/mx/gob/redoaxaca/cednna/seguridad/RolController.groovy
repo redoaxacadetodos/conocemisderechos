@@ -1,11 +1,13 @@
 package mx.gob.redoaxaca.cednna.seguridad
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import org.springframework.dao.DataIntegrityViolationException
 
 @Secured(['ROLE_ADMIN'])
 class RolController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -17,6 +19,22 @@ class RolController {
         params.max = Math.min(max ?: 10, 100)
         [rolInstanceList: Rol.list(params), rolInstanceTotal: Rol.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from sys_rol"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"id",
+			"authority"
+			],
+			[
+			"authority"
+			],
+			[
+			"id",
+			"authority"
+			],1,"text") as JSON
+	}
 
     def create() {
         [rolInstance: new Rol(params)]

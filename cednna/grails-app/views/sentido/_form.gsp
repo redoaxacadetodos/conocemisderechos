@@ -18,7 +18,7 @@
 		
 	</label>
 	<div class="uk-form-controls">
-	<g:textField name="descripcion" value="${sentidoInstance?.descripcion}"/>
+		<g:textField name="descripcion" value="${sentidoInstance?.descripcion}" class="uk-form-width-medium"/>
 	</div>
 </div>
 

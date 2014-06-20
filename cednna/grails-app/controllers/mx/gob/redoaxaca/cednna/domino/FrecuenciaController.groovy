@@ -1,13 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
-
-
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class FrecuenciaController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -19,6 +20,22 @@ class FrecuenciaController {
         params.max = Math.min(max ?: 10, 100)
         [frecuenciaInstanceList: Frecuencia.list(params), frecuenciaInstanceTotal: Frecuencia.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_frecuencia"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"cfr_id as id",
+			"cfr_descripcion as descripcion"
+			],
+			[
+			"cfr_descripcion"
+			],
+			[
+			"id",
+			"descripcion"
+			],1, "text") as JSON
+	}
 
     def create() {
         [frecuenciaInstance: new Frecuencia(params)]

@@ -2,11 +2,13 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: rolInstance, field: 'authority', 'error')} required">
-	<label for="authority">
+<div class="fieldcontain ${hasErrors(bean: rolInstance, field: 'authority', 'error')} required uk-form-row">
+	<label for="authority" class="uk-form-label">
 		<g:message code="mx.gob.redoaxaca.rol.label" default="Rol" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="authority" required="" value="${rolInstance?.authority}"/>
+	<div class="uk-form-controls">
+		<g:textField name="authority" required="" value="${rolInstance?.authority}"/>
+	</div>
 </div>
 

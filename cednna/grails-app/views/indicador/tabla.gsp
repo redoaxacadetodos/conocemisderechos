@@ -18,6 +18,10 @@
 				  </div>
 				</body>
 
-
+		<script type="text/javascript">
+			$( window ).resize(function() {
+				$( "#indicadorTable" ).css('width', '100%');
+			});
+		</script>
 			
 </html>
