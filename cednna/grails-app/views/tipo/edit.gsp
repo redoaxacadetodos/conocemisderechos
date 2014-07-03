@@ -26,15 +26,15 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form method="post" >
+			<g:form method="post" class="uk-form uk-form-horizontal" >
 				<g:hiddenField name="id" value="${tipoInstance?.id}" />
 				<g:hiddenField name="version" value="${tipoInstance?.version}" />
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				<fieldset class="uk-form-horizontal">
+					<g:actionSubmit class="save uk-button" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+					<g:actionSubmit class="delete uk-button" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>

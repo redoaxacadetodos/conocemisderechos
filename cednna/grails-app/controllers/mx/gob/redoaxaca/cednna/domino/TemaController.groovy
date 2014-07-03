@@ -1,10 +1,13 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 @Secured( ['ROLE_ADMIN'])
 class TemaController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -16,6 +19,25 @@ class TemaController {
         params.max = Math.min(max ?: 10, 100)
         [temaInstanceList: Tema.list(params), temaInstanceTotal: Tema.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from tema t join cat_pn_desarrollo pnd on (t.ped_id = pnd.cnpd_id)"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"t.id as id",
+			"t.descripcion as tema",
+			"cnpd_descripcion as eje"
+			],
+			[
+			"t.descripcion",
+			"cnpd_descripcion"
+			],
+			[
+				"id",
+				"tema",
+				"eje"
+			],1, "text") as JSON
+	}
 
     def create() {
         [temaInstance: new Tema(params)]

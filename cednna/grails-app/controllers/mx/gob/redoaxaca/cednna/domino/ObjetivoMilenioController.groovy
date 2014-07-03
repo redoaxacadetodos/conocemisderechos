@@ -1,12 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
-
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured( ['ROLE_ADMIN'])
 class ObjetivoMilenioController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -18,6 +20,25 @@ class ObjetivoMilenioController {
         params.max = Math.min(max ?: 10, 100)
         [objetivoMilenioInstanceList: ObjetivoMilenio.list(params), objetivoMilenioInstanceTotal: ObjetivoMilenio.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from objetivo_milenio"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"id",
+			"clave",
+			"descripcion"
+			],
+			[
+			"clave",
+			"descripcion"
+			],
+			[
+			"id",
+			"clave",
+			"descripcion"
+			],1,"text") as JSON
+	}
 
     def create() {
         [objetivoMilenioInstance: new ObjetivoMilenio(params)]

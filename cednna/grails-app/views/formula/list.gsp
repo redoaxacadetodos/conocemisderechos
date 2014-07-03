@@ -53,5 +53,10 @@
 			
 			
 		</div>
+		<script type="text/javascript">
+			$( window ).resize(function() {
+				$( "#formulaTable" ).css('width', '100%');
+			});
+		</script>
 	</body>
 </html>

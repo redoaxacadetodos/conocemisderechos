@@ -58,7 +58,7 @@ class LeerExcell {
 
 		try {
 			def sFileNameCv=path+"csvCV_"+actual+".csv"
-			def sFileNameCt=path+"csvCT_"+actual+".csv"
+//			def sFileNameCt=path+"csvCT_"+actual+".csv"
 			def contadorBuenos = 0
 			def contadorMalos = 0
 			def contador = 0
@@ -142,12 +142,12 @@ class LeerExcell {
 			writer.append('\n');
 
 			//  FileWriter writerCT = new FileWriter(sFileNameCt);
-			Writer writerCT = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCt), "UTF-8"));
-
-			writerCT.append("cvc_cvv_id");
-			writerCT.append(',');
-			writerCT.append("cvc_cct_id");
-			writerCT.append('\n');
+//			Writer writerCT = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCt), "UTF-8"));
+//
+//			writerCT.append("cvc_cvv_id");
+//			writerCT.append(',');
+//			writerCT.append("cvc_cct_id");
+//			writerCT.append('\n');
 
 			FileInputStream fileInputStream = new FileInputStream(fileName);
 			XSSFWorkbook workBook = new XSSFWorkbook(fileInputStream);
@@ -363,8 +363,8 @@ class LeerExcell {
 
 			writer.flush();
 			writer.close();
-			writerCT.flush();
-			writerCT.close();
+//			writerCT.flush();
+//			writerCT.close();
 
 		} catch (Exception e) {
 			total = 4;

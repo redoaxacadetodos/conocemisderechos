@@ -1,11 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class DependenciaController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -17,6 +20,25 @@ class DependenciaController {
         params.max = Math.min(max ?: 10, 100)
         [dependenciaInstanceList: Dependencia.list(params), dependenciaInstanceTotal: Dependencia.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_dependencia"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"cdp_id as id",
+			"cdp_clave as clave",
+			"cdp_descripcion as descripcion"
+			],
+			[
+			"cdp_clave",
+			"cdp_descripcion"
+			],
+			[
+			"id",
+			"clave",
+			"descripcion"
+			],1,"text") as JSON
+	}
 
     def create() {
         [dependenciaInstance: new Dependencia(params)]

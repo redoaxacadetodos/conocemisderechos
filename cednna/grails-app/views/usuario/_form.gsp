@@ -1,13 +1,13 @@
 <%@ page import="mx.gob.redoaxaca.cednna.seguridad.Usuario" %>
 
-
 <script>
-$(function() {
-	$('#rol').selectize({
-		maxItems: 15
+	$(function() {
+		$('#rol').selectize({
+			maxItems: 15
+		});
 	});
-});
-		</script>
+</script>
+
 <div class="fieldcontain uk-form-row ${hasErrors(bean: usuarioInstance, field: 'username', 'error')} required">
 	<label class="uk-form-label" for="username">
 		<g:message code="mx.gob.redoaxaca.usuario.label" default="Usuario" />

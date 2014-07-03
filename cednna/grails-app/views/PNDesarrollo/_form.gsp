@@ -2,11 +2,13 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: PNDesarrolloInstance, field: 'descripcion', 'error')} ">
-	<label for="descripcion">
+<div class="fieldcontain ${hasErrors(bean: PNDesarrolloInstance, field: 'descripcion', 'error')} uk-form-row">
+	<label for="descripcion" class="uk-form-label">
 		<g:message code="PNDesarrollo.descripcion.label" default="Descripción" />
 		
 	</label>
-	<g:textField name="descripcion" value="${PNDesarrolloInstance?.descripcion}"/>
+	<div class="uk-form-controls">
+		<g:textField name="descripcion" value="${PNDesarrolloInstance?.descripcion}" class="uk-form-width-large" required=""/>
+	</div>
 </div>
 

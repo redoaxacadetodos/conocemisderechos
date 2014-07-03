@@ -1,17 +1,36 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured( ['ROLE_ADMIN'])
 class EjeController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
     }
+	
+	def dataTablesList = {
+		def query = "from eje"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"id",
+			"descripcion"
+			],
+			[
+			"descripcion"
+			],
+			[
+			"id",
+			"descripcion"
+			],1,"text") as JSON
+	}
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)

@@ -5,7 +5,6 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'usuario.label', default: 'Usuario')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-		<link href="${resource(dir: 'css', file: 'selectize.css')}" rel="stylesheet" media="screen">
 		<link href="${resource(dir: 'css', file: 'selectize.default.css')}" rel="stylesheet" media="screen">
 		
 		<script src="${resource(dir: 'js', file: 'selectize.js')}"></script>
@@ -34,9 +33,11 @@
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
-				<button class="uk-button uk-button-primary" onclick="this.form.submit();">
-					<i class="uk-icon-small uk-icon-edit"></i> ${message(code: 'default.button.create.label', default: 'Create')}
-				</button>
+				<fieldset class="uk-form-horizontal">
+					<button class="uk-button uk-button-primary" onclick="this.form.submit();">
+						<i class="uk-icon-small uk-icon-edit"></i> ${message(code: 'default.button.create.label', default: 'Create')}
+					</button>
+				</fieldset>
 			</g:form>
 		</div>
 	</body>

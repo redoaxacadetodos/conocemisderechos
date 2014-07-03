@@ -1,11 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class SentidoController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -17,6 +20,25 @@ class SentidoController {
         params.max = Math.min(max ?: 10, 100)
         [sentidoInstanceList: Sentido.list(params), sentidoInstanceTotal: Sentido.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_sentido"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"csn_id as id",
+			"csn_clave as clave",
+			"csn_descripcion as descripcion"
+			],
+			[
+			"csn_clave",
+			"csn_descripcion"
+			],
+			[
+			"id",
+			"clave",
+			"descripcion"
+			],1,"text") as JSON
+	}
 
     def create() {
         [sentidoInstance: new Sentido(params)]

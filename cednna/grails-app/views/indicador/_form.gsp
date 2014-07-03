@@ -7,7 +7,9 @@
 		<g:message code="indicador.nombre.label" default="Nombre del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="nombre" required="" value="${indicadorInstance?.nombre}" style="width:600px;"/>
+	<div class="uk-form-controls">
+		<g:textField name="nombre" required="" value="${indicadorInstance?.nombre}" style="width:600px;"/>
+	</div>
 </div>
 
 <%--<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'publico', 'error')} ">--%>
@@ -31,8 +33,9 @@
 		<g:message code="indicador.objetivo.label" default="Objetivo del indicador" />
 		<span class="required-indicator">*</span>
 	</label>
-	<textarea id="objetivo"  name="objetivo" rows="5" cols="40" required="required">${indicadorInstance?.objetivo} </textarea>
-	
+	<div class="uk-form-controls">
+		<textarea id="objetivo"  name="objetivo" rows="5" cols="40" required="required">${indicadorInstance?.objetivo} </textarea>
+	</div>
 </div>
 
 <g:if test="${dep}">	
@@ -42,7 +45,9 @@
 			<span class="required-indicator">*</span>
 		</label>
 		<g:hiddenField name="dependencia.id" value="${dep?.id}"/>
-		<input  name="dep"  value="${dep?.descripcion}" style="width:600px;" type="text" readonly="readonly"/>
+		<div class="uk-form-controls">
+			<input  name="dep"  value="${dep?.descripcion}" style="width:600px;" type="text" readonly="readonly"/>
+		</div>
 	</div>
 </g:if>
 <g:else>
@@ -51,7 +56,9 @@
 			<g:message code="indicador.dependencia.label" default="Dependencia responsable" />
 			<span class="required-indicator">*</span>
 		</label>
-		<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
+		<div class="uk-form-controls">
+			<g:select id="dependencia" name="dependencia.id" from="${mx.gob.redoaxaca.cednna.domino.Dependencia.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.dependencia?.id}" class="many-to-one"/>
+		</div>
 	</div>
 </g:else>
 
@@ -60,7 +67,9 @@
 		<g:message code="indicador.ejecutora.label" default="Unidad administrativa ejecutora" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="ejecutora" name="ejecutora.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadEjecutora.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.ejecutora?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="ejecutora" name="ejecutora.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadEjecutora.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.ejecutora?.id}" class="many-to-one"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'sentido', 'error')} required">
@@ -68,7 +77,9 @@
 		<g:message code="indicador.sentido.label" default="Sentido esperado" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="sentido" name="sentido.id" from="${mx.gob.redoaxaca.cednna.domino.Sentido.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.sentido?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="sentido" name="sentido.id" from="${mx.gob.redoaxaca.cednna.domino.Sentido.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.sentido?.id}" class="many-to-one"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
@@ -76,7 +87,9 @@
 		<g:message code="indicador.frecuencia.label" default="Frecuencia de medici&oacute;n" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="frecuencia" name="frecuencia.id" from="${mx.gob.redoaxaca.cednna.domino.Frecuencia.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.frecuencia?.id}" class="many-to-one"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
@@ -84,7 +97,9 @@
 		<g:message code="indicador.frecuencia.label" default="Unidad de medida" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="uMedida" name="uMedida.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadMedida.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.uMedida?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="uMedida" name="uMedida.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadMedida.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.uMedida?.id}" class="many-to-one"/>
+	</div>
 </div>
 </div>
 
@@ -93,7 +108,9 @@
 		<g:message code="indicador.frecuencia.label" default="M&oacute;dulo" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="eje" name="eje.id" from="${mx.gob.redoaxaca.cednna.domino.Eje.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.eje?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="eje" name="eje.id" from="${mx.gob.redoaxaca.cednna.domino.Eje.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.eje?.id}" class="many-to-one"/>
+	</div>
 </div>
 
 <div id="div2" class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} required">
@@ -101,7 +118,9 @@
 		<g:message code="indicador.frecuencia.label" default="Categor&iacute;a" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="division" name="division.id" from="${mx.gob.redoaxaca.cednna.domino.Division.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="division" name="division.id" from="${mx.gob.redoaxaca.cednna.domino.Division.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.division?.id}" class="many-to-one"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
@@ -109,7 +128,9 @@
 		<g:message code="indicador.frecuencia.label" default="Eje" />
 
 	</label>
-	<g:select id="pnDesarrollo" name="pnDesarrollo.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.pnDesarrollo?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
+	<div class="uk-form-controls">
+		<g:select id="pnDesarrollo" name="pnDesarrollo.id" from="${mx.gob.redoaxaca.cednna.domino.PNDesarrollo.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.pnDesarrollo?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
+	</div>
 </div>
 <br>
 <div id="div3" class="fieldcontain uk-form-row">
@@ -120,7 +141,9 @@
 			<g:message code="indicador.nombre.label" default="Tema" />
 		
 		</label>
-		<g:select id="tema" name="tema.id" from="${mx.gob.redoaxaca.cednna.domino.Tema.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.tema?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
+		<div class="uk-form-controls">
+			<g:select id="tema" name="tema.id" from="${mx.gob.redoaxaca.cednna.domino.Tema.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.tema?.id}" class="many-to-one"   noSelection="['null': '–No pertenece al PED-']"/>
+		</div>
 
 		</div>
 		
@@ -129,7 +152,9 @@
 				<g:message code="indicador.nombre.label" default="Objetivo PED"/>
 		
 			</label>
-			<textarea  name="objetivoPND" rows="5" cols="40">${indicadorInstance?.objetivoPND}</textarea>
+			<div class="uk-form-controls">
+				<textarea  name="objetivoPND" rows="5" cols="40">${indicadorInstance?.objetivoPND}</textarea>
+			</div>
 		</div>
 		
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
@@ -137,7 +162,9 @@
 				<g:message code="indicador.nombre.label" default="Estrategia" />
 		
 			</label>
-			<g:textField name="estrategia"  value="${indicadorInstance?.estrategia}" style="width:600px;"/>
+			<div class="uk-form-controls">
+				<g:textField name="estrategia"  value="${indicadorInstance?.estrategia}" style="width:600px;"/>
+			</div>
 		</div>
 		
 		<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'nombre', 'error')} ">
@@ -145,7 +172,9 @@
 				<g:message code="indicador.nombre.label" default="Nombre del programa" />
 			
 			</label>
-			<g:textField name="nombrePrograma"  value="${indicadorInstance?.nombrePrograma}" style="width:600px;"/>
+			<div class="uk-form-controls">
+				<g:textField name="nombrePrograma"  value="${indicadorInstance?.nombrePrograma}" style="width:600px;"/>
+			</div>
 		</div>
 	
 	
@@ -157,7 +186,9 @@
 		<g:message code="indicador.frecuencia.label" default="Indicador ODM" />
 
 	</label>
-	<g:select id="objetivosMilenio" name="objetivosMilenio.id" from="${mx.gob.redoaxaca.cednna.domino.ObjetivoMilenio.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.objetivosMilenio?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a un ODM-']"/>
+	<div class="uk-form-controls">
+		<g:select id="objetivosMilenio" name="objetivosMilenio.id" from="${mx.gob.redoaxaca.cednna.domino.ObjetivoMilenio.list()}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.objetivosMilenio?.id}" class="many-to-one"   noSelection="['null': '-No pertenece a un ODM-']"/>
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
@@ -165,7 +196,9 @@
 		<g:message code="indicador.comentarios.label" default="Comentarios adicionales al indicador" />
 		
 	</label>
-	<textarea  id="comentarios" name="comentarios" rows="5" cols="40" required="required">${indicadorInstance?.comentarios}</textarea>
+	<div class="uk-form-controls">
+		<textarea  id="comentarios" name="comentarios" rows="5" cols="40" required="required">${indicadorInstance?.comentarios}</textarea>
+	</div>
 </div>
 
 </div>
@@ -175,7 +208,9 @@
 		<g:message code="indicador.etiquetaPeriodo.label" default="Calcular por periodo" />
 		
 	</label>
-	<g:checkBox name="etiquetaPeriodo" value="${indicadorInstance?.etiquetaPeriodo}" />
+	<div class="uk-form-controls">
+		<g:checkBox name="etiquetaPeriodo" value="${indicadorInstance?.etiquetaPeriodo}" />
+	</div>
 </div>
 
 
@@ -184,7 +219,9 @@
 		<g:message code="indicador.publico.label" default="P&uacute;blico" />
 		
 	</label>
-	<g:checkBox name="publico" value="${indicadorInstance?.publico}" />
+	<div class="uk-form-controls">
+		<g:checkBox name="publico" value="${indicadorInstance?.publico}" />
+	</div>
 </div>
 
 
@@ -200,7 +237,9 @@
 		<g:message code="indicador.nombreResponsable.label" default="Nombre del responsable" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="nombreResponsable"  maxlength="500" required="" value="${indicadorInstance?.nombreResponsable}" style="width:500px;"/>
+	<div class="uk-form-controls">
+		<g:textField name="nombreResponsable"  maxlength="500" required="" value="${indicadorInstance?.nombreResponsable}" style="width:500px;"/>
+	</div>
 </div>
 
 
@@ -210,7 +249,9 @@
 		<g:message code="indicador.areaResponsable.label" default="Área del responsable"  />
 		<span class="required-indicator">*</span>
 	</label>
+	<div class="uk-form-controls">
 		<g:textField name="areaResponsable"  maxlength="500" required="" value="${indicadorInstance?.areaResponsable}"  style="width:500px;" />
+	</div>
 </div>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mailResponsable', 'error')} required">
@@ -218,7 +259,9 @@
 		<g:message code="indicador.mailResponsable.label" default="Email de contacto" />
 		<span class="required-indicator">*</span>
 	</label>
+	<div class="uk-form-controls">
 		<input type="email"  name="mailResponsable" id="mailResponsable"maxlength="1024" required="" value="${indicadorInstance?.mailResponsable}"  style="width:500px;">
+	</div>
 </div>
 
 <br>
@@ -232,7 +275,9 @@
 		<g:message code="indicador.formula.label" default="F&oacute;rmula de cálculo" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="formula" name="formula.id" from="${mx.gob.redoaxaca.cednna.domino.Formula.list()}" optionKey="id" required="" optionValue="nombre" value="${indicadorInstance?.formula?.id}" class="many-to-one"/>
+	<div class="uk-form-controls">
+		<g:select id="formula" name="formula.id" from="${mx.gob.redoaxaca.cednna.domino.Formula.list()}" optionKey="id" required="" optionValue="nombre" value="${indicadorInstance?.formula?.id}" class="many-to-one"/>
+	</div>
 
 </div>
 
@@ -240,7 +285,9 @@
 			<label class="uk-form-label" for="nombre">
 				<g:message code="indicador.nombre.label" default="No. decimales" />
 			</label>
+			<div class="uk-form-controls">
 			<g:select name="decimales" from="${decimalesList }" value="${indicadorInstance?.decimales!=null ? indicadorInstance?.decimales: '2'}"/>
+			</div>
 		</div>
 
 <br>

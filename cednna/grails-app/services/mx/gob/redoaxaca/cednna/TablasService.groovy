@@ -149,29 +149,6 @@ class TablasService {
                 sql += " ORDER BY " +orden+  " " +(params.sSortDir_0 != null ? params.sSortDir_0 : '' ) + ", anio desc, categoria "
             }
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
-        }
-
-
-        boolean editar = false
-        def rol = springSecurityService.getPrincipal().getAuthorities()
-        def metodo = ''
-        def esString = rol instanceof String
-        if(esString){
-            if(rol.equals('ROLE_DEP') || rol.equals('ROLE_ADMIN')){
-                editar = true
-            }    
-        }else{
-            rol.each {
-                if(it.equals('ROLE_DEP')||it.equals('ROLE_ADMIN')){
-                    editar = true
-                }
-            }
-        }        
-
-        if(editar){
-            metodo = 'editaRegistro'
-        }else{
-            metodo = 'monitorRegistro'
         } 
         
         def list = []
@@ -183,16 +160,16 @@ class TablasService {
                 anio = it.anio
             }
             list<<[
-                '0':it.clave,
-                '1':it.descripcion,
-                '2':it.region,
-                '3':it.municipio,                
-                '4':it.categoria,
-                '5':anio,
-                '6':it.poblaciontotal,
-                '7':it.mujeres,
-                '8':it.hombres,
-                '9':"<a onclick='"+metodo+"("+it.id+"); ' class='uk-icon-button uk-icon-edit' href='#'> </a>"
+                it.id,
+                it.clave,
+                it.descripcion,
+                it.region,
+                it.municipio,                
+                it.categoria,
+                anio,
+                it.poblaciontotal,
+                it.mujeres,
+                it.hombres
             ]   
         }
         return list

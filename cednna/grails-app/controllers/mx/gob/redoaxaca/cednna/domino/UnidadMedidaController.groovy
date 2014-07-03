@@ -1,11 +1,14 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+
+import org.springframework.dao.DataIntegrityViolationException
 
 
 @Secured(["hasRole('ROLE_ADMIN')"])
 class UnidadMedidaController {
+	def dataTablesService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -17,6 +20,25 @@ class UnidadMedidaController {
         params.max = Math.min(max ?: 10, 100)
         [unidadMedidaInstanceList: UnidadMedida.list(params), unidadMedidaInstanceTotal: UnidadMedida.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_unidad_medida"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"cum_id as id",
+			"cum_abreviatura as abreviatura",
+			"cum_descripcion as descripcion"
+			],
+			[
+			"cum_abreviatura",
+			"cum_descripcion"
+			],
+			[
+			"id",
+			"abreviatura",
+			"descripcion"
+			],1,"text") as JSON
+	}
 
     def create() {
         [unidadMedidaInstance: new UnidadMedida(params)]

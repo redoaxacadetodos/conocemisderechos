@@ -7,6 +7,8 @@
 		<g:message code="tipo.descripcion.label" default="Descripción" />
 		
 	</label>
-	<g:textField name="descripcion" value="${tipoInstance?.descripcion}"/>
+	<div class="uk-form-controls">
+		<g:textField name="descripcion" value="${tipoInstance?.descripcion}" class="uk-form-width-large"/>
+	</div>
 </div>
 
