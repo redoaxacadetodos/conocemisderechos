@@ -25,6 +25,7 @@ class VariableController {
 	def dataTablesService
 	def tablasService
 	def sessionFactory
+	def dataSource
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	def springSecurityService
 	
@@ -881,11 +882,12 @@ class VariableController {
 			def secuencia= "select max(cvv_id) as ultimo from cat_variable"
 			def resulSec = sql.rows(secuencia)
 			sql.close()
+			
 			resulSec?.each{
 				sec=it.ultimo
 			}
 			
-			def idTemporal
+			int idTemporal
 			def sqlTemporal = new Sql(sessionFactory.currentSession.connection())
 			def sqlSecuencia= "select nextval('sec_tmp_carga')"
 			def result = sqlTemporal.rows(sqlSecuencia)
@@ -909,21 +911,13 @@ class VariableController {
 			Valor servidor = Valor.findByKey("servidor")
 			Valor usuarioSSH = Valor.findByKey("usuario")
 			Valor pem = Valor.findByKey("pem")
-//			String tabla = "CAT_VARIABLE"
 			String tabla = "tmp_carga"
-//			String columnas = "(cvv_anio,cvv_clave,cvv_descripcion,cvv_estado,cvv_hombres,cvv_localidad,cvv_mujeres,cvv_municipio,cvv_poblacion_total,cvv_region,cvv_dependencia,cvv_ped_id)"
 			String columnas = ""
-			
-			
-			
 			
 			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+idTemporal+".csv" )
 			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+idTemporal+".csv", tabla, columnas)
 			
-//			tabla = "CAT_VARIABLE_CATEGORIA"
-//			columnas = ""
-//			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv" )
-//			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCT_"+sec+".csv", tabla, columnas)
+			ejecutarCargarDatos(idTemporal)
 			
 			}catch (Exception e) {
 				println(e.getMessage())
@@ -931,8 +925,19 @@ class VariableController {
 				contadorMalos = contadorBuenos
 				contadorBuenos = 0
 			}
-			[dependencia : dependencia, total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos ,rMalos:renglonesMalos,mensaje:mensaje]
+			render(template:'subirArchivo', model:[total :contadorBuenos+contadorMalos, buenos : contadorBuenos, malos : contadorMalos])
 		}
+	
+	def ejecutarCargarDatos(int id){
+		def sqlProcedicimiento = new Sql(dataSource)
+		def procedimiento= "select cargardatos(${id})"
+		println 'procedimiento:'+procedimiento
+		
+		def datosInsertados = sqlProcedicimiento.rows(procedimiento)
+		
+		println 'datosInsertados:'+datosInsertados
+		sqlProcedicimiento.close()
+	}
 	
 	def ejecutarCopy(String url, String usuario, String rutaPEM, String path, String tabla, String columnas){
 		Valor base
@@ -953,19 +958,34 @@ class VariableController {
 		
 		JSch jsch=new JSch();
 		Session session=jsch.getSession(usuario, url, 22);
-		  jsch.addIdentity(rutaPEM);
-		  Properties config2 = new Properties();
-		  config2.put("StrictHostKeyChecking", "no");
-		  session.setConfig(config);
-		  session.connect();
+		jsch.addIdentity(rutaPEM);
+		Properties config2 = new Properties();
+		config2.put("StrictHostKeyChecking", "no");
+		session.setConfig(config);
+		session.connect();
 	   
-		  ChannelExec channel=(ChannelExec) session.openChannel("exec");
-		  channel.setCommand(sshCommand);
-		  channel.connect();
-	   
-		  channel.disconnect();
-		  session.disconnect();
+		ChannelExec channel=(ChannelExec) session.openChannel("exec");
+		channel.setCommand(sshCommand);
 		
+		channel.setErrStream(System.err);
+		InputStream input = channel.getInputStream();
+		
+		channel.connect();
+		
+		InputStream is = channel.getInputStream();
+		BufferedReader inp = new BufferedReader(new InputStreamReader(is));
+
+		String line;
+		while ((line = inp.readLine()) != null || !channel.isClosed()) {
+			if (line != null) {
+				println line + '\n'
+			}
+		}
+		inp.close();
+		is.close();
+		
+		channel.disconnect();
+		session.disconnect();
 	}
 	
 	def enviarArchivo(String url, String usuario, String rutaPEM, String path){

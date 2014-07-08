@@ -95,7 +95,6 @@
 				params: '\'idTipo=\' + select +\'&idArea=\' + selectVal',
 				update: 'grafica',
 				onLoading: "mostrarCargandoImg('grafica')",
-				onLoaded: "ocultarCargandoImg('grafica')",										 
 				id: indicadorInstance?.id 
 			 ) }
 	}
@@ -117,7 +116,7 @@
 	  $(function () {
 		  $( "#tabs" ).tabs();
             	        
-	        $('#myTab a').click(function (e) {
+	       $('#myTab a').click(function (e) {
 	      	  e.preventDefault();
 	      	  $(this).tab('show');
 	      	})
@@ -127,10 +126,6 @@
 	  		$( "#"+div ).html("<div align='center'><img height='80px' width='80px' alt='cargando' src='${resource(dir:'images',file:'loading.gif') }'></div>")											
 		}
 
-		function ocultarCargandoImg(div){
-			$( "#"+div ).html("")			
-		}
-				
 		function goToByScroll(id){
 			loadScript();		      
 		    id = id.replace("link", "");
@@ -182,7 +177,7 @@
 				<table style="text-align: center">
 			  		<tr>
 			  			<th rowspan="2" valign="middle">Indicador</th>
-			  			<th colspan="${resultados?.size()-1}">Variación</th>			  			
+			  			<th colspan="${resultados?.size()!=null?resultados?.size()-1:'0'}">Variación</th>			  			
 			  		</tr>
 			  		<tr>			  			
 			  			<g:set value="false" var="imprimir"></g:set>

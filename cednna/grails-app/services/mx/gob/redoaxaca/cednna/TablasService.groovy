@@ -217,7 +217,6 @@ class TablasService {
             }
             sql += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
         }
-        println 'sql:'+sql
 
         def list = []
         def indicadores = executeQuery(sql)

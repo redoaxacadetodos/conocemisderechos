@@ -25,17 +25,19 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form action="save" class="uk-form uk-form-horizontal">
 				<fieldset class="form">
 					<g:render template="form"/>
 					<g:hiddenField name="idTipo" value="${tipoInstance?.id }"/>
 				</fieldset>
-	<fieldset class="uk-form uk-form-horizontal">
-		<div class="fieldcontain">
-					<g:submitButton name="create" class="save uk-button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-					</div>
-				</fieldset>
-			</g:form>
+			<fieldset class="uk-form-horizontal">
+				<div class="fieldcontain">
+					<button onclick="form.submit();" class="uk-button uk-button-primary">
+						<i class="uk-icon-small uk-icon-edit"></i> ${message(code: 'default.button.create.label', default: 'Create')}
+					</button>
+				</div>
+			</fieldset>
+		</g:form>
 		</div>
 	</body>
 </html>

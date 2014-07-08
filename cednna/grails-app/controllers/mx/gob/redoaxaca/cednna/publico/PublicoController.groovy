@@ -11,6 +11,7 @@ import javax.script.ScriptEngineManager
 
 import mx.gob.redoaxaca.cednna.domino.*
 
+import org.apache.commons.lang.StringUtils
 import org.jggug.kobo.commons.lang.CollectionUtils
 
 import com.redoaxaca.java.DetalleIndicador
@@ -222,84 +223,23 @@ class PublicoController {
 	}
 	
 	def mostrarIndicador(Long id){
-		//Crear vista de detalles
 		def indicador = Indicador.get(id)
 		
 		if(indicador){
-			def decimales = indicador?.decimales
 			params.paginado = false
 			DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,1,params)
-			def resultadosIndicador = detalleIndicador?.resultados
-			def resultados = []
-			def coordenadasList = []
-			def nulo = true
-		
-			//Buscar datos para Google Maps
-			def ubicaciones = []
-			def aux = [:]
-			def ubicacioneString = []
-				
-			def nombreCoordenadas = []
-			
-			resultadosIndicador.each { resultado ->
-				resultados = resultado.resultados
-			}
-						
-//			resultadosIndicador.each { resultado ->
-//				def idEstado = 20
-//				
-//				def sql = "select coor.latitud, coor.longitud from coordenada coor join cat_entidad_coordenada ccoo on (coor.id = ccoo.coordenada_id) where ccoo.estado_coordenadas_id = "+idEstado
-//				def db = new Sql(dataSource)
-//				def result  = db.rows(sql)
-//				def coordenadas = []
-//				result.each {
-//					coordenadas.add("new google.maps.LatLng(" + it?.latitud + ","+it?.longitud+")")
-//				}
-//				coordenadasList.add(coordenadas)
-//				
-//				def db2 = new Sql(dataSource)
-//				
-//				def datosIndicador = []
-//				def anios = []
-//				
-//				resultados = resultado.resultados
-//				
-//				resultado.resultados.each { r ->
-//					anios.add(r?.anio)
-//					datosIndicador.add(r?.indicador.round(decimales))
-//					if(r?.indicador!=null){
-//						nulo=false
-//					}
-//				}
-//				
-//				nombreCoordenadas.add("'"+"Oaxaca"+"'")
-//				ubicaciones.add(["descripcion": "Oaxaca", "anios":anios, "datos": datosIndicador])
-//			}
-//			aux.put("lugar",["ubicaciones":ubicaciones])
-//			def jsondata = aux as JSON
-			//[ubicaciones: ubicacioneString, aux: jsondata,nombreCoordenadas:nombreCoordenadas]
-			
-			if(nulo){
-				resultadosIndicador = null
-			}
 			
 			//Cambiar f—rmula
 			String formula = crearFormula(indicador)
 						
 			def tamVariables = indicador.variables.size()
-//			def datosCalculo = detalleIndicador.rVariables
-//			[resultadosIndicador:resultadosIndicador, datosCalculo: datosCalculo]
 			
 			def eje = Eje.get(params.ejeInstance.toLong())
-			def nombreIndicador = ""
 			int maximaLongitud = 55
 			
-			if (indicador?.nombre.length()>maximaLongitud)
-				nombreIndicador = String.format('%1$2.'+maximaLongitud+'s', indicador?.nombre) + '...'
-			else
-				nombreIndicador =  indicador?.nombre
-					
-			[resultados:resultados,nombreIndicador: nombreIndicador, ejeInstance:eje, indicadorInstance: indicador, resultados:resultados,  tipo:'1',coordenadasList:coordenadasList, tamVariables:tamVariables, formula:formula]
+			def nombreIndicador = StringUtils.abbreviate(indicador?.nombre,maximaLongitud)
+			
+			[resultados:detalleIndicador?.resultados?.resultados[0],nombreIndicador: nombreIndicador, ejeInstance:eje, indicadorInstance: indicador, tipo:'1', tamVariables:tamVariables, formula:formula]
 		}
 		else{
 			redirect(action:"indicadores")
@@ -476,7 +416,7 @@ class PublicoController {
 		def jsondata = null
 		
 		def indicador = Indicador.get(id)
-		def decimales = indicador?.decimales
+		def decimales= indicador?.decimales
 		params.paginado = false
 		DetalleIndicador detalleIndicador = visorIndicadorPaginado(id,tipo,params)
 	
@@ -494,7 +434,6 @@ class PublicoController {
 			
 			for(int i=0;i<detalleIndicador.resultados.size();i++){
 				def resultado = detalleIndicador.resultados.get(i)
-				println 'resultado.idRegion:' + resultado.idRegion + ".."+params.idArea
 				if(tipo==2){
 					if(resultado.idRegion.toString().equals(params.idArea)){
 						resultadosIndicador = resultado
@@ -613,12 +552,7 @@ class PublicoController {
 			order by 2
 		"""
 		
-		
-		
-		println  'sqlAnios:'+sqlAnios
-		
-		String anios = "select DISTINCT (cvv_anio) as anio from cat_variable where" + claves + " order by 1"
-		println  'anios:'+anios
+		println 'sqlAnios:'+sqlAnios
 		
 		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
 		def titulos = sqlAnio.rows(sqlAnios)
@@ -648,7 +582,7 @@ class PublicoController {
 		aniosPorBuscar.each{
 			def anio = it.anio
 			boolean  b = true
-			println 'opcion:'+opcion + ' a–o:'+anio
+			//println 'opcion:'+opcion + ' a–o:'+anio
 			
 			switch (opcion) {
 
@@ -699,17 +633,17 @@ class PublicoController {
 								" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+ vari.id+") group by ctt_id"
 
 						def resultTipo
-						println 'Query1:'+queryTipo
+						//println 'Query1:'+queryTipo
 						def result = sql.rows(queryTipo.toString())
 
 						def tamTipo =result.size()
 						def cc=1
-						println 'result:'+result
-						println 'result.size():'+result.size()
+						//println 'result:'+result
+//						println 'result.size():'+result.size()
 						result?.each{
 							def queryCat="select cct_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
 									" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+  vari.id+" ) and ctt_id ="+ it.ctt_id
-							println 'Query2:'+queryCat
+//							println 'Query2:'+queryCat
 							resultTipo= sql.rows(queryCat.toString())
 							def tam =resultTipo.size()
 							def c=1
@@ -732,22 +666,22 @@ class PublicoController {
 						}
 
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
-						println 'Query3:'+query
+//						println 'Query3:'+query
 						def resultTotal = sql.rows(query.toString())
 
 						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
 						def descripcionVariable = sql.rows(queryVariable.toString())
 
 						if(resultTotal.size()>0){
-							System.out.println("*LA CONSULTA ES : "+query);
-							println 'resultTotal.size():'+resultTotal.size()
+//							System.out.println("*LA CONSULTA ES : "+query);
+//							println 'resultTotal.size():'+resultTotal.size()
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 
 							resultTotal?.each
 							{
 								//System.out.println("LA CONSULTA ES : "+query);
-								System.out.println("Variable "+vari.clave+" Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+//								System.out.println("Variable "+vari.clave+" Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
@@ -793,7 +727,7 @@ class PublicoController {
 								formula=formula.replaceAll(var.letra, String.valueOf(var?.valores?.get(0)?.indicador))
 							}
 						}
-						System.out.println(formula);
+//						System.out.println(formula);
 
 						ResultadoTemporal rTemp = new ResultadoTemporal()
 
@@ -821,7 +755,7 @@ class PublicoController {
 				 * Comienza el proceso de ordenamiento para salida
 				 * */
 				//												System.out.println("Valor final : "+listTemp.size()+ "anio"+anio );
-				println 'listTemp:'+listTemp
+//				println 'listTemp:'+listTemp
 					listTemp.each { actual->
 						def ban=0
 						if(resultados.size()>0){
@@ -901,7 +835,7 @@ class PublicoController {
 						def queryTipo="select ctt_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
 								" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+ vari.id+") group by ctt_id"
 
-						println 'queryTipo1:'+queryTipo
+//						println 'queryTipo1:'+queryTipo
 						def resultTipo
 						def result = sql.rows(queryTipo.toString())
 
@@ -911,7 +845,7 @@ class PublicoController {
 
 							def queryCat="select cct_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
 									" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+  vari.id+" ) and ctt_id ="+ it.ctt_id
-							println 'queryCat2:'+queryCat
+//							println 'queryCat2:'+queryCat
 							resultTipo= sql.rows(queryCat.toString())
 							def tam =resultTipo.size()
 							def c=1
@@ -951,13 +885,13 @@ class PublicoController {
 							query += " LIMIT "+ (params.iDisplayLength != null ?params.iDisplayLength:'10') +" OFFSET " + (params.iDisplayStart!=null?params.iDisplayStart:'0')
 						}
 
-						println 'query3:'+query
+//						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 						
 						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
 						def descripcionVariable = sql.rows(queryVariable.toString())
-						println '-------------resultTotal.size:'+resultTotal.size()
+						
 						if(resultTotal.size()>0){
 							//System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
@@ -1010,7 +944,6 @@ class PublicoController {
 						letra=rVariables.get(0).valores.size()
 
 						rVariables.each {
-							println 'it.valores.size()<num:' + it.valores.size + ' num:'+num
 							if( it.valores.size()<num){
 								num=it.valores.size()
 								letra=it.letra
@@ -1018,10 +951,7 @@ class PublicoController {
 							}
 						}
 						
-						println '-----valorBase:'+valorBase
 						valorBase.each {base->
-							println 'base.indicador:'+base.indicador
-							println 'letra:'+letra
 							formula=formula.replaceAll(letra, String.valueOf(base.indicador))
 							rVariables.each {
 								var->
@@ -1033,7 +963,7 @@ class PublicoController {
 									}
 								}
 							}
-							System.out.println(formula);
+//							System.out.println(formula);
 
 							ResultadoTemporal rTemp = new ResultadoTemporal()
 
@@ -1050,7 +980,6 @@ class PublicoController {
 								listTemp.add(rTemp)
 
 							} catch (Exception e) {
-							println 'excepcion:'+rTemp.resultadoIndicador
 								rTemp.resultadoIndicador = null
 								rTemp.region= base.region
 								rTemp.idRegion= base.idRegion
@@ -1060,7 +989,6 @@ class PublicoController {
 
 							formula= indicadorInstance?.formula?.sentencia
 						}
-						println 'listTemp:'
 						/***
 					 * Comienza el proceso de ordenamiento para salida
 					 * */
@@ -1184,7 +1112,7 @@ class PublicoController {
 						def queryTipo="select ctt_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
 								" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+ vari.id+") group by ctt_id"
 
-						println 'queryTipo1:'+queryTipo
+//						println 'queryTipo1:'+queryTipo
 						def resultTipo
 						def result = sql.rows(queryTipo.toString())
 
@@ -1193,7 +1121,7 @@ class PublicoController {
 						result?.each{
 							def queryCat="select cct_id from cat_categoria ca ,cat_tipo ct where ca.cct_ctt_id=ct.ctt_id "+
 									" and ca.cct_id in ( select cdc_cct_id from cat_dvariable_categoria where cdc_cdv_id = "+  vari.id+" ) and ctt_id ="+ it.ctt_id
-							println 'queryCat2:'+queryCat
+//							println 'queryCat2:'+queryCat
 							resultTipo= sql.rows(queryCat.toString())
 							def tam =resultTipo.size()
 							def c=1
@@ -1237,16 +1165,16 @@ class PublicoController {
 						
 						
 
-						println 'query3:'+query
+//						println 'query3:'+query
 						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
-						println 'resultTotal:'+resultTotal
+//						println 'resultTotal:'+resultTotal
 						
 						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
 						def descripcionVariable = sql.rows(queryVariable.toString())
 						
 						if(resultTotal.size()>0){
-							System.out.println("LA CONSULTA ES : "+query);
+//							System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 
@@ -1307,7 +1235,7 @@ class PublicoController {
 
 							}
 						}
-						println 'valorBase:' + valorBase
+						
 						valorBase.each {base->
 							formula=formula.replaceAll(letra, String.valueOf(base.indicador))
 							rVariables.each {
@@ -1354,8 +1282,6 @@ class PublicoController {
 						/***
 					 * Comienza el proceso de ordenamiento para salida
 					 * */
-						println 'listTemp:'+listTemp
-						println 'resultados:'+resultados
 						listTemp.each {
 							actual->
 							def ban=0
@@ -1546,14 +1472,14 @@ class PublicoController {
 								def resultTotal = sql.rows(query.toString())
 		
 								if(resultTotal.size()>0){
-																										System.out.println("LA CONSULTA ES : "+query);
+//																										System.out.println("LA CONSULTA ES : "+query);
 									temVar= new RVariable()
 									temVar.letra=vari.clave
 		
 									resultTotal?.each
 									{
 										//System.out.println("LA CONSULTA ES : "+query);
-										System.out.println("Variable "+vari.clave+" Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
+//										System.out.println("Variable "+vari.clave+" Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 										ResultadoTemporal valorTem = new ResultadoTemporal()
 										switch (vari.poblacion.clave) {
 											case "H":
@@ -1603,7 +1529,7 @@ class PublicoController {
 									formula=formula.replaceAll(var.letra, String.valueOf(var.valores.get(0).indicador))
 		
 								}
-								System.out.println(formula);
+//								System.out.println(formula);
 		
 								ResultadoTemporal rTemp = new ResultadoTemporal()
 		
@@ -1852,7 +1778,7 @@ class PublicoController {
 										}
 		
 									}
-									System.out.println(formula);
+//									System.out.println(formula);
 		
 									ResultadoTemporal rTemp = new ResultadoTemporal()
 		
@@ -2047,7 +1973,7 @@ class PublicoController {
 								def resultTotal = sql.rows(query.toString())
 		
 								if(resultTotal.size()>0){
-									System.out.println("LA CONSULTA ES : "+query);
+//									System.out.println("LA CONSULTA ES : "+query);
 									temVar= new RVariable()
 									temVar.letra=vari.clave
 		
@@ -2139,7 +2065,7 @@ class PublicoController {
 										}
 		
 									}
-									System.out.println(formula);
+//									System.out.println(formula);
 		
 									ResultadoTemporal rTemp = new ResultadoTemporal()
 		

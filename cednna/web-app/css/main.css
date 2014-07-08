@@ -24,6 +24,11 @@ img {
 	text-indent: -9999px;
 }
 
+.centrado {
+	margin: 0 auto;
+	text-align: center;
+}
+
 /* NAVIGATION MENU */
 
 .nav {

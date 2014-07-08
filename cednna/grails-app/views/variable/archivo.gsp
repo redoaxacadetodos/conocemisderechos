@@ -167,7 +167,8 @@
 	}
 
 	function mostrarCargado(){
-		$("#resultado").show();
+		$("#respuesta").html('');
+		$("#barraCarga").show();
 	}
 	</script>
 </head>
@@ -282,40 +283,56 @@
 		</div>
 	</g:form>
 	
-	<div id="respuesta"></div>
-<%--	<g:formRemote name="formArchivo" method="post" url="[controller: 'variable', action: 'subirArchivo']" enctype="multipart/form-data">--%>
-<%--		<fieldset class="uk-form uk-form-horizontal">--%>
-<%--			<div class="fieldcontain">--%>
-<%--				<input type="file" id="fileBase" name="fileBase" onchange="mostrarProcesarArchivo();"--%>
-<%--					class="uk-form"></input>--%>
-<%--			</div>--%>
-<%--			<br /> <input type="submit" id="Procesar" name="Procesar" class="uk-button"--%>
-<%--				value="Procesar archivo" onclick="mostrarCargado();" style="display:none;">--%>
-<%--		</fieldset>--%>
-<%--	</g:formRemote>--%>
 	<g:form name="formArchivo" action="subirArchivo" controller="variable" method="post" enctype="multipart/form-data">
 		<fieldset class="uk-form uk-form-horizontal">
 			<div class="fieldcontain">
-				<input type="file" id="fileBase" name="fileBase" onchange="mostrarProcesarArchivo();"
+				<input type="file" id="fileBase" name="fileBase" onchange="mostrarProcesarArchivo();" accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 					class="uk-form"></input>
 			</div>
 			<br /> <input type="submit" id="Procesar" name="Procesar" class="uk-button"
-				value="Procesar archivo" onclick="spinerLoad('Procesando datos...');" style="display:none;">
+				value="Procesar archivo" onclick="mostrarCargado();" style="display:none;">
 		</fieldset>
 	</g:form>
 	
-<%--	<div id="resultado" style="display:none">--%>
-<%--		<div id="noTrespassingOuterBarG">--%>
-<%--			<div id="noTrespassingFrontBarG" class="noTrespassingAnimationG">--%>
-<%--				<div class="noTrespassingBarLineG"></div>--%>
-<%--				<div class="noTrespassingBarLineG"></div>--%>
-<%--				<div class="noTrespassingBarLineG"></div>--%>
-<%--				<div class="noTrespassingBarLineG"></div>--%>
-<%--				<div class="noTrespassingBarLineG"></div>--%>
-<%--				<div class="noTrespassingBarLineG"></div>--%>
-<%--			</div>--%>
-<%--		</div>	--%>
-<%--	</div>--%>
+	<div id="respuesta"></div>
+	
+	<div id="barraCarga" style="display:none;">
+		<div id="noTrespassingOuterBarG" class="centrado">
+			<div id="noTrespassingFrontBarG" class="noTrespassingAnimationG">
+				<div class="noTrespassingBarLineG"></div>
+				<div class="noTrespassingBarLineG"></div>
+				<div class="noTrespassingBarLineG"></div>
+				<div class="noTrespassingBarLineG"></div>
+				<div class="noTrespassingBarLineG"></div>
+				<div class="noTrespassingBarLineG"></div>
+			</div>
+		</div>	
+	</div>
+	
+	<script type="text/javascript">
+		$(document).ready(function (e) {
+		    $('#formArchivo').on('submit',(function(e) {
+		        e.preventDefault();
+		        var formData = new FormData(this);
+	
+		        $.ajax({
+		            type:'POST',
+		            url: $(this).attr('action'),
+		            data:formData,
+		            cache:false,
+		            contentType: false,
+		            processData: false,
+		            success:function(data){
+		            	$("#barraCarga").hide();
+		            	$("#respuesta").html(data);
+		            },
+		            error: function(data){
+			            alert("Error al procesar el archivo");
+		            }
+		        });
+		    }));
+		});
+	</script>
 	
 </body>
 
