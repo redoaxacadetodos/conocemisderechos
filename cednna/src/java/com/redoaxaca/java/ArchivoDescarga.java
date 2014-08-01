@@ -58,7 +58,7 @@ public class ArchivoDescarga {
 	        for(ResultCategorias s : cts){
 	        		cont++;
 	        		 cellCabecera = rowCabecera.createCell(cont);
-	        	   cellCabecera.setCellValue(s.tipo.getDescripcion());
+	        	   cellCabecera.setCellValue("id_"+s.tipo.getDescripcion());
 	              
 	        	   cont++;
 	      		 cellCabecera = rowCabecera.createCell(cont);
@@ -134,7 +134,7 @@ public class ArchivoDescarga {
 	        for(ResultCategorias s : cts){
 	        		cont++;
 	        		 cellCabecera = rowCabecera.createCell(cont);
-	        	   cellCabecera.setCellValue(s.tipo.getDescripcion());
+	        	   cellCabecera.setCellValue("id_"+s.tipo.getDescripcion());
 	              
 	        	   cont++;
 	      		 cellCabecera = rowCabecera.createCell(cont);
@@ -224,7 +224,7 @@ public class ArchivoDescarga {
 	        for(ResultCategorias s : cts){
 	        		cont++;
 	        		 cellCabecera = rowCabecera.createCell(cont);
-	        	   cellCabecera.setCellValue(s.tipo.getDescripcion());
+	        	   cellCabecera.setCellValue("id_"+s.tipo.getDescripcion());
 	              
 	        	   cont++;
 	      		 cellCabecera = rowCabecera.createCell(cont);

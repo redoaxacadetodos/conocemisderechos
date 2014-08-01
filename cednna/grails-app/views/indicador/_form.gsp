@@ -65,7 +65,6 @@
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'ejecutora', 'error')} required">
 	<label class="uk-form-label"for="ejecutora">
 		<g:message code="indicador.ejecutora.label" default="Unidad administrativa ejecutora" />
-		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
 		<g:select id="ejecutora" name="ejecutora.id" from="${mx.gob.redoaxaca.cednna.domino.UnidadEjecutora.list()}" optionKey="id"  optionValue="descripcion" required="" value="${indicadorInstance?.ejecutora?.id}" class="many-to-one"/>

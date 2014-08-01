@@ -48,7 +48,6 @@ class LeerExcell {
 	int opcion =0;
 	int numCategorias =0;
 	def usuario = null
-	//springSecurityService.currentUser
 
 	def archivo
 
@@ -58,40 +57,13 @@ class LeerExcell {
 
 		try {
 			def sFileNameCv=path+"csvCV_"+actual+".csv"
-//			def sFileNameCt=path+"csvCT_"+actual+".csv"
 			def contadorBuenos = 0
 			def contadorMalos = 0
 			def contador = 0
 			def mensaje=""
 
-			//FileWriter writer = new FileWriter(sFileNameCv);
-
 			Writer writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCv), "UTF-8"));
 
-//			writer.append("cvv_anio");
-//			writer.append(',');
-//			writer.append("cvv_clave");
-//			writer.append(',');
-//			writer.append("cvv_descripcion");
-//			writer.append(',');
-//			writer.append("cvv_estado");
-//			writer.append(',');
-//			writer.append("cvv_hombres");
-//			writer.append(',');
-//			writer.append("cvv_localidad");
-//			writer.append(',');
-//			writer.append("cvv_mujeres");
-//			writer.append(',');
-//			writer.append("cvv_municipio");
-//			writer.append(',');
-//			writer.append("cvv_poblacion_total");
-//			writer.append(',');
-//			writer.append("cvv_region");
-//			writer.append(',');
-//			writer.append("cvv_dependencia");
-//			writer.append(',');
-//			writer.append("cvv_ped_id");
-		
 			writer.append("id");
 			writer.append(',');
 			writer.append("anio");
@@ -141,14 +113,6 @@ class LeerExcell {
 
 			writer.append('\n');
 
-			//  FileWriter writerCT = new FileWriter(sFileNameCt);
-//			Writer writerCT = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCt), "UTF-8"));
-//
-//			writerCT.append("cvc_cvv_id");
-//			writerCT.append(',');
-//			writerCT.append("cvc_cct_id");
-//			writerCT.append('\n');
-
 			FileInputStream fileInputStream = new FileInputStream(fileName);
 			XSSFWorkbook workBook = new XSSFWorkbook(fileInputStream);
 			int numeroHojas = workBook.getNumberOfSheets();
@@ -172,7 +136,6 @@ class LeerExcell {
 				case 1:
 					for(i=5;i<=total; i++){
 						boolean periodo = false
-//						actual++
 						
 						writer.append(actual.toString());
 						writer.append(',');
@@ -212,11 +175,8 @@ class LeerExcell {
 						}else{
 							writer.append(null);
 						}
-						
-//						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){
-//							writerCT.append(actual.toString());
 							writer.append(',');
 							writer.append(new Double(hssfSheet.getRow(i).getCell(x+4).getNumericCellValue()).longValue().toString());
 							
@@ -235,7 +195,6 @@ class LeerExcell {
 				case 2:
 					for(i=5;i<=total; i++){
 						boolean periodo = false
-//						actual++
 						
 						writer.append(actual.toString());
 						writer.append(',');
@@ -276,14 +235,10 @@ class LeerExcell {
 						}else{
 							writer.append(null);
 						}
-						
-//						writer.append('\n');
 
 						for(int x=1;x<=(numCategorias*2); x++){
-//							writerCT.append(actual.toString());
 							writer.append(',');
 							writer.append(new Double(hssfSheet.getRow(i).getCell(x+6).getNumericCellValue()).longValue().toString());
-//							writer.append('\n');
 							x++;
 						}
 						for(int j=numCategorias;j<10;j++){
@@ -298,7 +253,6 @@ class LeerExcell {
 				case 3:
 					println '---------municipios'
 					for(i=5;i<=total; i++){
-//						actual++
 						boolean periodo = false
 						
 						writer.append(actual.toString());
@@ -340,15 +294,11 @@ class LeerExcell {
 						}else{
 							writer.append(null);
 						}
-//						writer.append('\n');
-						
 						
 
 						for(int x=1;x<=(numCategorias*2); x++){
-//							writerCT.append(actual.toString());
 							writer.append(',');
 							writer.append(new Double(hssfSheet.getRow(i).getCell(x+8).getNumericCellValue()).longValue().toString());
-//							writer.append('\n');
 							x++;
 						}
 						for(int j=numCategorias;j<10;j++){
@@ -363,8 +313,6 @@ class LeerExcell {
 
 			writer.flush();
 			writer.close();
-//			writerCT.flush();
-//			writerCT.close();
 
 		} catch (Exception e) {
 			total = 4;

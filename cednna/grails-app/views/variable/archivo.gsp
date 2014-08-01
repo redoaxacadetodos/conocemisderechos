@@ -218,16 +218,6 @@
 
 		</g:else>
 
-<%--		<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">--%>
-<%--			<label class="uk-form-label" for="anio"> <g:message--%>
-<%--					code="variable.anio.label" default="Año" /> <span--%>
-<%--				class="required-indicator">*</span>--%>
-<%--			</label>--%>
-<%--			<div class="uk-form-controls">--%>
-<%--				<select id="anio" name="anio" style="width: 150px"></select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-		
 		<g:hiddenField name="tipoPeriodo" value="false"/>
 		
 		<div id="divAnio" class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
