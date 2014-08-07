@@ -223,9 +223,9 @@ class TablasService {
         def url = ""
         indicadores.each{
             if(it.url){
-                url = "<a href='"+it.url+"' class='uk-icon-button uk-icon-edit'> </a>"
+                url = "<a href='"+it.url+"' class='uk-icon-button uk-icon-search'> </a>"
             }else{
-                url = "<a href='publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-edit'> </a>"
+                url = "<a href='publico/mostrarIndicador/"+it.id+"?ejeInstance="+it.ejeid+"' class='uk-icon-button uk-icon-search'> </a>"
             }
 
             list<<[

@@ -13,7 +13,7 @@ environments {
 			username = "postgres"
 			password = "t3mp0r4l"
 			//url = "jdbc:postgresql://172.31.0.101:5432/cednna_t"
-			url = "jdbc:postgresql://172.31.0.101:5432/cednna_dev_280314"
+			url = "jdbc:postgresql://172.31.0.101:5432/prod_cednna_060814"
             dbCreate = "update"
         }
     }

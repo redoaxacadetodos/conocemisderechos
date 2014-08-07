@@ -205,7 +205,7 @@
 					  		<g:if test="${imprimirDatos=='true'}">
 					  			<g:if test="${resultado?.indicador!=null && anio!='null'}">
 			  					<td>			  					
-			  					${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100.0} puntos					
+			  					${resultado?.indicador-anio==0 ? 0 : Math.round( (resultado?.indicador-anio) * 100.0 ) / 100} puntos
 			  					</td>
 			  					<g:set value="${resultado?.indicador}" var="anio"></g:set>
 			  					</g:if>
@@ -253,7 +253,7 @@
 	  		
 	  		<tr class="even"><td class="marked">Medios de verificación:</td>
 	  		<td><g:each var="variable" in="${ indicadorInstance?.variables?.sort{it?.clave}}">
-	  			<p>${variable?.clave} = ${variable?.descripcion==null?variable?.descripcion:'No existe información'} </p>
+	  			<p>${variable?.clave} = ${variable?.descripcion!=''?variable?.descripcion:'No existe información'} </p>
 	  		</g:each></td></tr>
 	  		<tr class="odd"><td class="marked">Comentarios técnicos:</td><td>${indicadorInstance?.comentarios }</td></tr>
 	  		<tr class="even"><td class="marked">Fecha de actualización:</td><td><g:formatDate type="date" style="LONG" date="${indicadorInstance?.fechaActualizacion }"/></td></tr>	  		  		

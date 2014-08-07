@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>CEDNNA</title>
+		<title>Mis derechos</title>
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
