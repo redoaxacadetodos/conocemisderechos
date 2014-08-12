@@ -52,11 +52,11 @@
 						{ "sTitle": "Año/Ciclo" },
 						{ "sTitle": "Población total" },
 						{ "sTitle": "Mujeres" },
-						{ "sTitle": "Hombre" },
+						{ "sTitle": "Hombres" },
 						{ "sTitle": "Opciones", mData:muestraBoton }
 					],
 					"aoColumnDefs": [
-						{ 'bSortable': false, 'aTargets': [ 9 ] }
+						{ 'bSortable': false, 'aTargets': [ 10 ] }
 					],
 					"aaSorting": [[ 0, "asc" ]]
 					

@@ -3,7 +3,7 @@
 	<head>
 		<title>Mis derechos</title>
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+		<link rel="shortcut icon" type="${request.getContextPath()}/img/favicon.ico" href="${request.getContextPath()}/img/favicon.ico" type="image/x-icon"/>
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">

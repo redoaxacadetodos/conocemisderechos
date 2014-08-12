@@ -602,9 +602,13 @@ class PublicoController {
 						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
 						def intervalos = sql.rows(intervaloSql)
 						int intervalo
+						
 						intervalos.each{
 							intervalo = it.intervalo.toInteger()
 						}
+						
+						
+						println 'intervalo:'+intervalo
 
 						def query = "SELECT "+
 								"clave, "+
@@ -635,7 +639,7 @@ class PublicoController {
 						def resultTipo
 						//println 'Query1:'+queryTipo
 						def result = sql.rows(queryTipo.toString())
-
+						
 						def tamTipo =result.size()
 						def cc=1
 						//println 'result:'+result
@@ -668,6 +672,7 @@ class PublicoController {
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
 //						println 'Query3:'+query
 						def resultTotal = sql.rows(query.toString())
+						println 'query:'+query
 
 						def queryVariable = "select cod_descripcion descripcion from cat_origen_datos where  cod_clave='${vari.claveVar}'"
 						def descripcionVariable = sql.rows(queryVariable.toString())

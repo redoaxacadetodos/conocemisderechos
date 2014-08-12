@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>CEDNNA</title>
+		<title>Mis derechos</title>
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+		<link rel="shortcut icon" type="${request.getContextPath()}/img/favicon.ico" href="${request.getContextPath()}/img/favicon.ico" type="image/x-icon"/>
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
@@ -54,7 +54,7 @@
 
 <%-- <li><g:link controller="Indicador" class="iconobar icono_invierte" data-uk-tooltip="{pos:'bottom'}" title="Inversión Social e Infancia"></g:link>	</li> --%>	
 		<li><g:link class="iconobar icono_home" controller="publico" action="indicadores" data-uk-tooltip="{pos:'bottom'}" title="Inicio"></g:link></li>
-		<li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>
+<%--		<li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>--%>
 		<li><g:link class="iconobar icono_directorio" controller="publico" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
 		<li><g:link class="iconobar icono_contacto" controller="publico" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
 		<li><g:link class="iconobar icono_ayuda"  controller="publico" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
