@@ -72,7 +72,8 @@ class PublicoController {
 	}
 	
 	def indicadores = {
-		
+		def urlvideo = Valor.findByKey('urlvideo').valor
+		[urlvideo: urlvideo]
 	}
 		
 	def contacto = {

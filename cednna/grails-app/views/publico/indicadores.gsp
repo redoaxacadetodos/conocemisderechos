@@ -98,7 +98,7 @@
 	</div>
 </div>
 	
-<a id="linkyoutube" href="https://www.youtube.com/watch?v=dzlPdjD_3is&feature=youtu.be" rel="intro" title=""></a>
+<a id="linkyoutube" href="${urlvideo}" rel="intro" title=""></a>
 
 
 
