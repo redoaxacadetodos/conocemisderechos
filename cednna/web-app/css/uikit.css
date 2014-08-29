@@ -1400,6 +1400,9 @@ iframe {
   background: #AEE7E8;
   color: #444444;
 }
+.colorpanelbox {
+  background: #ffffff;
+}
 .uk-panel-box .uk-panel-title {
   color: #444444;
 }

@@ -16,12 +16,67 @@
 	<body>
 		<br><br>
 		<a href="#list-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-				  <div class="body">
-				  
-				  <g:datatablehelper ctrlid="direcotrioid"  cols="['ID','Nombre','Cargo','Dependencia','Correo','Tel&eacute;fono de Oficina','P&aacute;gina WEB']" 
-				  class="table table-striped table-bordered"></g:datatablehelper>
+				  <div class="uk-overflow-container">
+					  <g:datatablehelper ctrlid="direcotrioid"  cols="['ID','Nombre','Cargo','Dependencia','Correo','Tel&eacute;fono de Oficina','P&aacute;gina WEB']" class="uk-table uk-table-hover uk-table-striped">
+					  </g:datatablehelper>
 				  </div>
-				  <script src="${resource(dir: 'js', file: 'jquery.dataTables.js')}"></script>
+				  <div class="uk-grid body">
+				  	  <div class="uk-width-1-1">
+					  	<div class="uk-panel ">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/inegi.jpg" alt="Inegi">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/contraloria.jpg" alt="Secretaría de la Contraloría y Transparencia Gubernamental">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/ciedd.jpg" alt="CIEDD">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/cednna.jpg" alt="CEDNNA">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/ddhpo.jpg" alt="DDHPO">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/dif.jpg" alt="DIF">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/ieepo.jpg" alt="IEEPO">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/digepo.jpg" alt="DIGEPO">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-3 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/pgje.jpg" alt="PGJE">
+					  	</div>
+					  </div>
+					  <div class="uk-width-small-1-1 uk-width-medium-1-5">
+					  	<div class="uk-panel uk-panel-box colorpanelbox">
+					  		<img src="../img/dep/jefatura.jpg" alt="Jefatura de la Gobernatura">
+					  	</div>
+					  </div>
+					</div>
+	<script src="${resource(dir: 'js', file: 'jquery.dataTables.js')}"></script>
 	<script src="${resource(dir: 'js', file: 'jsDatatables.bootstrap.js')}"></script>
 </body>
 
