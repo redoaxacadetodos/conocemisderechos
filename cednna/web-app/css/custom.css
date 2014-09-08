@@ -1001,3 +1001,7 @@ color: #754e17;
 	width: 100% !important;
 }
 
+
+.fb_iframe_widget {
+   vertical-align: top;    
+}

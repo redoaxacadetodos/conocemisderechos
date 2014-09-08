@@ -17,6 +17,7 @@
 	  
 </head>
 <body>
+
 	<div class="uk-grid">
 		<div class="uk-width-1-1">
 			<div class="tm-middle">
@@ -33,6 +34,10 @@
 			</div>
 		</div>
 	</div>
+
+
+	<g:render template="redes"></g:render>
+
 
 	<div id="division" class="mascara">
 		<g:render template="detalleIndicador"></g:render>
