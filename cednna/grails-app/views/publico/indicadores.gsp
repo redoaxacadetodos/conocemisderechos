@@ -85,7 +85,7 @@
 <div class="uk-container uk-container-center">	
 	<button class="uk-button uk-button-primary uk-button-large uk-width-1-1" data-uk-modal="{target:'#divBuscador'}">¿Qué indicador buscas?</button>
 	<div class="uk-grid" data-uk-grid-margin="">
-		<g:each var="eje" in="${mx.gob.redoaxaca.cednna.domino.Eje.list()}">
+		<g:each var="eje" in="${listaEjes}">
 			<div id="bot_prog" class="uk-width-medium-1-4">
 				<div class="uk-panel">
 					<g:link action="detalleIndicador" title="${eje?.titulo }" controller="publico"  value="${eje?.descripcion}" id="${eje?.id}">

@@ -73,7 +73,8 @@ class PublicoController {
 	
 	def indicadores = {
 		def urlvideo = Valor.findByKey('urlvideo').valor
-		[urlvideo: urlvideo]
+		def listaEjes = Eje.findAllByStatus(1, [sort: "orden", order: "asc"])
+		[urlvideo: urlvideo, listaEjes: listaEjes]
 	}
 		
 	def contacto = {

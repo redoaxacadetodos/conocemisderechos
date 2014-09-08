@@ -4,6 +4,8 @@ class Eje {
 
 	String descripcion
 	String titulo
+	Integer status
+	Integer orden
 	
     static constraints = {
 		titulo(nullable:true, size:1..1024)
