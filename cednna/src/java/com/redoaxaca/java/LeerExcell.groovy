@@ -1,40 +1,13 @@
 package com.redoaxaca.java
 
-import groovy.sql.Sql
-import java.io.File;
-import java.io.FileInputStream;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import mx.gob.redoaxaca.cednna.domino.Categoria;
+import java.text.ParseException
+import mx.gob.redoaxaca.cednna.domino.CatOrigenDatos
 import mx.gob.redoaxaca.cednna.domino.Dependencia
 import mx.gob.redoaxaca.cednna.domino.Estado
 import mx.gob.redoaxaca.cednna.domino.Periodo
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.redoaxaca.java.ArchivoDescarga;
-import com.redoaxaca.java.LeeArchivo
-import com.redoaxaca.java.LeerExcell
-import com.redoaxaca.java.ResultCategorias;
-import com.redoaxaca.java.Row
-import com.redoaxaca.java.TotalVariable
-import grails.converters.JSON
-import org.springframework.dao.DataIntegrityViolationException
-import mx.gob.redoaxaca.cednna.seguridad.Usuario;
-
-import org.springframework.dao.DataIntegrityViolationException
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.web.multipart.MultipartHttpServletRequest
-import org.springframework.web.multipart.commons.CommonsMultipartFile
-
-
-import grails.plugins.springsecurity.Secured
-import groovy.sql.Sql
+import org.apache.poi.xssf.usermodel.XSSFSheet
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 
 
@@ -149,6 +122,8 @@ class LeerExcell {
 						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(0).getStringCellValue());
+						def origenDato = CatOrigenDatos.findByClave(hssfSheet.getRow(i).getCell(0).getStringCellValue())
+						dep = origenDato?.dependencia?.id
 						writer.append(',');
 						writer.append('"'+hssfSheet.getRow(i).getCell(1).getStringCellValue()+'"');
 						writer.append(',');
@@ -208,6 +183,8 @@ class LeerExcell {
 						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(2).getStringCellValue());//CLAVE
+						def origenDato = CatOrigenDatos.findByClave(hssfSheet.getRow(i).getCell(2).getStringCellValue())
+						dep = origenDato?.dependencia?.id
 						writer.append(',');
 						writer.append('"'+hssfSheet.getRow(i).getCell(3).getStringCellValue()+'"');//DESCRIPCION
 						writer.append(',');
@@ -267,6 +244,8 @@ class LeerExcell {
 						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(4).getStringCellValue());//CLAVE
+						def origenDato = CatOrigenDatos.findByClave(hssfSheet.getRow(i).getCell(4).getStringCellValue())
+						dep = origenDato?.dependencia?.id
 						writer.append(',');
 						writer.append('"'+hssfSheet.getRow(i).getCell(5).getStringCellValue()+'"');//DESCRIPCION
 						writer.append(',');

@@ -6,6 +6,7 @@ import mx.gob.redoaxaca.cednna.domino.Variable
 import groovy.sql.Sql
 
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 
 import grails.plugins.springsecurity.Secured
 
@@ -81,31 +82,31 @@ class TablasService {
         String orden='clave '
         if(params?.iSortCol_0){
             switch (params?.iSortCol_0) {
-                case '0':
+                case '1':
                     orden = 'clave '
                     break
-                case '1':
+                case '2':
                     orden = 'descripcion '
                     break
-                case '2':
+                case '3':
                     orden = 'region '
                     break
-                case '3':
+                case '4':
                     orden = 'municipio '
                     break                
-                case '4':
+                case '5':
                     orden = 'categoria '
                     break
-                case '5':
+                case '6':
                     orden = 'anio '
                     break
-                case '6':
+                case '7':
                     orden = 'poblaciontotal '
                     break
-                case '7':
+                case '8':
                     orden = 'mujeres '
                     break
-                case '8':
+                case '9':
                     orden = 'hombres '
                     break
             }

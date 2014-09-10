@@ -1059,10 +1059,10 @@ class VariableController {
             redirect(action: "list")
             return
         }
-		
+		println 'variableInstance.dependencia:'+variableInstance.dependencia
 		if(variableInstance.dependencia){
 			if(usuario.dependencia){
-			
+				println 'usuario.dependencia:'+usuario.dependencia
 				if(usuario.dependencia.id!=variableInstance.dependencia.id){
 					ban=0
 					System.out.println("Dependencia usurio :"+usuario.dependencia.id+" Variable dependencia "+variableInstance.dependencia.id);

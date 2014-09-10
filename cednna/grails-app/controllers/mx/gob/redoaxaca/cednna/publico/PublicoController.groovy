@@ -71,6 +71,30 @@ class PublicoController {
 
 	}
 	
+	def documentoList = {
+		def query = "from cat_documento"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"doc_id as id",
+			"doc_titulo as titulo",
+			"doc_nivel as nivel",
+			"doc_tipo as tipo",
+			"doc_url as url"
+			],
+			[
+			"doc_tipo",
+			"doc_titulo",
+			"doc_nivel"
+			],
+			[
+			"id",
+			"titulo",
+			"nivel",
+			"tipo",
+			"url"
+			],1,"text") as JSON
+	}
+	
 	def indicadores = {
 		def urlvideo = Valor.findByKey('urlvideo').valor
 		def listaEjes = Eje.findAllByStatus(1, [sort: "orden", order: "asc"])
@@ -218,7 +242,7 @@ class PublicoController {
 		def eje = Eje.get(id)
 		if(eje){								
 			def divisiones=Division.findAllByEje(eje)		
-			[divisiones: divisiones, ejeInstance: eje]
+			[divisiones: divisiones, ejeInstance: eje, tipo:eje.tipo]
 		}else{
 			redirect(action:"indicadores")
 		}
@@ -2530,4 +2554,21 @@ class PublicoController {
 		
 		
 			}
+	
+	def descargarDocumento(){
+		try {
+			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + "/" + params.nivel + "/" + params.documento
+			def archivo = new File (path)
+			response.setContentType("application/octet-stream")
+			response.setHeader("Content-disposition", "attachment;filename=${archivo.getName()}")
+			response.outputStream << archivo.newInputStream()
+		} catch(Exception ex){
+			response.sendError(500)
+		}
+	}
+	
+	def actualizarTablaDocumento(Integer id){
+		render template:'tablaDocumento', model:[nivel: params.nivel, tipo:id]
+	}
+
 }	

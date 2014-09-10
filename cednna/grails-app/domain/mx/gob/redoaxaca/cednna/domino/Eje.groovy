@@ -6,8 +6,10 @@ class Eje {
 	String titulo
 	Integer status
 	Integer orden
+	Integer tipo
 	
     static constraints = {
 		titulo(nullable:true, size:1..1024)
+		tipo(nullable:true)
     }
 }

@@ -1,4 +1,5 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Documento" %>
 <div>
 <div class="uk-grid">
 
@@ -7,7 +8,7 @@
 		<div id="division${divi?.id}">
 		<h2>${divi?.descripcion }</h2>
 		</div>	
-
+		<g:if test="${tipo==1 }">
 		<g:each var="indicador" 
 		in="${Indicador.createCriteria().list {
 				division{
@@ -28,7 +29,24 @@
 			</g:else>
 			
 			<hr class="dotted">
-		</g:each>		
+		</g:each>	
+		</g:if>	
+		<g:if test="${tipo==2 }">
+			<g:select name="nivelTabla" from="${[[k:1, v:'Internacional'], [k:2, v:'Federal'], [k:3, v:'Estatal']] }" 
+				optionKey="k" optionValue="v" 
+				onchange="${remoteFunction(action: 'actualizarTablaDocumento',
+                       update: 'tablaDocumento',
+					   id:tipo,
+                       params: '\'nivel=\' + this.value')}"/>
+            <div id="tablaDocumento">
+            	<g:render template="tablaDocumento" model="[nivel:1]"></g:render>
+            </div>
+            <g:form name="formDocumento" action="descargarDocumento">
+            	<g:hiddenField name="nivel"/>
+				<g:hiddenField name="tipo"/>
+				<g:hiddenField name="documento"/>
+			</g:form>
+		</g:if>
 	</g:each>	
 	</div>
 	<div class="uk-width-3-10">

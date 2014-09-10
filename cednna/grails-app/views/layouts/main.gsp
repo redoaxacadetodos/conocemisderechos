@@ -110,6 +110,7 @@
 							<li><g:link controller="tema">Tema PED</g:link></li>
 							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
+							<li><g:link controller="documento">Documentos</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
 							<li><g:link controller="Rol">Roles</g:link></li>
 							<li><g:link controller="Usuario">Usuarios</g:link></li>
@@ -198,6 +199,7 @@
 							<li><g:link controller="tema">Tema PED</g:link></li>
 							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
+							<li><g:link controller="documento">Documentos</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
 							<li><g:link controller="Rol">Roles</g:link></li>
 							<li><g:link controller="Usuario">Usuarios</g:link></li>
