@@ -889,7 +889,7 @@ padding-left: 25px;
 
 .mascara {background: #fff;}
 
-#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6, #bot_prog .bot7, #bot_prog .bot8, #bot_prog .bot9, #bot_prog .bot10, #bot_prog .bot11  { 
+#bot_prog .bot1, #bot_prog .bot2, #bot_prog .bot3, #bot_prog .bot4, #bot_prog .bot5, #bot_prog .bot6, #bot_prog .bot7, #bot_prog .bot8, #bot_prog .bot9, #bot_prog .bot10, #bot_prog .bot11, #bot_prog .bot12  { 
 
 height: 200px;
 display: block;
@@ -909,8 +909,9 @@ display: block;
 #bot_prog .bot9 { background: url(../img/dashboard/bot9.png) 50% 50% no-repeat #9e2edf; }
 #bot_prog .bot10 { background: url(../img/dashboard/bot10.png) 50% 50% no-repeat #67be27; }
 #bot_prog .bot11 { background: url(../img/dashboard/bot11.png) 50% 50% no-repeat #9e2edf; }
+#bot_prog .bot12 { background: url(../img/dashboard/bot12.png) 50% 50% no-repeat #6327be; }
 
-#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover, #bot_prog .bot7:hover, #bot_prog .bot8:hover, #bot_prog .bot9:hover, #bot_prog .bot10:hover, #bot_prog .bot11:hover{ 
+#bot_prog .bot1:hover, #bot_prog .bot2:hover, #bot_prog .bot3:hover, #bot_prog .bot4:hover, #bot_prog .bot5:hover, #bot_prog .bot6:hover, #bot_prog .bot7:hover, #bot_prog .bot8:hover, #bot_prog .bot9:hover, #bot_prog .bot10:hover, #bot_prog .bot11:hover, #bot_prog .bot12:hover{ 
 -webkit-box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 1);
 -moz-box-shadow:    inset 0px 0px 10px rgba(255, 255, 255, 1);
 box-shadow:         inset 0px 0px 10px rgba(255, 255, 255, 1);
