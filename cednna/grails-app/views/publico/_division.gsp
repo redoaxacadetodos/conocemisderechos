@@ -47,6 +47,23 @@
 				<g:hiddenField name="documento"/>
 			</g:form>
 		</g:if>
+		<g:elseif test="${tipo==3 }">
+			<g:select name="nivelTabla" from="${[[k:4, v:'Diagnosticos'], [k:5, v:'Publicaciones']] }" 
+				optionKey="k" optionValue="v" 
+				onchange="${remoteFunction(action: 'actualizarTablaDocumento',
+                       update: 'tablaDocumento',
+					   id:tipo,
+                       params: '\'nivel=\' + this.value')}"/>
+             <div id="tablaDocumento">
+            	<g:render template="tablaDocumento" model="[nivel:4]"></g:render>
+            </div>
+            <g:form name="formDocumento" action="descargarDocumento">
+            	<g:hiddenField name="nivel"/>
+				<g:hiddenField name="tipo"/>
+				<g:hiddenField name="documento"/>
+			</g:form>
+		</g:elseif>
+		
 	</g:each>	
 	</div>
 	<div class="uk-width-3-10">

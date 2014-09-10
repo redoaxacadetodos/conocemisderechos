@@ -1,4 +1,5 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Documento" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Nivel" %>
 
 <div class="fieldcontain ${hasErrors(bean: sentidoInstance, field: 'clave', 'error')} required uk-form-row">
 	<label for="tipo" class="uk-form-label">
@@ -6,7 +7,8 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-		<g:field name="tipo" type="number" value="${documentoInstance.tipo}" required=""/>
+		<g:select name="tipo" from="${[[k:2, v:'Marco Jurídico'], [k:3, v:'Centro de información']] }"
+			optionKey="k" optionValue="v"/>
 	</div>
 </div>
 
@@ -36,8 +38,8 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-		<g:select name="nivel" from="${[[k:1, v:'Internacional'], [k:2, v:'Federal'], [k:3, v:'Estatal']] }" 
-			optionKey="k" optionValue="v"/>
+		<g:select name="nivel.id" from="${Nivel.list() }" 
+			optionKey="id" optionValue="nivel" value="${documentoInstance?.nivel }"/>
 	</div>
 </div>
 

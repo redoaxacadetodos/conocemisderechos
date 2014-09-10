@@ -2558,6 +2558,7 @@ class PublicoController {
 	def descargarDocumento(){
 		try {
 			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + "/" + params.nivel + "/" + params.documento
+			println 'path:'+path
 			def archivo = new File (path)
 			response.setContentType("application/octet-stream")
 			response.setHeader("Content-disposition", "attachment;filename=${archivo.getName()}")

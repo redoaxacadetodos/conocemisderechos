@@ -79,6 +79,9 @@ class DocumentoController {
 		}catch(Exception e){
 			e.printStackTrace()
 		}
+		
+//		documentoInstance.nivel = Nivel.get(params.nivel.toLong())
+//		println 'nivel:'+documentoInstance.nivel
         if (!documentoInstance.save(flush: true)) {
             render(view: "create", model: [documentoInstance: documentoInstance])
             return

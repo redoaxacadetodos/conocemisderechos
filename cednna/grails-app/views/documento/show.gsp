@@ -53,15 +53,7 @@
 				<g:if test="${documentoInstance?.nivel}">
 				<li class="fieldcontain">
 					<span id="url-label" class="property-label"><g:message code="documento.nivel.label" default="Nivel" /></span>
-					<g:if test="${documentoInstance.nivel==1}">
-						<span class="property-value" aria-labelledby="url-label">Internacional</span>
-					</g:if>
-					<g:elseif test="${documentoInstance.nivel==2}">
-						<span class="property-value" aria-labelledby="url-label">Federal</span>
-					</g:elseif>
-					<g:elseif test="${documentoInstance.nivel==3}">
-						<span class="property-value" aria-labelledby="url-label">Estatal</span>
-					</g:elseif>
+					<span class="property-value" aria-labelledby="url-label">${documentoInstance.nivel.nivel}</span>
 				</li>
 				</g:if>
 			

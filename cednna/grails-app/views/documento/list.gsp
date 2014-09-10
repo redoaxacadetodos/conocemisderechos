@@ -26,6 +26,10 @@
 					nivel="Federal";
 				}else if(source[2]==3){
 					nivel="Estatal";
+				}else if(source[2]==4){
+					nivel="Diagnostico";
+				}else if(source[2]==5){
+					nivel="Publicaciones";
 				}
 				return nivel 
 			}

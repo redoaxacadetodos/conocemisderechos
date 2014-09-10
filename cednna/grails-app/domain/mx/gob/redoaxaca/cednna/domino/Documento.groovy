@@ -5,7 +5,7 @@ class Documento {
 	String titulo
 	String url
 	int tipo
-	int nivel
+	Nivel nivel
 
     static constraints = {
 		
