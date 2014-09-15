@@ -1,5 +1,23 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Documento" %>
-<%@ page import="mx.gob.redoaxaca.cednna.domino.Nivel" %>
+<script>
+
+function actualizar(tipo){
+	$.ajax({type:'POST', 
+        url:CONTEXT_ROOT+'/documento/actualizarNivel',
+        data: {tipo:tipo},
+        success:function(data,textStatus){
+        	$('#divNiveles').html(data);
+         },
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            $('#diverror').html(XMLHttpRequest.responseText);
+        }});
+}
+$( document ).ready(function() {
+	var tipoInicial = $("#tipo").val();
+	window.onload = actualizar(tipoInicial);
+});
+
+</script>
 
 <div class="fieldcontain ${hasErrors(bean: sentidoInstance, field: 'clave', 'error')} required uk-form-row">
 	<label for="tipo" class="uk-form-label">
@@ -8,6 +26,7 @@
 	</label>
 	<div class="uk-form-controls">
 		<g:select name="tipo" from="${[[k:2, v:'Marco Jurídico'], [k:3, v:'Centro de información']] }"
+			onchange="actualizar(this.value);"
 			optionKey="k" optionValue="v"/>
 	</div>
 </div>
@@ -32,15 +51,5 @@
 	</div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: sentidoInstance, field: 'nivel', 'error')} required uk-form-row">
-	<label for="nivel" class="uk-form-label">
-		<g:message code="documento.nivel.label" default="Nivel" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="uk-form-controls">
-		<g:select name="nivel.id" from="${Nivel.list() }" 
-			optionKey="id" optionValue="nivel" value="${documentoInstance?.nivel }"/>
-	</div>
-</div>
-
+<div id="divNiveles" class="fieldcontain  required uk-form-row"></div>
 

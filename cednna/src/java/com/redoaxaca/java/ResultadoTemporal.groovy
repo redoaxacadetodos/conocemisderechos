@@ -11,7 +11,9 @@ class ResultadoTemporal {
 	int      idMunicipio
 	String   localidad
 	int      idLocalidad
-	Integer      indicador
+	Integer  mujeres
+	Integer  hombres
+	Integer  indicador
 	Double   resultadoIndicador
 	int      anio
 	

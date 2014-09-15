@@ -54,7 +54,7 @@ class DocumentoController {
         def documentoInstance = new Documento(params)
 		
 		try{
-			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + '/' + params.nivel
+			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + '/' + params.nivel.id
 			def file = request.getFile('url')
 			def name = file.originalFilename.toString().replace(' ', '-')
 			
@@ -136,7 +136,7 @@ class DocumentoController {
         documentoInstance.properties = params
 		
 		try{
-			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + '/' + params.nivel
+			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + '/' + params.nivel.id
 			def file = request.getFile('url')
 			def name = file.originalFilename.toString().replace(' ', '-')
 			
@@ -200,5 +200,10 @@ class DocumentoController {
 		} catch(Exception ex){
 			response.sendError(500)
 		}
+	}
+	
+	def actualizarNivel(){
+		def niveles = Nivel.findAllByTipo(params.tipo.toInteger())
+		render template:'niveles', model:[niveles:niveles]
 	}
 }

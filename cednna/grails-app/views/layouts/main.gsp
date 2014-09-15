@@ -57,7 +57,7 @@
 
 				<div class="uk-grid" >
 				<div class="uk-width-medium-8-10 uk-width-large-7-10">	
-					<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
+					<a class="uk-hidden-small" href="http://www.cednna.oaxaca.gob.mx"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
 					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_02.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
 					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_03.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
 					<a class="uk-hidden-small" href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_04.png" title="OaxTransparente" alt="OaxTransparente"></a>
@@ -111,6 +111,7 @@
 							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
 							<li><g:link controller="documento">Documentos</g:link></li>
+							<li><g:link controller="indicador" action="correo">Correo</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
 							<li><g:link controller="Rol">Roles</g:link></li>
 							<li><g:link controller="Usuario">Usuarios</g:link></li>
@@ -200,6 +201,7 @@
 							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
 							<li><g:link controller="documento">Documentos</g:link></li>
+							<li><g:link controller="indicador" action="correo">Correo</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
 							<li><g:link controller="Rol">Roles</g:link></li>
 							<li><g:link controller="Usuario">Usuarios</g:link></li>

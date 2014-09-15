@@ -26,6 +26,7 @@
 				$("#documento").val(documento);
 				$("#formDocumento").submit();
 			}
+
 		</script>
 	</head>
 	<body>

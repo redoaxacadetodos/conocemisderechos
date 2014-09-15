@@ -35,13 +35,21 @@
 			var tabla = "tablaDatosCalculo";
 			var idIndicador = ${indicadorInstance?.id};
 			
-			mostrarCargandoImg(div);
+			mostrarCargandoImg("divDatosCalculoCargando");
+
+			$.ajax( {
+			    "url": "<g:createLink controller='publico' action='getTitulosDatosCalculo' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
+			    "success": function ( data ) {
+			    	$('#'+div).html( data );
+			    }
+			} );
+			
 			$.ajax( {
 			    "url": "<g:createLink controller='publico' action='getTablaDatosCalculo' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
 			    "success": function ( json ) {
-			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
-			        $('#'+tabla).dataTable( json );
-			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
+				    $('#'+tabla).dataTable( json );
+				    $('#'+tabla+'_filter input').addClass('form-control medium mayus');
+				    $('#divDatosCalculoCargando').html("");
 			    },
 			    "dataType": "json"
 			} );
@@ -285,6 +293,7 @@
 	  	<p><b>Fórmula de cálculo:</b> <span>${formula}</span><br><br></p>  	
 	  		
 	  	<div id="divDatosCalculo"></div>
+	  	<div id="divDatosCalculoCargando"></div>
 	  </div>
 	  
 <%--	  <div class="tab-pane" id="mapa">--%>

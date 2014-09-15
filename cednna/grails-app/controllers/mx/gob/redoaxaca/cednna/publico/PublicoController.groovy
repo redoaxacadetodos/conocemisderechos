@@ -297,6 +297,39 @@ class PublicoController {
 		return formula
 	}
 	
+	def getTitulosDatosCalculo(Long id){
+		def indicadorInstance = Indicador.get(id)
+		int tipo = params.idTipo.toInteger()
+		def titulos = []
+		def anios = []
+		def titulosAnios = []
+		
+		titulos.add( "Variable")
+		if(tipo==1){
+			titulos.add("Estado")
+		}else if(tipo==2){
+			titulos.add("Regiones")
+		}else{
+			titulos.add( "Municipios")
+		}
+		
+		getAnosPorIndicador(id,tipo).each{
+			if(indicadorInstance?.etiquetaPeriodo){
+				def periodo = Periodo.get(it.periodo.toLong())
+				anios.add( 'Hombres')
+				anios.add( 'Mujeres')
+				anios.add( 'Total')
+				titulosAnios.add( periodo.descripcion)
+			}else{
+				anios.add( 'Hombres')
+				anios.add( 'Mujeres')
+				anios.add('Total')
+				titulosAnios.add(it.anio.toString())
+			}
+		}
+		render template:'tablaDatosCalculo', model:[titulos:titulos, titulosAnios:titulosAnios, anios:anios]
+	}
+	
 	def getTablaDatosCalculo(Long id){
 		int tipo = params.idTipo.toInteger()
 		def indicadorInstance = Indicador.get(id)
@@ -305,41 +338,20 @@ class PublicoController {
 		
 		def tamVariables = indicadorInstance.variables.size()
 		def datosCalculo = detalleIndicador.rVariables
-		
 		if(tipo==2){
 			datosCalculo.each {
-				it.valores.sort{it.region}
+				it.valores = it.valores.sort{it.region}
 			}
 		}else if(tipo==3){
 			datosCalculo.each {
-				it.valores.sort{it.municipio}
+				it.valores = it.valores.sort{it.municipio}
 			}
 		}
 		
 		def datos = publicoService.getTablaDatosCalculo(datosCalculo, tamVariables, tipo)
 		def totalRecords = datos.size()
-		def titulos = []
 		
-		titulos.add([sTitle : "Variable"])
-		if(tipo==1){
-			titulos.add([sTitle : "Estado"])
-		}else if(tipo==2){
-			titulos.add([sTitle : "Regiones"])
-		}else{
-			titulos.add([sTitle : "Municipios"])
-		}
-		
-		getAnosPorIndicador(id,tipo).each{
-			if(indicadorInstance?.etiquetaPeriodo){
-				def periodo = Periodo.get(it.periodo.toLong())
-				titulos.add([sTitle : periodo.descripcion])
-			}else{
-				titulos.add([sTitle : it.anio.toString()])
-			}
-		}
-		 	
-		def result = ["bDestroy": true, "bRetrieve": true,'sEcho':1, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'aoColumns':titulos, 'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
-		
+		def result = ["bDestroy": true, "bRetrieve": true,'sEcho':1, 'iTotalRecords':totalRecords, 'iTotalDisplayRecords':totalRecords, 'aaData':datos, 'aaSorting': [],   'oLanguage':["sUrl": "../../datatables/language/spanish.txt"]]
 		render result as JSON
 	}
 	
@@ -578,8 +590,6 @@ class PublicoController {
 			order by 2
 		"""
 		
-		println 'sqlAnios:'+sqlAnios
-		
 		def sqlAnio = new Sql(sessionFactory.currentSession.connection())
 		def titulos = sqlAnio.rows(sqlAnios)
 		return titulos
@@ -622,7 +632,7 @@ class PublicoController {
 				 * Comienza la busqueda en el origen de datos en base a las variable
 				 * */
 
-					for(vari in indicadorInstance.variables){
+					for(vari in indicadorInstance.variables.sort{it.clave}){
 						def sql = new Sql(sessionFactory.currentSession.connection())
 						
 						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
@@ -696,7 +706,7 @@ class PublicoController {
 						}
 
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
-//						println 'Query3:'+query
+						println 'QueryTotal:'+query
 						def resultTotal = sql.rows(query.toString())
 						println 'query:'+query
 
@@ -717,20 +727,26 @@ class PublicoController {
 								switch (vari.poblacion.clave) {
 									case "H":
 										valorTem.indicador=it.hombres
+										valorTem.hombres = it.hombres
 										break;
 									case "M":
 										valorTem.indicador=it.mujeres
+										valorTem.mujeres = it.mujeres
 										break;
 									case "T":
 										valorTem.indicador=it.total
+										valorTem.mujeres = it.mujeres
+										valorTem.hombres = it.hombres
 										break;
 									default:
 										break;
 								}
+								
 								valorTem.anio=anio
 								temVar.valores.add(valorTem)
 								temVar.descripcion=descripcionVariable[0]?.descripcion
 							}
+							println 'temVar:' + temVar
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
@@ -832,7 +848,7 @@ class PublicoController {
 				 * Comienza la busqueda en el origen de datos en base a las variable
 				 * */
 
-					for(vari in indicadorInstance.variables){
+					for(vari in indicadorInstance.variables.sort{it.clave}){
 						def sql = new Sql(sessionFactory.currentSession.connection())
 						
 						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
@@ -935,16 +951,21 @@ class PublicoController {
 								switch (vari.poblacion.clave) {
 									case "H":
 										valorTem.indicador=it.hombres
+										valorTem.hombres = it.hombres
 										break;
 									case "M":
 										valorTem.indicador=it.mujeres
+										valorTem.mujeres = it.mujeres
 										break;
 									case "T":
 										valorTem.indicador=it.total
+										valorTem.mujeres = it.mujeres
+										valorTem.hombres = it.hombres
 										break;
 									default:
 										break;
 								}
+								
 								valorTem.region=it.region
 								valorTem.idRegion =it.region_id
 								valorTem.anio=anio
@@ -1108,7 +1129,7 @@ class PublicoController {
 						}
 					}
 
-					for(vari in indicadorInstance.variables){
+					for(vari in indicadorInstance.variables.sort{it.clave}){
 						def sql = new Sql(sessionFactory.currentSession.connection())
 						String intervaloSql = "select cdv_intervalo intervalo from cat_dvariable where cdv_clavevar= '${vari?.claveVar}' and cdv_ind_id = ${indicadorInstance?.id}"
 						def intervalos = sql.rows(intervaloSql)
@@ -1215,16 +1236,21 @@ class PublicoController {
 								switch (vari.poblacion.clave) {
 									case "H":
 										valorTem.indicador=it.hombres
+										valorTem.hombres = it.hombres
 										break;
 									case "M":
 										valorTem.indicador=it.mujeres
+										valorTem.mujeres = it.mujeres
 										break;
 									case "T":
 										valorTem.indicador=it.total
+										valorTem.mujeres = it.mujeres
+										valorTem.hombres = it.hombres
 										break;
 									default:
 										break;
 								}
+								
 								valorTem.region=it.region
 								valorTem.idRegion =it.region_id
 								valorTem.municipio=it.municipio
@@ -2558,7 +2584,6 @@ class PublicoController {
 	def descargarDocumento(){
 		try {
 			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + "/" + params.nivel + "/" + params.documento
-			println 'path:'+path
 			def archivo = new File (path)
 			response.setContentType("application/octet-stream")
 			response.setHeader("Content-disposition", "attachment;filename=${archivo.getName()}")

@@ -44,13 +44,17 @@ class IndicadorController {
 	
 	def enviarCorreo(Long id) {
 		def indicador = Indicador.get(id)
+		def asunto = Valor.findByKey('asunto')
+		def cuerpo = Valor.findByKey('cuerpo')
 		println 'indicador?.mailResponsable:'+indicador?.mailResponsable
 		 sendMail {
 			 to indicador?.mailResponsable
-			subject "Recordatorio"
-			body 'Estimado '+ indicador?.nombreResponsable +
-				' le recordamos que debe actualizar el indicador ' +
-				indicador?.nombre + "."
+			subject asunto?.valor
+			html  """
+					${cuerpo?.valor} <br><br>
+					Indicador: ${indicador?.nombre}.<br>
+					Responsable: ${indicador?.nombreResponsable}.
+					""" 
 		 }
 		 render (text: "enviado", contentType: "text/html", encoding: "UTF-8")
 	}
@@ -1588,5 +1592,33 @@ class IndicadorController {
 		def dependencia = Dependencia.get(params.id)
 		def indicadores = Indicador.findAllByDependencia(dependencia)
 		render(template:"indicadorSemaforo", model:[indicadores:indicadores,rol:params.rol])
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def correo(){
+		def asunto = Valor.findByKey('asunto')
+		def cuerpo = Valor.findByKey('cuerpo')
+		[asunto:asunto?.valor, cuerpo:cuerpo?.valor]
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def actualizarCorreo(){
+		def asunto = Valor.findByKey('asunto')
+		def cuerpo = Valor.findByKey('cuerpo')
+		
+		asunto.valor = params.asunto
+		cuerpo.valor = params.cuerpo
+		if (!asunto.save(flush: true)) {
+			flash.message = 'Error al guardar el asunto'
+			render(view: "correo", model: [asunto:params.asunto, cuerpo:params.cuerpo])
+			return
+		}
+		if (!cuerpo.save(flush: true)) {
+			flash.message = 'Error al guardar el cuerpo del correo'
+			render(view: "correo", model: [asunto:params.asunto, cuerpo:params.cuerpo])
+			return
+		}
+		flash.message = 'Datos guardados correctamente'
+		render(view: "correo", model: [asunto:asunto?.valor, cuerpo:cuerpo?.valor])
 	}
 }

@@ -31,6 +31,7 @@
 			<hr class="dotted">
 		</g:each>	
 		</g:if>	
+	</g:each>	
 		<g:if test="${tipo==2 }">
 			<g:select name="nivelTabla" from="${[[k:1, v:'Internacional'], [k:2, v:'Federal'], [k:3, v:'Estatal']] }" 
 				optionKey="k" optionValue="v" 
@@ -63,8 +64,6 @@
 				<g:hiddenField name="documento"/>
 			</g:form>
 		</g:elseif>
-		
-	</g:each>	
 	</div>
 	<div class="uk-width-3-10">
 	<br /><br />

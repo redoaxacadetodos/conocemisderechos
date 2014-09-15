@@ -4,6 +4,7 @@ import org.codehaus.groovy.grails.web.json.JSONArray
 import grails.converters.JSON
 import groovy.json.JsonSlurper
 import grails.plugins.springsecurity.Secured
+import java.text.NumberFormat
 
 @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
 class PublicoService {
@@ -57,7 +58,7 @@ class PublicoService {
 	    		datos?.valores.each{ valor ->
 		    		def listRow = [:]
 		    		int index = 0
-
+		    		
 		    		if(i<tamVariables){
 		    			listRow.put(index, datos.descripcion)
 		    			index++
@@ -71,19 +72,31 @@ class PublicoService {
 		    				listRow.put(index, valor.municipio)
 		    				index++
 		    			}
-
+		    			
 		    			datosCalculo.eachWithIndex(){ datosAux, cont ->
 			    			if(((cont+i) % tamVariables) == 0){
 			    				datosAux?.valores.each{ valores ->	
 
 			    					if(tipo==1){
-					    				listRow.put(index, valores.indicador)
+			    						listRow.put(index, addCommas(valores.hombres))
+			    						index++
+			    						listRow.put(index, addCommas(valores.mujeres))
+			    						index++
+					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++
 					    			}else if(tipo==2 && valor.region==valores.region){
-					    				listRow.put(index, valores.indicador)
+					    				listRow.put(index, addCommas(valores.hombres))
+			    						index++
+			    						listRow.put(index, addCommas(valores.mujeres))
+			    						index++
+					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++		
 					    			}else if(tipo==3 && valor.municipio.equals(valores.municipio)){
-					    				listRow.put(index, valores.indicador)
+					    				listRow.put(index, addCommas(valores.hombres))
+			    						index++
+			    						listRow.put(index, addCommas(valores.mujeres))
+			    						index++
+					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++
 					    			}
 			    				}
@@ -92,13 +105,24 @@ class PublicoService {
 		    		}
 
 		    		if(listRow.size()!=0){
-		    			list.addAll(0,listRow)	
+		    			list.addAll(list.size(),listRow)	
 		    		}
-		    		
 	    		}
 	    	}	
 		}
 		
     	return list
+    }
+
+    def addCommas(def nStr) {
+    	if(!nStr instanceof Integer){
+    		nStr.toDouble()
+    	}
+    	nStr = nStr.toString()
+    	def x = nStr.split('\\.')
+    	def num = x[0].toInteger()
+    	def decimales = x.length > 1 ? '.' + x[1] : ''
+    	def numeroConFormato = NumberFormat.getNumberInstance(Locale.US).format(num)
+    	return numeroConFormato + decimales
     }
 }
