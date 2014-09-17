@@ -214,25 +214,17 @@
 	<label>${indicadorInstance?.objetivosMilenio?.descripcion}</label>
 </div>
 
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'mediosVerificacion', 'error')} ">
-	<label class="uk-form-label"for="mediosVerificacion">
-	<b>
-		<g:message code="indicador.mediosVerificacion.label" default="Medios de Verificaci&oacute;n: " />
-	</b>	
-	</label>
-	<p>${indicadorInstance?.mediosVerificacion}</p>
-</div>
-
-
-<div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
+<g:each var="v" in="${indicadorInstance?.variables}">
+	<div class="fieldcontain uk-form-row ">
 	<label class="uk-form-label"for="comentarios">
 	<b>
-		<g:message code="indicador.comentarios.label" default="Fuente de informacion del indicador: " />
+		Fuente de informacion de la variable ${v?.clave}:
 	</b>
 	</label>
-	<p>${indicadorInstance?.fuenteInformacion}</p>
+	<p>${v?.descripcion}</p>
 </div>
+	
+</g:each>
 
 <div class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'comentarios', 'error')} ">
 	<label class="uk-form-label"for="comentarios">

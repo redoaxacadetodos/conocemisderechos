@@ -728,10 +728,12 @@ class PublicoController {
 									case "H":
 										valorTem.indicador=it.hombres
 										valorTem.hombres = it.hombres
+										valorTem.mujeres = 0
 										break;
 									case "M":
 										valorTem.indicador=it.mujeres
 										valorTem.mujeres = it.mujeres
+										valorTem.hombres = 0
 										break;
 									case "T":
 										valorTem.indicador=it.total
@@ -952,10 +954,12 @@ class PublicoController {
 									case "H":
 										valorTem.indicador=it.hombres
 										valorTem.hombres = it.hombres
+										valorTem.mujeres = 0
 										break;
 									case "M":
 										valorTem.indicador=it.mujeres
 										valorTem.mujeres = it.mujeres
+										valorTem.hombres = 0
 										break;
 									case "T":
 										valorTem.indicador=it.total
@@ -1237,10 +1241,12 @@ class PublicoController {
 									case "H":
 										valorTem.indicador=it.hombres
 										valorTem.hombres = it.hombres
+										valorTem.mujeres = 0
 										break;
 									case "M":
 										valorTem.indicador=it.mujeres
 										valorTem.mujeres = it.mujeres
+										valorTem.hombres = 0
 										break;
 									case "T":
 										valorTem.indicador=it.total

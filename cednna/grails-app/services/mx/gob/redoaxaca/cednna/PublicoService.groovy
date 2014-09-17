@@ -58,6 +58,7 @@ class PublicoService {
 	    		datos?.valores.each{ valor ->
 		    		def listRow = [:]
 		    		int index = 0
+
 		    		
 		    		if(i<tamVariables){
 		    			listRow.put(index, datos.descripcion)

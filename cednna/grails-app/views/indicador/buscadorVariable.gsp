@@ -8,7 +8,6 @@
 <br><br>
 <g:each var="var"  in="${variable?.sort{it?.clave}}" >
 
-
 <h3>Ubicación de datos para variable ${var.clave}</h3>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">

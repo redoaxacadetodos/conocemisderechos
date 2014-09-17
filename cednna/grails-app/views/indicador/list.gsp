@@ -8,8 +8,6 @@
 		<meta name="layout" content="main">
 			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" ></script>
 				<g:javascript src="jquery.dataTables.js"  />
-			
-		
 	</head>
 	<body>
 		<a href="#list-indicador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -72,19 +70,12 @@
 
 
 		function mostrarRegistro(id){
-			
 			document.location.href=CONTEXT_ROOT+"/indicador/visor/"+id;
-
 		}
 
 
 		function editaRegistro(id){
-			
-		
 			document.location.href=CONTEXT_ROOT+"/indicador/edit/"+id;
-		
-
-
 		}
 			
 				
