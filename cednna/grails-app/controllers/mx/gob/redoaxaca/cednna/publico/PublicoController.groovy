@@ -2596,5 +2596,20 @@ class PublicoController {
 	def actualizarTablaDocumento(Integer id){
 		render template:'tablaDocumento', model:[nivel: params.nivel, tipo:id]
 	}
+	
+	def enviarMensaje(){
+		def correo = Valor.findByKey('correoContacto')
+		String mensaje = params.mensaje
+		String nombre = params.nombre!=null? ("Atentamente: " + params.nombre + "."):''
+		sendMail {
+			to correo?.valor
+		   subject params.asunto
+		   html  """
+		   			${mensaje} <br><br>
+		   			${nombre}
+		   		"""
+		}
+		redirect action:'contacto' 
+	}
 
 }	

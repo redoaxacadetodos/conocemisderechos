@@ -72,18 +72,44 @@ class IndicadorController {
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def dataTablesListadoIndicadores = {
 		
-	def query="  from idn_indicador	 as i "
+//	def query="  from idn_indicador	 as i "
+//		
+//		
+//		
+//		render dataTablesService.datosParaTablaQuery(query,params,
+//	    [
+//		'i.idn_id as id',
+//		'i.idn_nombre as  nombre',
+//		'i.idn_objetivo  as objetivo',
+//		'i.idn_nombre_responsable as nomr',
+//		'i.idn_medios_verificacion as meca',
+//		],  
+//		[
+//		'i.idn_id ',
+//		'i.idn_nombre ',
+//		'i.idn_objetivo ',
+//		'i.idn_nombre_responsable ',
+//		'i.idn_medios_verificacion ',
+//		],
+//	
+//		[
+//		'id',
+//		'nombre',
+//		'objetivo',
+//		'nomr',
+//		'meca',
+//		],1,"text") as JSON
 		
-		
+		def query="  from idn_indicador	left join  "
 		
 		render dataTablesService.datosParaTablaQuery(query,params,
-	    [
+		[
 		'i.idn_id as id',
 		'i.idn_nombre as  nombre',
 		'i.idn_objetivo  as objetivo',
 		'i.idn_nombre_responsable as nomr',
 		'i.idn_medios_verificacion as meca',
-		],  
+		],
 		[
 		'i.idn_id ',
 		'i.idn_nombre ',

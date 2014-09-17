@@ -8,13 +8,54 @@
 		
 	</head>
 	<body>
-<%--		<p>--%>
-<%--			En la sección directorio de la página econtrará la información de contacto.--%>
-<%--		</p>--%>
-		
-		<g:each var="${c }" in="${contactos }">
+		<h2>Contacto</h2>
+		<div class="uk-grid">
+		  <div class="uk-width-1-2">
+		  	<br>
+		  	<g:form action="enviarMensaje"  name="frmVariable">
+				<fieldset class="uk-form ">
+					<div class="fieldcontain uk-form-row">
+						<label class="uk-form-label" for="nombre"> 
+							<g:message code="contacto.nombre.label" default="Nombre" />
+						</label>
+						<div class="uk-form-controls">
+							<g:field name="nombre" type="text" value="" required="" class="uk-width-2-3"/>
+						</div>
+					</div>
+					<div class="fieldcontain uk-form-row">
+						<label class="uk-form-label" for="correo"> 
+							<g:message code="contacto.correo.label" default="Correo electrónico" />
+						</label>
+						<div class="uk-form-controls">
+							<g:field name="correo" type="email" value="" required="" class="uk-width-2-3"/>
+						</div>
+					</div>
+					<div class="fieldcontain uk-form-row">
+						<label class="uk-form-label" for="asunto"> 
+							<g:message code="contacto.asunto.label" default="Asunto" />
+						</label>
+						<div class="uk-form-controls">
+							<g:field name="asunto" type="text" value="" required="" class="uk-width-2-3"/>
+						</div>
+					</div>
+					<div class="fieldcontain uk-form-row">
+						<label class="uk-form-label" for="mensaje"> 
+							<g:message code="contacto.mensaje.label" default="Mensaje" />
+						</label>
+						<div class="uk-form-controls">
+							<g:textArea name="mensaje" required="" class="uk-width-2-3"></g:textArea>
+						</div>
+					</div>
+					<input type="submit" value="Enviar mensaje" class="uk-button"/>
+					<br/>
+				</fieldset>
+			</g:form>
+			
+		</div>
+		  <div class="uk-width-1-2">
+			<g:each var="${c }" in="${contactos }">
 			<div>
-			<br><br> <b>${c.titulo }</b>	<br><br>
+			 <b>${c.titulo }</b>	<br><br>
 			${c.grado } ${c.nombre } ${c.paterno } ${c.materno } <br>
 			${c.descripcion } <br>
 			<g:if test="${c.email }">
@@ -32,7 +73,11 @@
 			 	${c.telefono }
 			</g:if>
 			</div>
-		</g:each>
+			</g:each>
+		  </div>
+		</div>
+		
+		
 		
 	</body>
 </html>
