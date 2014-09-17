@@ -737,8 +737,8 @@ class PublicoController {
 										break;
 									case "T":
 										valorTem.indicador=it.total
-										valorTem.mujeres = it.mujeres
-										valorTem.hombres = it.hombres
+										valorTem.mujeres = 0
+										valorTem.hombres = 0
 										break;
 									default:
 										break;
@@ -963,8 +963,8 @@ class PublicoController {
 										break;
 									case "T":
 										valorTem.indicador=it.total
-										valorTem.mujeres = it.mujeres
-										valorTem.hombres = it.hombres
+										valorTem.mujeres = 0
+										valorTem.hombres = 0
 										break;
 									default:
 										break;
@@ -1250,8 +1250,8 @@ class PublicoController {
 										break;
 									case "T":
 										valorTem.indicador=it.total
-										valorTem.mujeres = it.mujeres
-										valorTem.hombres = it.hombres
+										valorTem.mujeres = 0
+										valorTem.hombres = 0
 										break;
 									default:
 										break;

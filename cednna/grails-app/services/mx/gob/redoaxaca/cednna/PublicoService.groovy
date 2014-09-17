@@ -79,23 +79,41 @@ class PublicoService {
 			    				datosAux?.valores.each{ valores ->	
 
 			    					if(tipo==1){
-			    						listRow.put(index, addCommas(valores.hombres))
+			    						if(valores.hombres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.hombres))
 			    						index++
-			    						listRow.put(index, addCommas(valores.mujeres))
+			    						if(valores.mujeres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.mujeres))
 			    						index++
 					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++
 					    			}else if(tipo==2 && valor.region==valores.region){
-					    				listRow.put(index, addCommas(valores.hombres))
+					    				if(valores.hombres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.hombres))
 			    						index++
-			    						listRow.put(index, addCommas(valores.mujeres))
+			    						if(valores.mujeres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.mujeres))
 			    						index++
 					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++		
 					    			}else if(tipo==3 && valor.municipio.equals(valores.municipio)){
-					    				listRow.put(index, addCommas(valores.hombres))
+					    				if(valores.hombres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.hombres))
 			    						index++
-			    						listRow.put(index, addCommas(valores.mujeres))
+			    						if(valores.mujeres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.mujeres))
 			    						index++
 					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++
