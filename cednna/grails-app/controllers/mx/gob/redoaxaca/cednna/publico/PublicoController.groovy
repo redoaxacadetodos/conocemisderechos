@@ -737,8 +737,8 @@ class PublicoController {
 										break;
 									case "T":
 										valorTem.indicador=it.total
-										valorTem.mujeres = 0
-										valorTem.hombres = 0
+										valorTem.mujeres = it.mujeres
+										valorTem.hombres = it.hombres
 										break;
 									default:
 										break;
@@ -748,7 +748,6 @@ class PublicoController {
 								temVar.valores.add(valorTem)
 								temVar.descripcion=descripcionVariable[0]?.descripcion
 							}
-							println 'temVar:' + temVar
 							rVariables.add(temVar)
 							resutaldoVariables.add(temVar)
 						}
@@ -963,8 +962,8 @@ class PublicoController {
 										break;
 									case "T":
 										valorTem.indicador=it.total
-										valorTem.mujeres = 0
-										valorTem.hombres = 0
+										valorTem.mujeres = it.mujeres
+										valorTem.hombres = it.hombres
 										break;
 									default:
 										break;
@@ -1250,8 +1249,8 @@ class PublicoController {
 										break;
 									case "T":
 										valorTem.indicador=it.total
-										valorTem.mujeres = 0
-										valorTem.hombres = 0
+										valorTem.mujeres = it.mujeres
+										valorTem.hombres = it.hombres
 										break;
 									default:
 										break;
@@ -2613,6 +2612,18 @@ class PublicoController {
 		   html  """
 		   			${mensaje} <br><br>
 		   			${nombre}
+		   		"""
+		}
+		
+		String nombreRespuesta = params.nombre!=null?(', ' +params.nombre) + '.':''
+		
+		sendMail {
+			to params?.correo
+		   subject 'Respuesta CEDNNA'
+		   html  """
+		   			<b>Gracias ${nombreRespuesta}<b> <br><br>
+		   			Hemos recibido tu mensaje, en breve te responderemos.<br>
+		   			No responda a este correo.
 		   		"""
 		}
 		redirect action:'contacto' 

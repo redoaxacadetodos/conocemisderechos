@@ -16,7 +16,7 @@
 				<fieldset class="uk-form ">
 					<div class="fieldcontain uk-form-row">
 						<label class="uk-form-label" for="nombre"> 
-							<g:message code="contacto.nombre.label" default="Nombre" />
+							<g:message code="contacto.nombre.label" default="Nombre" /> *
 						</label>
 						<div class="uk-form-controls">
 							<g:field name="nombre" type="text" value="" required="" class="uk-width-2-3"/>
@@ -24,7 +24,7 @@
 					</div>
 					<div class="fieldcontain uk-form-row">
 						<label class="uk-form-label" for="correo"> 
-							<g:message code="contacto.correo.label" default="Correo electrónico" />
+							<g:message code="contacto.correo.label" default="Correo electrónico" /> *
 						</label>
 						<div class="uk-form-controls">
 							<g:field name="correo" type="email" value="" required="" class="uk-width-2-3"/>
@@ -35,12 +35,12 @@
 							<g:message code="contacto.asunto.label" default="Asunto" />
 						</label>
 						<div class="uk-form-controls">
-							<g:field name="asunto" type="text" value="" required="" class="uk-width-2-3"/>
+							<g:field name="asunto" type="text" value="" class="uk-width-2-3"/>
 						</div>
 					</div>
 					<div class="fieldcontain uk-form-row">
 						<label class="uk-form-label" for="mensaje"> 
-							<g:message code="contacto.mensaje.label" default="Mensaje" />
+							<g:message code="contacto.mensaje.label" default="Mensaje" /> *
 						</label>
 						<div class="uk-form-controls">
 							<g:textArea name="mensaje" required="" class="uk-width-2-3"></g:textArea>
@@ -48,6 +48,8 @@
 					</div>
 					<input type="submit" value="Enviar mensaje" class="uk-button"/>
 					<br/>
+					<b>Ayúdanos a mejorar.</b> 
+					Por favor comunícate con nosotros para dudas, sugerencias y reportes de errores en este sistema. Agradecemos tu colaboración.
 				</fieldset>
 			</g:form>
 			
@@ -73,6 +75,7 @@
 			 	${c.telefono }
 			</g:if>
 			</div>
+			<br><br>
 			</g:each>
 		  </div>
 		</div>

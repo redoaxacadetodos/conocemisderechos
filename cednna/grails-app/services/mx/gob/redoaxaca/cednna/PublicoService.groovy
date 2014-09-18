@@ -92,6 +92,8 @@ class PublicoService {
 					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++
 					    			}else if(tipo==2 && valor.region==valores.region){
+					    				println 'valores.hombre:'+valores.hombres
+					    				println 'valores.mujeres:'+valores.mujeres
 					    				if(valores.hombres==0)
 			    							listRow.put(index, '-')
 			    						else
