@@ -41,17 +41,16 @@
 			    "url": "<g:createLink controller='publico' action='getTitulosDatosCalculo' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
 			    "success": function ( data ) {
 			    	$('#'+div).html( data );
+			    	$.ajax( {
+					    "url": "<g:createLink controller='publico' action='getTablaDatosCalculo' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
+					    "success": function ( json ) {
+						    $('#'+tabla).dataTable( json );
+						    $('#'+tabla+'_filter input').addClass('form-control medium mayus');
+						    $('#divDatosCalculoCargando').html("");
+					    },
+					    "dataType": "json"
+					} );
 			    }
-			} );
-			
-			$.ajax( {
-			    "url": "<g:createLink controller='publico' action='getTablaDatosCalculo' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
-			    "success": function ( json ) {
-				    $('#'+tabla).dataTable( json );
-				    $('#'+tabla+'_filter input').addClass('form-control medium mayus');
-				    $('#divDatosCalculoCargando').html("");
-			    },
-			    "dataType": "json"
 			} );
 		}
 
