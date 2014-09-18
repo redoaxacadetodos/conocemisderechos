@@ -16,10 +16,10 @@
 				<fieldset class="uk-form ">
 					<div class="fieldcontain uk-form-row">
 						<label class="uk-form-label" for="nombre"> 
-							<g:message code="contacto.nombre.label" default="Nombre" /> *
+							<g:message code="contacto.nombre.label" default="Nombre" /> 
 						</label>
 						<div class="uk-form-controls">
-							<g:field name="nombre" type="text" value="" required="" class="uk-width-2-3"/>
+							<g:field name="nombre" type="text" value="" class="uk-width-2-3"/>
 						</div>
 					</div>
 					<div class="fieldcontain uk-form-row">

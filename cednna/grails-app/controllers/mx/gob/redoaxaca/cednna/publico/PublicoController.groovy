@@ -2605,7 +2605,7 @@ class PublicoController {
 	def enviarMensaje(){
 		def correo = Valor.findByKey('correoContacto')
 		String mensaje = params.mensaje
-		String nombre = params.nombre!=null? ("Atentamente: " + params.nombre + "."):''
+		String nombre = params.nombre!=''? ("Atentamente: " + params.nombre + "."):''
 		sendMail {
 			to correo?.valor
 		   subject params.asunto
@@ -2615,7 +2615,7 @@ class PublicoController {
 		   		"""
 		}
 		
-		String nombreRespuesta = params.nombre!=null?(', ' +params.nombre) + '.':''
+		String nombreRespuesta = params.nombre!=''?(', ' +params.nombre) + '.':''
 		
 		sendMail {
 			to params?.correo
