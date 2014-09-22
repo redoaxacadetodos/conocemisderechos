@@ -1,10 +1,11 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Indicador" %>
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Documento" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Nivel" %>
 <div>
 <div class="uk-grid">
 
 	<div class="uk-width-7-10">
-<g:each var="divi" in="${divisiones}">
+	<g:each var="divi" in="${divisiones}">
 		<div id="division${divi?.id}">
 		<h2>${divi?.descripcion }</h2>
 		</div>	
@@ -32,9 +33,11 @@
 		</g:each>	
 		</g:if>	
 	</g:each>	
-		<g:if test="${tipo==2 }">
-			<g:select name="nivelTabla" from="${[[k:1, v:'Internacional'], [k:2, v:'Federal'], [k:3, v:'Estatal']] }" 
-				optionKey="k" optionValue="v" 
+	</div>
+	<div class="uk-width-1-1">
+	<g:if test="${tipo==2 }">
+			<g:select name="nivelTabla" from="${Nivel.findAllByTipo(tipo).sort{it.id} }" 
+				optionKey="id" optionValue="nivel" 
 				onchange="${remoteFunction(action: 'actualizarTablaDocumento',
                        update: 'tablaDocumento',
 					   id:tipo,
@@ -49,8 +52,8 @@
 			</g:form>
 		</g:if>
 		<g:elseif test="${tipo==3 }">
-			<g:select name="nivelTabla" from="${[[k:4, v:'Diagnosticos'], [k:5, v:'Publicaciones']] }" 
-				optionKey="k" optionValue="v" 
+			<g:select name="nivelTabla" from="${Nivel.findAllByTipo(tipo).sort{it.id} }" 
+				optionKey="id" optionValue="nivel" 
 				onchange="${remoteFunction(action: 'actualizarTablaDocumento',
                        update: 'tablaDocumento',
 					   id:tipo,
@@ -65,16 +68,17 @@
 			</g:form>
 		</g:elseif>
 	</div>
-	<div class="uk-width-3-10">
-	<br /><br />
-	<div class="uk-panel uk-panel-box" id="menuflotante">
-		<h3>Indicadores</h3>
-			<g:each var="divi" in="${divisiones}">
-				<a href="#division${divi?.id}">${divi?.descripcion }</a>
-			</g:each>
-	</div>
-
-	</div>
+	<g:if test="${tipo==1 }">
+		<div class="uk-width-3-10">
+		<br /><br />
+		<div class="uk-panel uk-panel-box" id="menuflotante">
+			<h3>Indicadores</h3>
+				<g:each var="divi" in="${divisiones}">
+					<a href="#division${divi?.id}">${divi?.descripcion }</a>
+				</g:each>
+		</div>
+		</div>
+	</g:if>
 </div>
 
 	

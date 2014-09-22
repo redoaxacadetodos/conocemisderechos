@@ -316,14 +316,14 @@ class PublicoController {
 		getAnosPorIndicador(id,tipo).each{
 			if(indicadorInstance?.etiquetaPeriodo){
 				def periodo = Periodo.get(it.periodo.toLong())
-				anios.add( 'Hombres')
-				anios.add( 'Mujeres')
 				anios.add( 'Total')
+				anios.add( 'Mujeres')
+				anios.add( 'Hombres')
 				titulosAnios.add( periodo.descripcion)
 			}else{
-				anios.add( 'Hombres')
-				anios.add( 'Mujeres')
 				anios.add('Total')
+				anios.add( 'Mujeres')
+				anios.add( 'Hombres')
 				titulosAnios.add(it.anio.toString())
 			}
 		}

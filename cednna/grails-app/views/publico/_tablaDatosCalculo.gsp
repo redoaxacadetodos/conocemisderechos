@@ -6,7 +6,7 @@
 				<th rowspan="2">${t }</th>
 			</g:each>
 			<g:each var="t" in="${titulosAnios }">
-				<th colspan="3">${t }</th>
+				<th colspan="3" class="centrado">${t }</th>
 			</g:each>
 		</tr>
 		<tr>

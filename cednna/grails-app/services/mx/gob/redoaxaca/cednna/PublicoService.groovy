@@ -79,46 +79,44 @@ class PublicoService {
 			    				datosAux?.valores.each{ valores ->	
 
 			    					if(tipo==1){
+					    				listRow.put(index, addCommas(valores.indicador))
+					    				index++
+			    						if(valores.mujeres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.mujeres))
+			    						index++
 			    						if(valores.hombres==0)
 			    							listRow.put(index, '-')
 			    						else
 			    							listRow.put(index, addCommas(valores.hombres))
 			    						index++
-			    						if(valores.mujeres==0)
-			    							listRow.put(index, '-')
-			    						else
-			    							listRow.put(index, addCommas(valores.mujeres))
-			    						index++
-					    				listRow.put(index, addCommas(valores.indicador))
-					    				index++
 					    			}else if(tipo==2 && valor.region==valores.region){
-					    				println 'valores.hombre:'+valores.hombres
-					    				println 'valores.mujeres:'+valores.mujeres
-					    				if(valores.hombres==0)
-			    							listRow.put(index, '-')
-			    						else
-			    							listRow.put(index, addCommas(valores.hombres))
-			    						index++
-			    						if(valores.mujeres==0)
-			    							listRow.put(index, '-')
-			    						else
-			    							listRow.put(index, addCommas(valores.mujeres))
-			    						index++
 					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++		
-					    			}else if(tipo==3 && valor.municipio.equals(valores.municipio)){
-					    				if(valores.hombres==0)
-			    							listRow.put(index, '-')
-			    						else
-			    							listRow.put(index, addCommas(valores.hombres))
-			    						index++
-			    						if(valores.mujeres==0)
+					    				if(valores.mujeres==0)
 			    							listRow.put(index, '-')
 			    						else
 			    							listRow.put(index, addCommas(valores.mujeres))
 			    						index++
+			    						if(valores.hombres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.hombres))
+			    						index++
+					    			}else if(tipo==3 && valor.municipio.equals(valores.municipio)){
 					    				listRow.put(index, addCommas(valores.indicador))
 					    				index++
+					    				if(valores.mujeres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.mujeres))
+			    						index++
+			    						if(valores.hombres==0)
+			    							listRow.put(index, '-')
+			    						else
+			    							listRow.put(index, addCommas(valores.hombres))
+			    						index++
 					    			}
 			    				}
 			    			}
