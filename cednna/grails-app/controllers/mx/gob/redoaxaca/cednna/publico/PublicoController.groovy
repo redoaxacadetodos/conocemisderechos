@@ -237,12 +237,17 @@ class PublicoController {
 		}		
 	}
 	
-	def detalleIndicador (Long id){		
+	def detalleIndicador(Long id){		
 		//Mostrar vista de indicadores		
 		def eje = Eje.get(id)
 		if(eje){								
-			def divisiones=Division.findAllByEje(eje)		
-			[divisiones: divisiones, ejeInstance: eje, tipo:eje.tipo]
+			def divisiones=Division.findAllByEje(eje)	
+			def niveles = []
+			println 'eje?.tipoEje?.id:'+eje?.tipoEje?.id
+			if( eje?.tipoEje?.id!=null && eje?.tipoEje?.id!=1){
+				niveles = Nivel.findAllByTipoNivel(eje?.tipoEje).sort{it.id}
+			}
+			[divisiones: divisiones, ejeInstance: eje, tipo:eje?.tipoEje?.id, niveles:niveles]
 		}else{
 			redirect(action:"indicadores")
 		}

@@ -112,6 +112,8 @@
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
 							<li><g:link controller="directorio">Directorio</g:link></li>
 							<li><g:link controller="documento">Documentos</g:link></li>
+							<li><g:link controller="tipoEje">Tipo eje</g:link></li>
+							<li><g:link controller="nivel">Nivel</g:link></li>
 							<li><g:link controller="indicador" action="correo">Correo</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
 							<li><g:link controller="Rol">Roles</g:link></li>
@@ -203,6 +205,8 @@
 							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
 							<li><g:link controller="directorio">Directorio</g:link></li>
 							<li><g:link controller="documento">Documentos</g:link></li>
+							<li><g:link controller="tipoEje">Tipo eje</g:link></li>
+							<li><g:link controller="nivel">Nivel</g:link></li>
 							<li><g:link controller="indicador" action="correo">Correo</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
 							<li><g:link controller="Rol">Roles</g:link></li>

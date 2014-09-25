@@ -3,15 +3,17 @@ package mx.gob.redoaxaca.cednna.domino
 class Nivel {
 	
 	String nivel
-	int tipo
+//	int tipo
+	
+	static belongsTo = [tipoNivel:TipoEje]
 
     static constraints = {
+		tipoNivel(nullable:true)
     }
 	
 	static mapping = {
 		table 'cat_nivel'
 		nivel column:'niv_nivel'
-		tipo column:'niv_tipo'
 		version false
 	}
 }

@@ -34,40 +34,24 @@
 		</g:if>	
 	</g:each>	
 	</div>
-	<div class="uk-width-1-1">
-	<g:if test="${tipo==2 }">
-			<g:select name="nivelTabla" from="${Nivel.findAllByTipo(tipo).sort{it.id} }" 
+	<g:if test="${tipo!=null && tipo!=1 }">
+		<div class="uk-width-1-1">
+			<g:select name="nivelTabla" from="${niveles }" 
 				optionKey="id" optionValue="nivel" 
 				onchange="${remoteFunction(action: 'actualizarTablaDocumento',
                        update: 'tablaDocumento',
 					   id:tipo,
                        params: '\'nivel=\' + this.value')}"/>
             <div id="tablaDocumento">
-            	<g:render template="tablaDocumento" model="[nivel:1]"></g:render>
+            	<g:render template="tablaDocumento" model="[nivel:niveles?.id?.get(0)]"></g:render>
             </div>
             <g:form name="formDocumento" action="descargarDocumento">
             	<g:hiddenField name="nivel"/>
 				<g:hiddenField name="tipo"/>
 				<g:hiddenField name="documento"/>
 			</g:form>
-		</g:if>
-		<g:elseif test="${tipo==3 }">
-			<g:select name="nivelTabla" from="${Nivel.findAllByTipo(tipo).sort{it.id} }" 
-				optionKey="id" optionValue="nivel" 
-				onchange="${remoteFunction(action: 'actualizarTablaDocumento',
-                       update: 'tablaDocumento',
-					   id:tipo,
-                       params: '\'nivel=\' + this.value')}"/>
-             <div id="tablaDocumento">
-            	<g:render template="tablaDocumento" model="[nivel:4]"></g:render>
-            </div>
-            <g:form name="formDocumento" action="descargarDocumento">
-            	<g:hiddenField name="nivel"/>
-				<g:hiddenField name="tipo"/>
-				<g:hiddenField name="documento"/>
-			</g:form>
-		</g:elseif>
-	</div>
+		</div>
+	</g:if>
 	<g:if test="${tipo==1 }">
 		<div class="uk-width-3-10">
 		<br /><br />
@@ -79,6 +63,7 @@
 		</div>
 		</div>
 	</g:if>
+	
 </div>
 
 	

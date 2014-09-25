@@ -6,10 +6,12 @@ class Eje {
 	String titulo
 	Integer status
 	Integer orden
-	Integer tipo
+//	Integer tipo
+	
+	static belongsTo = [tipoEje:TipoEje]
 	
     static constraints = {
 		titulo(nullable:true, size:1..1024)
-		tipo(nullable:true)
+		tipoEje(nullable:true)
     }
 }
