@@ -34,19 +34,19 @@
 			
 				<g:if test="${nivelInstance?.tipoNivel}">
 				<li class="fieldcontain">
-					<span id="tipoNivel-label" class="property-label"><g:message code="nivel.tipoNivel.label" default="tipoNivel" /></span>
+					<span id="tipoNivel-label" class="property-label"><g:message code="nivel.tipoNivel.label" default="Tipo" /></span>
 					
-						<span class="property-value" aria-labelledby="tipoNivel-label"><g:fieldValue bean="${nivelInstance}" field="tipoNivel"/></span>
+						<span class="property-value" aria-labelledby="tipoNivel-label">${nivelInstance?.tipoNivel?.tipo}</span>
 					
 				</li>
 				</g:if>
 			
 			</ol>
 			<g:form>
-				<fieldset class="buttons">
+				<fieldset class="uk-form-horizontal">
 					<g:hiddenField name="id" value="${nivelInstance?.id}" />
-					<g:link class="edit" action="edit" id="${nivelInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="edit uk-button" action="edit" id="${nivelInstance?.id}"><i class="uk-icon-edit"></i><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:actionSubmit class="delete uk-button" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>

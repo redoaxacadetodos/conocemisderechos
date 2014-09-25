@@ -4,11 +4,12 @@ class Documento {
 	
 	String titulo
 	String url
-	int tipo
 	Nivel nivel
+	
+	static belongsTo = [tipoDocumento:TipoEje]
 
     static constraints = {
-		
+		tipoDocumento nullable:true
     }
 	
 	static mapping = {
@@ -16,7 +17,6 @@ class Documento {
 		id column:'doc_id'
 		titulo column:'doc_titulo'
 		url column:'doc_url'
-		tipo column:'doc_tipo'
 		nivel column:'doc_nivel'
 		version false
 	}

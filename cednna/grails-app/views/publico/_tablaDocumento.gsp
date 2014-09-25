@@ -2,7 +2,7 @@
 			context="${request.getContextPath()}" controller="publico"
 			action="documentoList" jqueryui="true"
 			lang="${resource(dir:'js', file:'langtabla.json')}"
-			whereadicional="doc_tipo=${tipo } and doc_nivel=${nivel }"
+			whereadicional="tipo_documento_id=${tipo } and doc_nivel=${nivel }"
 			aoColumns="['{bVisible: false}', '{mData:1 }', '{mData:2, bVisible: false}', '{mData:3, bVisible: false}', '{mData:descargar, bSortable: false }']"/>
 			
 			<g:datatablehelper ctrlid="table"

@@ -23,11 +23,11 @@
 			</g:if>
 			<ol class="property-list documento">
 			
-				<g:if test="${documentoInstance?.tipo}">
+				<g:if test="${documentoInstance?.tipoDocumento}">
 				<li class="fieldcontain">
-					<span id="tipo-label" class="property-label"><g:message code="documento.tipo.label" default="Tipo" /></span>
+					<span id="tipoDocumento-label" class="property-label"><g:message code="documento.tipoDocumento.label" default="tipoDocumento" /></span>
 					
-						<span class="property-value" aria-labelledby="tipo-label"><g:fieldValue bean="${documentoInstance}" field="tipo"/></span>
+						<span class="property-value" aria-labelledby="tipoDocumento-label"><g:fieldValue bean="${documentoInstance}" field="tipoDocumento"/></span>
 					
 				</li>
 				</g:if>

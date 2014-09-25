@@ -1,4 +1,5 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Documento" %>
+<%@ page import="mx.gob.redoaxaca.cednna.domino.TipoEje" %>
 <script>
 
 function actualizar(tipo){
@@ -13,7 +14,7 @@ function actualizar(tipo){
         }});
 }
 $( document ).ready(function() {
-	var tipoInicial = $("#tipo").val();
+	var tipoInicial = $("#tipoDocumento").val();
 	window.onload = actualizar(tipoInicial);
 });
 
@@ -25,9 +26,9 @@ $( document ).ready(function() {
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-		<g:select name="tipo" from="${[[k:2, v:'Marco Jurídico'], [k:3, v:'Centro de información'], [k:4, v:'Diagnósticos Municipales']] }"
+		<g:select id="tipoDocumento" name="tipoDocumento.id" from="${TipoEje.list() }"
 			onchange="actualizar(this.value);"
-			optionKey="k" optionValue="v"/>
+			optionKey="id" optionValue="tipo"/>
 	</div>
 </div>
 

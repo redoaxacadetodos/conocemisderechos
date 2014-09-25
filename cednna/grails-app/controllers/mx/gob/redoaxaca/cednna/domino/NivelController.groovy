@@ -17,7 +17,7 @@ class NivelController {
         params.max = Math.min(max ?: 10, 100)
         [nivelInstanceList: Nivel.list(params), nivelInstanceTotal: Nivel.count()]
     }
-
+	
     def create() {
         [nivelInstance: new Nivel(params)]
     }

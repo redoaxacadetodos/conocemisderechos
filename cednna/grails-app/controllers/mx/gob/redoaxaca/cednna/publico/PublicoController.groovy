@@ -78,11 +78,11 @@ class PublicoController {
 			"doc_id as id",
 			"doc_titulo as titulo",
 			"doc_nivel as nivel",
-			"doc_tipo as tipo",
+			"tipo_documento_id as tipo",
 			"doc_url as url"
 			],
 			[
-			"doc_tipo",
+			"tipo_documento_id",
 			"doc_titulo",
 			"doc_nivel"
 			],

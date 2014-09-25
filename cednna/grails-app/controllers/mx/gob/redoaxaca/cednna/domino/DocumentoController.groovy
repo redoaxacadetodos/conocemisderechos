@@ -24,11 +24,11 @@ class DocumentoController {
 			"doc_id as id",
 			"doc_titulo as titulo",
 			"doc_nivel as nivel",
-			"doc_tipo as tipo",
+			"tipo_documento_id as tipo",
 			"doc_url as url"
 			],
 			[
-			"doc_tipo",
+			"tipo_documento_id",
 			"doc_titulo",
 			"doc_nivel"
 			],
@@ -54,7 +54,7 @@ class DocumentoController {
         def documentoInstance = new Documento(params)
 		
 		try{
-			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + '/' + params.nivel.id
+			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipoDocumento.id + '/' + params.nivel.id
 			def file = request.getFile('url')
 			def name = file.originalFilename.toString().replace(' ', '-')
 			
@@ -136,7 +136,7 @@ class DocumentoController {
         documentoInstance.properties = params
 		
 		try{
-			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + '/' + params.nivel.id
+			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipoDocumento.id + '/' + params.nivel.id
 			def file = request.getFile('url')
 			def name = file.originalFilename.toString().replace(' ', '-')
 			
@@ -203,7 +203,8 @@ class DocumentoController {
 	}
 	
 	def actualizarNivel(){
-		def niveles = Nivel.findAllByTipo(params.tipo.toInteger())
+		def tipoEjeInstance = TipoEje.get(params.tipo.toInteger())
+		def niveles = Nivel.findAllByTipoNivel(tipoEjeInstance)
 		render template:'niveles', model:[niveles:niveles]
 	}
 }
