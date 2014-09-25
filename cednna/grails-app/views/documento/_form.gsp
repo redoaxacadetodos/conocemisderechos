@@ -25,7 +25,7 @@ $( document ).ready(function() {
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">
-		<g:select name="tipo" from="${[[k:2, v:'Marco Jurídico'], [k:3, v:'Centro de información']] }"
+		<g:select name="tipo" from="${[[k:2, v:'Marco Jurídico'], [k:3, v:'Centro de información'], [k:4, v:'Diagnósticos Municipales']] }"
 			onchange="actualizar(this.value);"
 			optionKey="k" optionValue="v"/>
 	</div>
