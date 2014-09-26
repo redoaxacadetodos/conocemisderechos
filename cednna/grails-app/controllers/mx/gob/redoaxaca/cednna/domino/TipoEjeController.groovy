@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import org.springframework.dao.DataIntegrityViolationException
@@ -8,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException
 class TipoEjeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	def dataTablesService
 
     def index() {
         redirect(action: "list", params: params)
@@ -17,6 +19,22 @@ class TipoEjeController {
         params.max = Math.min(max ?: 10, 100)
         [tipoEjeInstanceList: TipoEje.list(params), tipoEjeInstanceTotal: TipoEje.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_tipo_eje"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"eje_id as id",
+			"eje_tipo as tipo",
+			],
+			[
+			"eje_tipo"
+			],
+			[
+			"id",
+			"tipo",
+			],1,"text") as JSON
+	}
 
     def create() {
         [tipoEjeInstance: new TipoEje(params)]

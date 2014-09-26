@@ -12,26 +12,10 @@
 			context="${request.getContextPath()}" controller="documento"
 			action="dataTablesList" jqueryui="true"
 			lang="${resource(dir:'js', file:'langtabla.json')}"
-			aoColumns="['{bVisible: false}', '{mData:mostrar }', '{mData:cambiarNivel}', '{mData:3}', '{mData:descargar, bSortable: false }']"/>
+			aoColumns="['{bVisible: false}', '{mData:mostrar }', '{mData:2}', '{mData:3}', '{mData:descargar, bSortable: false }']"/>
 		<script type="text/javascript">
 			function mostrar(source, type, val){
 				return "<a href='"+ CONTEXT_ROOT+"/documento/show/"+ source[0] + "'>"+ source[1] +"</a> ";
-			}
-
-			function cambiarNivel(source, type, val){
-				var nivel = "";
-				if(source[2]==1){
-					nivel="Internacional";
-				}else if(source[2]==2){
-					nivel="Federal";
-				}else if(source[2]==3){
-					nivel="Estatal";
-				}else if(source[2]==4){
-					nivel="Diagnostico";
-				}else if(source[2]==5){
-					nivel="Publicaciones";
-				}
-				return nivel 
 			}
 
 			function descargar(source, type, val){
@@ -55,7 +39,7 @@
 			</ul>
 		</div>
 		<div id="list-documento" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1>Listado de documentos</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

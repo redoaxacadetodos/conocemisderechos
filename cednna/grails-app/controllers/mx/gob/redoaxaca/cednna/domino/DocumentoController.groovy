@@ -18,19 +18,19 @@ class DocumentoController {
     }
 	
 	def dataTablesList = {
-		def query = "from cat_documento"
+		def query = "from cat_documento left join cat_tipo_eje on (cat_documento.tipo_documento_id = cat_tipo_eje.eje_id) left join cat_nivel on (cat_documento.doc_nivel = cat_nivel.id)"
 		render dataTablesService.datosParaTablaQuery(query,params,
 			[
 			"doc_id as id",
 			"doc_titulo as titulo",
-			"doc_nivel as nivel",
-			"tipo_documento_id as tipo",
+			"niv_nivel as nivel",
+			"eje_tipo as tipo",
 			"doc_url as url"
 			],
 			[
-			"tipo_documento_id",
+			"eje_tipo",
 			"doc_titulo",
-			"doc_nivel"
+			"niv_nivel"
 			],
 			[
 			"id",

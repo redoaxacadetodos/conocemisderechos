@@ -1,5 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 
 import org.springframework.dao.DataIntegrityViolationException
@@ -8,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException
 class NivelController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	def dataTablesService
 
     def index() {
         redirect(action: "list", params: params)
@@ -17,6 +19,25 @@ class NivelController {
         params.max = Math.min(max ?: 10, 100)
         [nivelInstanceList: Nivel.list(params), nivelInstanceTotal: Nivel.count()]
     }
+	
+	def dataTablesList = {
+		def query = "from cat_nivel left join cat_tipo_eje on (cat_nivel.tipo_nivel_id = cat_tipo_eje.eje_id)"
+		render dataTablesService.datosParaTablaQuery(query,params,
+			[
+			"id as id",
+			"niv_nivel as nivel",
+			"eje_tipo as tipo"
+			],
+			[
+			"niv_nivel",
+			"eje_tipo"
+			],
+			[
+			"id",
+			"nivel",
+			"tipo"
+			],1,"text") as JSON
+	}
 	
     def create() {
         [nivelInstance: new Nivel(params)]

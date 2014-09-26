@@ -34,7 +34,7 @@ $( document ).ready(function() {
 
 <div class="fieldcontain ${hasErrors(bean: sentidoInstance, field: 'titulo', 'error')} required uk-form-row">
 	<label for="titulo" class="uk-form-label">
-		<g:message code="documento.titulo.label" default="Titulo" />
+		<g:message code="documento.titulo.label" default="Título" />
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="uk-form-controls">

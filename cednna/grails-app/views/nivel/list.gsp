@@ -6,6 +6,18 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'nivel.label', default: 'Nivel')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<g:javascript src="jquery.dataTables.js" />
+		<g:datatablehelperjs ctrlid="table"
+			context="${request.getContextPath()}" controller="nivel"
+			action="dataTablesList" jqueryui="true"
+			lang="${resource(dir:'js', file:'langtabla.json')}"
+			aoColumns="['{bVisible: false}', '{mData:mostrar}', '{mData:2}']"/>
+		<script type="text/javascript">
+			function mostrar(source, type, val){
+				return "<a href='"+ CONTEXT_ROOT+"/nivel/show/"+ source[0] + "'>"+ source[1] +"</a> ";
+			}
+		</script>
 	</head>
 	<body>
 		<a href="#list-nivel" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -20,31 +32,8 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>
-					
-						<g:sortableColumn property="nivel" title="${message(code: 'nivel.nivel.label', default: 'Nivel')}" />
-					
-						<g:sortableColumn property="tipoNivel" title="${message(code: 'nivel.tipoNivel.label', default: 'tipoNivel')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${nivelInstanceList}" status="i" var="nivelInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${nivelInstance.id}">${fieldValue(bean: nivelInstance, field: "nivel")}</g:link></td>
-					
-						<td>${nivelInstance?.tipoNivel?.tipo}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${nivelInstanceTotal}" />
-			</div>
+			<g:datatablehelper ctrlid="table"
+				cols="['Id', 'Nivel', 'Tipo']" class="table table-striped table-bordered"></g:datatablehelper>
 		</div>
 	</body>
 </html>

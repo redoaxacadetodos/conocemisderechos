@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="list">Listado de documentos</g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -25,16 +25,16 @@
 			
 				<g:if test="${documentoInstance?.tipoDocumento}">
 				<li class="fieldcontain">
-					<span id="tipoDocumento-label" class="property-label"><g:message code="documento.tipoDocumento.label" default="tipoDocumento" /></span>
+					<span id="tipoDocumento-label" class="property-label"><g:message code="documento.tipoDocumento.label" default="Tipo" /></span>
 					
-						<span class="property-value" aria-labelledby="tipoDocumento-label"><g:fieldValue bean="${documentoInstance}" field="tipoDocumento"/></span>
+						<span class="property-value" aria-labelledby="tipoDocumento-label">${documentoInstance.tipoDocumento.tipo}</span>
 					
 				</li>
 				</g:if>
 			
 				<g:if test="${documentoInstance?.titulo}">
 				<li class="fieldcontain">
-					<span id="titulo-label" class="property-label"><g:message code="documento.titulo.label" default="Titulo" /></span>
+					<span id="titulo-label" class="property-label"><g:message code="documento.titulo.label" default="Título" /></span>
 					
 						<span class="property-value" aria-labelledby="titulo-label"><g:fieldValue bean="${documentoInstance}" field="titulo"/></span>
 					
