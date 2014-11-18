@@ -30,15 +30,7 @@ grails.project.dependency.resolution = {
 
         mavenLocal()
         mavenCentral()
-        mavenRepo name: "redoaxacarepo",
-                root: "http://development.redoaxaca.gob.mx:8080/artifactory/grails-plugins/"
-
-        credentials {
-            realm = "Artifactory Realm"
-            host = "development.redoaxaca.gob.mx"
-            username = "user"
-            password = "t3mp0r4l"
-        }        
+        
 
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://snapshots.repository.codehaus.org"
