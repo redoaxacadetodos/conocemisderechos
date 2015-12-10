@@ -13,7 +13,7 @@
 				<body>
 				  <div class="body">
 				  
-				  <g:datatablehelper ctrlid="indicadorTable"  cols="['ID','Nombre','Objetivo','Nombre del responsable','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="indicadorTable"  cols="['ID','Nombre','Objetivo','Nombre del responsable','Opciones']" class="table table-striped table-bordered nuevocolortabla"></g:datatablehelper>
 				  
 				  </div>
 				</body>

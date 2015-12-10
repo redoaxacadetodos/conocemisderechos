@@ -1,25 +1,22 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import com.redoaxaca.java.Combo
-import com.redoaxaca.java.ComboVariable
-import com.redoaxaca.java.LeeArchivo
-import com.redoaxaca.java.RVariable;
-import com.redoaxaca.java.Resultado
-import com.redoaxaca.java.ResultadoIndicador
-import com.redoaxaca.java.ResultadoTemporal
-
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
+import groovy.sql.Sql
+import groovy.time.TimeCategory
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
-import mx.gob.redoaxaca.cednna.seguridad.Usuario;
+import javax.script.ScriptEngine
+import javax.script.ScriptEngineManager
+import javax.script.ScriptException
 
 import org.springframework.dao.DataIntegrityViolationException
 
-import grails.plugins.springsecurity.Secured
-import groovy.sql.Sql
+import com.redoaxaca.java.Combo
+import com.redoaxaca.java.ComboVariable
+import com.redoaxaca.java.RVariable
+import com.redoaxaca.java.Resultado
+import com.redoaxaca.java.ResultadoIndicador
+import com.redoaxaca.java.ResultadoTemporal
 
 @Secured(['ROLE_DEP', 'ROLE_ADMIN'])
 class IndicadorController {
@@ -33,6 +30,7 @@ class IndicadorController {
     def index() {
         
     }
+	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -46,8 +44,8 @@ class IndicadorController {
 		def indicador = Indicador.get(id)
 		def asunto = Valor.findByKey('asunto')
 		def cuerpo = Valor.findByKey('cuerpo')
-		println 'indicador?.mailResponsable:'+indicador?.mailResponsable
-		 sendMail {
+		
+		sendMail {
 			 to indicador?.mailResponsable
 			subject asunto?.valor
 			html  """
@@ -205,18 +203,14 @@ class IndicadorController {
 
 						query=query+") o LEFT JOIN cat_region cr ON cr.crg_id = o.region_id LEFT JOIN cat_municipio cm ON cm.mun_id = o.municipio_id LEFT JOIN cat_localidad cl ON cl.ctl_id = o.localidad_id  group by clave,descripcion"
 
-						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 
 						if(resultTotal.size()>0){
-							//																	System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 
 							resultTotal?.each
 							{
-								//System.out.println("LA CONSULTA ES : "+query);
-								System.out.println("Variable "+vari.clave+" Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
@@ -252,14 +246,11 @@ class IndicadorController {
 				/***
 				 * Comienza el calculo del indicador en base a las variables
 				 * */
-				//											System.out.println("ANIO : "+anio+ "  -   variables "+rVariables.size());
 					if(rVariables.size()>0){
 						rVariables.each { var->
 							formula=formula.replaceAll(var.letra, String.valueOf(var.valores.get(0).indicador))
 						}
 						
-						System.out.println(formula);
-
 						ResultadoTemporal rTemp = new ResultadoTemporal()
 
 						ScriptEngineManager script = new ScriptEngineManager();
@@ -271,8 +262,7 @@ class IndicadorController {
 							listTemp.add(rTemp)
 
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							//e.printStackTrace();
+							e.printStackTrace();
 						}
 
 						formula= indicadorInstance?.formula?.sentencia
@@ -281,7 +271,6 @@ class IndicadorController {
 				/***
 				 * Comienza el proceso de ordenamiento para salida
 				 * */
-				//												System.out.println("Valor final : "+listTemp.size()+ "anio"+anio );
 					listTemp.each { actual->
 						def ban=0
 						if(resultados.size()>0){
@@ -294,8 +283,6 @@ class IndicadorController {
 								res=null;
 							}
 							resultados.get(0).resultados.add(res)
-							//																System.out.println("Veces que entro al sistema 1 ");
-
 						}else{
 							Resultado res= new Resultado()
 							res.anio=actual.anio
@@ -308,23 +295,12 @@ class IndicadorController {
 
 							ri.resultados.add(res)
 							resultados.add(ri)
-							//																System.out.println("Veces que entro al sistema 2 ");
 						}
 					}
-
-
-
-
-
-
 
 					num=0
 					rVariables= new ArrayList<RVariable>()
 					listTemp = new ArrayList<ResultadoTemporal>()
-
-
-
-
 					break;
 
 				case 2:
@@ -410,19 +386,14 @@ class IndicadorController {
 								"o.region_id,  "+
 								"region"
 
-
-						//	System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 
 						if(resultTotal.size()>0){
-							//System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 
 							resultTotal?.each
 							{
-
-								//System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
@@ -496,10 +467,8 @@ class IndicadorController {
 								}
 
 							}
-							System.out.println(formula);
 
 							ResultadoTemporal rTemp = new ResultadoTemporal()
-
 
 							ScriptEngineManager script = new ScriptEngineManager();
 							ScriptEngine js = script.getEngineByName("JavaScript");
@@ -509,13 +478,10 @@ class IndicadorController {
 								rTemp.region= base.region
 								rTemp.idRegion= base.idRegion
 								rTemp.anio=base.anio
-
-								//System.out.println("Region: "+base.idRegion+"-- "+base.region+"  Resultado indicador : "+ rTemp.resultadoIndicador);
 								listTemp.add(rTemp)
 
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								//e.printStackTrace();
+								e.printStackTrace();
 							}
 
 
@@ -688,19 +654,14 @@ class IndicadorController {
 								"o.municipio_id, " +
 								"municipio"
 
-
-						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 
 						if(resultTotal.size()>0){
-							//System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 
 							resultTotal?.each
 							{
-
-								//System.out.println("Variable "+vari.clave+" Municipio-ID : "+it.municipio_id + " Municipio : "+it.municipio + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
@@ -748,27 +709,20 @@ class IndicadorController {
 				/***
 				 * Comienza el calculo del indicador en base a las variables
 				 * */
-				//System.out.println("Numero de resultados por a–o : "+rVariables.size());
 					if(rVariables.size()>0){
 
 						letra=rVariables.get(0).letra
 						num=rVariables.get(0).valores.size()
-
-
 
 						rVariables.each {
 							if( it.valores.size()!=0){
 								num=it.valores.size()
 								letra=it.letra
 								valorBase=it.valores
-
-
 							}
 						}
 
 						valorBase.each { base->
-
-
 							formula=formula.replaceAll(letra, String.valueOf(base.indicador))
 							rVariables.each { var->
 								if(var.letra!=letra){
@@ -782,7 +736,6 @@ class IndicadorController {
 								}
 
 							}
-							System.out.println(formula);
 
 							ResultadoTemporal rTemp = new ResultadoTemporal()
 
@@ -798,12 +751,8 @@ class IndicadorController {
 								rTemp.idMunicipio= base.idMunicipio
 								rTemp.anio=base.anio
 								listTemp.add(rTemp)
-
-								//System.out.println("Region: "+base.idMunicipio+"-- "+base.municipio+"  Resultado indicador : "+ rTemp.resultadoIndicador);
-
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								//	e.printStackTrace();
+									e.printStackTrace();
 							}
 
 
@@ -986,18 +935,14 @@ class IndicadorController {
 								"localidad"
 
 
-						//System.out.println("LA CONSULTA ES : "+query);
 						def resultTotal = sql.rows(query.toString())
 
 						if(resultTotal.size()>0){
-							System.out.println("LA CONSULTA ES : "+query);
 							temVar= new RVariable()
 							temVar.letra=vari.clave
 
 							resultTotal?.each
 							{
-
-								//	System.out.println("Variable "+vari.clave+" Region-ID : "+it.region_id + " Region : "+it.region + " Mujeres : "+it.mujeres+" Hombres : "+it.hombres +" -- "+anio)
 								ResultadoTemporal valorTem = new ResultadoTemporal()
 								switch (vari.poblacion.clave) {
 									case "H":
@@ -1083,10 +1028,8 @@ class IndicadorController {
 								}
 
 							}
-							System.out.println(formula);
 
 							ResultadoTemporal rTemp = new ResultadoTemporal()
-
 
 							ScriptEngineManager script = new ScriptEngineManager();
 							ScriptEngine js = script.getEngineByName("JavaScript");
@@ -1103,7 +1046,6 @@ class IndicadorController {
 								listTemp.add(rTemp)
 
 							} catch (ScriptException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
@@ -1198,51 +1140,17 @@ class IndicadorController {
 
 		}
 
-
-
-		resultados.each {
-
-			System.out.println(it.idRegion + " : "+it.region+"    "+ it.idMunicipio + " : "+it.municipio);
-			System.out.println("Tama–o  "+it.resultados.size());
-			it.resultados.each { an->
-
-				an.each {
-
-					System.out.println("A–o : "+it.anio + " :Indicador  :"+it.indicador);
-
-				}
-			}
-
-		}
-
-
-
-
-
-
-
 		[indicadorInstance:indicadorInstance,resultados:resultados]
-
-
 	}
 	
-	
-	
 	def getOrigenDatos(clave,indicador){
-		
-		
-		
 		
 	}
 
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
 	def encuentraVariablesAndCategoria(Variable v, Categoria cat){
-	
 		def ban = false
-		System.out.println(" id variable  " +v.id);
 		for(c in v.categorias){
-			
-			System.out.println("categoria de la variable : "+ c.descripcion+"  categoria p : "+cat.descripcion);
 			if(c.id==cat.id)
 				ban=true
 		}
@@ -1251,7 +1159,7 @@ class IndicadorController {
 	}
 	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
-	def  descripciones(){
+	def descripciones(){
 		def cvar= new ArrayList<ComboVariable>()
 		def sql = new Sql(sessionFactory.currentSession.connection())
 		def query = "select cvv_clave as clave ,cvv_descripcion as descripcion  from cat_variable group by cvv_clave,cvv_descripcion"
@@ -1261,8 +1169,6 @@ class IndicadorController {
 		cvar=result?.each
 		{
 			def v= new  Combo();
-
-			System.out.println("Variable  : "+it.clave);
 
 			v.descripcion=it.clave+"-"+it.descripcion;
 			v.clave=it.clave
@@ -1330,6 +1236,7 @@ class IndicadorController {
 				dVariable.descripcion=params.getAt("descripcion_"+v)
 				dVariable.claveVar=params.getAt("claveVar_"+v)
 				dVariable.intervalo=params.getAt("intervalo_"+v).toInteger()
+				dVariable.mostrarCiclo = params.getAt("mostrarCiclo_"+v)
 				dVariable.poblacion=poblacion
 				
 				
@@ -1346,17 +1253,29 @@ class IndicadorController {
 				
 		}
 		
-				if (!indicadorInstance.save(flush: true)) {
-					render(view: "create", model: [indicadorInstance: indicadorInstance])
-					return
-				}
+		indicadorInstance.valorNivelNacional = params.valorNivelNacional!=''?params.valorNivelNacional:null
+		indicadorInstance.fuenteNivelNacional = params.fuenteNivelNacional!=''?params.fuenteNivelNacional:null
+		indicadorInstance.calcularPorPeriodoNivelNacional = params.calcularPorPeriodoNivelNacional.toBoolean()
 		
-		
-		
+		if(indicadorInstance.calcularPorPeriodoNivelNacional==true && params.periodo.id)
+			indicadorInstance.periodoNivelNacional = Periodo.get(params.periodo.id)
+		else if(params.anio.id)
+			indicadorInstance.periodoNivelNacional = Periodo.get(params.anio.id)
+		else{
+			indicadorInstance.periodoNivelNacional = null
+			indicadorInstance.calcularPorPeriodoNivelNacional = false
+		}
+			
+
+		if (!indicadorInstance.save(flush: true)) {
+			render(view: "create", model: [indicadorInstance: indicadorInstance])
+			return
+		}
 		
         flash.message = message(code: 'default.created.message', args: [message(code: 'indicador.label', default: 'Indicador'), indicadorInstance.id])
         redirect(action: "show", id: indicadorInstance.id)
     }
+	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
     def show(Long id) {
         def indicadorInstance = Indicador.get(id)
@@ -1406,50 +1325,90 @@ class IndicadorController {
 
         indicadorInstance.properties = params
 		
-		def sentencia= indicadorInstance?.formula?.variables
-		def variables= sentencia.split("\\|")
+		def sentencia = indicadorInstance?.formula?.variables
+		def variables = sentencia.split("\\|")
 		
 		indicadorInstance.fechaActualizacion= new Date()
 
-
-		indicadorInstance.variables.each{
-			it.delete()
-		}
-		indicadorInstance.variables.clear()
-			
+		def variablesAux = indicadorInstance.variables
 		
-		def resultado
-		for(v in variables){
-			
-							def numCategorias= params.getAt("numCategorias_"+v)
-								
-							def poblacion = Poblacion.get(params.getAt("poblacion_"+v))
-						
-							def dVariable = new  DVariable()
-							dVariable.clave=v
-							dVariable.descripcion=params.getAt("descripcion_"+v)
-							dVariable.claveVar=params.getAt("claveVar_"+v)
-							dVariable.intervalo=params.getAt("intervalo_"+v).toInteger()
-							
-							dVariable.poblacion=poblacion
-							
-							
-							
-						
-							for(i in 1 .. numCategorias){
-								
-								
-									 def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
-									if(categoria)
-									{
-										dVariable.addToCategorias(categoria)
-									}
-							}
-							
-							indicadorInstance.addToVariables(dVariable)
-							
+		if(variablesAux.size()!=variables.size()){
+			def ids = variablesAux.id
+			ids.each{ idVariable ->
+				def variable = indicadorInstance.variables.find{it.id == idVariable}
+				def frecuencias = FrecuenciaIndicador.findAllByVariable(variable)
+				frecuencias?.each{
+					it.delete()
+				}
+				
+				indicadorInstance.removeFromVariables(variable)
+				variable.delete()
+			}
 		}
 		
+		variables.each{ v ->
+			
+			def variable = indicadorInstance.variables.find{it.clave == v}
+			def nuevo = params.getAt("nuevo_"+v)
+			def numCategorias= params.getAt("numCategorias_"+v)
+			
+			if(nuevo.equals('false')){
+				variable.clave = v
+				variable.descripcion  =params.getAt("descripcion_"+v)
+				variable.claveVar = params.getAt("claveVar_"+v)
+				variable.intervalo = params.getAt("intervalo_"+v).toInteger()
+				variable.poblacion = Poblacion.get(params.getAt("poblacion_"+v))
+				variable.mostrarCiclo = params.getAt("mostrarCiclo_"+v)
+				variable.categorias.clear()
+				
+				for(i in 1 .. numCategorias){
+					def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
+					if(categoria){
+						variable.addToCategorias(categoria)
+					}
+				}
+				
+			}else{
+				def dVariable = new  DVariable()
+				dVariable.clave = v
+				dVariable.descripcion  =params.getAt("descripcion_"+v)
+				dVariable.claveVar = params.getAt("claveVar_"+v)
+				dVariable.intervalo = params.getAt("intervalo_"+v).toInteger()
+				dVariable.poblacion = Poblacion.get(params.getAt("poblacion_"+v))
+				
+				for(i in 1 .. numCategorias){
+					def categoria = Categoria.get(params.getAt("categoria_"+i+"_"+v))
+					if(categoria){
+						dVariable.addToCategorias(categoria)
+					}
+				}
+				
+				if(variable){
+					def frecuencias = FrecuenciaIndicador.findAllByVariable(variable)
+					frecuencias?.each{
+						it.delete()
+					}
+					
+					indicadorInstance.removeFromVariables(variable)
+					variable.delete()
+				}
+				
+				indicadorInstance.addToVariables(dVariable)
+			}
+		}
+		
+		indicadorInstance.valorNivelNacional = params.valorNivelNacional!=''?params.valorNivelNacional:null
+		indicadorInstance.fuenteNivelNacional = params.fuenteNivelNacional!=''?params.fuenteNivelNacional:null
+		indicadorInstance.calcularPorPeriodoNivelNacional = params.calcularPorPeriodoNivelNacional.toBoolean()
+		
+		if(indicadorInstance.calcularPorPeriodoNivelNacional==true && params.periodo.id)
+			indicadorInstance.periodoNivelNacional = Periodo.get(params.periodo.id)
+		else if(params.anio.id)
+			indicadorInstance.periodoNivelNacional = Periodo.get(params.anio.id)
+		else{
+			indicadorInstance.periodoNivelNacional = null
+			indicadorInstance.calcularPorPeriodoNivelNacional = false
+		}
 		
         if (!indicadorInstance.save(flush: true)) {
             render(view: "edit", model: [indicadorInstance: indicadorInstance])
@@ -1475,39 +1434,27 @@ class IndicadorController {
 	def buscadorVariable(){
 		def formula = Formula.get(params.id);
 		def var
-		def resultado 
+		def resultado
+		def claveVar 
 		if(formula){
 			
-			var= formula.variables.split("\\|")
-
+			var = formula.variables.split("\\|")
 			if(params.idIndicador!="undefined"){
 				def indicador =  Indicador.get(params.idIndicador);
 				if(indicador){
-				
 					if(indicador.formula.id==formula.id){
-						
-						
-						var= indicador.variables
-						
-						//System.out.println("Indicador variables : "+ var);
-					[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
-					
-					}
-					else{
-						
+						var = indicador.variables
+						[variable:var,sentencia:formula.sentencia,descripcion:formula.descripcion]
+					}else{
 						def vare = new ArrayList<DVariable>()
 						for(s in var){
-							
 							def tem= new  DVariable()
 							tem.clave=s
 							vare.add(tem);
-							
 						}
 						[variable:vare,sentencia:formula.sentencia,descripcion:formula.descripcion]
 					}
 				}
-				
-				
 			}
 			else{
 				def vare = new ArrayList<DVariable>()
@@ -1521,8 +1468,6 @@ class IndicadorController {
 				[variable:vare,sentencia:formula.sentencia,descripcion:formula.descripcion]
 			}
 		}		
-		
-	
 	}
 	
 	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_LECTURA', 'ROLE_ADMIN'])
@@ -1587,7 +1532,71 @@ class IndicadorController {
 	def actualizarSemaforo(){
 		def dependencia = Dependencia.get(params.id)
 		def indicadores = Indicador.findAllByDependencia(dependencia)
-		render(template:"indicadorSemaforo", model:[indicadores:indicadores,rol:params.rol])
+		def filas = []
+		def status = false
+		def esAdmin = esAdmin()
+		def g = new org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib()
+		
+		indicadores.each{ indicador ->
+			def variablesCompletas = true
+			indicador.variables.each{ v ->
+				def variables = Variable.findByClave(v.claveVar)
+				if(!variables){
+					variablesCompletas=false
+				}
+			}
+			filas.add(variablesCompletas)
+		}
+		render(template:"indicadorSemaforo", model:[indicadores:indicadores,rol:params.rol, filas:filas])
+	}
+	
+	@Secured(['ROLE_DEP','ROLE_LECTURA', 'ROLE_ADMIN', 'ROLE_NUCLEO'])
+	def semaforoVariable(Long id){
+		def usuario = springSecurityService.currentUser
+		def dependencia =  usuario.dependencia
+		def indicadorInstance = Indicador.get(id)
+		def filas = []
+		
+		indicadorInstance?.variables.sort{it.id}.each{ dVariableInstance ->
+			def fecuenciaIndicadorInstance = FrecuenciaIndicador.findByVariable(dVariableInstance)
+			def fechaLimite
+			def status = false
+			
+			if(fecuenciaIndicadorInstance!=null){
+				fechaLimite = fecuenciaIndicadorInstance?.fechaActualizacion
+				
+				if(fechaLimite<new Date()){
+					while(fechaLimite<new Date()){
+						fechaLimite = use(TimeCategory) {
+							if(fecuenciaIndicadorInstance?.frecuencia?.mes){
+								fechaLimite + fecuenciaIndicadorInstance?.frecuencia?.nmeses?.month
+							}else{
+								fechaLimite + fecuenciaIndicadorInstance?.frecuencia?.nmeses?.days
+							}
+						}
+					}
+					fechaLimite = use(TimeCategory) {
+						if(fecuenciaIndicadorInstance?.frecuencia?.mes){
+							fechaLimite - fecuenciaIndicadorInstance?.frecuencia?.nmeses?.month
+						}else{
+							fechaLimite - fecuenciaIndicadorInstance?.frecuencia?.nmeses?.days
+						}
+					}
+				}else{
+					status=true
+				}
+				
+			}else{
+				fechaLimite=null
+			}
+			def variable = CatOrigenDatos.findByClave(dVariableInstance?.claveVar)?.descripcion
+			
+			if(fechaLimite!=null && fechaLimite<=dVariableInstance?.fechaActualizacion){
+				status = true
+			}
+			filas.add([dVariableInstance?.claveVar, variable, fecuenciaIndicadorInstance?.frecuencia?.descripcion, dVariableInstance?.fechaActualizacion, status])
+		}
+		[dependencia:dependencia, indicadorInstance:indicadorInstance, filas:filas]
 	}
 	
 	@Secured(['ROLE_ADMIN'])
@@ -1617,4 +1626,97 @@ class IndicadorController {
 		flash.message = 'Datos guardados correctamente'
 		render(view: "correo", model: [asunto:asunto?.valor, cuerpo:cuerpo?.valor])
 	}
+	
+	def verificarFrecuenciaActualizacion(){
+		render(text:params.fechaActualizacion)
+	}
+	
+	def esAdmin(){
+		def user =springSecurityService.currentUser
+		boolean admin = false
+		user.authorities.each{
+			if(it.authority.equals('ROLE_ADMIN')){
+				admin = true
+			}
+		}
+		return admin
+	}
+	
+	def descargarManual(){
+		def valorInstance = Valor.findByKey("rutaManual")
+		
+		if(valorInstance){
+			descargarArchivo(valorInstance.valor)
+		}else{
+			response.sendError(500)
+		}
+	}
+	
+	def descargarCatalogoIndicadores(){
+		def valorInstance = Valor.findByKey("rutaCatalogoIndicadores")
+		
+		if(valorInstance){
+			descargarArchivo(valorInstance.valor)
+		}else{
+			response.sendError(500)
+		}
+	}
+	
+	def descargarArchivo(String ruta){
+		try {
+			def archivo = new File (ruta)
+			response.setContentType("application/octet-stream; charset=UTF-8")
+			response.setCharacterEncoding("UTF-8");
+			response.setHeader("Content-disposition", "attachment;filename*=UTF-8''${URLEncoder.encode(archivo.getName(), 'UTF-8')}")
+			response.outputStream << archivo.newInputStream()
+		} catch(Exception ex){
+			ex.printStackTrace()
+			response.sendError(500)
+		}
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def ordenar(){
+		
+	}
+	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_ADMIN','ROLE_LECTURA'])
+	def getDivisionByEje(Long id){
+		def modulo = Eje.get(id)
+		def divisiones
+		if(modulo){
+			divisiones=Division.findAllByEje(modulo)
+		}else{
+			divisiones =Division.list()
+		}
+		render template:'divisiones', model:[division:params.division, divisiones: divisiones, idEje: id]
+	}
+	
+	@Secured(['ROLE_DEP','ROLE_NUCLEO','ROLE_ADMIN','ROLE_LECTURA'])
+	def getIndicadorByDivision(Long id){
+		def	division = Division.get(id)
+		render template:'division', model:[division: division]
+	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def ordenarIndicadores(){
+		
+		def	indicadores = params.indicador
+		if(indicadores){
+			def tamanio = indicadores.size()
+			indicadores.eachWithIndex{ indicador, index ->
+				try{
+					def indicadorInstance = Indicador.get(indicador.toLong())
+					indicadorInstance.orden = index
+					indicadorInstance.save(flush:true)
+					flash.message = "Orden guardado correctamente"
+				}catch(Exception e){
+					e.printStackTrace()
+					flash.message = "Orden guardado correctamente"
+				}
+			}
+		}
+		redirect (action:'ordenar', params:[eje:params.eje, division:params.division]) 
+	}
+	
 }

@@ -31,7 +31,7 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:datatablehelper ctrlid="direcotrioid"  cols="['ID','Nombre','Cargo','Dependencia','Correo','Tel&eacute;fono de Oficina','P&aacute;gina WEB']" class="uk-table uk-table-hover uk-table-striped">
+			<g:datatablehelper ctrlid="direcotrioid"  cols="['ID','Nombre','Cargo','Dependencia','Correo','Tel&eacute;fono de Oficina','P&aacute;gina WEB']" class="uk-table uk-table-hover uk-table-striped nuevocolortabla">
 					  </g:datatablehelper>
 		</div>
 		

@@ -95,27 +95,24 @@
 				</g:if>
 			
 				
-			
-				<g:if test="${variableInstance?.anio}">
-				<li class="fieldcontain">
-					<span id="anio-label" class="property-label"><g:message code="variable.anio.label" default="Anio" /></span>
-					
-						<span class="property-value" aria-labelledby="anio-label">${variableInstance.anio}</span>
-					
-				</li>
-				</g:if>
-			
 				
-			
-			
+				<g:if test="${variableInstance?.periodo}">
+					<li class="fieldcontain">
+						<span id="periodo-label" class="property-label"><g:message code="variable.periodo.label" default="Periodo" /></span>
+						
+							<span class="property-value" aria-labelledby="anio-label">${variableInstance.periodo.descripcion}</span>
+						
+					</li>
+				</g:if>
+				<g:else>
+					<li class="fieldcontain">
+						<span id="anio-label" class="property-label"><g:message code="variable.anio.label" default="Año" /></span>
+						
+							<span class="property-value" aria-labelledby="anio-label">${variableInstance.anio}</span>
+						
+					</li>
+				</g:else>
 			</ol>
-			<g:form>
-				<fieldset class="uk-form uk-form-horizontal">
-				<div class="uk-form-controls>
-					
-				</div>
-				</fieldset>
-			</g:form>
 		</div>
 	</body>
 </html>

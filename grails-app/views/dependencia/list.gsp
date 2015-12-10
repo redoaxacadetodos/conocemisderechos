@@ -37,7 +37,7 @@
 			</g:if>
 			
 			<g:datatablehelper ctrlid="table"
-				cols="['Id', 'Clave','Descripci&oacute;n']" class="table table-striped table-bordered"></g:datatablehelper>
+				cols="['Id', 'Clave','Descripci&oacute;n']" class="table table-striped table-bordered nuevocolortabla"></g:datatablehelper>
 		</div>
 		<script type="text/javascript">
 			$( window ).resize(function() {

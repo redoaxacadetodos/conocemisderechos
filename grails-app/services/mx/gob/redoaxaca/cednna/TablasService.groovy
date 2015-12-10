@@ -80,6 +80,7 @@ class TablasService {
 
     def getTablaDatosEstadisticos(params, cuenta){
         String orden='clave '
+		ArrayList columnas = ["UPPER(cvv_clave)", "UPPER(cvv_descripcion)", "UPPER(r.crg_descripcion)", "UPPER(mun.mun_descripcion)", "UPPER(cat.cct_descripcion)", "cvv_anio::text", "cvv_poblacion_total::text", "cvv_mujeres::text", "cvv_hombres::text"]
         if(params?.iSortCol_0){
             switch (params?.iSortCol_0) {
                 case '1':
@@ -114,7 +115,7 @@ class TablasService {
 
         String sql = """
             select 
-            cvv_id id, cvv_anio anio, cvv_clave clave, cvv_descripcion descripcion, 
+            cvv_id id, cvv_anio anio, cvv_clave clave, cod_descripcion descripcion, 
             e.ent_descripcion estado,  mun.mun_descripcion municipio, cvv_hombres hombres, 
             cvv_mujeres mujeres , cvv_poblacion_total poblaciontotal, r.crg_descripcion region, 
             cat.cct_descripcion categoria, p.descripcion periodo
@@ -126,20 +127,23 @@ class TablasService {
             LEFT JOIN cat_variable_categoria vc ON (vc.cvc_cvv_id = v.cvv_id) 
             LEFT JOIN cat_categoria cat ON (cat.cct_id = vc.cvc_cct_id) 
             LEFT JOIN periodo p ON (p.id = v.cvv_ped_id)
+			left join cat_origen_datos on (cod_clave = cvv_clave)
             """
-        
-        if(params?.sSearch!=null && params?.sSearch!=''){
-            sql +=
-            """
-            WHERE cvv_anio::text LIKE ('%${params?.sSearch}%') 
-            OR UPPER(cvv_clave) LIKE UPPER ('%${params?.sSearch}%') 
-            OR UPPER(cvv_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
-            OR UPPER(e.ent_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
-            OR UPPER(mun.mun_descripcion) LIKE UPPER ('%${params?.sSearch}%')             
-            OR UPPER(r.crg_descripcion) LIKE UPPER ('%${params?.sSearch}%') 
-            OR UPPER(cat.cct_descripcion) LIKE UPPER ('%${params?.sSearch}%')                          
-        """
-        }
+		
+		String sqlWhere = "WHERE"
+		
+		columnas.eachWithIndex{ valor, indice ->
+			def i = indice + 1
+			if(params["sSearch_"+i]!=null && params["sSearch_"+i]!=''){
+				sqlWhere = sqlWhere.equals("WHERE")?sqlWhere:(sqlWhere + " AND")
+				sqlWhere += " " + valor + " LIKE UPPER ('%"+params["sSearch_"+i]+"%')"
+			}
+		}
+		
+		if(sqlWhere.length()==5)
+			sqlWhere = ""
+		
+		sql+=sqlWhere
         
         if (cuenta){ 
             return (executeQuery(" select count(*) numero from ( "+ sql +" ) consulta" ))?.numero
@@ -153,6 +157,7 @@ class TablasService {
         } 
         
         def list = []
+		
         def variables = executeQuery(sql)
         variables.each{
             def anio = it.periodo
@@ -175,7 +180,7 @@ class TablasService {
         }
         return list
     }
-
+	
     @Secured( ['IS_AUTHENTICATED_ANONYMOUSLY'])
     def getTablaBuscador(params, cuenta){
         String orden='modulo '

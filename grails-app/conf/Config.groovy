@@ -36,7 +36,7 @@ grails.mime.types = [
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
-
+grails.resources.adhoc.includes = ['/img/**', '/images/skin/**']
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
 grails.views.gsp.encoding = "UTF-8"
@@ -98,9 +98,9 @@ log4j = {
 
 grails {
 	mail {
-	  host = "HOST"
+	  host = "smtp.gmail.com"
 	  port = 465
-	  username = "USERNAME"
+	  username = "USER"
 	  password = "PASSWORD"
 	  props = ["mail.smtp.auth":"true",
 			   "mail.smtp.socketFactory.port":"465",
@@ -114,6 +114,7 @@ grails.plugins.springsecurity.securityConfigType = "Annotation"
 grails.plugins.springsecurity.controllerAnnotations.staticRules = [
 	'/css/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
 	'/img/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
+  '/bootstrap/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
 	'/images/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
 	'/js/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
 	'/json/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
@@ -122,12 +123,40 @@ grails.plugins.springsecurity.controllerAnnotations.staticRules = [
 
 ]
 
+//Export Plug-in
+grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
+	xml: ['text/xml', 'application/xml'],
+	text: 'text-plain',
+	js: 'text/javascript',
+	rss: 'application/rss+xml',
+	atom: 'application/atom+xml',
+	css: 'text/css',
+	csv: 'text/csv',
+	pdf: 'application/pdf',
+	rtf: 'application/rtf',
+	excel: 'application/vnd.ms-excel',
+	ods: 'application/vnd.oasis.opendocument.spreadsheet',
+	all: '*/*',
+	json: ['application/json','text/json'],
+	form: 'application/x-www-form-urlencoded',
+	multipartForm: 'multipart/form-data'
+  ]
 
 
 
 // Added by the Spring Security Core plugin:
 mx.indesti.cednna.valores.directoriouploads="/var/lib/cednnafiles/"
+mx.indesti.cednna.valores.directorioLogotipos="/var/lib/cednnafiles/logotipos/"
+mx.indesti.cednna.valores.directorioInfografias="/var/lib/cednnafiles/infografias/"
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'mx.gob.redoaxaca.cednna.seguridad.Usuario'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'mx.gob.redoaxaca.cednna.seguridad.UsuarioRol'
 grails.plugins.springsecurity.authority.className = 'mx.gob.redoaxaca.cednna.seguridad.Rol'
 
+//Agregado para plugin de overlay
+mx.gob.redoaxaca.utils.domainClassName="mx.gob.redoaxaca.cednna.domino.Valor"
+mx.gob.redoaxaca.utils.campoSuspendido="msjSuspendido"
+mx.gob.redoaxaca.utils.campoSuspendidoHabilitado="suspendidoHabilitado"
+mx.gob.redoaxaca.utils.campoTitulo="tituloSuspendido"
+mx.gob.redoaxaca.utils.clave="key"
+mx.gob.redoaxaca.utils.descripcion="valor"
+mx.gob.redoaxaca.utils.campoPermitirDeshabilitarSuspendido="permitirDeshabilitarSuspendido"

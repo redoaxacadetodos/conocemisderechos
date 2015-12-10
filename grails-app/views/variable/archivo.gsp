@@ -13,11 +13,9 @@
 		}else if(tipo==2){
 			$("#formDescargar").submit();
 		}
-		
 	}
 
 	$(function() {
-
 		function bajarArchivo(id) {
 			document.location.href = CONTEXT_ROOT + "/variable/generaXLS/" + id;
 		}
@@ -30,7 +28,6 @@
 					id : "anio",
 					clase : "chosen-select",
 					style : "width:150px"
-
 				},
 				index : 0,
 				chained : false,
@@ -45,7 +42,6 @@
 		});
 
 		$("#addCat").click(function() {
-
 			var cont = parseInt($("#numCategorias").val());
 			cont = cont + 1;
 			$("#numCategorias").val(cont);
@@ -190,6 +186,7 @@
 			<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 				<label class="uk-form-label" for="region"> <g:message
 						code="variable.region.label" default="Variable" />
+					<span class="required-indicator">*</span>
 				</label>
 				<div class="uk-form-controls">
 					<g:select id="origenDatos" name="origenDatos"
@@ -205,6 +202,7 @@
 			<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
 				<label class="uk-form-label" for="region"> <g:message
 						code="variable.region.label" default="Variable" />
+					<span class="required-indicator">*</span>
 				</label>
 				<div class="uk-form-controls">
 					<g:select id="origenDatos" name="origenDatos"
@@ -219,7 +217,7 @@
 		</g:else>
 
 		<g:hiddenField name="tipoPeriodo" value="false"/>
-		
+		<br>
 		<div id="divAnio" class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
 			<label class="uk-form-label" for="anio">
 				<g:message code="variable.anio.label" default="Año" />
@@ -241,7 +239,8 @@
 		</div>
 
 		<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
-			<label class="uk-form-label">Zona geografica a procesar:</label>
+			<label class="uk-form-label">Zona geografica a procesar</label>
+			<span class="required-indicator">*</span>
 			<div class="uk-form-controls">
 				<select id="opcionSerie" name="opcionSerie">
 					<option value="1">Estatal</option>

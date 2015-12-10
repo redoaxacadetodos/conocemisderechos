@@ -7,6 +7,19 @@
 		<g:set var="entityName" value="${message(code: 'indicador.label', default: 'Indicador')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 		
+		<g:javascript src="tinymce/tinymce.min.js" />
+		<script type="text/javascript">
+			tinymce.init({
+			    selector: "textarea#html",
+			    plugins: [
+			        "advlist autolink lists link image charmap",
+			        "searchreplace visualblocks code",
+			        "table contextmenu paste"
+			    ],
+			    language:'es_MX',
+			    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+			});
+		</script>
 	</head>
 	<body>
 		<a href="#create-indicador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -16,7 +29,13 @@
 		
 				<li><g:link class="list" action="list">Listado</g:link></li>
 				<li class="uk-active"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-
+				<sec:ifAnyGranted roles="ROLE_ADMIN">
+					<li>
+						<g:link action="ordenar">
+							<g:message code="default.ordenar.label" default="Ordenar indicadores" />
+						</g:link>
+					</li>
+				</sec:ifAnyGranted>
 		</ul>
 </nav>
 

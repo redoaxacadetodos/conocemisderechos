@@ -2,30 +2,12 @@
 <%@ page import="mx.gob.redoaxaca.cednna.domino.CatOrigenDatos" %>
 <%@ page import="mx.gob.redoaxaca.cednna.domino.Periodo" %>
 
-<g:javascript src="jquery.dataTables.js"></g:javascript>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function(){
-			var tabla = "tablaIndicadores";
-			var div = "divIndicadores";
 			var idTipo = 1;
-			var idIndicador = ${indicadorInstance?.id};
-			
-			mostrarCargandoImg(div);
-			mostrarCargandoImg("divIndicadorSerie");
-			$.ajax( {
-			    "url": "<g:createLink controller='publico' action='getTablaIndicador' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
-			    "success": function ( json ) {
-			    	$('#'+'divIndicadorSerie').html( "<table class='table table-striped table-hover table-bordered' id='"+ 'tablaIndicadoresSerie' + "'></table>" );
-			        $('#'+'tablaIndicadoresSerie').dataTable( json );
-			        $('#'+'tablaIndicadoresSerie'+'_filter input').addClass('form-control medium mayus');
-			        
-			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
-			        $('#'+tabla).dataTable( json );
-			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
-			    },
-			    "dataType": "json"
-			} );
-					
+
+			actualizarTabla(idTipo, "divIndicadores");
+			actualizarTabla(idTipo, "divIndicadorSerie");
 			actualizarSelectGrafica();
 			actualizarTablaDatosCalculo(1);
 		});
@@ -78,79 +60,106 @@
 			mostrarCargandoImg(div);
 			$.ajax( {
 			    "url": "<g:createLink controller='publico' action='getTablaIndicador' />" + "/"+ idIndicador+"?idTipo=" + idTipo,
-			    "success": function ( json ) {
-			    	$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
-			        $('#'+tabla).dataTable( json );
-			        $('#'+tabla+'_filter input').addClass('form-control medium mayus');
-			    },
-			    "dataType": "json"
+			    data: {tabla:tabla},
+			    "success": function ( data ) {
+			    	$('#'+div).html( data );
+			    }
 			} );
 		}
-
 		
-	</script>
+		function actualizarareaGrafica(){
+			var selectVal = $( "#areaGrafica" ).val();
+			var select = $( "#opcionesGrafica" ).val();
+			
+			${remoteFunction(
+					controller:'publico',
+					action: 'actualizarGrafica',
+					params: '\'idTipo=\' + select +\'&idArea=\' + selectVal',
+					update: 'grafica',
+					onLoading: "mostrarCargandoImg('grafica')",
+					id: indicadorInstance?.id 
+				 ) }
+		}
 
-<script>
-	function actualizarGrafica(){
+		function actualizarareaGraficaDatosCalculo(){
+			var selectVal = $( "#areaGraficaDatosCalculo" ).val();
+			var select = $( "#opcionesGraficaDatosCalculo" ).val();
+			
+			${remoteFunction(
+					controller:'publico',
+					action: 'actualizarGraficaDatosCalculo',
+					params: '\'idTipo=\' + select +\'&idArea=\' + selectVal',
+					update: 'graficaDatosCalculo',
+					onLoading: "mostrarCargandoImg('graficaDatosCalculo')",
+					id: indicadorInstance?.id 
+				 ) }
+		}
 		
-		var selectVal = $( "#opcionesAreaGrafica" ).val();
-		var select = $( "#opcionesGrafica" ).val();
-		
-		${remoteFunction(
-				controller:'publico',
-				action: 'actualizarGrafica',
-				params: '\'idTipo=\' + select +\'&idArea=\' + selectVal',
-				update: 'grafica',
-				onLoading: "mostrarCargandoImg('grafica')",
-				id: indicadorInstance?.id 
-			 ) }
-	}
-	
-	function actualizarSelectGrafica(){
-		var select = $( "#opcionesGrafica" ).val();
-		${remoteFunction(
-				  controller:'publico',
-				  action: 'actualizarAreaGrafica',
-				  params: '\'idTipo=\' + select',
-				  update: 'selectGrafica',
-				  onLoading: "mostrarCargandoImg('selectGrafica')",
-				  onComplete: "actualizarGrafica();actualizarSelect();",
-				  id: indicadorInstance?.id  )}
-	}
-</script>
+		function actualizarSelectGrafica(){
+			var select = $( "#opcionesGrafica" ).val();
+			${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarAreaGrafica',
+					  params: '\'idTipo=\' + select + \'&idSelect=areaGrafica\'' ,
+					  update: 'selectGrafica',
+					  onLoading: "mostrarCargandoImg('selectGrafica')",
+					  onComplete: "actualizarareaGrafica();actualizarSelect();",
+					  id: indicadorInstance?.id  )}
+		}
 
-<script>
-	  $(function () {
+		function actualizarSelectGraficaDatosCalculo(){
+			var select = $( "#opcionesGraficaDatosCalculo" ).val();
+			${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarAreaGrafica',
+					  params: '\'idTipo=\' + select + \'&idSelect=areaGraficaDatosCalculo\'',
+					  update: 'selectGraficaDatosCalculo',
+					  onLoading: "mostrarCargandoImg('selectGraficaDatosCalculo')",
+					  onComplete: "actualizarareaGraficaDatosCalculo();actualizarSelect();",
+					  id: indicadorInstance?.id  )}
+		}
+		
+	  	$(function () {
 		  $( "#tabs" ).tabs();
             	        
 	       $('#myTab a').click(function (e) {
 	      	  e.preventDefault();
 	      	  $(this).tab('show');
+	      	  if(this.name=="mapa"){
+	      		initialize();
+		      }else if(this.name=="calculo"){
+		    	  $(window).resize();
+			      if($("#graficaDatosCalculo").html()==""){
+			    	  actualizarSelectGraficaDatosCalculo();
+				  }
+			  };
 	      	})
 	    });
 
 		function mostrarCargandoImg(div){
-	  		$( "#"+div ).html("<div align='center'><img height='80px' width='80px' alt='cargando' src='${resource(dir:'images',file:'loading.gif') }'></div>")											
+	  		$( "#"+div ).html("<div align='center'><img height='80px' width='80px' alt='cargando' src='${resource(dir:'images',file:'loading.gif') }'></div>");											
 		}
 
 		function goToByScroll(id){
-			loadScript();		      
+			initialize();
 		    id = id.replace("link", "");
 		      
 		    $('html,body').animate({
 		        scrollTop: $("#"+id).offset().top},
 		        'slow');
 		}
-		
+
 	  </script>
 	  
 <h3>${indicadorInstance?.nombre }</h3>
 	<ul class="nav nav-tabs" id="myTab">
 	  <li class="active"><a href="#indicador">Indicador</a></li>
 	  <li><a href="#metadato">Metadatos</a></li>
+	  <li><a href="#planestatal">Alineación al Plan Estatal</a></li>
 	  <li><a href="#serie">Serie histórica</a></li>
-	  <li><a href="#calculo">Datos para el cálculo</a></li>
-<%--	  <li><a onclick="loadScript();" href="#mapa">Mapa</a></li>--%>
+	  <li><a name="calculo" href="#calculo">Datos para el cálculo</a></li>
+	  <li><a href="#oaxacaNivelNacional">Oaxaca a nivel nacional</a></li>
+	  <li><a name="mapa" href="#mapa">Mapa</a></li>
 	</ul>
 	 
 	<div class="tab-content">
@@ -241,7 +250,7 @@
 	  	
 	  </div>
 	  <div class="tab-pane" id="metadato">
-	  	<table>
+	  	<table class="nuevocolortabla">
 	  	<tbody>
 	  		<tr class="odd"><td class="marked">Nombre del indicador:</td><td>${indicadorInstance?.nombre }</td></tr>
 	  		<tr class="even"><td class="marked">Objetivo del indicador:</td><td>${indicadorInstance?.objetivo }</td></tr>
@@ -266,6 +275,22 @@
 	  		<tr class="even"><td class="marked">Fecha de actualización:</td><td><g:formatDate type="date" style="LONG" date="${indicadorInstance?.fechaActualizacion }"/></td></tr>	  		  		
 	  	</tbody>
 	  	</table>
+	  </div>
+	  <div class="tab-pane" id="planestatal">
+	  	<g:if test="${indicadorInstance?.pnDesarrollo}">
+	  		<table class="nuevocolortabla">
+			  	<tbody>
+			  		<tr class="odd"><td class="marked">Eje:</td><td>${indicadorInstance?.pnDesarrollo?.descripcion }</td></tr>
+			  		<tr class="even"><td class="marked">Tema:</td><td>${indicadorInstance?.tema?.descripcion }</td></tr>
+			  		<tr class="odd"><td class="marked">Objetivo:</td><td>${indicadorInstance?.objetivoPND!=null?indicadorInstance.objetivoPND:'-' }</td></tr>
+			  		<tr class="even"><td class="marked">Estrategia:</td><td>${indicadorInstance?.estrategia!=null?indicadorInstance.estrategia:'-' }</td></tr>
+			  		<tr class="odd"><td class="marked">Programa:</td><td>${indicadorInstance?.nombrePrograma!=null?indicadorInstance.nombrePrograma:'-' }</td></tr>
+			  	</tbody>
+		  	</table>
+	  	</g:if>
+	  	<g:else>
+	  		<p>Este indicador no está alineado con el Plan Estatal de Desarrollo de Oaxaca.</p>
+	  	</g:else>
 	  </div>
 	  <div class="tab-pane" id="serie">
 	  	<label for="opcionSerie">Área geográfica:</label>
@@ -292,36 +317,66 @@
 	  	<p><b>Fórmula de cálculo:</b> <span>${formula}</span><br><br></p>  	
 	  		
 	  	<div id="divDatosCalculo"></div>
+	  	
 	  	<div id="divDatosCalculoCargando"></div>
+	  	
+	  	<label for="opcionesGraficaDatosCalculo">Nivel de gráfica:</label>
+		<select id="opcionesGraficaDatosCalculo" name="opcionesGraficaDatosCalculo" 
+  			onchange="actualizarSelectGraficaDatosCalculo()">
+  			<option value="1">Estatal</option>
+  			<option value="2">Regional</option>
+  			<option value="3">Municipal</option>	  			
+  		</select>
+  		
+  		<div id="selectGraficaDatosCalculo"></div>
+  		
+		<div id="graficaDatosCalculo"></div>
+	  	
+	  	<br><br>
+	  	<div>${indicadorInstance?.html }</div>
 	  </div>
 	  
-<%--	  <div class="tab-pane" id="mapa">--%>
-<%--	  	<label for="opcionesMapa">Área geográfica:</label>--%>
-<%--	  		<select id="opcionesMapa" name="opcionesMapa" --%>
-<%--	  			onchange="${remoteFunction(--%>
-<%--					  controller:'publico',--%>
-<%--					  action: 'actualizarMapa',--%>
-<%--					  params: '\'idTipo=\' + this.value',--%>
-<%--					  update: 'mapaIndicador',--%>
-<%--					  onLoading: "mostrarCargandoImg('mapaIndicador')",--%>
-<%--					  onLoaded: "ocultarCargandoImg('mapaIndicador')",						  --%>
-<%--					  onComplete: "goToByScroll('opcionesMapa')",					  					  					--%>
-<%--					  id: indicadorInstance?.id  )}">--%>
-<%--	  			<option value="1">Estatal</option>--%>
-<%--	  			<option value="2">Regional</option>--%>
-<%--	  			<option value="3">Municipal</option>	  			--%>
-<%--	  		</select>	  		--%>
-<%--	  	--%>
-<%--	  	<div id="cargandoMapa" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>--%>
-<%--	  	<div id="mapaIndicador">	  		--%>
-<%--	  		<g:render template="mapa"></g:render>--%>
-<%--	  	</div>--%>
-<%--	  </div>--%>
+	  <div class="tab-pane" id="oaxacaNivelNacional">
+	  	<table class="nuevocolortabla">
+		  	<tbody>
+		  		<g:if test="${indicadorInstance?.calcularPorPeriodoNivelNacional }">
+		  			<tr class="odd"><td class="marked">Periodo:</td><td>${indicadorInstance?.periodoNivelNacional?.descripcion!=null?indicadorInstance?.periodoNivelNacional?.descripcion:'-' }</td></tr>
+		  		</g:if>
+		  		<g:else>
+		  			<tr class="odd"><td class="marked">Año:</td><td>${indicadorInstance?.periodoNivelNacional?.anioInicial!=null?indicadorInstance?.periodoNivelNacional?.anioInicial:'-' }</td></tr>
+		  		</g:else>
+		  		<tr class="odd"><td class="marked">Valor:</td><td>${indicadorInstance?.valorNivelNacional!=null?indicadorInstance.valorNivelNacional:'-' }</td></tr>
+		  		<tr class="odd"><td class="marked">Fuente:</td><td>${indicadorInstance?.fuenteNivelNacional!=null?indicadorInstance.fuenteNivelNacional:'-' }</td></tr>
+		  	</tbody>
+	  	</table>
+	  </div>
+	  
+	  <div class="tab-pane" id="mapa">
+	  	<label for="opcionesMapa">Área geográfica:</label>
+	  		<select id="opcionesMapa" name="opcionesMapa" 
+	  			onchange="${remoteFunction(
+					  controller:'publico',
+					  action: 'actualizarMapa',
+					  params: '\'idTipo=\' + this.value',
+					  update: 'mapaIndicador',
+					  onLoading: "mostrarCargandoImg('mapaIndicador')",
+					  onComplete: "goToByScroll('opcionesMapa')",					  					  					
+					  id: indicadorInstance?.id  )}">
+	  			<option value="1">Estatal</option>
+	  			<option value="2">Regional</option>
+	  			<option value="3">Municipal</option>	  			
+	  		</select>	  		
+	  	
+	  	<div id="cargandoMapa" style="display: none" align="center"><img height="80px" width="80px" alt="cargando" src="${resource(dir:'images',file:'loading.gif') }"></div>
+	  	<div id="mapaIndicador">	  		
+	  		<g:render template="mapa" model="[idIndicador:indicadorInstance?.id, idTipo:1]"></g:render>
+	  	</div>
+	  </div>
 	</div>	 
 	
-	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts.js')}"  type="text/javascript" charset="utf-8"></script>
-	  	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>
-	  	<g:javascript src="chosen.jquery.js" />
+	<script src="${resource(dir: 'js', file: 'highcharts/js/highcharts-4.1.9.js')}"  type="text/javascript" charset="utf-8"></script>
+	<script src="${resource(dir: 'js', file: 'highcharts/js/modules/exporting.js')}"  type="text/javascript" charset="utf-8"></script>
+	<g:javascript src="chosen.jquery.js" />
 	  	<script type="text/javascript">
 	  	$(function(){
 	  		var config = {

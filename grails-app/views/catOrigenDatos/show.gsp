@@ -27,7 +27,7 @@
 				<li class="fieldcontain">
 					<span id="dependencia-label" class="property-label"><g:message code="catOrigenDatos.dependencia.label" default="Dependencia" /></span>
 					
-						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="dependencia" action="show" id="${catOrigenDatosInstance?.dependencia?.id}">${catOrigenDatosInstance?.dependencia?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="dependencia-label"><g:link controller="dependencia" action="show" id="${catOrigenDatosInstance?.dependencia?.id}">${catOrigenDatosInstance?.dependencia?.descripcion}</g:link></span>
 					
 				</li>
 				</g:if>

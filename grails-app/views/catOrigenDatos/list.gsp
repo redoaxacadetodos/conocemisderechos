@@ -27,7 +27,7 @@
 				var div = "divVariables";
 				var tabla = "tablaVariables";
 				
-				$('#'+div).html( "<table class='table table-striped table-hover table-bordered' id='"+ tabla + "'></table>" );
+				$('#'+div).html( "<table class='table table-striped table-hover table-bordered nuevocolortabla' id='"+ tabla + "'></table>" );
 				$('#'+tabla).dataTable({	
 					"bProcessing": true,
 				    "bServerSide": true,

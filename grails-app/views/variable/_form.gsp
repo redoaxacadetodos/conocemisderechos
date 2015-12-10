@@ -3,32 +3,39 @@
 
 <div id="mensaje"></div>
 
-<g:hiddenField name="valida" value="0"/>
-
-
 <g:if test="${dependencia}">
-							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
-								<label class="uk-form-label" for="region">
-									<g:message code="variable.region.label" default="Variable" />
-									
-								</label>
-								<div class="uk-form-controls">
-								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select  uk-width-1-1" style="width:300px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna variable-']"/>
-								</div>
-							</div>
-						
-							</g:if><g:else>
-							<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
-								<label class="uk-form-label" for="region">
-									<g:message code="variable.region.label" default="Variable" />
-									
-								</label>
-								<div class="uk-form-controls">
-								<g:select id="origenDatos" name="origenDatos" from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.list()}" optionKey="clave" optionValue="detalleCombo"  class="chosen-select" style="width:800px;"  value="${variableInstance?.clave}"  noSelection="['null': '- Ninguna variable-']"/>
-								</div>
-							</div>
-							
-							</g:else>
+	<div
+		class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
+		<label class="uk-form-label" for="region"> <g:message
+				code="variable.region.label" default="Variable" />
+			<span class="required-indicator">*</span>
+		</label>
+		<div class="uk-form-controls">
+			<g:select id="origenDatos" name="origenDatos"
+				from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.findAllByDependencia(dependencia)}"
+				optionKey="clave" optionValue="detalleCombo"
+				class="chosen-select  uk-width-1-1" style="width:300px;"
+				value="${variableInstance?.clave}"
+				required="required" />
+		</div>
+	</div>
+</g:if>
+<g:else>
+	<div
+		class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'region', 'error')} ">
+		<label class="uk-form-label" for="region"> <g:message
+				code="variable.region.label" default="Variable" />
+			<span class="required-indicator">*</span>
+		</label>
+		<div class="uk-form-controls">
+			<g:select id="origenDatos" name="origenDatos"
+				from="${mx.gob.redoaxaca.cednna.domino.CatOrigenDatos.list()}"
+				optionKey="clave" optionValue="detalleCombo" class="chosen-select required"
+				style="width:800px;" value="${variableInstance?.clave}"
+				required="required"/>
+		</div>
+	</div>
+</g:else>
 
 <%--<div class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'descripcion', 'error')} required">--%>
 <%--	<label class="uk-form-label" for="descripcion">--%>
@@ -111,129 +118,134 @@
 </div>
 
 <g:hiddenField name="tipoPeriodo" value="false"/>
-
-<div id="divAnio" class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
-	<label class="uk-form-label" for="anio">
-		<g:message code="variable.anio.label" default="Año" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="uk-form-controls">
-	<select id="anio" name="anio" ></select>
-	<input type="button" id="mostrarPeriodo" onClick="$('#divPeriodo').show();$('#divAnio').hide();$('#anio').attr('disabled','disabled');$('#periodo').removeAttr('disabled'); $('#tipoPeriodo').val('true');" value="Mostrar periodos" class="uk-button">
+<br>
+<div class="fieldcontain uk-form-row required">
+	<div id="divAnio" >
+		<div id="divAnio" class="fieldcontain uk-form-row ${hasErrors(bean: variableInstance, field: 'anio', 'error')} required">
+		<label class="uk-form-label" for="anio">
+			<g:message code="variable.anio.label" default="Año" />
+			<span class="required-indicator">*</span>
+		</label>
+		<div class="uk-form-controls">
+			<select id="anio" name="anio" ></select>
+			<input type="button" id="mostrarPeriodo" onClick="$('#divPeriodo').show();$('#divAnio').hide();$('#anio').attr('disabled','disabled');$('#periodo').removeAttr('disabled'); $('#tipoPeriodo').val('true');" value="Mostrar periodos" class="uk-button">
+		</div>
+	</div>
+	</div>
+	
+	<div id="divPeriodo">
+		<label class="uk-form-label"for=periodo>
+			<g:message code="indicador.frecuencia.label" default="Ciclo escolar " />
+			<span class="required-indicator">*</span>
+		</label>
+		<div class="uk-form-controls">
+			<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.findAllByCategoria(1).sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${variableInstance?.periodo?.id}" class="form-h-mix4 chosen-select" style="width:666px;"/>
+			<input type="button" id="ocultarPeriodo" onclick="$('#divPeriodo').hide();$('#divAnio').show();$('#anio_chosen').width('666px');$('#periodo').attr('disabled','disabled');$('#anio').removeAttr('disabled');$('#tipoPeriodo').val('false');" value="Ocultar periodos" class="form-h-mix4 uk-button">
+		</div>
 	</div>
 </div>
 
-<div id="divPeriodo" class="fieldcontain uk-form-row  ${hasErrors(bean: indicadorInstance, field: 'frecuencia', 'error')} ">
-	<label class="uk-form-label"for=periodo>
-		<g:message code="indicador.frecuencia.label" default="Ciclo escolar " />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="periodo" name="periodo.id" from="${mx.gob.redoaxaca.cednna.domino.Periodo.list().sort{it.descripcion}}" optionKey="id" optionValue="descripcion" required="" value="${indicadorInstance?.periodo?.id}" class="many-to-one chosen-select" style="width:350px;"/>
-	<input type="button" id="ocultarPeriodo" onclick="$('#divPeriodo').hide();$('#divAnio').show();$('#periodo').attr('disabled','disabled');$('#anio').removeAttr('disabled');$('#tipoPeriodo').val('false');" value="Ocultar periodos" class="uk-button">
-</div>
-
-
 <br>
 
+<li>
+	<g:if test="${variableInstance?.categorias}">
+		<g:each status="i" var="cat" in="${variableInstance.categorias}">
+			<div id="divVar_${i+1}"
+				class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
+				<div class="uk-grid">
+					<div class="uk-width-1-2">
+						<label class="uk-form-label" for="localidad"> <g:message
+								code="indicador.localidad.label" default="Tipo de categoria" />
 
-			
-				
-				
-				
-			<li>	
-				
-				<g:if  test="${variableInstance?.categorias}">
-			
-			
-					<g:each   status="i" var="cat"  in="${variableInstance.categorias}" >
-			
-						<div  id="divVar_${i+1}" class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-							<div class="uk-grid">
-											<div class="uk-width-1-2">
-													<label class="uk-form-label" for="localidad">
-														<g:message code="indicador.localidad.label" default="Tipo de categoria" />
-												
-													</label>
-													<g:select id="tipo_${i+1}" name="tipo_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select sel-var" value="${cat?.tipo?.id}"   optionValue="descripcion"/>
-											</div>
-											<div class="uk-width-1-2">
-														<label class="uk-form-label" for="localidad">
-															<g:message code="indicador.localidad.label" default="Categoria" />
-													
-														</label>
-														<div id="divTipo_${i+1}">
-										 				<g:select id="categoria" name="categoria_${i+1}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select "  value="${cat?.id}" optionValue="descripcion"   />
-														</div>
-											</div>
-								</div>
-									<input id="del_${i+1}" name="del_${i+1}"  value="-" type="button"  class="uk-button"/>
+						</label>
+						<g:select id="tipo_${i+1}" name="tipo_${i+1}"
+							from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}"
+							optionKey="id" class="chosen-select sel-var"
+							value="${cat?.tipo?.id}" optionValue="descripcion" />
+					</div>
+					<div class="uk-width-1-2">
+						<label class="uk-form-label" for="localidad"> <g:message
+								code="indicador.localidad.label" default="Categoria" />
+
+						</label>
+						<div id="divTipo_${i+1}">
+							<g:select id="categoria" name="categoria_${i+1}"
+								from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}"
+								optionKey="id" class="chosen-select " value="${cat?.id}"
+								optionValue="descripcion" />
 						</div>
-										
-									<script type="text/javascript">
-			
-									$(function(){
-													$("#del_${i+1}").click(function(){
+					</div>
+				</div>
+				<input id="del_${i+1}" name="del_${i+1}" value="-" type="button"
+					class="uk-button" />
+			</div>
 
-															$("#divVar_${i+1}").remove();
-									      					var num = parseInt($("#numCategorias").val()); 
-															num=num-1;
-										     				$("#numCategorias").val(num);
-									
-												});	
-									});
-									                		
-								</script>					                		
-					</g:each>
-					
-					<g:hiddenField name="numCategorias" value="${variableInstance.categorias.size()}"/>
-			</g:if>
-			<g:else>
+			<script type="text/javascript">
 			
-					<g:hiddenField name="numCategorias" value="0"/>
-			</g:else>
+				$(function(){
+					$("#del_${i+1}").click(function(){
+						$("#divVar_${i+1}").remove();
+      					var num = parseInt($("#numCategorias").val()); 
+						num=num-1;
+	     				$("#numCategorias").val(num);
 				
-			</li>	
-				
+					});	
+				});
+									                		
+			</script>
+		</g:each>
+
+		<g:hiddenField name="numCategorias"
+			value="${variableInstance.categorias.size()}" />
+	</g:if> 
+	<g:else>
+		<g:hiddenField name="numCategorias" value="0" />
+	</g:else>
+</li>
+
 <h3>Categor&iacute;as</h3>
 
 
 
 
 
-	<input id="addCat" name="addCat"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
+<input id="addCat" name="addCat" value="Agregar Categor&iacute;a"
+	type="button" class="uk-button" />
 
-	<div id="divCate">
-	
-	
-	</div>
+<div id="divCate"></div>
 
 
 
 <script type="text/javascript">
-
-
-
-
 $(function(){
 
 	$(document).ready(function() {
-		$('#periodo_chosen').css({"width": "150px"});
-		$('#periodo').attr('disabled','disabled');		 
-
+		
 		llenaCombo({
 			url : CONTEXT_ROOT+'/json/anos.json',
 			htmlOptions : {
 				name : "anio",
 				id : "anio",
 				clase : "chosen-select",
-				style : "width:150px"
+				style : "width:666px"
 			},
 			index : ${variableInstance.anio},
 			chained : false,
 			anchor : "#anio",
 			combo : true
-		});  
-	    
+		});
+
+		<g:if test="${variableInstance?.periodo}">
+			$('#divAnio').hide();
+			$('#periodo_chosen').css({"width": "666px"});
+			$('#anio').attr('disabled','disabled');
+		</g:if>
+		<g:else>
+			$('#divPeriodo').hide();
+			$('#anio_chosen').css({"width": "666px"});
+			$('#periodo').attr('disabled','disabled');
+		</g:else>  
+
 	});
 	
 
@@ -248,23 +260,14 @@ $(function(){
 		      $(selector).chosen(config[selector]);
 		    }
 
-
-	
-
-
 	    asignaEventorRegion();
 		asignaEventorMunicipio();
 <%--		asignaEventorTipo(1);--%>
 
 		 $("#newVariable").click(function(){
-
-
-
 			 var selectedValues = $(".sel-var").map(function(){
 				    return this.value;
 				}).get().join(',');
-
-
 
 			 var arrVar = selectedValues.split(",");
 			 var num=0,cont=0;
@@ -275,40 +278,31 @@ $(function(){
 		                    cont++;
 		                }
 		            }
-
-		        }
-		        if (cont > 0) {
-
-			        
-			        $("#mensaje").html(	"<div class='uk-alert uk-alert-danger' ><a  class='uk-alert-close uk-close'></a><p>Solo puedes seleccionar un solo tipo de categoria</p></div>");
-		        
-		         	
-		        } else {
+		      }
+		      
+		      if (cont > 0) {
+			  		$("#mensaje").html(	"<div class='uk-alert uk-alert-danger' ><a  class='uk-alert-close uk-close'></a><p>Solo puedes seleccionar un solo tipo de categoria</p></div>");
+		      }else {
 					var total= parseInt($("#poblacionTotal").val());
-			       if(total>0){
-		        	$("#frmVariable").submit();
-		       		}else{
-		       		  $("#mensaje").html(	"<div class='uk-alert uk-alert-danger' ><a  class='uk-alert-close uk-close'></a><p>Debe existir un valor mayor a 0 en el numero de Mujeres u Hombres </p></div>");
-			       	}	
-			    }
-		
-				
-
+				    if(total>0){
+			            $('.submit').click();
+				        return false;
+			       	}else{
+			       		if(confirm("Se ingresará un total igual a cero, ¿Desea continuar?")==true){
+<%--			       			$.validator.setDefaults({ ignore: ":hidden:not(.chosen-select)" });--%>
+			       			$('.submit').click();
+					        return false;
+				       	}
+				    }	
+			  }
 		});
 
-
-
-
-	 
 		$("#hombres").change(function(){
-
 			var h= parseInt($("#hombres").val());
 			var m= parseInt( $("#mujeres").val());
 			var total=h+m;
 			$("#poblacionTotal").val(total);
 		});
-
-
 
 		$("#mujeres").change(function(){
 
@@ -320,67 +314,48 @@ $(function(){
 		});
 
 
-
-
-
-
-
-
-		
-	 
 		$("#addCat").click(function(){
-
-
 				
-									var cont=	parseInt($("#numCategorias").val());
-									cont=cont+1;
-									$("#numCategorias").val(cont);				  
-				
-									var unused = $.ajax({type:'POST', 
-						            url:CONTEXT_ROOT+'/variable/categorias',
-						              data: {con:cont,valida:$("#valida").val()},
-						              success:function(data,textStatus)
-						              {
-						              
-						              		$('#divCate').append(data);
-						              	
-						             
-						              },
-						           	  error:function(XMLHttpRequest,textStatus,errorThrown)
-						                  {		$('#diverror').html(XMLHttpRequest.responseText);}
-					                  ,
-					                  complete:function(data,textStatus){
+			var cont=	parseInt($("#numCategorias").val());
+			cont=cont+1;
+			$("#numCategorias").val(cont);				  
 
-					                	  var config = {
-											      '.chosen-select'           : {},
-											      '.chosen-select-deselect'  : {allow_single_deselect:true},
-											      '.chosen-select-no-single' : {disable_search_threshold:10},
-											      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-											      '.chosen-select-width'     : {width:"95%"}
-											    }
-											    for (var selector in config) {
-											      $(selector).chosen(config[selector]);
-											    }
+			var unused = $.ajax({type:'POST', 
+            url:CONTEXT_ROOT+'/variable/categorias',
+              data: {con:cont,valida:$("#valida").val()},
+              success:function(data,textStatus)
+              {
+              
+              		$('#divCate').append(data);
+              	
+             
+              },
+           	  error:function(XMLHttpRequest,textStatus,errorThrown)
+                  {		$('#diverror').html(XMLHttpRequest.responseText);}
+                 ,
+                 complete:function(data,textStatus){
 
-					                	  asignaEventorTipo(cont);
-						              }
-									});
-					
+               	  var config = {
+					      '.chosen-select'           : {},
+					      '.chosen-select-deselect'  : {allow_single_deselect:true},
+					      '.chosen-select-no-single' : {disable_search_threshold:10},
+					      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+					      '.chosen-select-width'     : {width:"95%"}
+					    }
+					    for (var selector in config) {
+					      $(selector).chosen(config[selector]);
+					    }
 
-			
+               	  asignaEventorTipo(cont);
+              }
+			});
 		});
-	
-	 
-	
 });
 
 
 function asignaEventorRegion(){
 
-
-$("#region").change(function(){
-
-		
+	$("#region").change(function(){
 		llenaCombo({
 			url : CONTEXT_ROOT+'/variable/getMunicipioByRegion/'+$("#region").val(),
 			htmlOptions : {
@@ -398,11 +373,9 @@ $("#region").change(function(){
 			tag:"#divMun"
 		});  
 
-		});
-		
-		asignaEventorMunicipio();
-	
-	
+	});
+
+	asignaEventorMunicipio();
 }
 
 
@@ -411,9 +384,6 @@ function asignaEventorMunicipio(){
 
 	$("#municipio").change(function(){
 
-
-		
-		
 		llenaCombo({
 			url : CONTEXT_ROOT+'/variable/getLocalidadByMunicipio/'+$("#municipio").val(),
 			htmlOptions : {
@@ -488,12 +458,9 @@ function asignaEventorTipo(num){
 
 		});
 	
-
-
-	
 }
 
-$('#divPeriodo').hide();
+
+
 
 </script>
-

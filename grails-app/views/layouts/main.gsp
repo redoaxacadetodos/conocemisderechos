@@ -5,15 +5,14 @@
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="shortcut icon" type="${request.getContextPath()}/img/favicon.ico" href="${request.getContextPath()}/img/favicon.ico" type="image/x-icon"/>
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.docs.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
-			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.docs.min.css')}" type="text/css">
-		
+
 <%--		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
 <%--						--%>
 <%--						--%>
 	 
-	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
@@ -58,12 +57,16 @@
 				<div class="uk-grid" >
 				<div class="uk-width-medium-8-10 uk-width-large-7-10">	
 					<a class="uk-hidden-small" href="http://www.cednna.oaxaca.gob.mx"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
-					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_02.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
-					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_03.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
+					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-g-cafe.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
+					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-bien-n.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
 					<a class="uk-hidden-small" href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_04.png" title="OaxTransparente" alt="OaxTransparente"></a>
+                    
 				</div>
 				<div class="uk-width-medium-2-10 uk-width-large-3-10">	
-					
+					<ul class="uk-navbar-nav uk-hidden-small">
+						<li><g:link class="iconobar icono_catalogos"  controller="indicador" action="descargarCatalogoIndicadores" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de indicadores"></g:link></li>
+						<li><g:link class="iconobar icono_ayuda"  controller="indicador" action="descargarManual" data-uk-tooltip="{pos:'bottom'}" title="Manual de operación"></g:link></li>	
+					</ul>
 				</div>
 				<div class="uk-width-1-10">
 					<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
@@ -92,35 +95,39 @@
 							<li><g:link controller="Indicador" >Principal</g:link></li>
 							<li><g:link controller="Indicador" action="list">Indicadores</g:link></li>
 							   <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
+							   		<li><g:link controller="infografia" action="list">Infografías</g:link></li>
 								   <li><g:link controller="Formula">F&oacute;rmulas</g:link></li>
 							   </sec:ifAnyGranted>
 							<li><g:link controller="Variable">Datos estad&iacute;sticos</g:link></li>
 						<sec:ifAnyGranted roles="ROLE_ADMIN">
 							<li><g:link controller="Variable" action="dele">Eliminar Datos</g:link></li>
 							<li class="uk-nav-header">Cat&aacute;logos</li>
-							<li><g:link controller="tipo">Categor&iacute;as </g:link></li>
-							<li><g:link controller="sentido">Sentido</g:link></li>
-							<li><g:link controller="dependencia">Dependencia</g:link></li>
-							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
-							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
-							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
-							<li><g:link controller="eje">M&oacute;dulo</g:link></li>
-							<li><g:link controller="division">SubM&oacute;dulo</g:link></li>
-							<li><g:link controller="PNDesarrollo">PED</g:link></li>
-							<li><g:link controller="tema">Tema PED</g:link></li>
-							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
-							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
-							<li><g:link controller="directorio">Directorio</g:link></li>
-							<li><g:link controller="documento">Documentos</g:link></li>
-							<li><g:link controller="tipoEje">Tipo de eje</g:link></li>
-							<li><g:link controller="nivel">Nivel</g:link></li>
+							<li><g:link controller="tipo" action="list">Categor&iacute;as </g:link></li>
+							<li><g:link controller="sentido" action="list">Sentido</g:link></li>
+							<li><g:link controller="dependencia" action="list">Dependencia</g:link></li>
+							<li><g:link controller="unidadEjecutora" action="list">Unidad ejecutora</g:link></li>
+							<li><g:link controller="Frecuencia" action="list">Frecuencia de medici&oacute;n</g:link></li>
+							<li><g:link controller="unidadMedida" action="list">Unidad de medida</g:link></li>
+							<li><g:link controller="eje" action="list">M&oacute;dulo</g:link></li>
+							<li><g:link controller="division" action="list">SubM&oacute;dulo</g:link></li>
+							<li><g:link controller="PNDesarrollo" action="list">PED</g:link></li>
+							<li><g:link controller="tema" action="list">Tema PED</g:link></li>
+							<li><g:link controller="objetivoMilenio" action="list">ODM</g:link></li>
+							<li><g:link controller="catOrigenDatos" action="list">Variables</g:link></li>
+							<li><g:link controller="directorio" action="list">Directorio</g:link></li>
+							<li><g:link controller="logotipo" action="list">Logotipos</g:link></li>
+							<li><g:link controller="documento" action="list">Centro de información</g:link></li>
+							<li><g:link controller="tipoEje" action="list">Tipo de eje</g:link></li>
+							<li><g:link controller="nivel" action="list">Nivel</g:link></li>
 							<li><g:link controller="indicador" action="correo">Correo</g:link></li>
+							<li><g:link controller="documento" action="manual">Documentos CEDNNA</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
-							<li><g:link controller="Rol">Roles</g:link></li>
-							<li><g:link controller="Usuario">Usuarios</g:link></li>
+							<li><g:link controller="Usuario" action="list">Usuarios</g:link></li>
 						</sec:ifAnyGranted>
 						<li class="uk-nav-header">Seguimiento</li>
 							<li><g:link controller="Indicador" action="semaforo">Sem&aacute;foro</g:link></li>
+							<li><g:link controller="frecuenciaIndicador" action="calendario">Calendario</g:link></li>
+							<li><g:link controller="frecuenciaIndicador" action="list">Frecuencia de actualización</g:link></li>
 							<br/>
 							<li><g:link controller="logout">Cerrar sesi&oacute;n </g:link></li>
 
@@ -143,7 +150,7 @@
 
 		<div class="tm-footer">
 			<div class="uk-container uk-container-center">
-				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñez y Adolescencia en Oaxaca, es una plataforma de código abierto del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
+				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñez y Adolescencia en Oaxaca, es una plataforma de <a href="https://github.com/redoaxacadetodos/conocemisderechos.git">código abierto</a> del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
 				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
 				<hr></hr>
 				<div class="uk-grid">
@@ -173,58 +180,55 @@
 		</div>
 
 		<div id="tm-offcanvas" class="uk-offcanvas">
-
 			<div class="uk-offcanvas-bar">
-
-				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-					<li class="uk-parent uk-active"><a href="#">Índice</a>
+				<ul class="uk-nav uk-nav-offcanvas" data-uk-nav="{multiple:true}">
+					<li class=""><a href="#">Índice</a>
 						<ul class="uk-nav-sub">
-
 							<li class="uk-nav-header">Men&uacute;</li>
-
 							<li><g:link controller="Indicador" >Principal</g:link></li>
 							<li><g:link controller="Indicador" action="list">Indicadores</g:link></li>
 							   <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_NUCLEO">
+							   		<li><g:link controller="infografia" action="list">Infografías</g:link></li>
 								   <li><g:link controller="Formula">F&oacute;rmulas</g:link></li>
 							   </sec:ifAnyGranted>
 							<li><g:link controller="Variable">Datos estad&iacute;sticos</g:link></li>
 						<sec:ifAnyGranted roles="ROLE_ADMIN">
 							<li><g:link controller="Variable" action="dele">Eliminar Datos</g:link></li>
 							<li class="uk-nav-header">Cat&aacute;logos</li>
-							<li><g:link controller="tipo">Categor&iacute;as </g:link></li>
-							<li><g:link controller="sentido">Sentido</g:link></li>
-							<li><g:link controller="dependencia">Dependencia</g:link></li>
-							<li><g:link controller="unidadEjecutora">Unidad ejecutora</g:link></li>
-							<li><g:link controller="Frecuencia">Frecuencia de medici&oacute;n</g:link></li>
-							<li><g:link controller="unidadMedida">Unidad de medida</g:link></li>
-							<li><g:link controller="eje">M&oacute;dulo</g:link></li>
-							<li><g:link controller="division">SubM&oacute;dulo</g:link></li>
-							<li><g:link controller="PNDesarrollo">PED</g:link></li>
-							<li><g:link controller="tema">Tema PED</g:link></li>
-							<li><g:link controller="objetivoMilenio">ODM</g:link></li>
-							<li><g:link controller="catOrigenDatos">Variables</g:link></li>
-							<li><g:link controller="directorio">Directorio</g:link></li>
-							<li><g:link controller="documento">Documentos</g:link></li>
-							<li><g:link controller="tipoEje">Tipo de eje</g:link></li>
-							<li><g:link controller="nivel">Nivel</g:link></li>
+							<li><g:link controller="tipo" action="list">Categor&iacute;as </g:link></li>
+							<li><g:link controller="sentido" action="list">Sentido</g:link></li>
+							<li><g:link controller="dependencia" action="list">Dependencia</g:link></li>
+							<li><g:link controller="unidadEjecutora" action="list">Unidad ejecutora</g:link></li>
+							<li><g:link controller="Frecuencia" action="list">Frecuencia de medici&oacute;n</g:link></li>
+							<li><g:link controller="unidadMedida" action="list">Unidad de medida</g:link></li>
+							<li><g:link controller="eje" action="list">M&oacute;dulo</g:link></li>
+							<li><g:link controller="division" action="list">SubM&oacute;dulo</g:link></li>
+							<li><g:link controller="PNDesarrollo" action="list">PED</g:link></li>
+							<li><g:link controller="tema" action="list">Tema PED</g:link></li>
+							<li><g:link controller="objetivoMilenio" action="list">ODM</g:link></li>
+							<li><g:link controller="catOrigenDatos" action="list">Variables</g:link></li>
+							<li><g:link controller="directorio" action="list">Directorio</g:link></li>
+							<li><g:link controller="logotipo" action="list">Logotipos</g:link></li>
+							<li><g:link controller="documento" action="list">Centro de información</g:link></li>
+							<li><g:link controller="tipoEje" action="list">Tipo de eje</g:link></li>
+							<li><g:link controller="nivel" action="list">Nivel</g:link></li>
 							<li><g:link controller="indicador" action="correo">Correo</g:link></li>
+							<li><g:link controller="documento" action="manual">Documentos CEDNNA</g:link></li>
 							<li class="uk-nav-header">Seguridad</li>
-							<li><g:link controller="Rol">Roles</g:link></li>
-							<li><g:link controller="Usuario">Usuarios</g:link></li>
+							<li><g:link controller="Usuario" action="list">Usuarios</g:link></li>
 						</sec:ifAnyGranted>
 						<li class="uk-nav-header">Seguimiento</li>
 							<li><g:link controller="Indicador" action="semaforo">Sem&aacute;foro</g:link></li>
+							<li><g:link controller="frecuenciaIndicador" action="calendario">Calendario</g:link></li>
+							<li><g:link controller="frecuenciaIndicador" action="list">Frecuencia de actualización</g:link></li>
 							<br/>
 							<li><g:link controller="logout">Cerrar sesi&oacute;n </g:link></li>
-
 						</ul>
 					</li>
-
 				</ul>
-
 			</div>
-
 		</div>
+
 	</body>
 	
 </html>

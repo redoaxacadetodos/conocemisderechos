@@ -33,7 +33,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<g:datatablehelper ctrlid="table"
-				cols="['Id', 'Usuario','Dependencia','Cuenta expirada','Cuenta Bloqueada','Habilitado']" class="table table-striped table-bordered"></g:datatablehelper>
+				cols="['Id', 'Usuario','Dependencia','Cuenta expirada','Cuenta Bloqueada','Habilitado']" class="table table-striped table-bordered nuevocolortabla"></g:datatablehelper>
 		</div>
 		<script type="text/javascript">
 			$( window ).resize(function() {

@@ -25,7 +25,9 @@ class DocumentoController {
 			"doc_titulo as titulo",
 			"niv_nivel as nivel",
 			"eje_tipo as tipo",
-			"doc_url as url"
+			"doc_url as url",
+			"tipo_documento_id as tipoid",
+			"doc_nivel as nivelid",
 			],
 			[
 			"eje_tipo",
@@ -37,7 +39,9 @@ class DocumentoController {
 			"titulo",
 			"nivel",
 			"tipo",
-			"url"
+			"url",
+			"tipoid",
+			"nivelid"
 			],1,"text") as JSON
 	}
 
@@ -51,38 +55,19 @@ class DocumentoController {
     }
 
     def save() {
-        def documentoInstance = new Documento(params)
+        def documentoInstance = new Documento()
 		
-		try{
-			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipoDocumento.id + '/' + params.nivel.id
-			def file = request.getFile('url')
-			def name = file.originalFilename.toString().replace(' ', '-')
-			
-			//Crea la ruta de almacenamiento si no existe
-			def storagePathDirectory = new File(storagePath)
-			if(!storagePathDirectory.exists()){
-				if(storagePathDirectory.mkdirs()){
-					println "Directorio Creado correctamente"
-				}else{
-					println "Error al crear el directorio"
-				}
-			}
-			//Almacenar el archivo
-			if(!file.isEmpty()){
-				file.transferTo(new File("${storagePath}/${name}"))
-				println "Archivo guardado ${storagePath}/${name}"
-			}else{
-				println "Archivo ${file.inspect()} estaba vacio"
-			}
-			
-			documentoInstance.url = name
-		}catch(Exception e){
-			e.printStackTrace()
-		}
+		def file = request.getFile('url')
+		def ruta = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipoDocumento.id + '/' + params.nivel.id
+		def nombreArchivo = guardarArchivo(ruta, file)
 		
-//		documentoInstance.nivel = Nivel.get(params.nivel.toLong())
-//		println 'nivel:'+documentoInstance.nivel
+		documentoInstance.url = nombreArchivo
+		documentoInstance.titulo = params.titulo
+		documentoInstance.nivel = Nivel.get(params.nivel.id.toLong())
+		documentoInstance.tipoDocumento = TipoEje.get(params.tipoDocumento.id.toLong())
+		
         if (!documentoInstance.save(flush: true)) {
+			println 'error!!'
             render(view: "create", model: [documentoInstance: documentoInstance])
             return
         }
@@ -133,34 +118,14 @@ class DocumentoController {
             }
         }
 
-        documentoInstance.properties = params
+        documentoInstance.titulo = params.titulo
+		documentoInstance.nivel = Nivel.get(params.nivel.id.toLong())
+		documentoInstance.tipoDocumento = TipoEje.get(params.tipoDocumento.id.toLong())
 		
-		try{
-			def storagePath = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipoDocumento.id + '/' + params.nivel.id
-			def file = request.getFile('url')
-			def name = file.originalFilename.toString().replace(' ', '-')
-			
-			//Crea la ruta de almacenamiento si no existe
-			def storagePathDirectory = new File(storagePath)
-			if(!storagePathDirectory.exists()){
-				if(storagePathDirectory.mkdirs()){
-					println "Directorio Creado correctamente"
-				}else{
-					println "Error al crear el directorio"
-				}
-			}
-			//Almacenar el archivo
-			if(!file.isEmpty()){
-				file.transferTo(new File("${storagePath}/${name}"))
-				println "Archivo guardado ${storagePath}/${name}"
-			}else{
-				println "Archivo ${file.inspect()} estaba vacio"
-			}
-			
-			documentoInstance.url = name
-		}catch(Exception e){
-			e.printStackTrace()
-		}
+		def file = request.getFile('url')
+		def ruta = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipoDocumento.id + '/' + params.nivel.id
+		def nombreArchivo = guardarArchivo(ruta, file)
+		documentoInstance.url = nombreArchivo
 
         if (!documentoInstance.save(flush: true)) {
             render(view: "edit", model: [documentoInstance: documentoInstance])
@@ -194,10 +159,12 @@ class DocumentoController {
 		try {
 			def path = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads + params.tipo + "/" + params.nivel + "/" + params.documento
 			def archivo = new File (path)
-			response.setContentType("application/octet-stream")
-			response.setHeader("Content-disposition", "attachment;filename=${archivo.getName()}")
+			response.setContentType("application/octet-stream; charset=UTF-8")
+			response.setCharacterEncoding("UTF-8");
+			response.setHeader("Content-disposition", "attachment;filename*=UTF-8''${URLEncoder.encode(archivo.getName(), 'UTF-8')}")
 			response.outputStream << archivo.newInputStream()
 		} catch(Exception ex){
+			println params
 			response.sendError(500)
 		}
 	}
@@ -205,6 +172,83 @@ class DocumentoController {
 	def actualizarNivel(){
 		def tipoEjeInstance = TipoEje.get(params.tipo.toInteger())
 		def niveles = Nivel.findAllByTipoNivel(tipoEjeInstance)
-		render template:'niveles', model:[niveles:niveles]
+		render template:'niveles', model:[niveles:niveles, nivelSeleccionado:params.nivel]
+	}
+	
+	def manual(){
+		
+	}
+	
+	def editarManual(Long id){
+		def manual
+		if(id==1)
+			manual = Valor.findByKey("rutaManual")
+		else
+			manual = Valor.findByKey("rutaManualPublico")
+		[id:id, manual:manual]	
+	}
+	
+	def guardarManual(){
+		def id = params.id.toInteger()
+		def manual
+		if(id==1)
+			manual = Valor.findByKey("rutaManual")
+		else if(id==2)
+			manual = Valor.findByKey("rutaManualPublico")
+		else
+			manual = Valor.findByKey("rutaCatalogoIndicadores")
+		
+		if(manual){
+			manual.valor = params.ruta
+			
+			def file = request.getFile('url')
+			def ruta = grailsApplication.config.mx.indesti.cednna.valores.directoriouploads
+			def nombreArchivo = guardarArchivo(ruta, file)
+			if(nombreArchivo.length()>0){
+				manual.valor = ruta + nombreArchivo
+				if(manual.save(flush:true))
+					flash.message = "Datos guardados correctamente"
+				else
+					flash.message = "Error al guardar el manual"
+			}else{
+				flash.message = "Error al guardar el manual, no se pudo obtener el archivo"
+			}
+		}else{
+			flash.message = "Error al guardar el manual"
+		}
+		
+		redirect (action:"manual")
+	}
+	
+	String guardarArchivo(String ruta, def file){
+		String name = ""
+		try{
+			if(!file.isEmpty()){
+				println 'file:'+file.isEmpty()
+				def storagePath = ruta
+				name = file.originalFilename.toString().replace(' ', '-')
+				
+				//Crea la ruta de almacenamiento si no existe
+				def storagePathDirectory = new File(storagePath)
+				if(!storagePathDirectory.exists()){
+					if(storagePathDirectory.mkdirs()){
+						println "Directorio Creado correctamente"
+					}else{
+						println "Error al crear el directorio"
+					}
+				}
+				//Almacenar el archivo
+				if(!file.isEmpty()){
+					file.transferTo(new File("${storagePath}/${name}"))
+					println "Archivo guardado ${storagePath}/${name}"
+				}else{
+					println "Archivo ${file.inspect()} estaba vacio"
+				}
+			}
+		}catch(Exception e){
+			name = ""
+			e.printStackTrace()
+		}
+		return name
 	}
 }

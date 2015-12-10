@@ -9,19 +9,12 @@
 	<body>
 		<a href="#create-variable" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
-
-<nav class="uk-navbar">
-		<ul class="uk-navbar-nav">
-
-			<li><g:link class="list" action="list">Datos estad&iacute;sticos</g:link></li>
-			
-			<li class="uk-active"><g:link class="create" action="create">Agregar datos</g:link></li>
-
-
-</nav>
-
-
-
+		<nav class="uk-navbar">
+			<ul class="uk-navbar-nav">
+				<li><g:link class="list" action="list">Datos estad&iacute;sticos</g:link></li>
+				<li class="uk-active"><g:link class="create" action="create">Agregar datos</g:link></li>
+			</ul>
+		</nav>
 
 		<div id="create-variable" class="content scaffold-create" role="main">
 			<h1 class="uk-article-title">Nuevo origen de datos</h1>
@@ -38,8 +31,9 @@
 			<g:form action="save"  name="frmVariable">
 				<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
-				
+					<g:hiddenField name="valida" value="1"/>
 					  <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_DEP">
+					<input type="submit" class="submit" style="display:none;">
 					<input type="button" id="newVariable" name="newVariable"  value="${message(code: 'default.button.create.label', default: 'Create')}" class="uk-button"/>
 					<br/>
 					</sec:ifAnyGranted>

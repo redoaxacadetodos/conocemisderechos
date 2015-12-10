@@ -3,19 +3,26 @@
 <!DOCTYPE html>
 <html>
 <head>		
-		<meta name="layout" content="public">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
-	  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<meta name="layout" content="public">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'dataTables.tableTools.css')}">
+    
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <g:javascript src="themaGraficas.js"/>
 	  
-	  <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
-						
-		<link href="${resource(dir: 'bootstrap', file: 'css/bootstrap.min.css')}" rel="stylesheet">		
-	  <script type="text/javascript">
-	  function addCommas(source, type, val) {
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+    <g:javascript src="dataTables-1.10.7.js" />
+    <r:require module="export"/>
+
+	<g:javascript src="dataTables.tableTools.min.js"/>
+	<link href="${resource(dir: 'bootstrap', file: 'css/bootstrap.min.css')}" rel="stylesheet">		
+	<script type="text/javascript">
+		
+		function addCommas(source, type, val) {
 			nStr = source[3];
 			if (nStr==undefined)
 				return 0;
@@ -29,7 +36,9 @@
 			}
 			return x1 + x2;
 		}
-	  </script>
+	 </script>
+	  
+	  
 </head>
 <body>
 
@@ -57,6 +66,7 @@
 	<div id="division" class="mascara">
 		<g:render template="detalleIndicador"></g:render>
 	</div>	
+	
  <script src="${resource(dir: 'bootstrap', file: 'js/bootstrap.min.js')}"></script>
 </body>
 </html>

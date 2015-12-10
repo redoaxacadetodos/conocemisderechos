@@ -51,8 +51,8 @@
 			<div class="uk-grid" >
 				<div class="uk-width-medium-8-10 uk-width-large-7-10">	
 					<a class="uk-hidden-small" href="${createLink(controller:'publico', action:'indicadores')}"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
-					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_02.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
-					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_03.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
+					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-g-cafe.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
+					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-bien-n.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
 					<a class="uk-hidden-small" href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_04.png" title="OaxTransparente" alt="OaxTransparente"></a>
 				</div>
 				<div class="uk-width-medium-2-10 uk-width-large-3-10">	
@@ -62,12 +62,11 @@
 <%--						<li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>--%>
 						<li><g:link class="iconobar icono_directorio" controller="publico" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
 						<li><g:link class="iconobar icono_contacto" controller="publico" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
-						<li><g:link class="iconobar icono_ayuda"  controller="publico" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
+						<li><g:link class="iconobar icono_catalogos"  controller="indicador" action="descargarCatalogoIndicadores" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de indicadores"></g:link></li>
+						<li><g:link class="iconobar icono_ayuda"  controller="indicador" action="descargarManual" data-uk-tooltip="{pos:'bottom'}" title="Manual de operación"></g:link></li>	
 					</ul>
 				</div>
-				<div class="uk-width-1-10">
-					<a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
-				</div>
+				
 
 				<div class="uk-navbar-brand uk-navbar-center uk-visible-small">
 					<img src="${request.getContextPath()}/img/logomini_cednna.png"  title="CEDNNA" alt="CEDNNA" class="fondologomini">
@@ -99,7 +98,7 @@
 
 		<div class="tm-footer">
 			<div class="uk-container uk-container-center">
-				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñez y Adolescencia en Oaxaca, es una plataforma de código abierto del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
+				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñez y Adolescencia en Oaxaca, es una plataforma de <a href="https://github.com/redoaxacadetodos/conocemisderechos.git">código abierto</a> del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
 				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
 				<hr></hr>
 				<div class="uk-grid">
@@ -128,26 +127,7 @@
 			</div>
 		</div>
 
-		<div id="tm-offcanvas" class="uk-offcanvas">
-
-			<div class="uk-offcanvas-bar">
-
-				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-					<li class="uk-parent uk-active"><a href="#">Índice</a>
-						<ul class="uk-nav-sub">
-							<li><g:link controller="Indicador">Indicadores</g:link></li>
-							<li><g:link controller="Formula">Formulas</g:link></li>
-							<li><g:link controller="Variable">Origen de datos</g:link></li>
-							<li><g:link controller="logout">Cerrar sesion </g:link></li>
-					
-						</ul>
-					</li>
-
-				</ul>
-
-			</div>
-
-		</div>
+		
 	</body>
 	
 </html>

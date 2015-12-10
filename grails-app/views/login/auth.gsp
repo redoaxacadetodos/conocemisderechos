@@ -7,7 +7,7 @@
 
 <body>
 <div class="titulo"><img src="${request.getContextPath()}/img/logo_sist.png"  title="CEDNNA" alt="CEDNNA" witdh="283px" height="215px"></div>
-<div class="uk-panel uk-panel-box uk-container-center uk-width-1-3">
+<div class="uk-panel uk-panel-box uk-container-center login-static">
 							<form action='${postUrl}' method='POST' id='loginForm' class="uk-form uk-form-stacked" autocomplete='off'>
                             
                             <h3 class="uk-panel-title">Entrada al sistema</h3>

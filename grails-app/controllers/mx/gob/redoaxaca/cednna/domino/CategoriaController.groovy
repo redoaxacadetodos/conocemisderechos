@@ -13,11 +13,6 @@ class CategoriaController {
         redirect(action: "list", params: params)
     }
 
-/*    def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [categoriaInstanceList: Categoria.list(params), categoriaInstanceTotal: Categoria.count()]
-    }
-*/
     def create() {
         def tipoInstance = Tipo.findById(params.idtipo)
         

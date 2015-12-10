@@ -1004,7 +1004,11 @@ iframe {
 .uk-width-9-10 {
   width: 90%;
 }
+.login-static {
+  width: 280px;
+}
 /* Phone landscape and bigger */
+
 @media (min-width: 480px) {
   /* Whole */
   .uk-width-small-1-1 {
@@ -1815,9 +1819,13 @@ ul.uk-nav-sub {
 /*
  * Items
  */
+ 
 .uk-nav-offcanvas > li > a {
-  color: #cccccc;
-  padding: 10px 15px;
+    background: #00a7ab;
+    border-color: #8f8f8f;
+    color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.3);
+    padding: 10px 15px;
 }
 /*
  * Hover
@@ -1828,7 +1836,7 @@ ul.uk-nav-sub {
 .uk-nav-offcanvas > .uk-open > a,
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:hover,
 html:not(.uk-touch) .uk-nav-offcanvas > li > a:focus {
-  background: #404040;
+  background: #00a7ab;
   color: #ffffff;
   /* 2 */
   outline: none;
@@ -1858,10 +1866,10 @@ html .uk-nav.uk-nav-offcanvas > li.uk-active > a {
  * No hover on touch devices because it behaves buggy in fixed offcanvas
  */
 .uk-nav-offcanvas ul a {
-  color: #cccccc;
+  color: #00a7ab;
 }
 html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
-  color: #ffffff;
+  color: #F69F2D;
 }
 /* ========================================================================
    Component: Navbar
@@ -5758,6 +5766,8 @@ a.uk-thumbnail:focus {
  * 3. Allow scrolling
  * 4. Side-out transition
  */
+}
+
 .uk-offcanvas-bar {
   /* 1 */
   position: fixed;
@@ -5770,7 +5780,7 @@ a.uk-thumbnail:focus {
   /* 2 */
   width: 270px;
   max-width: 100%;
-  background: #333333;
+  background: #cbf4f5;
   /* 3 */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

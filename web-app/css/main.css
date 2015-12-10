@@ -1,17 +1,7 @@
-/* FONT STACK */
-
-
-/* BASE LAYOUT */
-
-
-
 
 img {
 	border: 0;
 }
-
-/* GENERAL */
-
 
 .spinner {
 	background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
@@ -250,7 +240,6 @@ td, th {
 	text-align: left;
 	vertical-align: top;
 		border: 2px solid #FFF;
-	background-color: #fff;
 }
 
 th {
@@ -446,4 +435,74 @@ margin-left:-38px;
 a.skip {
 	position: absolute;
 	left: -9999px;
+}
+#calendario table{
+	background-color: #fff;
+}
+#calendario thead{
+	padding-left: 0px;
+	padding-right: 0px;
+	height: 38px;
+}
+#calendario tr:hover {
+	background-color: transparent;
+}
+.nuevocolortabla {
+	background-color: #fff;
+}
+.nuevocolortabla .odd{
+	background-color: #fff !important;
+}
+.nuevocolortabla .even{
+	background-color: #fff !important;
+}
+
+/*Vista Calendario */
+.fc-widget-header {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	height: 30px;
+	vertical-align: middle !important;
+}
+.fc-widget-content {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.fc-ltr .fc-basic-view .fc-day-number {
+	padding-right: 10px;
+}
+
+.banco {
+    color: #007e76;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    line-height: 1;
+    padding: 30px 0px 30px 15px;
+}
+.link-certamen {
+    color: #007e76;
+    text-decoration: none;
+}
+.link-certamen:hover {
+    color: #ee7203;
+    text-decoration: none !important;
+}
+
+.filterrow {
+    background-color: #efefef !important;
+    height: 20px;
+    padding: 4px 8px;
+    vertical-align: middle;
+    -webkit-border-radius: 1px !important;
+    -moz-border-radius: 1px !important;
+    border-radius: 1px !important;
+}
+
+.filterrow-input {
+    color: #4b3510 !important;
+    margin-bottom: 0px !important;
+    background-color: #fffcf7 !important;
+    border: 1px solid #8f8f8f !important;
 }

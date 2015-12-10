@@ -1,6 +1,6 @@
 package mx.gob.redoaxaca.cednna.domino
 
-import sun.tools.tree.ThisExpression;
+//import sun.tools.tree.ThisExpression;
 
 class CatOrigenDatos {
 
@@ -26,7 +26,7 @@ class CatOrigenDatos {
 	
 	String getDetalleCombo(){
 	 
-		return "${clave}"+"-"+"${descripcion}"	
+		return "${clave}"+" - "+"${descripcion}"	
 		 }
 	
     static constraints = {

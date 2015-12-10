@@ -48,7 +48,7 @@
 
 			 <div class="body">
 				  
-				  <g:datatablehelper ctrlid="formulaTable"  cols="['ID','Descripci&oacute;n','Nombre','Sentencia','Opciones']" class="table table-striped table-bordered"></g:datatablehelper>
+				  <g:datatablehelper ctrlid="formulaTable"  cols="['ID','Descripci&oacute;n','Nombre','Sentencia','Opciones']" class="table table-striped table-bordered nuevocolortabla"></g:datatablehelper>
 				  </div>
 			
 			

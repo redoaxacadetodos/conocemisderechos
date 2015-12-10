@@ -5,6 +5,20 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'indicador.label', default: 'Indicador')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		
+		<g:javascript src="tinymce/tinymce.min.js" />
+		<script type="text/javascript">
+			tinymce.init({
+			    selector: "textarea#html",
+			    plugins: [
+			        "advlist autolink lists link image charmap",
+			        "searchreplace visualblocks code",
+			        "table contextmenu paste"
+			    ],
+			    language:'es_MX',
+			    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+			});
+		</script>
 	</head>
 	<body>
 		<a href="#edit-indicador" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -12,6 +26,13 @@
 		<ul class="uk-navbar-nav">
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<sec:ifAnyGranted roles="ROLE_ADMIN">
+					<li>
+						<g:link action="ordenar">
+							<g:message code="default.ordenar.label" default="Ordenar indicadores" />
+						</g:link>
+					</li>
+				</sec:ifAnyGranted>
 			</ul>
 </nav></br>
 		<div id="edit-indicador" class="content scaffold-edit" role="main">
@@ -39,6 +60,7 @@
 					</sec:ifAnyGranted>
 					<sec:ifAnyGranted roles="ROLE_ADMIN">
 						<g:actionSubmit action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate="" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" class="uk-button"/>
+						<g:remoteLink action="delete" id="${indicadorInstance?.id}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"></g:remoteLink>
 					</sec:ifAnyGranted>
 				</div>
 				</fieldset>

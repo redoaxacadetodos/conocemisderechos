@@ -19,27 +19,41 @@ class Indicador {
 	String          nombreResponsable
 	String          mailResponsable
 	String          areaResponsable
+	String			cargoResponsable
+	String			telefonoResponsable
+	String 			extensionResponsable
+	
 	Date		    fechaActualizacion
 	UnidadMedida    uMedida
 	PNDesarrollo    pnDesarrollo
 	
     
 	String 			objetivoPND
-	String          estrategia;
-	String 		    nombrePrograma;
-	ObjetivoMilenio objetivosMilenio;
-	Periodo			periodo;
+	String          estrategia
+	String 		    nombrePrograma
+	ObjetivoMilenio objetivosMilenio
+	Periodo			periodo
 	String			fuenteInformacion
 	Tema			tema
 	Integer			decimales
 	
 	String 			urlExterna
-	
+	String			html
 	
 	Division       division
 	
 	boolean			publico	
 	boolean 		etiquetaPeriodo
+	
+	TipoIndicador	tipo
+	Dimension		dimension
+	
+	Integer			orden
+	
+	String 			valorNivelNacional
+	String 			fuenteNivelNacional
+	Periodo 		periodoNivelNacional
+	Boolean 		calcularPorPeriodoNivelNacional
 	
 	static hasMany = [variables:DVariable]
 
@@ -67,7 +81,7 @@ class Indicador {
 				pnDesarrollo(blank:true, nullable:true)
 				uMedida(blank:true, nullable:true)
 				tema(blank:true, nullable:true)
-				objetivoPND(blank:true, nullable:true)
+				objetivoPND(blank:true, nullable:true, size:1..4048)
 				estrategia(blank:true, nullable:true)
 				nombrePrograma(blank:true, nullable:true)
 				objetivosMilenio(blank:true, nullable:true)
@@ -76,6 +90,20 @@ class Indicador {
 				fuenteInformacion( nullable:true)
 				periodo( nullable:true)
 				decimales( nullable:true)
+				tipo(nullable:true)
+				dimension(nullable:true)
+				
+				cargoResponsable(blank:true, nullable:true)
+				telefonoResponsable(blank:true, nullable:true)
+				extensionResponsable(blank:true, nullable:true)
+				
+				html(blank:true, nullable:true, size:1..4048)
+				orden nullable:true
+				
+				valorNivelNacional(blank:true, nullable:true)
+				fuenteNivelNacional(blank:true, nullable:true)
+				periodoNivelNacional(nullable:true)
+				calcularPorPeriodoNivelNacional(nullable:true)
     }
 
   static mapping = {
@@ -101,6 +129,9 @@ class Indicador {
 	nombreResponsable(column:'idn_nombre_responsable')
 	mailResponsable(column:'idn_mail_responsable')
 	areaResponsable(column:'idn_area_responsable')
+	cargoResponsable(column:'idn_cargo_responsable')
+	telefonoResponsable(column:'idn_telefono_responsable')
+	extensionResponsable(column:'idn_extension_responsable')
 	ejecutora(column:'idn_cue_id')
 	
 	tema(column:'idn_tema')
@@ -114,6 +145,16 @@ class Indicador {
 	decimales(column:'idn_decimales')
 	urlExterna(column:'idn_urlExterna')
 	etiquetaPeriodo(column:'idn_etiquetaperiodo')
+	tipo(column:'idn_tipo')
+	dimension(column:'idn_dimension')
+	html(column:'idn_html')
+	
+	orden(column:'idn_orden')
+	
+	valorNivelNacional(column:'idn_valorNivelNacional')
+	fuenteNivelNacional(column:'idn_fuenteNivelNacional')
+	periodoNivelNacional(column:'idn_periodoNivelNacional')
+	calcularPorPeriodoNivelNacional(column:'idn_calcularPorPeriodoNivelNacional')
 	
 	version(false)
   }    

@@ -15,60 +15,24 @@
 
 	  <script src="${resource(dir: 'bootstrap', file: 'js/bootstrap.min.js')}"></script>
 	  
+	  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	  <g:javascript src="jquery.dataTables.js" />
+	  
 	  <script type="text/javascript">
 
-		
 	  	function actualizar(){	  	
 		  	$.ajax({type:'POST', 
 	            url:CONTEXT_ROOT+'/indicador/actualizarSemaforo',
 	            data: "id="+$("#dependencias").val()+"&rol="+$("#rol").val(),
-	            success:function(data,textStatus)
-	                {
-	            
+	            success:function(data,textStatus){
 	            	$('#semaforo').html(data);
-	        
-	           
-	                },
+	            },
 	            error:function(XMLHttpRequest,textStatus,errorThrown)
 	                {$('#diverror').html(XMLHttpRequest.responseText);}
-					});
-		  		  		
-
-
-
-		  	
-			}
+		  	});
+		}
+		
 	  	window.onload = actualizar;
-		$(function(){
-
-
-			$("#dependencias").change(function(){
-
-
-	  			$.ajax({type:'POST', 
-		            url:CONTEXT_ROOT+'/indicador/actualizarSemaforo',
-		            data: "id="+$("#dependencias").val()+"&rol="+$("#rol").val(),
-		            success:function(data,textStatus)
-		                {
-		            
-		            	$('#semaforo').html(data);
-		        
-		           
-		                },
-		            error:function(XMLHttpRequest,textStatus,errorThrown)
-		                {$('#diverror').html(XMLHttpRequest.responseText);}
-						});
-			  		  		
-
-
-
-		  });
-
-
-			
-
-		});
-	  		
 	  </script>	  		
 	</head>
 	<body>		
@@ -77,20 +41,18 @@
 			<h4>ESTATUS DE ACTUALIZACI&Oacute;N POR INDICADOR</h4>
 			<label for="dependencias">Dependencia: ${dependencia?.descripcion}</label>			
 			
-			 <sec:ifAnyGranted roles="ROLE_ADMIN">
-			
-			<g:select id="dependencias" name="dependencias" optionKey="id" optionValue="descripcion" from="${Dependencia.list()}"		 
-			/>
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<g:select id="dependencias" name="dependencias" optionKey="id" optionValue="descripcion" onchange="actualizar();" from="${Dependencia.list()}"/>
 				<g:hiddenField name="rol" value="1"/>
 			</sec:ifAnyGranted>
-			 <sec:ifAnyGranted roles="ROLE_DEP,ROLE_LECTURA,ROLE_NUCLEO">
- 		 
- 		 	<g:hiddenField name="dependencias" value="${dependencia?.id}"/>
- 		 	
- 		 </sec:ifAnyGranted>
+				
+			<sec:ifAnyGranted roles="ROLE_DEP,ROLE_LECTURA,ROLE_NUCLEO">
+	 		 	<g:hiddenField name="dependencias" value="${dependencia?.id}"/>
+	 		 </sec:ifAnyGranted>
+	 		 
 			<div>
-			<img src="../img/star.png" width="20px" height="20px"> La información se encuentra actualizada<br>
-			<img src="../img/edit.png" width="20px" height="20px"> La información necesita ser revalidada y/o actualizada<br><br>
+				<img src="${resource(dir: 'img', file: 'star.png')}" width="20px" height="20px"> La información se encuentra actualizada<br>
+				<img src="${resource(dir: 'img', file: 'edit.png')}" width="20px" height="20px"> La información necesita ser actualizada<br><br>
 			</div>
 			<div id="semaforo"></div>
 		</div>

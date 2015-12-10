@@ -1,9 +1,11 @@
+<%@ page import="mx.gob.redoaxaca.cednna.domino.Valor" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Mis derechos</title>
 		  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 			<link rel="shortcut icon" type="${request.getContextPath()}/img/favicon.ico" href="${request.getContextPath()}/img/favicon.ico" type="image/x-icon"/>
+			
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.docs.min.css')}" type="text/css">
 			<link rel="stylesheet" href="${resource(dir: 'css', file: 'uikit.css')}" type="text/css">
@@ -48,11 +50,18 @@
 	  {lang: 'es'}
 	</script>	
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-						
+			<g:javascript src="jquery-1.10.2.js" />
+				
 	<g:layoutHead/>
 		<r:layoutResources />
 	</head>							
 <body class="tm-background">
+		<g:if test="${Valor.findByKey("suspendidoHabilitado")?.valor?.equals('true')}">
+			<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}" type="text/css">
+			<g:javascript src="bootstrap.js" />	
+		</g:if>
+		<g:overlayer/>
+		
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
 			  var js, fjs = d.getElementsByTagName(s)[0];
@@ -69,8 +78,8 @@
 				<div class="uk-grid" >
 				<div class="uk-width-medium-8-10 uk-width-large-7-10">	
 					<a class="uk-hidden-small" href="http://www.cednna.oaxaca.gob.mx"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
-					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_02.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
-					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_03.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
+					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-g-cafe.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
+					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-bien-n.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
 					<a class="uk-hidden-small" href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_04.png" title="OaxTransparente" alt="OaxTransparente"></a>
 				</div>
 				<div class="uk-width-medium-2-10 uk-width-large-3-10">	
@@ -80,7 +89,8 @@
 <%--						<li><g:link controller="Indicador" class="iconobar icono_catalogos" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de Indicadores de Infancia y Adolescencia"></g:link></li>--%>
 						<li><g:link class="iconobar icono_directorio" controller="publico" action="directorio" data-uk-tooltip="{pos:'bottom'}" title="Directorio"></g:link></li>
 						<li><g:link class="iconobar icono_contacto" controller="publico" action="contacto" data-uk-tooltip="{pos:'bottom'}" title="Contacto"></g:link></li>
-						<li><g:link class="iconobar icono_ayuda"  controller="publico" action="ayuda" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>	
+						<li><g:link class="iconobar icono_catalogos"  controller="publico" action="descargarCatalogoIndicadores" data-uk-tooltip="{pos:'bottom'}" title="Catálogo de indicadores"></g:link></li>
+						<li><g:link class="iconobar icono_ayuda"  controller="publico" action="descargarManual" data-uk-tooltip="{pos:'bottom'}" title="Ayuda"></g:link></li>
 					</ul>
 				</div>
 				<div class="uk-width-1-10">
@@ -108,7 +118,7 @@
 
 		<div class="tm-footer">
 			<div class="uk-container uk-container-center">
-				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñez y Adolescencia en Oaxaca, es una plataforma de código abierto del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
+				<p><strong>Mis derechos,</strong> Sistema de Monitoreo de Derechos de la Niñez y Adolescencia en Oaxaca, es una plataforma de <a href="https://github.com/redoaxacadetodos/conocemisderechos.git">código abierto</a> del Gobierno del Estado de Oaxaca que forma parte de su política transversal de Derechos Humanos, y su política de Transparencia, Participación Ciudadana y Gobierno abierto.</p>
 				<a href="http://www.redoaxaca.oaxaca.gob.mx/" target="_blank"><img src="${request.getContextPath()}/img/logored.png"></a>
 				<hr></hr>
 				<div class="uk-grid">
@@ -137,17 +147,26 @@
 			</div>
 		</div>
 
+        <div class="uk-container uk-container-center">
+            <div class="banco">
+                <p>
+                    <strong>*</strong>Certamen convocado por la Auditoría Superior de la Federación (ASF), el Banco Mundial (BM), el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI), el Instituto Nacional de Administración Pública (INAP) y la Secretaría de la Función Pública (SFP). Los resultados y toda la información relacionada con el certamen pueden consultarse en: <a target="_blank" href="http://premiotransparencia.org.mx"><span class="link-certamen">http://premiotransparencia.org.mx</span></a>
+                </p>
+            </div>
+        </div>
+
 		<div id="tm-offcanvas" class="uk-offcanvas">
 
 			<div class="uk-offcanvas-bar">
 
-				<ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{multiple:true}">
-					<li class="uk-parent uk-active"><a href="#">Índice</a>
+				<ul class="uk-nav uk-nav-offcanvas" data-uk-nav="{multiple:true}">
+					<li class="uk-parent uk-active"><a href="">Índice</a>
 						<ul class="uk-nav-sub">
 						<li><g:link controller="publico" action="indicadores">Inicio</g:link></li>
 						<li><g:link controller="publico" action="directorio">Directorio</g:link></li>
 						<li><g:link controller="publico" action="contacto" >Contacto</g:link></li>
-						<li><g:link controller="publico" action="ayuda">Ayuda</g:link></li>	
+						<li><g:link controller="publico" action="descargarCatalogoIndicadores">Catálogo de indicadores</g:link></li>	
+						<li><g:link controller="publico" action="descargarManual">Ayuda</g:link></li>	
 						</ul>
 					</li>
 

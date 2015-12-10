@@ -10,9 +10,9 @@ environments {
           loggingSql = true
 			pooled = false
 			driverClassName = "org.postgresql.Driver"
-			username = "USERNAME"
-			password = "PASSWORD"
-			url = "jdbc:postgresql://HOST:5432/DB"
+			username = ""
+			password = ""
+			url = "jdbc:postgresql://ip:5432/dev_cednna"
             dbCreate = "update"
         }
     }
@@ -25,12 +25,21 @@ environments {
     production {
       dataSource {
       loggingSql = false
-      pooled = false
+      pooled = true
       driverClassName = "org.postgresql.Driver"
-      username = "USERNAME"
-      password = "PASSWORD"	   
-      url = "jdbc:postgresql://HOST:5432/DB"
+      username = ""
+      password = ""
+      url = "jdbc:postgresql://ip:5432/prod_cednna"
       dbCreate = "update"
+      properties {
+                maxActive = 20
+                maxIdle = 10
+                minIdle = 2
+                initialSize = 10
+                minEvictableIdleTimeMillis = 60000
+                timeBetweenEvictionRunsMillis = 60000
+                maxWait = 10000
+            }
       }       
     }
 }

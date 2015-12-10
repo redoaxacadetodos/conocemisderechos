@@ -16,14 +16,15 @@ class ResultadoTemporal {
 	Integer  indicador
 	Double   resultadoIndicador
 	int      anio
+	int		 poblacion
 	
 	
 	
 	
-	public String toString(){
-		
-		return  region+" -  "+indicador+"--  "+anio
-	}
-	
+//	public String toString(){
+//		
+//		return  region+" -  "+indicador+"--  "+anio
+//	}
+//	
 	
 }

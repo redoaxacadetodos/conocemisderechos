@@ -1630,7 +1630,7 @@ select:focus:invalid:focus {
   padding: 19px 20px 20px;
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: #f5f5f5;
+  background-color: #afafaf;
   border-top: 1px solid #e5e5e5;
   *zoom: 1;
 }
@@ -1640,6 +1640,7 @@ select:focus:invalid:focus {
   display: table;
   line-height: 0;
   content: "";
+  background-color: #afafaf;
 }
 
 .form-actions:after {
@@ -1649,6 +1650,7 @@ select:focus:invalid:focus {
 .help-block,
 .help-inline {
   color: #595959;
+  background-color: #afafaf;
 }
 
 .help-block {
@@ -1996,7 +1998,7 @@ legend + .control-group {
 
 table {
   max-width: 100%;
-  background-color: transparent;
+  background-color: #ff9f00;
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -2043,6 +2045,7 @@ table {
 .table-condensed th,
 .table-condensed td {
   padding: 4px 5px;
+  background-color: #ffffff;
 }
 
 .table-bordered {
@@ -2057,7 +2060,7 @@ table {
 
 .table-bordered th,
 .table-bordered td {
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #dddddd; !IMPORTANT
 }
 
 .table-bordered caption + thead tr:first-child th,
@@ -2891,7 +2894,7 @@ table th[class*="span"],
   width: 0;
   height: 0;
   vertical-align: top;
-  border-top: 4px solid #000000;
+  border-top: 4px solid #ff9f00;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   content: "";
@@ -6165,3 +6168,8 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+
+.datepicker-w  {
+    background:#FFFFFF !important;
+    display:block;     
+ }

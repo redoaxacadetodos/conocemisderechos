@@ -19,7 +19,7 @@
 			}
 
 			function descargar(source, type, val){
-				return "<div class='centrado'><a href='#' onclick=descargarDocumento("+source[3]+","+source[2]+",'"+source[4]+"')><i class='uk-icon-download uk-icon-small'></i></a></div>";
+				return "<div class='centrado'><a href='#' onclick=descargarDocumento("+source[5]+","+source[6]+",'"+source[4]+"')><i class='uk-icon-download uk-icon-small'></i></a></div>";
 			}
 
 			function descargarDocumento(tipo, nivel, documento){
@@ -44,7 +44,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<g:datatablehelper ctrlid="table"
-				cols="['Id', 'Nombre del documento', 'Nivel', 'Tipo', 'Archivo']" class="table table-striped table-bordered"></g:datatablehelper>
+				cols="['Id', 'Nombre del documento', 'Nivel', 'Tipo', 'Archivo']" class="table table-striped table-bordered nuevocolortabla"></g:datatablehelper>
 			<g:form name="formDocumento" action="descargarDocumento">
 				<g:hiddenField name="tipo"/>
 				<g:hiddenField name="documento"/>

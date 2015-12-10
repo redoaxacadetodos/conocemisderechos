@@ -6,8 +6,7 @@ import mx.gob.redoaxaca.cednna.domino.Dependencia
 import mx.gob.redoaxaca.cednna.domino.Estado
 import mx.gob.redoaxaca.cednna.domino.Periodo
 
-import org.apache.poi.xssf.usermodel.XSSFSheet
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.apache.poi.ss.usermodel.WorkbookFactory
 
 
 
@@ -23,18 +22,19 @@ class LeerExcell {
 	def usuario = null
 
 	def archivo
+	String clave
 
 	int total
 
 	public LeerExcell(File fileName, Long actual,Estado estado, Dependencia dependencia, String path) throws ParseException {
-
+		
 		try {
 			def sFileNameCv=path+"csvCV_"+actual+".csv"
 			def contadorBuenos = 0
 			def contadorMalos = 0
 			def contador = 0
 			def mensaje=""
-
+			
 			Writer writer=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sFileNameCv), "UTF-8"));
 
 			writer.append("id");
@@ -85,21 +85,21 @@ class LeerExcell {
 			
 
 			writer.append('\n');
-
+			
 			FileInputStream fileInputStream = new FileInputStream(fileName);
-			XSSFWorkbook workBook = new XSSFWorkbook(fileInputStream);
+			
+			org.apache.poi.ss.usermodel.Workbook workBook = WorkbookFactory.create(fileInputStream);
+			org.apache.poi.ss.usermodel.Sheet hssfSheet = workBook.getSheetAt(0);
+
 			int numeroHojas = workBook.getNumberOfSheets();
-
-
-			XSSFSheet hssfSheet = workBook.getSheetAt(0);
+			
 			Iterator rowIterator = hssfSheet.rowIterator();
 			int contadorFilas=0;
 
 			numCategorias=new Double(hssfSheet.getRow(1).getCell(1).getNumericCellValue()).intValue();
 			opcion=new Double(hssfSheet.getRow(2).getCell(1).getNumericCellValue()).intValue();
-
+			
 			Integer dep =dependencia?.id
-
 			Integer municipio=null
 			Integer localidad=null
 			Integer region=null
@@ -122,7 +122,8 @@ class LeerExcell {
 						}
 						writer.append(',');
 						writer.append(hssfSheet.getRow(i).getCell(0).getStringCellValue());
-						def origenDato = CatOrigenDatos.findByClave(hssfSheet.getRow(i).getCell(0).getStringCellValue())
+						clave = hssfSheet.getRow(i).getCell(0).getStringCellValue()
+						def origenDato = CatOrigenDatos.findByClave(clave)
 						dep = origenDato?.dependencia?.id
 						writer.append(',');
 						writer.append('"'+hssfSheet.getRow(i).getCell(1).getStringCellValue()+'"');
@@ -228,7 +229,7 @@ class LeerExcell {
 					break;
 					
 				case 3:
-					println '---------municipios'
+					
 					for(i=5;i<=total; i++){
 						boolean periodo = false
 						
@@ -295,14 +296,17 @@ class LeerExcell {
 
 		} catch (Exception e) {
 			total = 4;
+			e.printStackTrace();
 		}
 
 	}
 
 	def total(){
-
 		return (total-4)
-
+	}
+	
+	def getClave(){
+		return clave
 	}
 
 }

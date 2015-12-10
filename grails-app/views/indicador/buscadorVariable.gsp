@@ -1,4 +1,4 @@
-
+<%@ page import="mx.gob.redoaxaca.cednna.domino.CatOrigenDatos" %>
 
 <h2>${sentencia}</h2>
 
@@ -10,74 +10,69 @@
 
 <h3>Ubicación de datos para variable ${var.clave}</h3>
 
-<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
-	<label class="uk-form-label" for="descripcion">
-		<g:message code="indicador.estado.label" default="Variable" />
+<g:hiddenField name="nuevo_${var?.clave}" value="${var?.id==null}"/>
 
+<div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
+	<label class="uk-form-label" for="claveVar_${var?.clave}s">
+		<g:message code="indicador.estado.label" default="Variable" />
+		<span class="required-indicator">*</span>
 	</label>
 		<div id="divDesc_${var?.clave}">
-		
-		<select id="claveVar_${var?.clave}"></select>
-		
-	
+			<g:select name="claveVar_${var?.clave}" from="${CatOrigenDatos.list()}" class="chosen-select" optionKey="clave" optionValue="descripcion" value="${var.claveVar}"/>
 		</div>
 </div>
+
 <div class="fieldcontain uk-form-row">
-	<label class="uk-form-label" for="intervalo">
+	<label class="uk-form-label" for="mostrarCiclo_${var?.clave}">
+		<g:message code="indicador.mostrarCiclo.label" default="Mostrar como ciclo" />
+	</label>
+	<g:checkBox name="mostrarCiclo_${var?.clave}" value="${var?.mostrarCiclo }" />
+</div>
+
+<div class="fieldcontain uk-form-row">
+	<label class="uk-form-label" for="intervalo_${var?.clave}">
 		<g:message code="indicador.estado.label" default="Intervalo" />
 	</label>
-	<g:select id="intervalo" name="intervalo_${var?.clave}" from="[[k:0, v:0],[k:1, v:1],[k:2, v:2],[k:3, v:3],[k:4, v:4]]" 
-		optionKey="k" optionValue="v" value="${var?.intervalo}" class="many-to-one"/>
+	<g:select name="intervalo_${var?.clave}" from="[[k:'-5', v:'-5'],[k:'-2', v:'-2'],[k:'-1', v:'-1'],[k:'0', v:'0'],[k:'1', v:'1']]" 
+		optionKey="k" optionValue="v" value="${var?.intervalo.toString()}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'estado', 'error')} required">
-	<label class="uk-form-label" for="descripcion">
+	<label class="uk-form-label" for="descripcion_${var.clave}">
 		<g:message code="indicador.estado.label" default="Fuente de información" />
-
+		<span class="required-indicator">*</span>
 	</label>
-		
-		<g:textField name="descripcion_${var.clave}"  value="${var?.descripcion}"  style="width:650px;"/>	
+	<g:textField name="descripcion_${var.clave}"  value="${var?.descripcion}"  style="width:650px;" required="required"/>	
 </div>
 		
-<br />
-
-
-
+<br/>
 
 <div class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
-	<label class="uk-form-label" for="localidad">
+	<label class="uk-form-label" for="poblacion_${var.clave}">
 		<g:message code="indicador.localidad.label" default="Poblaci&oacute;n" />
-
+		<span class="required-indicator">*</span>
 	</label>
 
 
-	<g:select id="poblacion[]" name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list().sort{-it.id}}" 
+	<g:select name="poblacion_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Poblacion.list().sort{-it.id}}" 
 		optionKey="id" optionValue="descripcion" value="${var?.poblacion?.id}" noSelection="['':'-Seleccione una opción-']"  class="many-to-one" required="required"/>
 	
 </div>
 <h3>Categor&iacute;as</h3>
 
-
 	<div id="divCate_${var.clave}">
-
-	
 			<g:if  test="${var?.categorias}">
-			
-			
-					<g:each   status="i" var="cat"  in="${var.categorias}" >
-			
+				<g:each   status="i" var="cat"  in="${var.categorias}" >
 					<div id="divCat_${i+1}_${var.clave}" class="fieldcontain uk-form-row ${hasErrors(bean: indicadorInstance, field: 'localidad', 'error')} required">
 						<div class="uk-grid">
 								<div class="uk-width-1-2">
 										<label class="uk-form-label" for="localidad">
 											<g:message code="indicador.localidad.label" default="Tipo de categoria" />
-									
 										</label>
 										<g:select id="tipo_${i+1}_${var.clave}" name="tipo_${i+1}_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Tipo.list()}" optionKey="id"  class="chosen-select" value="${cat?.tipo?.id}"   optionValue="descripcion"/>
 										<div class="uk-width-1-2">
 											<label class="uk-form-label" for="localidad">
 												<g:message code="indicador.localidad.label" default="Categoria" />
-										
 											</label>
 											<div id="divTipo_${i+1}_${var.clave}">
 											<g:select id="categoria" name="categoria_${i+1}_${var.clave}" from="${mx.gob.redoaxaca.cednna.domino.Categoria.list()}" optionKey="id" class="chosen-select "   value="${cat?.id}" optionValue="descripcion"   />
@@ -85,32 +80,21 @@
 										</div>
 								</div>
 						</div>
-					<input id="del_${i+1}_${var.clave}" name="del_${i+1}_${var.clave}"  value="-" type="button"  class="uk-button"/>
-					<script type="text/javascript" defer="defer">
-
-						
-					
+				<input id="del_${i+1}_${var.clave}" name="del_${i+1}_${var.clave}"  value="-" type="button"  class="uk-button"/>
+				<script type="text/javascript" defer="defer">
 							$("#del_${i+1}_${var.clave}").click(function(){
-								
 								$("#divCat_${i+1}_${var.clave}").remove();
-
 								var num = parseInt($("#numCategorias_${var.clave}").val()); 
-
 								num=num-1;
-
 								$("#numCategorias_${var.clave}").val(num);
-								
-								
 							});	
-					</script>
-					</div>
+				</script>
+				</div>
 					
-					</g:each>
-					
-					<g:hiddenField name="numCategorias_${var.clave}" value="${var.categorias.size()}"/>
+				</g:each>
+				<g:hiddenField name="numCategorias_${var.clave}" value="${var.categorias.size()}"/>
 			</g:if>
 			<g:else>
-				
 					<g:hiddenField name="numCategorias_${var.clave}" value="0"/>
 			</g:else>
 	<br>
@@ -119,9 +103,6 @@
 
 
 	<input id="addCat_${var.clave}" name="addCat_${var.clave}"  value="Agregar Categor&iacute;a" type="button"  class="uk-button"/>
-	
-
-
 
 <br>
 
@@ -136,13 +117,6 @@
 					
 
 				$(function(){
-
-
-
-					
-
-
-
 					
 					  var config = {
 						      '.chosen-select'           : {},
@@ -227,23 +201,23 @@
 
 
 
-					llenaComboVar({
-						url : CONTEXT_ROOT+'/indicador/descripciones',
-						htmlOptions : {
-							name : "claveVar_${var.clave}",
-							id : "claveVar_${var.clave}",
-							clase : "chosen-select",
-							
-						},
-						index : "${var.claveVar}",
-						chained : false,
-						anchor : "#claveVar_${var.clave}",
-						combo : true,
-						valorDefault:false,
-						valorDefaultText:" Busca una variable ",
-						delTag: true,
-						tag:"#divDesc_${var.clave}"
-					});  
+<%--					llenaComboVar({--%>
+<%--						url : CONTEXT_ROOT+'/indicador/descripciones',--%>
+<%--						htmlOptions : {--%>
+<%--							name : "claveVar_${var.clave}",--%>
+<%--							id : "claveVar_${var.clave}",--%>
+<%--							clase : "chosen-select",--%>
+<%--							--%>
+<%--						},--%>
+<%--						index : "${var.claveVar}",--%>
+<%--						chained : false,--%>
+<%--						anchor : "#claveVar_${var.clave}",--%>
+<%--						combo : true,--%>
+<%--						valorDefault:false,--%>
+<%--						valorDefaultText:" Busca una variable ",--%>
+<%--						delTag: true,--%>
+<%--						tag:"#divDesc_${var.clave}"--%>
+<%--					});  --%>
 
 					
 				});

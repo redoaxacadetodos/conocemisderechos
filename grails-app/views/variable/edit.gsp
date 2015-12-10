@@ -33,6 +33,7 @@
 				<g:hiddenField name="version" value="${variableInstance?.version}" />
 				<fieldset class="uk-form uk-form-horizontal">
 					<g:render template="form"/>
+					<g:hiddenField name="valida" value="0"/>
 				</fieldset>
 				<fieldset class="uk-form uk-form-horizontal">
 				<div>

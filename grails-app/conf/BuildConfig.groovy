@@ -32,6 +32,10 @@ grails.project.dependency.resolution = {
         mavenCentral()
         
 
+        
+        mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "http://repo.grails.org/grails/plugins"      
+
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
@@ -57,19 +61,21 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":hibernate:$grailsVersion"
+        runtime ':hibernate:3.6.10.16' 
         runtime ":jquery:1.8.3"
-        runtime ":resources:1.1.6"
+        runtime ':resources:1.2.8'
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.5"
 
-        build ":tomcat:$grailsVersion"
+        build ':tomcat:7.0.54'
 
-        runtime ":database-migration:1.3.2"
+
+        runtime ':database-migration:1.4.0'
 
         compile ':cache:1.0.1'
+		compile ":export:1.6"
     }
 }

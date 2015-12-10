@@ -179,6 +179,7 @@ class VariableController {
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
 		variableInstance.clave=cod.clave
 		variableInstance.descripcion=cod.descripcion
+		variableInstance.estado = Estado.get(20)
 		def usuario = springSecurityService.currentUser
 		variableInstance.dependencia=usuario.dependencia
 		def numCategorias= params.numCategorias.toInteger()
@@ -194,6 +195,13 @@ class VariableController {
             render(view: "create", model: [variableInstance: variableInstance])
             return
         }
+		
+		def dVariables = DVariable.findAllByClaveVar(variableInstance?.clave)
+		
+		dVariables.each{ dVariableInstance ->
+			dVariableInstance.fechaActualizacion = new Date()
+			dVariableInstance.save(flush: true)
+		}
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'variable.label', default: 'Variable'), variableInstance.id])
         redirect(action: "show", id: variableInstance.id)
@@ -242,7 +250,6 @@ class VariableController {
 			Periodo periodo
 			int anio
 			
-//			String periodo = params.anio
 			if(params['periodo.id']){
 				periodo = Periodo.get(params['periodo.id'].toLong())
 				anio = periodo.anioInicial
@@ -252,7 +259,6 @@ class VariableController {
 			
 			int opcion= params.opcionSerie.toInteger()
 			def numCategorias= params.numCategorias.toInteger()
-			System.out.println("El numero de categoria es : "+numCategorias);
 		
 			ArrayList<ResultCategorias> cts= new   ArrayList<ResultCategorias>();
 			ArrayList<String> cats= new   ArrayList<String>();
@@ -284,7 +290,6 @@ class VariableController {
 						cts.each{
 							if(temCategoria.tipo.id ==it.tipo.id){
 								it.categorias.add(temCategoria);
-								//System.out.println("valor :"+ temCategoria.id);
 							}
 						}
 					}
@@ -303,14 +308,12 @@ class VariableController {
 			int y=0
 			cts.each{ c ->
 				int veces=	tamX/c.categorias.size()
-				System.out.println("Numero de veces "+veces );
 				int x=0;
 
 				if(ban==0){
 					for(int xy=0; xy<veces;xy++){
 						c.categorias.each {
 							mat[x][y]= it.id
-							//	System.out.println("Matriz :"+ it.id);
 							x++;
 						}
 					}
@@ -318,10 +321,8 @@ class VariableController {
 				}
 				else{
 					c.categorias.each {
-						System.out.println("paso "+veces);
 						for(int xy=0; xy<veces;xy++){
 							mat[x][y]= it.id
-							//	System.out.println("Matriz :"+ it.id);
 							x++;
 						}
 					}
@@ -349,7 +350,6 @@ class VariableController {
 					break;
 
 				case 2:
-				//System.out.println("SE GENERA EL ARCHIVO POR CATEGORIAS");
 					def regiones=  Region.list( sort: "clave", order: "asc")
 					regiones.each {
 						for(int x=0; x<tamX;x++){
@@ -432,7 +432,9 @@ class VariableController {
 					}
 					break;
 		}
+			
 		ArchivoDescarga archivodown
+		
 		if(params['periodo.id']){
 			archivodown = new ArchivoDescarga(renglones,cts,opcion, true)
 		}else{
@@ -466,7 +468,6 @@ class VariableController {
 		def sql = new Sql(sessionFactory.currentSession.connection())
 		def anio = "cvv_anio=?"
 		int idAnio 
-		println 'params.periodo.toInteger():'+params.periodo
 		
 		if(params.tipoPeriodo=='true'){
 			anio = "cvv_ped_id=?"
@@ -507,7 +508,6 @@ class VariableController {
 	def getMunicipioByRegion() {
 		def pla = new ArrayList<Municipio>()
 		
-		System.out.println(params.id);
 		if(params.id!="null"){
 		def region = Region.get(params.id)
 
@@ -553,9 +553,6 @@ class VariableController {
 	
 	
 	def panel(){
-		
-//		def variable = Variable.get(params.id)
-		
 		def localidad
 		def municipio
 		def region
@@ -894,15 +891,13 @@ class VariableController {
 			sqlTemporal.close()
 			idTemporal = result[0].nextval
 			
-			println 'idTemporal:'+idTemporal
-			
 			Estado estOaxaca=Estado.get(20)
 			
 			def fBase = request.getFile('fileBase')
 			if(!fBase.empty) {
 				fBase.transferTo( new File(path + fBase.originalFilename.toString()) )
 			}
-	
+			
 			archivo_ = new File(path + fBase.originalFilename.toString())
 			def arc = new LeerExcell(archivo_, idTemporal,estOaxaca, dependencia,path)
 			 
@@ -917,10 +912,22 @@ class VariableController {
 			enviarArchivo(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+idTemporal+".csv" )
 			ejecutarCopy(servidor?.valor, usuarioSSH?.valor, pem?.valor, path+"csvCV_"+idTemporal+".csv", tabla, columnas)
 			
-			ejecutarCargarDatos(idTemporal)
+			def resultadoCarga = ejecutarCargarDatos(idTemporal)
+			
+			if(contadorBuenos!=resultadoCarga){
+				contadorMalos = contadorBuenos - resultadoCarga
+				contadorBuenos = resultadoCarga
+			}
+			
+			def dVariables = DVariable.findAllByClaveVar(arc.getClave())
+			
+			dVariables.each{ dVariableInstance ->
+				dVariableInstance.fechaActualizacion = new Date()
+				dVariableInstance.save(flush: true)
+			}
+			 
 			
 			}catch (Exception e) {
-				println(e.getMessage())
 				e.printStackTrace()
 				contadorMalos = contadorBuenos
 				contadorBuenos = 0
@@ -931,12 +938,10 @@ class VariableController {
 	def ejecutarCargarDatos(int id){
 		def sqlProcedicimiento = new Sql(dataSource)
 		def procedimiento= "select cargardatos(${id})"
-		println 'procedimiento:'+procedimiento
-		
 		def datosInsertados = sqlProcedicimiento.rows(procedimiento)
 		
-		println 'datosInsertados:'+datosInsertados
 		sqlProcedicimiento.close()
+		return datosInsertados.cargardatos[0]
 	}
 	
 	def ejecutarCopy(String url, String usuario, String rutaPEM, String path, String tabla, String columnas){
@@ -953,7 +958,6 @@ class VariableController {
 		String sshCommand = "\\copy ${tabla} ${columnas} from '${path}' csv header   NULL  'null'"
 		sshCommand = """psql ${baseDatos} -c "${sshCommand}" """
 		java.util.Properties config = new java.util.Properties()
-		println 'sshCommand:'+sshCommand
 		config.put "StrictHostKeyChecking", "no"
 		
 		JSch jsch=new JSch();
@@ -1023,11 +1027,7 @@ class VariableController {
 	
 	
 	def categoriasAll(){
-		
-		System.out.println("Entro a buscar todoas las categorias");
-		
 		def var =params.id
-		
 		def tipo =Tipo.get(params.tipoId)
 		def con= params.con.toInteger()
 		
@@ -1059,13 +1059,11 @@ class VariableController {
             redirect(action: "list")
             return
         }
-		println 'variableInstance.dependencia:'+variableInstance.dependencia
+		
 		if(variableInstance.dependencia){
 			if(usuario.dependencia){
-				println 'usuario.dependencia:'+usuario.dependencia
 				if(usuario.dependencia.id!=variableInstance.dependencia.id){
 					ban=0
-					System.out.println("Dependencia usurio :"+usuario.dependencia.id+" Variable dependencia "+variableInstance.dependencia.id);
 				}
 			}
 		}else{
@@ -1075,7 +1073,6 @@ class VariableController {
 				}
 		
 		}
-		//System.out.println("Valor de la bandera de variable "+ban);
 
         [variableInstance: variableInstance,ban:ban, dependencia:usuario.dependencia]
     }
@@ -1083,6 +1080,7 @@ class VariableController {
 	@Secured(['ROLE_DEP','ROLE_ADMIN'])
     def update(Long id, Long version) {
         def variableInstance = Variable.get(id)
+		def dVariables = DVariable.findAllByClaveVar(variableInstance?.clave)
 		
 		CatOrigenDatos cod= CatOrigenDatos.findByClave( params.origenDatos)
 		variableInstance.clave=cod.clave
@@ -1103,13 +1101,29 @@ class VariableController {
                 return
             }
         }
+		
+		dVariables.each{ dVariableInstance ->
+			dVariableInstance.fechaActualizacion = new Date()
+			dVariableInstance.save(flush: true)
+		}
 
         variableInstance.properties = params
+		
+		if(!params.periodo?.id){
+			variableInstance.periodo = null
+		}else{
+			variableInstance.anio = variableInstance.periodo.anioInicial
+		}
 
         if (!variableInstance.save(flush: true)) {
             render(view: "edit", model: [variableInstance: variableInstance])
             return
         }
+		
+		dVariables.each{ dVariableInstance ->
+			dVariableInstance.fechaActualizacion = new Date()
+			dVariableInstance.save(flush: true)
+		}
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'variable.label', default: 'Variable'), variableInstance.id])
         redirect(action: "show", id: variableInstance.id)

@@ -9,6 +9,25 @@
 
 @import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
 
+.tabla-de {
+    color: black !important;
+    background-color: #FF9F00 !important;
+    text-align: center !important;
+    line-height: 0 !important;
+}
+.label-foot-de{
+    width:100% !important;
+    font-size:10px !important;
+    text-align:center !important;
+}
+.no-padding-de{
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+}
+.min-padding{
+    padding: 1px 1px !important;
+}
+
 .marked {font-weight: 700; width: 25%;}
 
 body, h1, h2, h3, h4, h5, h6,
@@ -995,7 +1014,7 @@ padding-left: 25px;
 display: block;
 width: 200px;
 height: 35px;
-margin: 20px 0 0px 0;
+margin: 35px 0 0px 0;
 color: #754e17;
 }
 
@@ -1006,4 +1025,19 @@ color: #754e17;
 
 .fb_iframe_widget {
    vertical-align: top;    
+}
+
+/* Barra exportar */
+
+.export {
+  background: #CEF4F5 !important;
+  border: 1px solid #AEE7E8 !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+  width: 99% !important;
+  padding-left: 10px !important;
+  padding-top: 10px !important;
+  margin-right: -25px !important;
+  padding-bottom: 10px !important;
+  border-radius: 5px !important;
 }

@@ -1,5 +1,5 @@
 <center>
-<g:select name="opcionesAreaGrafica" from="${opcionesAreaGrafica }"
+<g:select name="${idSelect }" from="${opcionesAreaGrafica }"
 	optionKey="id" class="chosen-select"
-	onchange="actualizarGrafica()"/>
+	onchange="actualizar${idSelect }()"/>
 </center>
