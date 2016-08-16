@@ -56,6 +56,26 @@ class IndicadorController {
 		 }
 		 render (text: "enviado", contentType: "text/html", encoding: "UTF-8")
 	}
+	
+	def test(Long id) {
+		def indicador = Indicador.get(id)
+		def asunto = Valor.findByKey('asunto')
+		def cuerpo = Valor.findByKey('cuerpo')
+		def me = "absi.sosa@gmail.com"
+		
+		println 'enviando:'
+		sendMail {
+			 to me
+			subject asunto?.valor
+			html  """
+					${cuerpo?.valor} <br><br>
+					Indicador: test.<br>
+					Responsable: test.
+					""" 
+		 }
+		println 'enviando!'
+		 render (text: "enviado", contentType: "text/html", encoding: "UTF-8")
+	}
 
     def create() {
 		def user =springSecurityService.currentUser

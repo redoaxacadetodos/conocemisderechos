@@ -98,7 +98,7 @@ log4j = {
 
 grails {
 	mail {
-	  host = "smtp.gmail.com"
+	  host = "SERVER"
 	  port = 465
 	  username = "USER"
 	  password = "PASSWORD"

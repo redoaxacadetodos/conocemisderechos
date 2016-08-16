@@ -959,7 +959,7 @@ class VariableController {
 		sshCommand = """psql ${baseDatos} -c "${sshCommand}" """
 		java.util.Properties config = new java.util.Properties()
 		config.put "StrictHostKeyChecking", "no"
-		
+		println 'sshCommand:'+sshCommand
 		JSch jsch=new JSch();
 		Session session=jsch.getSession(usuario, url, 22);
 		jsch.addIdentity(rutaPEM);

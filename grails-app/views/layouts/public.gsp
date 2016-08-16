@@ -77,7 +77,7 @@
 				<div class="uk-container uk-container-center">
 				<div class="uk-grid" >
 				<div class="uk-width-medium-8-10 uk-width-large-7-10">	
-					<a class="uk-hidden-small" href="http://www.cednna.oaxaca.gob.mx"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
+					<a class="uk-hidden-small" href="http://www.sidnna.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_01.png" title="CEDNNA" alt="CEDNNA" target="_blank"></a>
 					<a class="uk-hidden-small" href="http://www.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-g-cafe.png" title="Gobierno del Estado de Oaxaca" alt="Gobierno del Estado de Oaxaca"></a>
 					<a class="uk-hidden-small" href="http://www.bienestar.oaxaca.gob.mx" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logo-bien-n.png" title="Generando Bienestar" alt="Generando Bienestar"></a>
 					<a class="uk-hidden-small" href="http://www.oaxtransparente.oaxaca.gob.mx/" target="_blank"><img class="uk-margin uk-margin-remove" src="${request.getContextPath()}/img/logostop_04.png" title="OaxTransparente" alt="OaxTransparente"></a>
@@ -128,7 +128,7 @@
 						<img src="${request.getContextPath()}/img/logo_cednna_footer.png">
 						<p>Av. San Felipe del Agua #836 Col. San Felipe del Agua, Oaxaca de Juárez, Oax., C.P. 68020	
 						<br>Tel: (951) 5201146
-						<a href="http://www.cednna.oaxaca.gob.mx" target="_blank"><br>www.cednna.oaxaca.gob.mx</a></p></div></div>
+						<a href="http://www.sidnna.oaxaca.gob.mx" target="_blank"><br>www.sidnna.oaxaca.gob.mx</a></p></div></div>
                      <div class="uk-width-1-3"><div class="uk-panel">
                      	<h3>Ligas de interés</h3>
 						<a href="http://www.periodicooficial.oaxaca.gob.mx/" target="_blank"><p>Periódico Oficial del @GobOax</p></a>

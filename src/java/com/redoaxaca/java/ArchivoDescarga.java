@@ -18,6 +18,7 @@ public class ArchivoDescarga {
 	
 	public ArchivoDescarga(ArrayList<com.redoaxaca.java.Row> data, ArrayList<ResultCategorias> cts,int tipo, boolean periodo){
 			
+
 		SXSSFWorkbook wb = new SXSSFWorkbook(); // keep 100 rows in memory, exceeding rows will be flushed to disk
         Sheet sh = wb.createSheet();
         Row rowCabecera;
